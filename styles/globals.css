@@ -1,10 +1,11 @@
-/* @font-face {
-  font-family: "";
-  src: url("") format("woff2"), url("") format("woff");
+@font-face {
+  font-family: "Es Allianz Book";
+  src: url("/fonts/ESAllianz-Book.woff2") format("woff2"),
+    url("/fonts/ESAllianz-Book.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-} */
+}
 
 html,
 body {
@@ -13,6 +14,11 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background: white;
+  font-family: "Es Allianz Book";
+  /* font-size: 20px; */
+  font-size: 1.38vw;
+  line-height: 1.1;
+  font-weight: 500;
 }
 
 input {
@@ -32,9 +38,9 @@ a {
 
 * {
   box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
+  /* -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility; */
   -webkit-tap-highlight-color: transparent !important;
   margin: 0;
   padding: 0;
@@ -60,34 +66,37 @@ h6 {
   margin-bottom: 10px;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a {
+}
+
 /* Mobile Font Styles */
 
 h1 {
-  font-family: "";
 }
 
 h2 {
-  font-family: "";
 }
 
 h3 {
-  font-family: "";
 }
 
 h4 {
-  font-family: "";
 }
 
 h5 {
-  font-family: "";
 }
 
 h6 {
-  font-family: "";
 }
 
 p {
-  font-family: "";
 }
 
 /* Desktop Font Styles */

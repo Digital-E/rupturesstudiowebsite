@@ -10,10 +10,19 @@ import MenuLink from "./menu-link";
 
 import { store } from "../store";
 
+import { RichText } from 'prismic-reactjs';
+
 const Menu = styled.div`
   .mobile-menu--open {
     display: block !important;
   }
+
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: white;
 `
 
 
@@ -21,6 +30,10 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+
+  a:hover {
+    background-color: rgb(255, 174, 80);
+  }
 
   @media(max-width: 989px) {
   }
@@ -31,19 +44,27 @@ const Container = styled.div`
 const ColLeft = styled.div`
   display: flex;
   flex-basis: 50%;
-  padding: 10px;
+  // padding: 0 10px;
+  padding: 0 0.69vw;
+  border-bottom: 1px solid black;
+  align-items: center;
 `;
 
 const ColLeftInnerLeft = styled.div`
-  flex-basis: 50%;
+  flex-grow: 1;
 `;
 
 const ColLeftInnerRight = styled.div`
-  flex-basis: 50%;
+  flex-basis: 43%;
   display: flex;
+  justify-content: flex-end;
 
-  > div {
-    flex-basis: 50%;
+  > div:nth-child(1) {
+    flex-basis: 44%;
+  }
+
+  > div:nth-child(2) {
+    flex-basis: auto;
   }
 `;
 
@@ -53,16 +74,26 @@ const ColRight = styled.div`
 `;
 
 const ColRightInnerLeft = styled.div`
-  flex-basis: 90%;
+  flex-basis: 94%;
 `;
 
 const ColRightInnerRight = styled.div`
-  flex-basis: 10%;
+  flex-basis: 6%;
+
+  > div:nth-child(1) > a {
+    display: flex;
+    align-items: flex-end;
+  }
 `;
 
 const DesktopMenu = styled.div`
   display: flex;
   flex-wrap: wrap;
+
+  > div:nth-last-child(n+4) > a {
+    display: flex;
+    align-items: flex-end;
+  }
 
   @media(max-width: 989px) {
     display: none;
@@ -129,10 +160,21 @@ const MobileMenuInner = styled.div`
 `
 
 const LinkStyle = styled.div`
+  display: flex;
   flex-basis: 33.3333%;
-  padding: 10px 5px 5px 5px;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
+  // height: 35px;
+  height: 2.43vw;
+
+  > a {
+    display: block;
+    // padding: 7px 10px;
+    padding: 0.48vw 0.69vw;
+    height: 100%;
+    width: 100%;
+    line-height: 0.8;
+  }
 
   @media(max-width: 989px) {
   }
@@ -212,27 +254,27 @@ export default function Header({ data }) {
       <ColLeft>
         <ColLeftInnerLeft>
           <MenuLink href="/">
-            Art au Centre Genève <br/>
+            Art au Centre <br/> Genève <br/>
             25.11.21-28.02.22
           </MenuLink>
         </ColLeftInnerLeft>
 
           <ColLeftInnerRight>
-            <div>{data != null && data.text_one}</div>
-            <div>{data != null && data.text_two}</div>
+            <div>{data != null && RichText.render(data.text_one)}</div>
+            <div>{data != null && RichText.render(data.text_two)}</div>
           </ColLeftInnerRight>
       </ColLeft>
 
       <ColRight>
         <ColRightInnerLeft>
           <DesktopMenu>
-            {data !== null ? data.menu_items.map((item, index) => <LinkStyle key={item.index}><Link data={item.link}>{item.link_text}</Link></LinkStyle>) : null}
+            {data !== null ? data.menu_items.map((item, index) => <LinkStyle key={item.index}><Link data={item.link}><span>{item.link_text}</span></Link></LinkStyle>) : null}
           </DesktopMenu>
         </ColRightInnerLeft>
 
         <ColRightInnerRight>
-          <LinkStyle><MenuLink href="/fr-fr">Fr</MenuLink></LinkStyle>
-          <LinkStyle><MenuLink href="/en-gb">En</MenuLink></LinkStyle>
+          <LinkStyle><MenuLink href="/fr-fr"><span>Fr</span></MenuLink></LinkStyle>
+          <LinkStyle><MenuLink href="/en-gb"><span>En</span></MenuLink></LinkStyle>
         </ColRightInnerRight>
         
          {/* <MobileBurger id="menu-open">
