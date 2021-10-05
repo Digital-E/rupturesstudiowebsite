@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.2.3",
+    "@googlemaps/js-api-loader": "^1.12.4",
     "@sendgrid/mail": "^7.4.7",
     "blob-util": "^2.0.2",
     "classnames": "^2.3.1",

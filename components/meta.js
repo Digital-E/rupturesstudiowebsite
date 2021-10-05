@@ -40,11 +40,6 @@ const meta = ({ name, content }) => {
         content={ content }
       />
       {/* <meta property="og:image" content={"/OGImage/AD-REM_favicon(1500px).png"} /> */}
-      {/* <!-- Async script executes immediately and must be after any DOM elements used in callback. --> */}
-      <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHtpls0cGSxvFJrh1ZVR15y6bpVVaSdIk&callback=initMap&v=weekly"
-        async
-      ></script>      
     </Head>
   );
 }

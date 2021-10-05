@@ -8,6 +8,8 @@ import { getHome, getHomePagesSlugs, getMenu, getFooter } from "../../lib/api";
 import { SITE_NAME } from "../../lib/constants"
 
 const Container = styled.div`
+  height: 100vh;
+  width: 100vw;
 `
 
 const BackgroundContainer = styled.div`

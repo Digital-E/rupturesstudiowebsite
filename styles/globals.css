@@ -21,6 +21,18 @@ body {
   font-weight: 500;
 }
 
+#__next > div:nth-child(n + 2) {
+  position: absolute;
+}
+
+#__next > div {
+  z-index: 1;
+}
+
+#__next > div:last-child {
+  z-index: 0;
+}
+
 input {
   border-radius: none;
 }
@@ -28,7 +40,33 @@ input {
 a {
   color: inherit;
   text-decoration: none;
+  font-size: 14px;
+  color: rgb(111, 111, 110);
 }
+
+a:hover {
+  color: rgb(255, 174, 80);
+}
+
+[title="marker"] {
+  position: absolute;
+}
+
+[title="marker"]:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 40px;
+  width: 40px;
+  background-color: transparent;
+  box-shadow: inset 1px 0px 3px black;
+  border-radius: 999px;
+}
+
+/* [title="marker"] {
+  display: none !important;
+} */
 
 /* @media (min-width: 990px) {
   a:hover {
