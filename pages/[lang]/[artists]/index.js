@@ -51,8 +51,7 @@ const Container = styled.div`
 
 const ContainerInner = styled.div`
   position:relative;
-  // top: 55px;
-  // top: 3.795vw;
+  overflow: hidden;
 `
 
 

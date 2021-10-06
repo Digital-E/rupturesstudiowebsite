@@ -19,6 +19,7 @@ const Container = styled.div`
     height: calc(100vh - 4.8vw);
     width: 100vw;
     overflow: hidden;
+    background: white;
     
 
     > div:nth-child(1) {
