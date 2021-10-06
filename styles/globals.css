@@ -15,8 +15,7 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background: white;
   font-family: "Es Allianz Book";
-  /* font-size: 20px; */
-  font-size: 1.38vw;
+  font-size: 20px;
   line-height: 1.1;
   font-weight: 500;
 }
@@ -104,7 +103,7 @@ h6 {
   margin-bottom: 10px;
 }
 
-h1,
+/* h1,
 h2,
 h3,
 h4,
@@ -112,11 +111,11 @@ h5,
 h6,
 p,
 a {
-}
+} */
 
 /* Mobile Font Styles */
 
-h1 {
+/* h1 {
 }
 
 h2 {
@@ -135,7 +134,7 @@ h6 {
 }
 
 p {
-}
+} */
 
 /* Desktop Font Styles */
 

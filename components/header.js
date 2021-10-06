@@ -24,8 +24,13 @@ const Menu = styled.div`
   left: 0;
   background-color: white;
 
-  a {
-    font-size: 20px;
+
+  font-size: 1.38vw;
+  line-height: 0.95;
+
+  a, span {
+    font-size: 1.38vw;
+    line-height: 0.95;
     color: black;
   }
 `
@@ -84,6 +89,12 @@ const ColRightInnerLeft = styled.div`
 
 const ColRightInnerRight = styled.div`
   flex-basis: 6%;
+  display: flex;
+  flex-direction: column;
+
+  > div {
+    flex-basis: 50%;
+  }
 
   > div:nth-child(1) > a {
     display: flex;
@@ -94,6 +105,7 @@ const ColRightInnerRight = styled.div`
 const DesktopMenu = styled.div`
   display: flex;
   flex-wrap: wrap;
+  height: 100%;
 
   > div:nth-last-child(n+4) > a {
     display: flex;

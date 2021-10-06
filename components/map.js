@@ -38,9 +38,96 @@ const Container = styled.div`
 `
 
 
-const Map = ({ currentIndex }) => {
+const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
 
     let router = useRouter();
+
+    let triggerTransparentCircle = (index) => {
+        if(index === null) {
+            removeTransparentCircle();
+            return
+        }
+
+        let x = document.querySelectorAll('[title="marker"]')[parseInt(index) - 1].getBoundingClientRect().x
+        let y = document.querySelectorAll('[title="marker"]')[parseInt(index) - 1].getBoundingClientRect().y
+
+        let shadowCircle = document.querySelector('#shadow-circle');
+
+        let mapDiv = document.querySelector('#map-container');
+
+        setCurrentIndex(index)
+
+        setTimeout(() => {
+            shadowCircle.style.display = "block";
+            shadowCircle.style.top =`${y}px`
+            shadowCircle.style.left =`${x}px`
+
+            mapDiv.style.WebkitMaskImage = `radial-gradient( 20px at ${ x + 20 }px ${ y + 20 }px, transparent 100%, black 100% )`
+        }, 10)
+    }
+
+    let removeTransparentCircle = () => {
+        let mapDiv = document.querySelector('#map-container')
+        let shadowCircle = document.querySelector('#shadow-circle');
+
+        shadowCircle.style.display = "none";
+
+        setCurrentIndex(null)
+
+        mapDiv.style.WebkitMaskImage = ``
+    }
+
+    let triggerTransition = (index) => {
+        let artistData = data[parseInt(index) - 1]
+
+        let x = document.querySelectorAll('[title="marker"]')[parseInt(index) - 1].getBoundingClientRect().x
+        let y = document.querySelectorAll('[title="marker"]')[parseInt(index) - 1].getBoundingClientRect().y
+
+        let mapDiv = document.querySelector('#map-container')
+
+        let shadowCircle = document.querySelector('#shadow-circle');
+
+        mapDiv.style.WebkitMaskImage = `radial-gradient( 20px at ${ x + 20 }px ${ y + 20 }px, transparent 100%, black 100% )`
+
+        // Route to page
+
+        let parent = artistData.node._meta.lang === "fr-fr" ? "artistes" : "artists";
+
+        router.push(`/${artistData.node._meta.lang}/${parent}/${artistData.node._meta.uid}`)
+
+        // Expand Circle
+
+        let init = 20;
+
+        let initTransform = 1;
+      
+        let interval = setInterval(() => {
+          mapDiv.style.webkitMaskImage = `radial-gradient( ${init}px at ${ x + 20 }px ${ y + 20 }px, transparent 100%, black 100% )`
+      
+        //   shadowCircle.style.height = `${20 + init}px`;
+        //   shadowCircle.style.width = `${20 + init}px`;
+          shadowCircle.style.transform = `scale(${initTransform})`;
+      
+      
+          init += 5;
+          initTransform += 0.25;
+      
+          if(init === 2000) {
+            clearInterval(interval)
+          }
+        }, 1);
+    }
+
+    useEffect(() => {
+        triggerTransparentCircle(currentIndex)
+    }, [currentIndex])
+
+    useEffect(() => {
+        if(hasClicked === true) {
+            triggerTransition(currentIndex)
+        }
+    }, [hasClicked])
+    
 
     useEffect(() => {
 
@@ -56,8 +143,9 @@ const Map = ({ currentIndex }) => {
 
             initMap(google);
   
-            addMarker({ lat: 46.2050242, lng: 6.1030692 }, map, google);
-            addMarker({ lat: 46.2080242, lng: 6.1090692 }, map, google);
+            data.forEach((item, index) => {
+                addMarker({ lat: item.node.geo_point.latitude, lng: item.node.geo_point.longitude }, item, map, google);
+            })
           })
 
 
@@ -72,14 +160,11 @@ const Map = ({ currentIndex }) => {
 
           map.setTilt(0);
         }
-        
-        // setMarkers();
 
-        let labelIndex = 1;  
           
 
         // Adds a marker to the map.
-        function addMarker(location, map, google) {
+        function addMarker(location, data, map, google) {
             let marker = new google.maps.Marker({
                 position: location,
                 icon: {
@@ -93,7 +178,7 @@ const Map = ({ currentIndex }) => {
                     labelOrigin: new google.maps.Point(100, 100),
                 },
                 label: {
-                    text: `${labelIndex}`,
+                    text: `${data.node.number}`,
                     className: 'marker',
                     fontFamily: 'Es Allianz Book',
                     fontSize: "20px"
@@ -137,73 +222,19 @@ const Map = ({ currentIndex }) => {
                 // var worldPoint = map.getProjection().fromLatLngToPoint(marker.getPosition());
                 // var markerCoords = new google.maps.Point((worldPoint.x - bottomLeft.x) * scale, (worldPoint.y - topRight.y) * scale);
                 
+                triggerTransparentCircle(parseInt(marker.label.text));
 
-                let x = document.querySelectorAll('[title="marker"]')[parseInt(marker.label.text) - 1].getBoundingClientRect().x
-                let y = document.querySelectorAll('[title="marker"]')[parseInt(marker.label.text) - 1].getBoundingClientRect().y
+            })
 
-                let mapDiv = document.querySelector('#map-container')
-
-                mapDiv.style.WebkitMaskImage = `radial-gradient( 20px at ${ x + 20 }px ${ y + 20 }px, transparent 100%, black 100% )`
-
-                currentIndex(marker.label.text)
+            marker.addListener("mouseout", () => {
+                removeTransparentCircle();
             })
 
             marker.addListener("click", () => {
-                // var scale = Math.pow(2, map.getZoom());
-                // var nw = new google.maps.LatLng(
-                //     map.getBounds().getNorthEast().lat(),
-                //     map.getBounds().getSouthWest().lng()
-                // );
-                // var worldCoordinateNW = map.getProjection().fromLatLngToPoint(nw);
-                // var worldCoordinate = map.getProjection().fromLatLngToPoint(marker.getPosition());
-                // var pixelOffset = new google.maps.Point(
-                //     Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale),
-                //     Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale)
-                // );   
-
-                // console.log(pixelOffset)
-
-                let x = document.querySelectorAll('[title="marker"]')[parseInt(marker.label.text) - 1].getBoundingClientRect().x
-                let y = document.querySelectorAll('[title="marker"]')[parseInt(marker.label.text) - 1].getBoundingClientRect().y
-
-                let mapDiv = document.querySelector('#map-container')
-
-                mapDiv.style.WebkitMaskImage = `radial-gradient( 20px at ${ x + 20 }px ${ y + 20 }px, transparent 100%, black 100% )`
-
-                // Route to page
-
-                router.push("/fr-fr/artistes/flora-mottini")
-
-                // Expand Circle
-
-                let init = 20;
-
-                let initTransform = 1;
-              
-                let interval = setInterval(() => {
-                  mapDiv.style.webkitMaskImage = `radial-gradient( ${init}px at ${ x + 20 }px ${ y + 20 }px, transparent 100%, black 100% )`
-              
-                  // shadow.style.height = `${20 + init}px`;
-                  // shadow.style.width = `${20 + init}px`;
-                  //   shadow.style.transform = `scale(${initTransform})`;
-              
-              
-                  init += 5;
-                  initTransform += 0.25;
-              
-                  if(init === 2000) {
-                    clearInterval(interval)
-                  }
-                }, 1);
+                triggerTransition(marker.label.text)
             })
-
-            labelIndex += 1
         }  
-        
-        // addMarker({ lat: 46.2050242, lng: 6.1030692 }, map);
-        // addMarker({ lat: 46.2080242, lng: 6.1090692 }, map);
-        // addMarker({ lat: 46.2020242, lng: 6.1320692 }, map);
-        // addMarker({ lat: 46.2030242, lng: 6.1190692 }, map);
+    
 
     }, []);
     

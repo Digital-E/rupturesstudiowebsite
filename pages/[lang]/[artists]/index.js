@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from 'next/head'
 import Layout from "../../../components/layout";
 import styled from 'styled-components';
@@ -22,16 +22,29 @@ const Container = styled.div`
     height: 100%;
     top: 4.8vw;
     height: calc(100vh - 4.8vw);
-    width: 65.7%;
+    width: 65.65%;
 
     > div {
       padding: 0;
-      height: 100%
+      height: 100%;
+      opacity: 0;
+      position: absolute;
     }
 
     > div > picture > img {
       object-fit: cover;
     }
+}
+
+#shadow-circle {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  box-shadow: inset 0 1px 3px black;
+  z-index: 999;
+  border-radius: 999px !important;
+  pointer-events: none;
+  display: none;
 }
 
 `
@@ -82,8 +95,9 @@ const InnerContainerRight = styled.div`
 
 const ListItem = styled.div`
   border-bottom: 1px solid black;
+  cursor: pointer;
 
-  a {
+  span {
     font-size: 20px;
     color: black;
     padding: 5px 10px;
@@ -92,7 +106,11 @@ const ListItem = styled.div`
     height: 100%;
   }
 
-  a:hover {
+  &.is-active {
+    background-color: rgb(255,174,80);
+  }
+
+  span:hover {
     background-color: rgb(255,174,80);
   }
 `
@@ -102,8 +120,21 @@ const ListItem = styled.div`
 
 
 export default function Index({ preview, data, allArtistPagesData, footerData }) {
-  let [currentIndex, setCurrentIndex] = useState(1);
+  let [currentIndex, setCurrentIndex] = useState(null);
   let [hasClicked, setHasClicked] = useState(false);
+
+
+  useEffect(() => {
+    let backgroundImages = document.querySelector("#background-image").children;
+
+    Array.from(backgroundImages).forEach(item => {
+      item.style.opacity = 0;
+    });
+
+    if(currentIndex === null) return;
+    backgroundImages[currentIndex - 1].style.opacity = 1;
+
+  }, [currentIndex])
 
   return (
     <Layout 
@@ -116,20 +147,33 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
 
       <Container>
       <div id="background-image">
-        <Image src={allArtistPagesData[currentIndex - 1].node.images[0].image} />
+        {
+          allArtistPagesData.map((item, index) => <Image key={index} src={item.node.images[0].image} />)
+        }
       </div>
+      <div id="shadow-circle"></div>
       <ContainerInner id="map-container">
         <Title id="title-element">{data[0].node.title}</Title>
         <InnerContainer>
           <InnerContainerLeft>
             <Map 
-            currentIndex={(index) => setCurrentIndex(index)}
+            setCurrentIndex={(index) => setCurrentIndex(index)}
+            currentIndex={currentIndex}
+            data={allArtistPagesData}
+            hasClicked={hasClicked}
             // hasClicked={(value) => setHasClicked(value)}
             />
           </InnerContainerLeft>
           <InnerContainerRight>
             {allArtistPagesData.map((item, index) => {
-              return <ListItem key={index}><Link href={item.node._meta.uid}>{item.node.number}. {item.node.name}</Link></ListItem>
+              return <ListItem 
+              key={index} className={index + 1 === parseInt(currentIndex) ? "is-active" : ""}
+              onMouseEnter={() => setCurrentIndex(index + 1)}
+              onMouseLeave={() => setCurrentIndex(null)}
+              onClick={() => setHasClicked(true)}
+              >
+                <span>{item.node.number}. {item.node.name}</span>
+                </ListItem>
             })}
           </InnerContainerRight>
         </InnerContainer>
