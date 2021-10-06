@@ -54,7 +54,7 @@ function MyApp({ Component, pageProps, router }) {
             // y: "-100%",
             transition: {
               // delay: 1,
-              duration: 1,
+              duration: router.route === "/[lang]/[artists]" ? 1 : 0,
             }
           }
         }}

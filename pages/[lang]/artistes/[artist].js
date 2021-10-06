@@ -58,7 +58,6 @@ export async function getStaticPaths({}) {
 
   let paths = lang.map((item) => ({
     params: {
-      artists:  item.node._meta.lang === "fr-fr" ? "artistes" : "artists",
       artist: item.node._meta.uid,
       lang: item.node._meta.lang
     }

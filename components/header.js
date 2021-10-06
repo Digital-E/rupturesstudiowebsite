@@ -12,6 +12,7 @@ import { store } from "../store";
 
 import { RichText } from 'prismic-reactjs';
 
+
 const Menu = styled.div`
   .mobile-menu--open {
     display: block !important;
@@ -54,8 +55,8 @@ const Container = styled.div`
 const ColLeft = styled.div`
   display: flex;
   flex-basis: 50%;
-  // padding: 0 10px;
-  padding: 0 0.69vw;
+  // padding: 0 30px 0 10px;
+  padding: 0 2.08vw 0 0.69vw;
   border-bottom: 1px solid black;
   align-items: center;
 `;
@@ -100,6 +101,15 @@ const ColRightInnerRight = styled.div`
     display: flex;
     align-items: flex-end;
   }
+
+  > div:nth-child(1) > a {
+    display: flex;
+    align-items: flex-end;
+    padding: 0.48vw 0.69vw 0.24vw 0.69vw;
+  }
+}
+
+
 `;
 
 const DesktopMenu = styled.div`
@@ -110,6 +120,7 @@ const DesktopMenu = styled.div`
   > div:nth-last-child(n+4) > a {
     display: flex;
     align-items: flex-end;
+    padding: 0.48vw 0.69vw 0.24vw 0.69vw;
   }
 
   @media(max-width: 989px) {

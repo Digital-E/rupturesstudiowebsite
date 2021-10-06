@@ -9,6 +9,8 @@ import Image from "../../../components/image"
 
 import Map from "../../../components/map"
 
+import Title from "../../../components/title"
+
 import { getArtistsPage, getArtistsPageSlugs, getAllArtistPages, getMenu, getFooter } from "../../../lib/api";
 
 import { SITE_NAME } from "../../../lib/constants"
@@ -55,25 +57,10 @@ const ContainerInner = styled.div`
 `
 
 
-const Title = styled.div`
- position: absolute;
- width: 100vw;
- font-size: 15vw;
- text-transform: lowercase;
- line-height: 0.9;
- border-bottom: 1px solid black;
-//  padding: 0 20px;
- padding: 0 1.38vw;
- background: white;
- z-index: 1;
- top: 3.795vw;
-`
-
 const InnerContainer = styled.div`
   position: relative;
   display: flex;
   width: 100%;
-  // height: calc(100vh - 13.6vw - 3.795vw);
   height: 100vh;
   z-index: 0;
   width: 100vw;
@@ -81,13 +68,13 @@ const InnerContainer = styled.div`
 `
 
 const InnerContainerLeft = styled.div`
-  flex-basis: 83%;
+  flex-grow: 1;
 `
 
 const InnerContainerRight = styled.div`
   position: relative;
-  top: 17.3vw;
-  flex-basis: 17%;
+  top: 17.6vw;
+  flex-basis: 18.8%;
   border-left: 1px solid black;
   background-color: white;
 `
@@ -152,7 +139,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
       </div>
       <div id="shadow-circle"></div>
       <ContainerInner id="map-container">
-        <Title id="title-element">{data[0].node.title}</Title>
+        <Title>{data[0].node.title}</Title>
         <InnerContainer>
           <InnerContainerLeft>
             <Map 
@@ -188,7 +175,6 @@ export async function getStaticPaths({}) {
 
   let paths = lang.map((item) => ({
     params: {
-      artists:  item.node._meta.uid,
       lang: item.node._meta.lang
     }
   }))
