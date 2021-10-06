@@ -104,7 +104,7 @@ export default function Index({ preview, data, footerData }) {
               <Divider><span>{data[0].node.title}</span></Divider>
               <ListOne>
                 {
-                  data[0].node.link_list_one.map((item, index) => <ListOneItem><Link data={item.link_url}>{item.link_text}</Link></ListOneItem>)
+                  data[0].node.link_list_one.map((item, index) => <ListOneItem key={index}><Link data={item.link_url}>{item.link_text}</Link></ListOneItem>)
                 }
               </ListOne>
             </ColLeft>
@@ -114,7 +114,7 @@ export default function Index({ preview, data, footerData }) {
               </Divider>
               <ListTwo>
                 {
-                  data[0].node.link_list_two.map((item, index) => <ListTwoItem><Link data={item.link_url}>{item.link_text}</Link></ListTwoItem>)
+                  data[0].node.link_list_two.map((item, index) => <ListTwoItem key={index}><Link data={item.link_url}>{item.link_text}</Link></ListTwoItem>)
                 }
               </ListTwo>
             </ColRight>

@@ -129,7 +129,7 @@ export default function Index({ preview, data, footerData }) {
           </InnerContainerLeft>
           <InnerContainerRight>
             {data[0].node.list.length > 0 && 
-              data[0].node.list.map((item, index) => <ListItem onClick={() => scrollTo(item.item_title.toLowerCase().split(" ").join("-"))}><span>{index + 1}. {item.item_title}</span></ListItem>)
+              data[0].node.list.map((item, index) => <ListItem key={index} onClick={() => scrollTo(item.item_title.toLowerCase().split(" ").join("-"))}><span>{index + 1}. {item.item_title}</span></ListItem>)
             }
           </InnerContainerRight>
         </InnerContainer>
