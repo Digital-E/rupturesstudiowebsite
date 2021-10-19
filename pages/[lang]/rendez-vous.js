@@ -9,7 +9,7 @@ import Link from "../../components/link"
 
 import Title from "../../components/title"
 
-import { getPartenairesPageSlugs, getPartenairesPage, getMenu, getFooter } from "../../lib/api";
+import { getRendezVousPageSlugs, getRendezVousPage, getMenu, getFooter } from "../../lib/api";
 
 import { SITE_NAME } from "../../lib/constants"
 
@@ -139,7 +139,7 @@ export default function Index({ preview, data, footerData }) {
           <InnerContainer>
             <ColLeft>
               <Divider><span>{data[0].node.link_list_one_title}</span></Divider>
-              <ListMain>
+              {/* <ListMain>
                 {
                   data[0].node.body.map((item, index) => 
                     <List key={index}>
@@ -161,17 +161,17 @@ export default function Index({ preview, data, footerData }) {
                     </List>
                   )
                 }
-              </ListMain>
+              </ListMain> */}
             </ColLeft>
             <ColRight>
               <Divider>
                 {data[0].node.link_list_two_title}
               </Divider>
-              <ListTwo>
+              {/* <ListTwo>
                 {
                   data[0].node.link_list_two.map((item, index) => <ListTwoItem key={index}><Link data={item.link_url}>{item.link_text}</Link></ListTwoItem>)
                 }
-              </ListTwo>
+              </ListTwo> */}
             </ColRight>
           </InnerContainer>
           {/* <Divider>Art au Centre Genève</Divider>
@@ -183,7 +183,7 @@ export default function Index({ preview, data, footerData }) {
 
 export async function getStaticPaths({}) {
 
-  let lang = await getPartenairesPageSlugs();
+  let lang = await getRendezVousPageSlugs();
 
   let paths = lang.map((item) => ({
     params: {
@@ -201,7 +201,7 @@ export async function getStaticPaths({}) {
 export async function getStaticProps({ params, preview = false, previewData }) {
 
 
-  const data = await getPartenairesPage(params.lang, previewData);
+  const data = await getRendezVousPage(params.lang, previewData);
 
 
 

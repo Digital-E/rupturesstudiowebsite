@@ -20,6 +20,13 @@ body {
   font-weight: 500;
 }
 
+.default-font-size {
+  font-family: "Es Allianz Book";
+  font-size: 20px;
+  line-height: 1.1;
+  font-weight: 500;
+}
+
 #__next > div:nth-child(n + 2) {
   position: absolute;
 }

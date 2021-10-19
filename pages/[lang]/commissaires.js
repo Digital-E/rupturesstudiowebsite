@@ -15,6 +15,8 @@ import { gsap } from "gsap";
 
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
 let Masonry = null;
 
 if(typeof window !== "undefined") {
@@ -22,6 +24,7 @@ if(typeof window !== "undefined") {
 }
 
 gsap.registerPlugin(ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
 const Container = styled.div``
 
@@ -36,17 +39,18 @@ const InnerContainer = styled.div`
   z-index: 0;
   width: 100vw;
   margin-top: 17.6vw;
-  height: calc(100vh - 17.6vw);
+  // height: calc(100vh - 17.6vw);
+  // height: calc(100vh - 4.9vw);
 `
 
 const InnerContainerLeft = styled.div`
-  flex-basis: 81.2%;
-  overflow: scroll;
+  flex-basis: 81.25%;
+  // overflow: scroll;
 `
 
 const InnerContainerRight = styled.div`
   position: relative;
-  flex-basis: 18.8%;
+  flex-basis: 18.75%;
   border-left: 1px solid black;
   background-color: white;
   overflow: scroll;
@@ -95,7 +99,7 @@ const Grid = styled.div`
 export default function Index({ preview, data, footerData }) {
 
   let scrollTo = (id) => {
-    gsap.to("#commissionners-grid", {duration: 1, scrollTo: `#${id}`});
+    gsap.to(window, {duration: 1, scrollTo: {y:`#${id}`, offsetY: 0.048 * window.innerWidth}});
   }
 
   useEffect(() => {
@@ -103,6 +107,25 @@ export default function Index({ preview, data, footerData }) {
     var msnry = new Masonry( grid, {
     itemSelector: '.grid-item',
     // columnWidth: 500
+    });
+
+    ScrollTrigger.create({
+      trigger: "#inner-container-right",
+      start: `top top+=${0.049 * window.innerWidth}px`,
+      pin: true,
+      // endTrigger: "#otherID",
+      // end: "bottom 50%+=100px",
+      // onToggle: self => console.log("toggled, isActive:", self.isActive),
+      onToggle: self => {
+        // if(self.isActive) {
+        //   document.querySelector("#commissionners-grid").style.overflow = "scroll"
+        // } else {
+        //   document.querySelector("#commissionners-grid").style.overflow = "hidden"
+        // }
+      }
+      // onUpdate: self => {
+      //   console.log("progress:", self.progress.toFixed(3), "direction:", self.direction, "velocity", self.getVelocity());
+      // }
     });
   },[]);
 
@@ -119,7 +142,7 @@ export default function Index({ preview, data, footerData }) {
       <Container>
       <ContainerInner>
         <Title>{data[0].node.title}</Title>
-        <InnerContainer>
+        <InnerContainer id="inner-container">
           <InnerContainerLeft id="commissionners-grid">
             <Grid className="grid">
             {data[0].node.list.length > 0 && 
@@ -127,7 +150,7 @@ export default function Index({ preview, data, footerData }) {
             }
             </Grid>
           </InnerContainerLeft>
-          <InnerContainerRight>
+          <InnerContainerRight id="inner-container-right">
             {data[0].node.list.length > 0 && 
               data[0].node.list.map((item, index) => <ListItem key={index} onClick={() => scrollTo(item.item_title.toLowerCase().split(" ").join("-"))}><span>{index + 1}. {item.item_title}</span></ListItem>)
             }

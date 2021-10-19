@@ -62,7 +62,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             shadowCircle.style.top =`${y}px`
             shadowCircle.style.left =`${x}px`
 
-            mapDiv.style.WebkitMaskImage = `radial-gradient( 20px at ${ x + 20 }px ${ y + 20 }px, transparent 100%, black 100% )`
+            mapDiv.style.WebkitMaskImage = `radial-gradient( 20px at ${ x + 20 }px ${ y + 20 }px, transparent 99%, black 100% )`
         }, 10)
     }
 

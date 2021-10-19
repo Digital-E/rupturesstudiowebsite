@@ -1,9 +1,10 @@
 import Link from 'next/link'
 
 const LinkComponent = ({data, children}) => {
+    
 
     if(data === null) {
-        return null;
+        return <a>{ children }</a>;
     }
 
     if(data._linkType === 'Link.web') {
@@ -35,7 +36,7 @@ const LinkComponent = ({data, children}) => {
         )
     }
 
-    return null;
+    return null
 
 }
 
