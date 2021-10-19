@@ -27,6 +27,16 @@ body {
   font-weight: 500;
 }
 
+.medium-font-size {
+  font-size: 34px;
+  color: black;
+  line-height: 1.2;
+}
+
+.small-font-size {
+  font-size: 14px;
+}
+
 #__next > div:nth-child(n + 2) {
   position: absolute;
 }
