@@ -25,11 +25,18 @@ const Divider = styled.div`
   border-bottom: 1px solid black;
   padding: 5px 25px;
 
-  font-size: 26px;
+  font-size: 30px;
 `
 const Text = styled.div`
   padding: 30px 25px;
-  font-size: 32px;
+
+  & .medium-font-size p {
+    font-size: inherit;
+  }
+
+  & .large-font-size p {
+    font-size: inherit;
+  }
 `
 
 
@@ -50,7 +57,11 @@ export default function Index({ preview, data, footerData }) {
       <Container>
           <Title>{data[0].node.title}</Title>
           <Divider>Art au Centre Genève</Divider>
-          <Text>{data != null && RichText.render(data[0].node.text)}</Text>
+          <Text className="large-font-size">
+            <RichText render={data[0].node.text} 
+                              // htmlSerializer={htmlSerializer} 
+            />
+          </Text>
       </Container>
     </Layout>
   )

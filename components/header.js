@@ -77,6 +77,10 @@ const ColLeftInnerRight = styled.div`
   > div:nth-child(2) {
     flex-basis: auto;
   }
+
+  p {
+    margin: 0;
+  }
 `;
 
 const ColRight = styled.div`

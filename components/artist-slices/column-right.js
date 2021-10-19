@@ -10,8 +10,8 @@ const Container = styled.div`
 `
 
 const Name = styled.div`
-    padding: 10px;
-    font-size: 25px;
+    padding: 15px 10px;
+    font-size: 30px;
     border-bottom: 1px solid black;
     width: 100%;
 `
@@ -25,11 +25,11 @@ const Gallery = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 40px;
-        width: 40px;
+        height: 50px;
+        width: 50px;
         border-radius: 999px !important;
         box-shadow: inset 0px 1px 2px black;
-        font-size: 16px;
+        font-size: 20px;
     }
 
     > div:nth-child(2) {
@@ -62,7 +62,7 @@ const Podcast = styled.div`
     }
 
     > div:nth-child(2) {
-        padding-left: 10px;
+        padding-left: 15px;
     }
 
     #podcast {
@@ -77,7 +77,9 @@ const Text = styled.div`
 const BioText = styled.div`
     padding: 20px 10px;
 
-    font-size: 16px;
+    & .small-font-size {
+        font-size: inherit;
+    }
 `
 
 const TextWrapper = styled.div`
@@ -163,13 +165,17 @@ const Component = ({ data }) => {
             <TextWrapper className="text-wrapper">
                 <div>
                     <Text>
-                        {data != null && RichText.render(data.text)}
+                        <RichText render={data.text} 
+                            // htmlSerializer={htmlSerializer} 
+                        />
                     </Text>
 
                     <BiographyTitle>Biographie</BiographyTitle>
 
-                    <BioText>
-                        {data != null && RichText.render(data.biography)}
+                    <BioText className="small-font-size">
+                        <RichText render={data.biography} 
+                            // htmlSerializer={htmlSerializer} 
+                        />
                     </BioText>
                 </div>
             </TextWrapper>

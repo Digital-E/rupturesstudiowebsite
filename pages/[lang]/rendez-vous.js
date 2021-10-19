@@ -8,18 +8,23 @@ import moment from "moment";
 
 import Link from "../../components/link"
 
-
 import Title from "../../components/title"
 
 import { getRendezVousPageSlugs, getRendezVousPage, getMenu, getFooter } from "../../lib/api";
 
 import { SITE_NAME } from "../../lib/constants"
 
+import { gsap } from "gsap";
+
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const Container = styled.div`
   .page-title {
     position: relative;
     padding-top: 0.2vw;
-    padding-bottom: 2.2vw;
+    padding-bottom: 0.2vw;
   }
 `
 
@@ -42,7 +47,7 @@ const Divider = styled.div`
   width: 100%;
   border-bottom: 1px solid black;
   padding: 5px 20px;
-  font-size: 26px;
+  font-size: 30px;
 `
 
 const Text = styled.div`
@@ -52,10 +57,9 @@ const Text = styled.div`
 
 
 const ListLeft = styled.div`
-  
-  :last-child .divider-horizontal {
-    display: none;
-  }
+    > div:last-child > .divider-horizontal {
+        display: none;
+    }
 `
 
 
@@ -94,27 +98,39 @@ const ListLeftItemInformation = styled.div`
 
 const ListRight = styled.div`
   
-  :last-child .divider-horizontal {
-    display: none;
-  }
 `
 
 
 const ListRightItemTitle = styled.div`
   font-weight: normal;
+
+  a {
+    color: black;
+  }
 `
 
 
 const ListRightItem = styled.div`
+  display: flex;
   padding: 0 20px;
   margin: 20px 0;
+
+  > div:nth-child(2) {
+      margin-left: 25px;
+  }
+
+//   :last-child .divider-horizontal {
+//     display: none;
+//   }
 `
+
+const ListRightItemLinkWrapper = styled.div``
+
 
 const DividerHorizontal = styled.div`
   height: 1px;
   background-color: black;
   width: 100%;
-  margin-top: 25px;
 `
 
 
@@ -122,11 +138,24 @@ const DividerHorizontal = styled.div`
 
 export default function Index({ preview, data, footerData }) {
 
-    console.log(data[0].node)
+
+    useEffect(() => {
+        ScrollTrigger.create({
+            trigger: "#divider-one",
+            start: `top top+=${0.049 * window.innerWidth}px`,
+            pin: true,
+            pinSpacing: false,
+          });
+
+        ScrollTrigger.create({
+            trigger: "#divider-two",
+            start: `top top+=${0.049 * window.innerWidth}px`,
+            pin: true,
+            pinSpacing: false,
+        });          
+    },[])
 
     let eventsList = data[0].node.list_one.sort(function(a,b){
-        // Turn your strings into dates, and then subtract them
-        // to get a value that is either negative, positive, or zero.
         return new Date(b.list_one_item_date) - new Date(a.list_one_item_date);
       });
 
@@ -143,18 +172,26 @@ export default function Index({ preview, data, footerData }) {
           <Title>{data[0].node.title}</Title>
           <InnerContainer>
             <ColLeft>
-              <Divider><span>{data[0].node.list_one_title}</span></Divider>
-              <Text>{data != null && RichText.render(data[0].node.list_one_text)}</Text>
+              <Divider id="divider-one"><span>{data[0].node.list_one_title}</span></Divider>
+              <Text>
+                <RichText render={data[0].node.list_one_text} 
+                                // htmlSerializer={htmlSerializer} 
+                />
+              </Text>
               <ListLeft>
                   {eventsList.map((item,index) => 
-                      <>
+                      <div>
                         <ListLeftItem>
                             <ListLeftItemTitle className="medium-font-size">{moment(item.list_one_item_date).format('dddd Do MMMM HH:mm')}</ListLeftItemTitle>
                             <ListLeftItemTitle className="medium-font-size">{item.list_one_item_title}</ListLeftItemTitle>
                             <ListLeftItemLinkWrapper>
                                 <Link data={item.list_one_item_link_url}>{item.list_one_item_link_text}</Link>
                             </ListLeftItemLinkWrapper>
-                            <ListLeftItemText>{item != null && RichText.render(item.list_one_item_text)}</ListLeftItemText>
+                            <ListLeftItemText>
+                                <RichText render={item.list_one_item_text} 
+                                                // htmlSerializer={htmlSerializer} 
+                                />                                
+                            </ListLeftItemText>
                             <ListLeftItemInformation>
                                 <div>
                                     <div>
@@ -185,27 +222,69 @@ export default function Index({ preview, data, footerData }) {
                                 </div>
                             </ListLeftItemInformation>
                         </ListLeftItem>
-                        <DividerHorizontal />
-                      </>
+                        <DividerHorizontal className="divider-horizontal"/>
+                      </div>
                   )}
               </ListLeft>
             </ColLeft>
             <ColRight>
-              <Divider>
+              <Divider id="divider-two">
                 {data[0].node.list_two_title}
               </Divider>
-              <Text>{data != null && RichText.render(data[0].node.list_two_text)}</Text>
+              <Text>
+                <RichText render={data[0].node.list_two_text} 
+                                                    // htmlSerializer={htmlSerializer} 
+                />                       
+              </Text>
               <ListRight>
                   {data[0].node.list_two.map((item,index) => 
-                      <>
+                      <div>
                         <ListRightItem>
-                            <ListRightItemTitle>{item.list_one_item_title}</ListRightItemTitle>
-                            {/* <ListLeftItemLinkWrapper>
-                                <Link data={item.list_one_item_link_url}>{item.list_one_item_link_text}</Link>
-                            </ListLeftItemLinkWrapper> */}
+                            <div>
+                                <Link data={item.list_two_item_link_url}>
+                                    <svg version="1.1" id="podcast" xmlns="http://www.w3.org/2000/svg" width="30px" x="0px" y="0px"
+                                    viewBox="0 0 15.7 17.23">
+                                    <g>
+                                    <defs>
+                                    <rect id="SVGID_1_" x="0.31" y="0.27" width="14.95" height="16.59"/>
+                                    </defs>
+                                    <clipPath id="SVGID_2_">
+                                    <use />
+                                    </clipPath>
+                                    <path className="st0" d="M7.66,0.27c1.74,0,3.27,0.49,4.62,1.51c1.36,1.03,2.28,2.38,2.72,4.03c0.49,1.88,0.28,3.7-0.64,5.42
+                                    c-0.72,1.34-1.77,2.36-3.12,3.07c-0.29,0.15-0.62,0.06-0.78-0.2c-0.17-0.28-0.07-0.64,0.23-0.8c0.42-0.22,0.82-0.48,1.18-0.79
+                                    c1.17-1.01,1.91-2.27,2.15-3.8c0.27-1.69-0.09-3.26-1.1-4.66c-1.07-1.48-2.54-2.34-4.35-2.58C5.38,1.06,2.37,3.11,1.65,6.22
+                                    c-0.53,2.31,0.07,4.32,1.75,6.01c0.42,0.43,0.92,0.76,1.45,1.04c0.38,0.2,0.44,0.66,0.14,0.95c-0.18,0.16-0.43,0.19-0.67,0.07
+                                    c-0.48-0.25-0.92-0.55-1.33-0.89c-1.12-0.95-1.93-2.12-2.34-3.52c-0.65-2.21-0.36-4.3,0.9-6.23c1.16-1.77,2.82-2.85,4.91-3.25
+                                    c0.21-0.04,0.41-0.07,0.62-0.08C7.29,0.29,7.5,0.28,7.66,0.27"/>
+                                    <path className="st0" d="M8.09,2.56c1.75,0.09,3.33,1,4.29,2.84c0.99,1.89,0.66,4.17-0.77,5.76c-0.08,0.09-0.17,0.18-0.26,0.26
+                                    c-0.23,0.21-0.58,0.2-0.8-0.02c-0.22-0.22-0.22-0.58,0-0.8c0.25-0.25,0.47-0.52,0.66-0.82c0.88-1.43,0.74-3.34-0.35-4.63
+                                    C9.62,3.67,7.53,3.27,5.84,4.2C4.36,5,3.54,6.69,3.81,8.34c0.14,0.87,0.54,1.61,1.17,2.23c0.17,0.16,0.22,0.36,0.16,0.58
+                                    c-0.06,0.21-0.21,0.35-0.43,0.39c-0.2,0.05-0.38-0.01-0.53-0.16c-0.73-0.72-1.22-1.57-1.44-2.57c-0.5-2.27,0.55-4.55,2.6-5.65
+                                    C6.08,2.77,6.93,2.56,8.09,2.56"/>
+                                    <path className="st0" d="M7.78,10.57c0.94,0,1.71,0.75,1.71,1.69c0,0.3-0.07,0.59-0.12,0.89C9.24,14,9.08,14.86,8.94,15.72
+                                    c-0.05,0.31-0.13,0.6-0.37,0.82c-0.33,0.3-0.72,0.4-1.14,0.26C7,16.66,6.74,16.36,6.66,15.92c-0.2-1.09-0.37-2.18-0.57-3.27
+                                    c-0.16-0.89,0.29-1.52,0.78-1.83C7.14,10.66,7.46,10.56,7.78,10.57"/>
+                                    <path className="st0" d="M7.78,9.42c-0.95,0-1.73-0.77-1.73-1.72c0-0.94,0.77-1.71,1.72-1.71c0.96,0,1.73,0.76,1.73,1.71
+                                    C9.5,8.65,8.73,9.42,7.78,9.42"/>
+                                    </g>
+                                    </svg>   
+                                </Link>                                
+                            </div>
+                            <div>
+                                <ListRightItemTitle>
+                                    <Link data={item.list_two_item_link_url}>
+                                        <span className="default-font-size">{item.list_two_item_title}</span>
+                                    </Link>
+                                </ListRightItemTitle>
+                                <ListRightItemTitle>{item.list_two_item_title_two}</ListRightItemTitle>
+                                <ListRightItemLinkWrapper>
+                                    <Link data={item.list_two_item_link_two_url}>{item.list_two_item_link_two_text}</Link>
+                                </ListRightItemLinkWrapper>
+                            </div>
                         </ListRightItem>
-                        <DividerHorizontal />
-                      </>
+                        <DividerHorizontal className="divider-horizontal" />
+                      </div>
                   )}
               </ListRight>
             </ColRight>

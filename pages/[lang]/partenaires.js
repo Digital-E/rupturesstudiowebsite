@@ -44,7 +44,7 @@ const Divider = styled.div`
   width: 100%;
   border-bottom: 1px solid black;
   padding: 5px 20px;
-  font-size: 26px;
+  font-size: 30px;
 `
 
 const ListMain = styled.div``
@@ -174,8 +174,6 @@ export default function Index({ preview, data, footerData }) {
               </ListTwo>
             </ColRight>
           </InnerContainer>
-          {/* <Divider>Art au Centre Genève</Divider>
-          <Text>{data != null && RichText.render(data[0].node.text)}</Text> */}
       </Container>
     </Layout>
   )

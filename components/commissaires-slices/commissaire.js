@@ -14,7 +14,7 @@ const InnerContainer = styled.div`
 
 
 const Name = styled.div`
-    font-size: 24px;
+    font-size: 30px;
 `
 
 const Artists = styled.div`
@@ -22,7 +22,7 @@ const Artists = styled.div`
     margin-top: 15px;
 
     > div:nth-child(1) {
-        font-size: 14px;
+
     }
 
     > div:nth-child(2) {
@@ -39,7 +39,10 @@ const BiographyTitle = styled.div`
 
 const BiographyText = styled.div`
     margin-top: 20px;
-    font-size: 14px;
+
+    & .small-font-size {
+        font-size: inherit;
+    }
 `
 
 
@@ -53,11 +56,19 @@ const Component = ({ data }) => {
         <InnerContainer>
             <Name>{data.item_title}</Name>
             <Artists>
-                <div>{data.item_subtitle}:</div>
-                <div>{data != null && RichText.render(data.item_subtitle_text)}</div>
+                <div className="small-font-size">{data.item_subtitle}:</div>
+                <div>
+                    <RichText render={data.item_subtitle_text}
+                        // htmlSerializer={htmlSerializer} 
+                    />
+                </div>
             </Artists>
             <BiographyTitle>{data.item_biography_title}</BiographyTitle>
-            <BiographyText>{data != null && RichText.render(data.item_biography)}</BiographyText>
+            <BiographyText className="small-font-size">
+                <RichText render={data.item_biography}
+                    // htmlSerializer={htmlSerializer} 
+                />
+            </BiographyText>
         </InnerContainer>
 
         <Image src={data.item_image}/>
