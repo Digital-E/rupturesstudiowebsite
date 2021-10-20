@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 import { RichText } from 'prismic-reactjs';
 
-import Link  from "../link"
+import Link from "../link"
 
 const Container = styled.div`
     border-left: 1px solid black;

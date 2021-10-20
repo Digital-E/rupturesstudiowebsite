@@ -70,6 +70,10 @@ a:hover {
   color: rgb(255, 174, 80) !important;
 }
 
+.active-link {
+  background-color: rgb(255, 174, 80);
+}
+
 a:hover path {
   fill: rgb(255, 174, 80);
 }

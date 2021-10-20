@@ -1,6 +1,12 @@
 import Link from 'next/link'
+import { useRouter } from "next/router"
 
 const LinkComponent = ({data, children}) => {
+
+    let router = useRouter()
+
+    let lang = router.query.lang
+
     
 
     if(data === null) {
@@ -22,16 +28,19 @@ const LinkComponent = ({data, children}) => {
         let split = data._meta.uid.split("__")
         
         if(split.length === 2) {
+            let newUrl = `/${lang}/${split[0]}/${split[1]}`
             return (
-                <Link href={`/${split[0]}/${split[1]}`} scroll={false}>
-                    <a>{children}</a>
+                <Link href={newUrl} scroll={false}>
+                    <a className={router.asPath === newUrl ? "active-link" : ""}>{children}</a>
                 </Link>               
             )
         }
 
+        let newUrl = `/${lang}/${data._meta.uid !== null ? data._meta.uid : "/"}`
+        
         return (
-            <Link href={`/${data._meta.uid !== null ? data._meta.uid : "/"}`} scroll={false}>
-                <a>{children}</a>
+            <Link href={newUrl} scroll={false}>
+                <a className={router.asPath === newUrl ? "active-link" : ""}>{children}</a>
             </Link>
         )
     }

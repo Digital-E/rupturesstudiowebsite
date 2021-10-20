@@ -8,6 +8,8 @@ import Link from "./link";
 
 import MenuLink from "./menu-link";
 
+import LocaleLink from "./locale-link";
+
 import { store } from "../store";
 
 import { RichText } from 'prismic-reactjs';
@@ -218,6 +220,8 @@ const LinkStyle = styled.div`
 
 export default function Header({ data }) {
 
+  let router = useRouter()
+
   //Context
   const context = useContext(store);
   const { state, dispatch } = context;
@@ -305,8 +309,8 @@ export default function Header({ data }) {
         </ColRightInnerLeft>
 
         <ColRightInnerRight>
-          <LinkStyle><MenuLink href="/fr-fr"><span>Fr</span></MenuLink></LinkStyle>
-          <LinkStyle><MenuLink href="/en-gb"><span>En</span></MenuLink></LinkStyle>
+          <LinkStyle><LocaleLink href="/fr-fr"><span>Fr</span></LocaleLink></LinkStyle>
+          <LinkStyle><LocaleLink href="/en-gb"><span>En</span></LocaleLink></LinkStyle>
         </ColRightInnerRight>
         
          {/* <MobileBurger id="menu-open">
