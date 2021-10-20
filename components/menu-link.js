@@ -19,7 +19,7 @@ const LinkComponent = ({href, children}) => {
         )
     }
 
-    let newUrl = `/${lang}/${href !== null ? href : "/"}`
+    let newUrl = `/${lang}/${href !== null ? href : ""}`
     
     return (
         <Link href={newUrl} scroll={false}>

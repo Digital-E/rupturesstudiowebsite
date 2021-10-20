@@ -99,6 +99,10 @@ const ListItem = styled.div`
   span:hover {
     background-color: rgb(255,174,80);
   }
+
+  a {
+    pointer-events: none;
+  }
 `
 
 

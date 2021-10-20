@@ -180,7 +180,7 @@ export default function Index({ preview, data, footerData }) {
               </Text>
               <ListLeft>
                   {eventsList.map((item,index) => 
-                      <div>
+                      <div key={index}>
                         <ListLeftItem>
                             <ListLeftItemTitle className="medium-font-size">{moment(item.list_one_item_date).format('dddd Do MMMM HH:mm')}</ListLeftItemTitle>
                             <ListLeftItemTitle className="medium-font-size">{item.list_one_item_title}</ListLeftItemTitle>
@@ -198,7 +198,7 @@ export default function Index({ preview, data, footerData }) {
                                         <svg version="1.1" height="35px" x="0px" y="0px"
                                             viewBox="0 0 15.7 17.23">
                                         <g>
-                                            <path class="st0" d="M5.68,13.52v0.99l1.8-1.83v3.38h0.75v-3.38l1.8,1.83v-0.99l-2.18-2.28L5.68,13.52z M7.86,10.52
+                                            <path className="st0" d="M5.68,13.52v0.99l1.8-1.83v3.38h0.75v-3.38l1.8,1.83v-0.99l-2.18-2.28L5.68,13.52z M7.86,10.52
                                                 c-1.07,0-1.92-0.86-1.92-1.9s0.85-1.91,1.92-1.91c1.05,0,1.9,0.86,1.9,1.91S8.91,10.52,7.86,10.52 M12.75,10.79h0.99l-1.83-1.8
                                                 h3.38V8.24h-3.38l1.83-1.8h-0.99l-2.28,2.17L12.75,10.79z M2.95,6.44H1.96l1.83,1.8H0.42v0.75h3.38l-1.83,1.8h0.99l2.28-2.17
                                                 L2.95,6.44z M10.03,3.71V2.72l-1.8,1.83V1.17H7.48v3.38l-1.8-1.83v0.99l2.17,2.28L10.03,3.71z"/>
@@ -213,9 +213,9 @@ export default function Index({ preview, data, footerData }) {
                                             height="30px" x="0px" y="0px" viewBox="0 0 15.7 17.2"
                                             >
                                         <path d="M7.8,9.3C7.5,9.3,7.2,9,7.2,8.6S7.5,8,7.8,8c0.4,0,0.7,0.3,0.7,0.6C8.5,9,8.2,9.3,7.8,9.3"/>
-                                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" x1="7.8" y1="8.7" x2="10.7" y2="8.7"/>
-                                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" x1="7.8" y1="8.8" x2="7.8" y2="13.4"/>
-                                        <circle fill="none" stroke="#000000" stroke-miterlimit="10" cx="7.8" cy="8.6" r="7.2"/>
+                                        <line fill="none" stroke="#000000" strokeLinecap="round" strokeMiterlimit="10" x1="7.8" y1="8.7" x2="10.7" y2="8.7"/>
+                                        <line fill="none" stroke="#000000" strokeLinecap="round" strokeMiterlimit="10" x1="7.8" y1="8.8" x2="7.8" y2="13.4"/>
+                                        <circle fill="none" stroke="#000000" strokeMiterlimit="10" cx="7.8" cy="8.6" r="7.2"/>
                                         </svg>                                        
                                     </div>
                                     <div className="small-font-size">{item.list_one_item_information_two}</div>
@@ -238,7 +238,7 @@ export default function Index({ preview, data, footerData }) {
               </Text>
               <ListRight>
                   {data[0].node.list_two.map((item,index) => 
-                      <div>
+                      <div key={index}>
                         <ListRightItem>
                             <div>
                                 <Link data={item.list_two_item_link_url}>

@@ -252,7 +252,7 @@ export default function Header({ data }) {
     <MobileMenu className="mobile-menu">
     <ContainerMobile>
       <ColLeft>
-        <MenuLink href="/">
+        <MenuLink href="">
         </MenuLink>
       </ColLeft>
 
@@ -289,7 +289,7 @@ export default function Header({ data }) {
     <Container>
       <ColLeft>
         <ColLeftInnerLeft>
-          <MenuLink href="/">
+          <MenuLink href="">
             Art au Centre <br/> Genève <br/>
             25.11.21-28.02.22
           </MenuLink>

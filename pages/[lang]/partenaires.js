@@ -141,7 +141,7 @@ export default function Index({ preview, data, footerData }) {
               <Divider><span>{data[0].node.link_list_one_title}</span></Divider>
               <ListMain>
                 {
-                  data[0].node.body.map((item, index) => 
+                  data[0].node.body?.map((item, index) => 
                     <List key={index}>
                       <ListTitle>{item.primary.list_title}</ListTitle>
                       {item.fields.map((item, index) => 

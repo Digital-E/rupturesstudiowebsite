@@ -37,7 +37,7 @@ const LinkComponent = ({data, children}) => {
         }
 
         let newUrl = `/${lang}/${data._meta.uid !== null ? data._meta.uid : "/"}`
-        
+
         return (
             <Link href={newUrl} scroll={false}>
                 <a className={router.asPath === newUrl ? "active-link" : ""}>{children}</a>
