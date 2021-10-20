@@ -7,30 +7,33 @@ import Button from "./button"
 
 const Container = styled.div`
 
-    padding: 0 25%;
+    padding: 0;
+
+    margin: 10px 0;
 
     label {
-        display: none;
+      text-transform: lowercase;
     }
 
     form {
         display: flex;
+        flex-direction: column;
     }
 
-    form > input {
+    form  input {
         background-color: white;
-        padding: 10px 25px;
-        border: 2px solid black;
+        padding: 5px 25px;
+        border: 1px solid black;
     }
 
-    form > input::placeholder {
+    form  input::placeholder {
         color: #A6A6A6;
         font-size: 0.8125rem;
     }
 
-    form > input:focus {
+    form input:focus {
         outline: none;
-        border: 2px solid black;
+        border: 1px solid black;
     }
 
     .text-input {
@@ -38,7 +41,13 @@ const Container = styled.div`
     }
 
     .text-input.error {
-        border: 2px solid #FF5B5B;
+        border: 1px solid rgb(255,174,80);
+    }
+
+    .error-label {
+      position: absolute;
+      right: 10px;
+      color: gray;
     }
 
 
@@ -68,8 +77,8 @@ const Container = styled.div`
         -webkit-appearance: none;
         border: none;
         background: none;
-        margin-left: 40px;
-        cursor: pointer;
+        width: fit-content;
+        margin: 0 auto;
     }
 
     .disabled {
@@ -78,22 +87,24 @@ const Container = styled.div`
     }
 
     @media(max-width: 989px) {
-        padding: 0 40px;
-
-        form {
-            flex-direction: column;
-        }
-
-        .text-input {
-            height: 60px;
-        }
-
-        button {
-            margin-left: 0;
-            margin-top: 20px;
-        }
     }
 `;
+
+const Input = styled.div`
+    position: relative;
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+
+    > label:nth-child(1) {
+      flex-basis: 23%;
+    }
+
+    > div:nth-child(2) {
+      flex-basis: 77%;
+    }
+`
+
 
 
 
@@ -102,13 +113,13 @@ const MyTextInput = ({ label, ...props }) => {
   // which we can spread on <input> and alse replace ErrorMessage entirely.
   const [field, meta] = useField(props);
   return (
-    <>
-      <label htmlFor={props.id || props.name}>{label}</label>
-      <input className={meta.touched && meta.error ? "text-input error caption" : "text-input caption"} {...field} {...props} />
-      {/* {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
-      ) : null} */}
-    </>
+    <Input>
+      <label htmlFor={props.id || props.name} className="medium-font-size">{label}*</label>
+      <input className={meta.touched && meta.error ? "text-input error medium-font-size" : "text-input medium-font-size"} {...field} {...props} />
+      {meta.touched && meta.error ? (
+        <div className="error-label">{meta.error}</div>
+      ) : null}
+    </Input>
   );
 };
 
@@ -138,7 +149,7 @@ const Submit = ({ children, ...props}) => {
     }
 
 
-    return (<button type="submit" className={isActive ? null : "disabled"}><Button>Subscribe</Button></button>)
+    return (<button type="submit" className={isActive ? null : "disabled"}><Button>{children}</Button></button>)
 }
 
 // Styled components ....
@@ -180,17 +191,27 @@ const MySelect = ({ label, ...props }) => {
 };
 
 // And now we can use these
-const SignupForm = () => {
+const SignupForm = ({ data }) => {
+
+  console.log(data)
 
   return (
     <Container>
       <Formik
         initialValues={{
+          surname: "",
+          name: "",
           email: "",
         }}
         validationSchema={Yup.object({
+          surname: Yup.string()
+          .max(30, "")
+          .required("Required"),
+          name: Yup.string()
+          .max(30, "")
+          .required("Required"),
           email: Yup.string()
-            .email("Invalid email addresss")
+            .email("Invalid")
             .required("Required")
         })}
         onSubmit={async (values, { setSubmitting }) => {
@@ -200,12 +221,24 @@ const SignupForm = () => {
       >
         <Form>
             <MyTextInput
-            label="Email Address"
+            label={data.text_one}
+            name="surname"
+            type="text"
+            // placeholder="Surname"
+            />   
+            <MyTextInput
+            label={data.text_two}
+            name="name"
+            type="text"
+            // placeholder="Name"
+            />                           
+            <MyTextInput
+            label={data.text_three}
             name="email"
             type="email"
-            placeholder="Email"
+            // placeholder="Email"
             />       
-            <Submit />
+            <Submit>{data.button_text}</Submit>
         </Form>
       </Formik>
     </Container>

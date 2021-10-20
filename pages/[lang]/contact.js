@@ -4,11 +4,11 @@ import Layout from "../../components/layout";
 import styled from 'styled-components';
 import { RichText } from 'prismic-reactjs';
 
-import moment from "moment";
-
 import Link from "../../components/link"
 
 import Title from "../../components/title"
+
+import EmailSubscribe from "../../components/email-subscribe";
 
 import { getContactPageSlugs, getContactPage, getMenu, getFooter } from "../../lib/api";
 
@@ -154,6 +154,7 @@ const TextSecondary = styled.div`
     }
 `
 
+const EmailSubscribeWrapper = styled.div``
 
 
 
@@ -228,6 +229,10 @@ export default function Index({ preview, data, footerData }) {
                             />
                     </TextSecondary> 
                 </SocialsTwo>  
+                
+                <EmailSubscribeWrapper>
+                    <EmailSubscribe data={data[0].node}/>
+                </EmailSubscribeWrapper>
 
                 <Email>
                     <div>

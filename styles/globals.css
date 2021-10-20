@@ -28,16 +28,19 @@ body {
 }
 
 .small-font-size {
+  font-family: "Es Allianz Book";
   font-size: 16px;
 }
 
 .medium-font-size {
+  font-family: "Es Allianz Book";
   font-size: 25px;
   color: black;
   line-height: 1.2;
 }
 
 .large-font-size {
+  font-family: "Es Allianz Book";
   font-size: 40px;
   color: black;
   line-height: 1.2;
