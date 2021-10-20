@@ -15,7 +15,9 @@ const Container = styled.div`
         position: relative;
         filter: 
         grayscale(1) 
-        url(#svg-filter-orange);
+        contrast(2)
+        url(#svg-filter-orange)
+        ;
     }
 
     // .gm-style > div:nth-child(2) > div:nth-child(2):after {
