@@ -104,7 +104,6 @@ const ColTwoBottom = styled.div`
 
 
 const Divider = styled.div`
-  background-color: rgb(255,174,80);
   width: 100%;
   border-bottom: 1px solid black;
   padding: 5px 20px;
@@ -178,7 +177,7 @@ export default function Index({ preview, data, footerData }) {
           <Title>{data[0].node.title}</Title>
           <InnerContainer>
               <ColOne>
-                <Divider>{data[0].node.column_one_title}</Divider>
+                <Divider className="orange-background">{data[0].node.column_one_title}</Divider>
                 <Socials>
                     <TextSecondary className="large-font-size">
                         <RichText render={data[0].node.socials_text_one} />
@@ -292,14 +291,14 @@ export default function Index({ preview, data, footerData }) {
             <ColTwo>
                 <ColTwoTop>
                     <ColTwoTopOne>
-                        <Divider>{data[0].node.column_two_title}</Divider>
+                        <Divider className="orange-background">{data[0].node.column_two_title}</Divider>
                         <Text className="small-font-size">
                             <RichText render={data[0].node.column_two_text} />
                         </Text>
                     </ColTwoTopOne>
 
                     <ColTwoTopTwo>
-                        <Divider>{data[0].node.column_three_title}</Divider>
+                        <Divider className="orange-background">{data[0].node.column_three_title}</Divider>
                         <Text className="small-font-size">
                             <RichText render={data[0].node.column_three_text} />
                         </Text>

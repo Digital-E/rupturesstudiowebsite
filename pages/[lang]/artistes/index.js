@@ -92,14 +92,6 @@ const ListItem = styled.div`
     height: 100%;
   }
 
-  &.is-active {
-    background-color: rgb(255,174,80);
-  }
-
-  span:hover {
-    background-color: rgb(255,174,80);
-  }
-
   a {
     pointer-events: none;
   }
@@ -157,7 +149,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
           <InnerContainerRight>
             {allArtistPagesData.map((item, index) => {
               return <ListItem 
-              key={index} className={index + 1 === parseInt(currentIndex) ? "is-active" : ""}
+              key={index} className={index + 1 === parseInt(currentIndex) ? "is-active orange-hover" : "orange-hover"}
               onMouseEnter={() => setCurrentIndex(index + 1)}
               onMouseLeave={() => setCurrentIndex(null)}
               onClick={() => setHasClicked(true)}

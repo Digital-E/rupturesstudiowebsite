@@ -11,6 +11,24 @@ const Container = styled.div`
     height: 100%;
     width: 100%;
 
+    .gm-style > div:nth-child(2) > div:nth-child(1) > div:nth-child(5) {
+        position: relative;
+        filter: 
+        grayscale(1) 
+        url(#svg-filter-orange);
+    }
+
+    // .gm-style > div:nth-child(2) > div:nth-child(2):after {
+    //     content: "";
+    //     position: fixed;
+    //     z-index: 999;
+    //     top: 0;
+    //     left: 0;
+    //     height: 100vh;
+    //     width: 100vw;
+    //     background-color: rgb(255, 148, 67, 0.5);
+    // }
+
     // #circle {
     //     position: fixed;
     //     top: 50%;
@@ -28,6 +46,10 @@ const Container = styled.div`
         left: 0;
         height: 100%;
         width: 100%;
+    }
+
+    #map > div {
+        background-color: white !important;
     }
 
     .gm-style > div:nth-child(15) > div,
@@ -131,6 +153,16 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
 
     useEffect(() => {
 
+        // let createOverlay = (map) => {
+        //     console.log(document.querySelector(".gm-style"))
+        //     let overlay = document.createElement("div");
+        //     overlay.setAttribute("className", "map-orange-overlay");
+
+        //     let mapDiv = document.querySelector(".gm-style").children[2].children[0].children[5]
+
+        //     mapDiv.appendChild(overlay)
+        // }
+
         const loader = new Loader({
             apiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
             version: 'weekly',
@@ -142,7 +174,9 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
           loader.load().then((google) => {
 
             initMap(google);
-  
+
+            // createOverlay(map);
+
             data.forEach((item, index) => {
                 addMarker({ lat: item.node.geo_point.latitude, lng: item.node.geo_point.longitude }, item, map, google);
             })
@@ -241,12 +275,37 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
 
     return (
         <Container>
-            {/* <Script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHtpls0cGSxvFJrh1ZVR15y6bpVVaSdIk&callback=initMap&v=weekly" 
-            onLoad={
-                () => {}
-            }
-            /> */}
             <div id="map"></div>
+            {/* <svg>
+                <filter id="svg-filter-orange" x="-10%" y="-10%" width="120%" height="120%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feColorMatrix type="matrix" values="1 0 0 0 0
+                1 0 0 0 0
+                1 0 0 0 0
+                0 0 0 1 0" in="SourceGraphic" result="colormatrix"/>
+                    <feComponentTransfer in="colormatrix" result="componentTransfer">
+                            <feFuncR type="table" tableValues="1"/>
+                        <feFuncG type="table" tableValues="0.58"/>
+                        <feFuncB type="table" tableValues="0.26"/>
+                        <feFuncA type="table" tableValues="0 0.7"/>
+                    </feComponentTransfer>
+                    <feBlend mode="normal" in="componentTransfer" in2="SourceGraphic" result="blend"/>
+                </filter>  
+            </svg>           */}
+            <svg>
+                <filter id="svg-filter-orange" x="-10%" y="-10%" width="120%" height="120%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feColorMatrix type="matrix" values="1 0 0 0 0
+                1 0 0 0 0
+                1 0 0 0 0
+                0 0 0 1 0" in="SourceGraphic" result="colormatrix"/>
+                    <feComponentTransfer in="colormatrix" result="componentTransfer">
+                        <feFuncR type="table" tableValues="1"/>
+                        <feFuncG type="table" tableValues="0.68"/>
+                        <feFuncB type="table" tableValues="0.31"/>
+                        <feFuncA type="table" tableValues="0 0.75"/>
+                    </feComponentTransfer>
+                    <feBlend mode="normal" in="componentTransfer" in2="SourceGraphic" result="blend"/>
+                </filter>  
+            </svg>                
         </Container>
     )
 }

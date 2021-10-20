@@ -7,7 +7,6 @@ const Container = styled.span`
     display: inline-block;
     padding: 15px 10px;
     border-radius: 999px !important;
-    background-color: ${props => props.secondary ? "rgb(255,174,80)" : "rgb(255,174,80)"};
     color: ${props => props.secondary ? "black" : "black"};
     border: ${props => props.secondary ? "1px solid black" : "1px solid black"};
     cursor: pointer;
@@ -26,7 +25,7 @@ const Button = ({ secondary, children }) => {
     },[])
 
     return (
-        <Container className="button medium-font-size" secondary={secondary}>{children}</Container>
+        <Container className="button medium-font-size orange-background" secondary={secondary}>{children}</Container>
     )
 }
 

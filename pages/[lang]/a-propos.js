@@ -20,7 +20,6 @@ const Container = styled.div`
 `
 
 const Divider = styled.div`
-  background-color: rgb(255,174,80);
   width: 100%;
   border-bottom: 1px solid black;
   padding: 5px 25px;
@@ -56,7 +55,7 @@ export default function Index({ preview, data, footerData }) {
 
       <Container>
           <Title>{data[0].node.title}</Title>
-          <Divider>Art au Centre Genève</Divider>
+          <Divider className="orange-background">Art au Centre Genève</Divider>
           <Text className="large-font-size">
             <RichText render={data[0].node.text} />
           </Text>

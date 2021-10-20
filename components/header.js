@@ -45,7 +45,7 @@ const Container = styled.div`
   width: 100%;
 
   a:hover {
-    background-color: rgb(255, 174, 80);
+    background-color: rgb(255, 148, 67);
   }
 
   @media(max-width: 989px) {

@@ -39,7 +39,6 @@ border-left: 1px solid black;
 
 
 const Divider = styled.div`
-  background-color: rgb(255,174,80);
   width: 100%;
   border-bottom: 1px solid black;
   padding: 5px 20px;
@@ -85,10 +84,6 @@ const ListItem = styled.div`
   > a > div:nth-child(2) > img {
     height: 70px;
   }
-
-  > a:hover {
-    color: rgb(255,174,80);
-  }
 `
 
 const ListTwo = styled.div`
@@ -102,10 +97,6 @@ const ListTwoItem = styled.div`
     color: black;
     line-height: 1.1;
     font-weight: 500;
-  }
-
-  > a:hover {
-    color: rgb(255,174,80);
   }
 `
 
@@ -137,7 +128,7 @@ export default function Index({ preview, data, footerData }) {
           <Title>{data[0].node.title}</Title>
           <InnerContainer>
             <ColLeft>
-              <Divider><span>{data[0].node.link_list_one_title}</span></Divider>
+              <Divider className="orange-background"><span>{data[0].node.link_list_one_title}</span></Divider>
               <ListMain>
                 {
                   data[0].node.body?.map((item, index) => 
@@ -163,7 +154,7 @@ export default function Index({ preview, data, footerData }) {
               </ListMain>
             </ColLeft>
             <ColRight>
-              <Divider>
+              <Divider className="orange-background">
                 {data[0].node.link_list_two_title}
               </Divider>
               <ListTwo>

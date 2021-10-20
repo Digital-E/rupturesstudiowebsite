@@ -68,14 +68,6 @@ const ListItem = styled.div`
     width: 100%;
     height: 100%;
   }
-
-  &.is-active {
-    background-color: rgb(255,174,80);
-  }
-
-  span:hover {
-    background-color: rgb(255,174,80);
-  }
 `
 
 const Grid = styled.div`
@@ -152,7 +144,7 @@ export default function Index({ preview, data, footerData }) {
           </InnerContainerLeft>
           <InnerContainerRight id="inner-container-right">
             {data[0].node.list.length > 0 && 
-              data[0].node.list.map((item, index) => <ListItem key={index} onClick={() => scrollTo(item.item_title.toLowerCase().split(" ").join("-"))}><span>{index + 1}. {item.item_title}</span></ListItem>)
+              data[0].node.list.map((item, index) => <ListItem key={index} onClick={() => scrollTo(item.item_title.toLowerCase().split(" ").join("-"))}><span className="orange-hover">{index + 1}. {item.item_title}</span></ListItem>)
             }
           </InnerContainerRight>
         </InnerContainer>

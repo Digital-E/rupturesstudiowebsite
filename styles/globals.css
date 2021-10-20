@@ -7,6 +7,10 @@
   font-display: swap;
 }
 
+:root {
+  --orange: rgb(255, 148, 67);
+}
+
 html,
 body {
   padding: 0;
@@ -69,16 +73,28 @@ a {
   color: rgb(111, 111, 110);
 }
 
+.orange-background {
+  background-color: var(--orange);
+}
+
+.orange-hover:hover {
+  background-color: var(--orange);
+}
+
 a:hover {
-  color: rgb(255, 174, 80) !important;
+  color: var(--orange) !important;
 }
 
 .active-link {
-  background-color: rgb(255, 174, 80);
+  background-color: var(--orange);
+}
+
+.is-active {
+  background-color: var(--orange);
 }
 
 a:hover path {
-  fill: rgb(255, 174, 80);
+  fill: var(--orange);
 }
 
 [title="marker"] {

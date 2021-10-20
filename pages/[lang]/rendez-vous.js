@@ -43,7 +43,6 @@ border-left: 1px solid black;
 
 
 const Divider = styled.div`
-  background-color: rgb(255,174,80);
   width: 100%;
   border-bottom: 1px solid black;
   padding: 5px 20px;
@@ -172,7 +171,7 @@ export default function Index({ preview, data, footerData }) {
           <Title>{data[0].node.title}</Title>
           <InnerContainer>
             <ColLeft>
-              <Divider id="divider-one"><span>{data[0].node.list_one_title}</span></Divider>
+              <Divider id="divider-one" className="orange-background"><span>{data[0].node.list_one_title}</span></Divider>
               <Text>
                 <RichText render={data[0].node.list_one_text} />
               </Text>
@@ -224,7 +223,7 @@ export default function Index({ preview, data, footerData }) {
               </ListLeft>
             </ColLeft>
             <ColRight>
-              <Divider id="divider-two">
+              <Divider id="divider-two" className="orange-background">
                 {data[0].node.list_two_title}
               </Divider>
               <Text>
