@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { RichText } from 'prismic-reactjs';
+import RichText from '../rich-text';
 
 import Image from "../image"
 
@@ -58,16 +58,12 @@ const Component = ({ data }) => {
             <Artists>
                 <div className="small-font-size">{data.item_subtitle}:</div>
                 <div>
-                    <RichText render={data.item_subtitle_text}
-                        // htmlSerializer={htmlSerializer} 
-                    />
+                    <RichText render={data.item_subtitle_text} />
                 </div>
             </Artists>
             <BiographyTitle>{data.item_biography_title}</BiographyTitle>
             <BiographyText className="small-font-size">
-                <RichText render={data.item_biography}
-                    // htmlSerializer={htmlSerializer} 
-                />
+                <RichText render={data.item_biography} />
             </BiographyText>
         </InnerContainer>
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import { RichText, Elements } from 'prismic-reactjs';
 
+import linkResolver from "./link-resolver";
+
 // -- Function to add unique key to props
 const propsWithUniqueKey = function(props, key) {
   return Object.assign(props || {}, { key });

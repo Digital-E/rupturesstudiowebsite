@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Head from 'next/head'
 import Layout from "../../components/layout";
 import styled from 'styled-components';
-import { RichText } from 'prismic-reactjs';
+import RichText from '../../components/rich-text';
 
 import moment from "moment";
 
@@ -174,9 +174,7 @@ export default function Index({ preview, data, footerData }) {
             <ColLeft>
               <Divider id="divider-one"><span>{data[0].node.list_one_title}</span></Divider>
               <Text>
-                <RichText render={data[0].node.list_one_text} 
-                                // htmlSerializer={htmlSerializer} 
-                />
+                <RichText render={data[0].node.list_one_text} />
               </Text>
               <ListLeft>
                   {eventsList.map((item,index) => 
@@ -188,9 +186,7 @@ export default function Index({ preview, data, footerData }) {
                                 <Link data={item.list_one_item_link_url}>{item.list_one_item_link_text}</Link>
                             </ListLeftItemLinkWrapper>
                             <ListLeftItemText>
-                                <RichText render={item.list_one_item_text} 
-                                                // htmlSerializer={htmlSerializer} 
-                                />                                
+                                <RichText render={item.list_one_item_text} />                                
                             </ListLeftItemText>
                             <ListLeftItemInformation>
                                 <div>
@@ -232,9 +228,7 @@ export default function Index({ preview, data, footerData }) {
                 {data[0].node.list_two_title}
               </Divider>
               <Text>
-                <RichText render={data[0].node.list_two_text} 
-                                                    // htmlSerializer={htmlSerializer} 
-                />                       
+                <RichText render={data[0].node.list_two_text} />                       
               </Text>
               <ListRight>
                   {data[0].node.list_two.map((item,index) => 

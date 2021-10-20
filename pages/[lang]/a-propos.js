@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Head from 'next/head'
 import Layout from "../../components/layout";
 import styled from 'styled-components';
-import { RichText } from 'prismic-reactjs';
+import RichText from '../../components/rich-text';
 
 
 import Title from "../../components/title"
@@ -58,9 +58,7 @@ export default function Index({ preview, data, footerData }) {
           <Title>{data[0].node.title}</Title>
           <Divider>Art au Centre Genève</Divider>
           <Text className="large-font-size">
-            <RichText render={data[0].node.text} 
-                              // htmlSerializer={htmlSerializer} 
-            />
+            <RichText render={data[0].node.text} />
           </Text>
       </Container>
     </Layout>

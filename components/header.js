@@ -12,7 +12,7 @@ import LocaleLink from "./locale-link";
 
 import { store } from "../store";
 
-import { RichText } from 'prismic-reactjs';
+import RichText from './rich-text';
 
 
 const Menu = styled.div`
@@ -296,8 +296,8 @@ export default function Header({ data }) {
         </ColLeftInnerLeft>
 
           <ColLeftInnerRight>
-            <div>{data != null && RichText.render(data.text_one)}</div>
-            <div>{data != null && RichText.render(data.text_two)}</div>
+            <div><RichText render={data.text_one} /></div>
+            <div><RichText render={data.text_two} /></div>
           </ColLeftInnerRight>
       </ColLeft>
 

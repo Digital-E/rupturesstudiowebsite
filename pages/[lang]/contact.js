@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Head from 'next/head'
 import Layout from "../../components/layout";
 import styled from 'styled-components';
-import { RichText } from 'prismic-reactjs';
+import RichText from '../../components/rich-text';
 
 import Link from "../../components/link"
 
@@ -181,9 +181,7 @@ export default function Index({ preview, data, footerData }) {
                 <Divider>{data[0].node.column_one_title}</Divider>
                 <Socials>
                     <TextSecondary className="large-font-size">
-                        <RichText render={data[0].node.socials_text_one} 
-                            // htmlSerializer={htmlSerializer} 
-                        />
+                        <RichText render={data[0].node.socials_text_one} />
                     </TextSecondary>
                     <Icons>
                         <Link data={data[0].node.insta_link}>
@@ -224,9 +222,7 @@ export default function Index({ preview, data, footerData }) {
 
                 <SocialsTwo>
                     <TextSecondary className="medium-font-size">
-                            <RichText render={data[0].node.socials_text_two} 
-                                // htmlSerializer={htmlSerializer} 
-                            />
+                            <RichText render={data[0].node.socials_text_two} />
                     </TextSecondary> 
                 </SocialsTwo>  
                 
@@ -250,9 +246,7 @@ export default function Index({ preview, data, footerData }) {
                         </svg>                        
                     </div>
                     <TextSecondary className="medium-font-size">
-                            <RichText render={data[0].node.text_four} 
-                                // htmlSerializer={htmlSerializer} 
-                            />
+                            <RichText render={data[0].node.text_four} />
                     </TextSecondary> 
                 </Email>
                 <Email>
@@ -271,9 +265,7 @@ export default function Index({ preview, data, footerData }) {
                         </svg>                        
                     </div>
                     <TextSecondary className="medium-font-size">
-                            <RichText render={data[0].node.text_five} 
-                                // htmlSerializer={htmlSerializer} 
-                            />
+                            <RichText render={data[0].node.text_five} />
                     </TextSecondary> 
                 </Email>
                 <Email>
@@ -292,9 +284,7 @@ export default function Index({ preview, data, footerData }) {
                         </svg>                        
                     </div>
                     <TextSecondary className="medium-font-size">
-                            <RichText render={data[0].node.text_six} 
-                                // htmlSerializer={htmlSerializer} 
-                            />
+                            <RichText render={data[0].node.text_six} />
                     </TextSecondary> 
                 </Email>
               </ColOne>
@@ -304,18 +294,14 @@ export default function Index({ preview, data, footerData }) {
                     <ColTwoTopOne>
                         <Divider>{data[0].node.column_two_title}</Divider>
                         <Text className="small-font-size">
-                            <RichText render={data[0].node.column_two_text} 
-                                // htmlSerializer={htmlSerializer} 
-                            />
+                            <RichText render={data[0].node.column_two_text} />
                         </Text>
                     </ColTwoTopOne>
 
                     <ColTwoTopTwo>
                         <Divider>{data[0].node.column_three_title}</Divider>
                         <Text className="small-font-size">
-                            <RichText render={data[0].node.column_three_text} 
-                                // htmlSerializer={htmlSerializer} 
-                            />
+                            <RichText render={data[0].node.column_three_text} />
                         </Text>
                     </ColTwoTopTwo>
                 </ColTwoTop>

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import styled from "styled-components"
 
-import { RichText } from 'prismic-reactjs';
+import RichText from '../rich-text';
 
 import Link from "../link"
 
