@@ -247,7 +247,8 @@ export default function Header({ data }) {
   },[]);
 
 
-  return (
+  
+  return data ? (
     <Menu>
     <MobileMenu className="mobile-menu">
     <ContainerMobile>
@@ -321,5 +322,7 @@ export default function Header({ data }) {
       </ColRight>
     </Container>
     </Menu>
-  );
+  )
+  :
+  null
 }

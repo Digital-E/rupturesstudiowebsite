@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 
-const linkResolver = (data) => {
+const LinkResolver = (data) => {
 
     let router = useRouter()
 
@@ -23,4 +23,4 @@ const linkResolver = (data) => {
   
   }
 
-  export default linkResolver
+  export default LinkResolver

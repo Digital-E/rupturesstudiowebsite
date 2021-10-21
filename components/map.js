@@ -294,7 +294,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
                 </filter>  
             </svg>           */}
             <svg>
-                <filter id="svg-filter-orange" x="-10%" y="-10%" width="120%" height="120%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <filter id="svg-filter-orange" x="-10%" y="-10%" width="120%" height="120%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
                     <feColorMatrix type="matrix" values="1 0 0 0 0
                 1 0 0 0 0
                 1 0 0 0 0
