@@ -10,6 +10,9 @@ const Container = styled.div`
 `
 
 const Name = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 15px 10px;
     font-size: 30px;
     border-bottom: 1px solid black;
@@ -91,9 +94,16 @@ const BiographyTitle = styled.div`
     padding: 0 10px;
 `
 
+const Arrows = styled.div`
+    display: flex;
+`
 
 
+const ArrowLeft = styled.div``
 
+const ArrowRight = styled.div`
+    transform: rotateZ(180deg);
+`
 
 
 
@@ -109,7 +119,23 @@ const Component = ({ data }) => {
 
     return (
         <Container>
-            <Name>{data.name}</Name>
+            <Name>
+                <div>
+                    {data.name}
+                </div>
+                <Arrows>
+                    <ArrowLeft>
+                        <svg height="25px" x="0px" y="0px" viewBox="0 0 16.63 12.99">
+                        <polygon points="6.68,0.14 0.32,6.5 6.68,12.86 8.74,12.86 3.17,7.24 16.34,7.24 16.34,5.76 3.17,5.76 8.74,0.14 "/>
+                        </svg>   
+                    </ArrowLeft>
+                    <ArrowRight>
+                        <svg height="25px" x="0px" y="0px" viewBox="0 0 16.63 12.99">
+                        <polygon points="6.68,0.14 0.32,6.5 6.68,12.86 8.74,12.86 3.17,7.24 16.34,7.24 16.34,5.76 3.17,5.76 8.74,0.14 "/>
+                        </svg>   
+                    </ArrowRight>                 
+                </Arrows>
+            </Name>
             <Gallery>
                 <div>
                     <div><span>{data.number}</span></div>

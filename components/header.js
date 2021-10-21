@@ -65,6 +65,10 @@ const ColLeft = styled.div`
 
 const ColLeftInnerLeft = styled.div`
   flex-grow: 1;
+
+  a {
+    background-color: transparent !important;
+  }
 `;
 
 const ColLeftInnerRight = styled.div`

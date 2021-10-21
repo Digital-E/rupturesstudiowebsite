@@ -10,8 +10,20 @@ if (typeof window !== "undefined") {
   }
 
 const Container = styled.div`
+    position: relative;
     height: 100%;
     width: 100%;
+
+    .carousel-arrow {
+      opacity: 0;
+      transition-duration: 0.3s;
+      cursor: pointer;
+    }
+
+    &.carousel-container.show-arrows .carousel-arrow {
+      opacity: 1;
+      transition-duration: 0.3s;
+    }
 `
 
 const Carousel = styled.div`
@@ -55,6 +67,22 @@ const Slide = styled.div`
     object-fit: cover;
   }
 `;
+
+const ArrowLeft = styled.div`
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 999;
+`
+
+const ArrowRight = styled.div`
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 999;
+  transform: rotateZ(180deg);
+`
+
 
 const Component = ({ data }) => {
     let [flickity, setFlickity] = useState(null);
@@ -126,7 +154,7 @@ const Component = ({ data }) => {
           prevNextButtons: false,
           // creates and enables buttons to click to previous & next cells
     
-          pageDots: true,
+          pageDots: false,
           // create and enable page dots
     
           resize: true,
@@ -169,10 +197,31 @@ const Component = ({ data }) => {
         // return () => {
         //   flickity.destroy();
         // };
-      }, []);  
+
+        document.querySelector(".carousel-container").addEventListener("mouseenter", () => {
+          document.querySelector(".carousel-container").classList.add("show-arrows")
+        })
+
+        document.querySelector(".carousel-container").addEventListener("mouseleave", () => {
+          document.querySelector(".carousel-container").classList.remove("show-arrows")
+        })
+      }, []);
+      
+      const changeSlide = (value) => {
+        if(value === "previous") {
+          flickity.previous()
+        } else {
+          flickity.next()
+        }
+      }
 
     return (
-        <Container>
+        <Container className="carousel-container">
+          <ArrowLeft className="carousel-arrow" onClick={() => changeSlide("previous")}>
+            <svg height="25px" x="0px" y="0px" viewBox="0 0 16.63 12.99">
+            <polygon points="6.68,0.14 0.32,6.5 6.68,12.86 8.74,12.86 3.17,7.24 16.34,7.24 16.34,5.76 3.17,5.76 8.74,0.14 "/>
+            </svg>
+          </ArrowLeft>          
             <Carousel ref={gallery}>
                 {data.map((item, index) => {
                     return (
@@ -182,6 +231,11 @@ const Component = ({ data }) => {
                     );
                     })}                
             </Carousel>
+          <ArrowRight className="carousel-arrow" onClick={() => changeSlide("next")}>
+            <svg height="25px" x="0px" y="0px" viewBox="0 0 16.63 12.99">
+            <polygon points="6.68,0.14 0.32,6.5 6.68,12.86 8.74,12.86 3.17,7.24 16.34,7.24 16.34,5.76 3.17,5.76 8.74,0.14 "/>
+            </svg>
+          </ArrowRight>              
         </Container>
     )
 }

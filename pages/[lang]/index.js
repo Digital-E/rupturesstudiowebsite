@@ -161,6 +161,9 @@ export default function Index({ preview, data, footerData }) {
 
     tl.pause()
 
+    return () => {
+      document.querySelector("body").style.overflow = "visible"
+    }
   },[])
 
   return (
