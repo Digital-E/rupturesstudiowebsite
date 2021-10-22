@@ -5,6 +5,8 @@ import RichText from '../rich-text';
 
 import Link from "../link"
 
+import MenuLink from "../menu-link"
+
 const Container = styled.div`
     border-left: 1px solid black;
 `
@@ -99,15 +101,21 @@ const Arrows = styled.div`
 `
 
 
-const ArrowLeft = styled.div``
+const ArrowLeft = styled.div`
+    cursor: pointer;
+`
 
 const ArrowRight = styled.div`
     transform: rotateZ(180deg);
+    position: relative;
+    top: -4px;
+    cursor: pointer;
+    margin-left: 15px;
 `
 
 
 
-const Component = ({ data }) => {
+const Component = ({ data, nextPrevArtists }) => {
 
     useEffect( () => {
         let textWrapper = document.querySelector(".text-wrapper");
@@ -125,14 +133,18 @@ const Component = ({ data }) => {
                 </div>
                 <Arrows>
                     <ArrowLeft>
-                        <svg height="25px" x="0px" y="0px" viewBox="0 0 16.63 12.99">
-                        <polygon points="6.68,0.14 0.32,6.5 6.68,12.86 8.74,12.86 3.17,7.24 16.34,7.24 16.34,5.76 3.17,5.76 8.74,0.14 "/>
-                        </svg>   
+                        <MenuLink href={nextPrevArtists.prev}>
+                                <svg height="25px" x="0px" y="0px" viewBox="0 0 16.63 12.99">
+                                <polygon points="6.68,0.14 0.32,6.5 6.68,12.86 8.74,12.86 3.17,7.24 16.34,7.24 16.34,5.76 3.17,5.76 8.74,0.14 "/>
+                                </svg> 
+                        </MenuLink>  
                     </ArrowLeft>
                     <ArrowRight>
-                        <svg height="25px" x="0px" y="0px" viewBox="0 0 16.63 12.99">
-                        <polygon points="6.68,0.14 0.32,6.5 6.68,12.86 8.74,12.86 3.17,7.24 16.34,7.24 16.34,5.76 3.17,5.76 8.74,0.14 "/>
-                        </svg>   
+                        <MenuLink href={nextPrevArtists.prev}>
+                            <svg height="25px" x="0px" y="0px" viewBox="0 0 16.63 12.99">
+                            <polygon points="6.68,0.14 0.32,6.5 6.68,12.86 8.74,12.86 3.17,7.24 16.34,7.24 16.34,5.76 3.17,5.76 8.74,0.14 "/>
+                            </svg>   
+                        </MenuLink> 
                     </ArrowRight>                 
                 </Arrows>
             </Name>

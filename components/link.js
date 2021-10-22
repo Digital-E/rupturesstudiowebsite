@@ -6,7 +6,6 @@ const LinkComponent = ({data, children}) => {
     let router = useRouter()
 
     let lang = router.query.lang
-
     
 
     if(data === null) {

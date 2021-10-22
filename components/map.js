@@ -48,6 +48,8 @@ const Container = styled.div`
         left: 0;
         height: 100%;
         width: 100%;
+        opacity: 0;
+        transition-duration: 0.3s;
     }
 
     #map > div {
@@ -115,9 +117,11 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
 
         // Route to page
 
-        let parent = artistData.node._meta.lang === "fr-fr" ? "artistes" : "artists";
+        let lang = artistData.node._meta.lang;
 
-        router.push(`/${artistData.node._meta.lang}/${parent}/${artistData.node._meta.uid}`)
+        let url = artistData.node._meta.uid.split("__");
+
+        router.push(`/${artistData.node._meta.lang}/${url[0]}/${url[1]}`)
 
         // Expand Circle
 
@@ -182,6 +186,10 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             data.forEach((item, index) => {
                 addMarker({ lat: item.node.geo_point.latitude, lng: item.node.geo_point.longitude }, item, map, google);
             })
+
+            setTimeout(() => {
+                document.querySelector("#map").style.opacity = 1
+            }, 1000)
           })
 
 

@@ -7,13 +7,31 @@ import Header from "../components/header";
 import { motion, AnimatePresence } from "framer-motion"
 import { StateProvider } from "../store"
 
+import CookieConsent from "react-cookie-consent"
+import RichText from '../components/rich-text';
+
 function MyApp({ Component, pageProps, router }) {
 
   return (
     <StateProvider>
       <Header 
-      data={pageProps.menuData !== undefined ? pageProps.menuData[0].node : null} 
+      data={ pageProps.menuData !== undefined ? pageProps.menuData[0].node : null } 
       />
+      {
+        pageProps.menuData !== undefined ?
+          <CookieConsent
+            buttonText={pageProps.menuData[0].node.accept_text}
+            declineButtonText={pageProps.menuData[0].node.refuse_text}
+            enableDeclineButton
+            cookieName={"ArtAuCentreCookieConsent"}
+            onAccept={() => {}}
+            onDecline={() => {}}
+          >
+            <RichText render={pageProps.menuData[0].node.cookie_text} />
+          </CookieConsent>
+        :
+        null
+      }
       <AnimatePresence 
       // exitBeforeEnter 
       onExitComplete={() => { window.scrollTo(0,0) }}

@@ -11,6 +11,36 @@
   --orange: rgb(255, 148, 67);
 }
 
+.CookieConsent {
+  background-color: #ffffff !important;
+  border-top: 1px solid black !important;
+}
+
+.CookieConsent p {
+  margin: 0;
+  color: black;
+}
+
+.CookieConsent a {
+  font-size: 20px;
+}
+
+.CookieConsent > div:nth-child(1) {
+  margin: 10px !important;
+}
+
+.CookieConsent #rcc-decline-button,
+.CookieConsent #rcc-confirm-button {
+  font-size: 20px;
+  color: black !important;
+  background: transparent !important;
+  margin: 10px !important;
+}
+
+.CookieConsent #rcc-confirm-button {
+  border: 1px solid black !important;
+}
+
 html,
 body {
   padding: 0;
@@ -73,6 +103,10 @@ a {
   color: rgb(111, 111, 110);
 }
 
+button {
+  font-family: inherit;
+}
+
 .orange-background {
   background-color: var(--orange);
 }
@@ -93,7 +127,8 @@ a:hover {
   background-color: var(--orange);
 }
 
-a:hover path {
+a:hover path,
+a:hover polygon {
   fill: var(--orange);
 }
 

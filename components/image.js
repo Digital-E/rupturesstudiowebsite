@@ -77,7 +77,7 @@ const Image = ({ src }) => {
           <source sizes="100vw" />
           <StyledImage
             sizes="100vw"
-            alt=""
+            alt={src.alt}
             draggable="false"
             ref={imageRef}
             className={hasLoaded && "show-image"}
@@ -95,7 +95,7 @@ const Image = ({ src }) => {
           <StyledImage
             sizes="100vw"
             srcSet={`${xs} 200w, ${s} 400w, ${m} 800w, ${l} 1200w, ${xl} 1600w, ${xxl} 2400w`}
-            alt=""
+            alt={src.alt}
             draggable="false"
             ref={imageRef}
             className={hasLoaded && (height/width >= 1 ? "show-image portrait" : "show-image")}

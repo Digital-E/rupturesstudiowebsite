@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react"
 import Head from 'next/head'
 import Layout from "../../components/layout";
 import styled from 'styled-components';
@@ -9,10 +10,11 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger)
 
 
-import { getHome, getHomePagesSlugs, getMenu, getFooter } from "../../lib/api";
+import { getHome, getHomePagesSlugs, getAllArtistPages, getMenu, getFooter } from "../../lib/api";
+
+import Map from "../../components/map"
 
 import { SITE_NAME } from "../../lib/constants"
-import { useEffect } from 'react';
 import RichText from '../../components/rich-text';
 
 const Container = styled.div`
@@ -35,6 +37,17 @@ const BackgroundContainer = styled.div`
   height: 100vh;
   width: 100vw;
   opacity: 1;
+
+  #shadow-circle {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    box-shadow: inset 0 1px 3px black;
+    z-index: 999;
+    border-radius: 999px !important;
+    pointer-events: none;
+    display: none;
+  }
 
   
   img {
@@ -116,7 +129,22 @@ const IntroText = styled.div`
 
 
 
-export default function Index({ preview, data, footerData }) {
+export default function Index({ preview, data, allArtistPagesData, footerData }) {
+  let [currentIndex, setCurrentIndex] = useState(null);
+  let [hasClicked, setHasClicked] = useState(false);
+
+
+  useEffect(() => {
+    // let backgroundImages = document.querySelector("#background-image").children;
+
+    // Array.from(backgroundImages).forEach(item => {
+    //   item.style.opacity = 0;
+    // });
+
+    // if(currentIndex === null) return;
+    // backgroundImages[currentIndex - 1].style.opacity = 1;
+
+  }, [currentIndex])
 
 
   useEffect(() => {
@@ -186,9 +214,17 @@ export default function Index({ preview, data, footerData }) {
         <IntroText id="intro-text" className="large-font-size">
           <RichText render={data[0].node.intro_text} />
         </IntroText>
-        <BackgroundContainer>
-          <Overlay />
-          <img src="/map.png" />
+        <div id="shadow-circle"></div>
+        <BackgroundContainer id="map-container">
+          {/* <Overlay /> */}
+          {/* <img src="/map.png" /> */}
+          <Map 
+            setCurrentIndex={(index) => setCurrentIndex(index)}
+            currentIndex={currentIndex}
+            data={allArtistPagesData}
+            hasClicked={hasClicked}
+            // hasClicked={(value) => setHasClicked(value)}
+          />
         </BackgroundContainer>
       </Container>
     </Layout>
@@ -218,6 +254,7 @@ export async function getStaticProps({ params, preview = false, previewData }) {
 
   const data = await getHome(params.lang, previewData);
 
+  const allArtistPagesData = await getAllArtistPages(params.lang, previewData);
 
 
   // Get Menu And Footer
@@ -229,6 +266,6 @@ export async function getStaticProps({ params, preview = false, previewData }) {
   const footerData = null;
 
   return {
-    props: { preview, data, menuData, footerData },
+    props: { preview, data, allArtistPagesData, menuData, footerData },
   };
 }

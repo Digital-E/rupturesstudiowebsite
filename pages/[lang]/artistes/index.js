@@ -154,7 +154,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
               onMouseLeave={() => setCurrentIndex(null)}
               onClick={() => setHasClicked(true)}
               >
-                <Link href={`artistes/${item.node._meta.uid}`}>
+                <Link href={`${item.node._meta.uid}`}>
                   <span>{item.node.number}. {item.node.name}</span>
                 </Link>
                 </ListItem>
