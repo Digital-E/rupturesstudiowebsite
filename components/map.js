@@ -5,6 +5,8 @@ import { useRouter } from "next/router"
 
 import {Loader} from '@googlemaps/js-api-loader';
 
+import { gsap } from "gsap";
+
 
 
 const Container = styled.div`
@@ -78,6 +80,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
     let mapRef = useRef();
 
     let router = useRouter();
+    
 
     let triggerTransparentCircle = (index) => {
         if(index === null) {
@@ -140,25 +143,30 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
 
         // Expand Circle
 
-        let init = 20;
 
-        let initTransform = 1;
+        gsap.to(mapDiv, {webkitMaskImage: `radial-gradient( 999px at ${ x + 20 }px ${ y + 20 }px, transparent 100%, black 100% )` })
+
+        gsap.to(shadowCircle, {scale: 50})
+
+        // let init = 20;
+
+        // let initTransform = 1;
       
-        let interval = setInterval(() => {
-          mapDiv.style.webkitMaskImage = `radial-gradient( ${init}px at ${ x + 20 }px ${ y + 20 }px, transparent 100%, black 100% )`
+        // let interval = setInterval(() => {
+        //   mapDiv.style.webkitMaskImage = `radial-gradient( ${init}px at ${ x + 20 }px ${ y + 20 }px, transparent 100%, black 100% )`
       
-        //   shadowCircle.style.height = `${20 + init}px`;
-        //   shadowCircle.style.width = `${20 + init}px`;
-          shadowCircle.style.transform = `scale(${initTransform})`;
+        // //   shadowCircle.style.height = `${20 + init}px`;
+        // //   shadowCircle.style.width = `${20 + init}px`;
+        //   shadowCircle.style.transform = `scale(${initTransform})`;
       
       
-          init += 5;
-          initTransform += 0.25;
+        //   init += 5;
+        //   initTransform += 0.25;
       
-          if(init === 2000) {
-            clearInterval(interval)
-          }
-        }, 1);
+        //   if(init === 2000) {
+        //     clearInterval(interval)
+        //   }
+        // }, 1);
     }
 
     useEffect(() => {
@@ -293,6 +301,10 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
                 triggerTransition(marker.label.text)
             })
         }  
+
+        // setTimeout(() => {
+        //     gsap.to("#map-container", {webkitMaskImage: `radial-gradient( 999px at 500px 500px, transparent 100%, black 100% )`})
+        // }, 3000)
 
     }, []);
     

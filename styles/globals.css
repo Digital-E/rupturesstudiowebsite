@@ -151,7 +151,7 @@ a:hover polygon {
 .marker {
   position: absolute;
   left: -19px;
-  top: 30px;
+  top: 31px;
 }
 
 .marker:after {

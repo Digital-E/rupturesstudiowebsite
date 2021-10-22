@@ -34,8 +34,8 @@ function MyApp({ Component, pageProps, router }) {
       }
       <AnimatePresence 
       // exitBeforeEnter 
+      // exitBeforeEnter={router.route === "/[lang]/artistes" ? false : true}
       onExitComplete={() => { window.scrollTo(0,0) }}
-      
       > 
       <motion.div 
       key={router.route} initial="pageInitial" animate="pageAnimate" exit= "pageExit"
