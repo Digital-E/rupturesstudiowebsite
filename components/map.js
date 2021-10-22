@@ -11,6 +11,10 @@ const Container = styled.div`
     height: 100%;
     width: 100%;
 
+    // [title="marker"] {
+    //     pointer-events: none;
+    // }
+
     .gm-style > div:nth-child(2) > div:nth-child(1) > div:nth-child(5) {
         position: relative;
         filter: 
@@ -61,6 +65,12 @@ const Container = styled.div`
      {
         display: none;
     }
+
+    .marker {
+        height: 39px;
+        width: 39px;
+        line-height: 1.9;
+    }
 `
 
 
@@ -75,8 +85,10 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             return
         }
 
-        let x = document.querySelectorAll('[title="marker"]')[parseInt(index) - 1].getBoundingClientRect().x
-        let y = document.querySelectorAll('[title="marker"]')[parseInt(index) - 1].getBoundingClientRect().y
+        // let x = document.querySelectorAll('[title="marker"]')[parseInt(index) - 1].getBoundingClientRect().x
+        // let y = document.querySelectorAll('[title="marker"]')[parseInt(index) - 1].getBoundingClientRect().y
+        let x = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().x
+        let y = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().y
 
         let shadowCircle = document.querySelector('#shadow-circle');
 
@@ -107,8 +119,10 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
     let triggerTransition = (index) => {
         let artistData = data[parseInt(index) - 1]
 
-        let x = document.querySelectorAll('[title="marker"]')[parseInt(index) - 1].getBoundingClientRect().x
-        let y = document.querySelectorAll('[title="marker"]')[parseInt(index) - 1].getBoundingClientRect().y
+        // let x = document.querySelectorAll('[title="marker"]')[parseInt(index) - 1].getBoundingClientRect().x
+        // let y = document.querySelectorAll('[title="marker"]')[parseInt(index) - 1].getBoundingClientRect().y
+        let x = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().x
+        let y = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().y
 
         let mapDiv = document.querySelector('#map-container')
 
@@ -229,7 +243,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
                     fontSize: "20px"
                 },
                 map: map,
-                title: "marker"
+                // title: "marker"
             });
 
             marker.addListener("mouseover", () => {
@@ -286,21 +300,6 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
     return (
         <Container>
             <div id="map" ref={mapRef}></div>
-            {/* <svg>
-                <filter id="svg-filter-orange" x="-10%" y="-10%" width="120%" height="120%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                    <feColorMatrix type="matrix" values="1 0 0 0 0
-                1 0 0 0 0
-                1 0 0 0 0
-                0 0 0 1 0" in="SourceGraphic" result="colormatrix"/>
-                    <feComponentTransfer in="colormatrix" result="componentTransfer">
-                            <feFuncR type="table" tableValues="1"/>
-                        <feFuncG type="table" tableValues="0.58"/>
-                        <feFuncB type="table" tableValues="0.26"/>
-                        <feFuncA type="table" tableValues="0 0.7"/>
-                    </feComponentTransfer>
-                    <feBlend mode="normal" in="componentTransfer" in2="SourceGraphic" result="blend"/>
-                </filter>  
-            </svg>           */}
             <svg>
                 <filter id="svg-filter-orange" x="-10%" y="-10%" width="120%" height="120%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
                     <feColorMatrix type="matrix" values="1 0 0 0 0

@@ -73,7 +73,7 @@ const InnerContainerLeft = styled.div`
 
 const InnerContainerRight = styled.div`
   position: relative;
-  top: 17.6vw;
+  top: 17.5vw;
   flex-basis: 18.8%;
   border-left: 1px solid black;
   background-color: white;

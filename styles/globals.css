@@ -132,7 +132,7 @@ a:hover polygon {
   fill: var(--orange);
 }
 
-[title="marker"] {
+/* [title="marker"] {
   position: absolute;
 }
 
@@ -146,17 +146,27 @@ a:hover polygon {
   background-color: transparent;
   box-shadow: inset 1px 0px 3px black;
   border-radius: 999px;
+} */
+
+.marker {
+  position: absolute;
+  left: -19px;
+  top: 30px;
 }
 
-/* [title="marker"] {
-  display: none !important;
-} */
-
-/* @media (min-width: 990px) {
-  a:hover {
-    opacity: 0.7;
-  }
-} */
+.marker:after {
+  content: "";
+  position: absolute;
+  /* left: -19px;
+  top: -19px; */
+  left: 0;
+  top: 0;
+  height: 39px;
+  width: 39px;
+  background-color: transparent;
+  box-shadow: inset 1px 0px 3px black;
+  border-radius: 999px;
+}
 
 * {
   box-sizing: border-box;
