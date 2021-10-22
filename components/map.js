@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import styled from "styled-components";
 
 import { useRouter } from "next/router"
@@ -65,6 +65,7 @@ const Container = styled.div`
 
 
 const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
+    let mapRef = useRef();
 
     let router = useRouter();
 
@@ -169,7 +170,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
         //     mapDiv.appendChild(overlay)
         // }
 
-        const loader = new Loader({
+        let loader = new Loader({
             apiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
             version: 'weekly',
           });
@@ -188,13 +189,13 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             })
 
             setTimeout(() => {
-                document.querySelector("#map").style.opacity = 1
+                mapRef.current.style.opacity = 1
             }, 1000)
           })
 
 
         let initMap = (google) => {
-          map = new google.maps.Map(document.getElementById("map"), {
+          map = new google.maps.Map(mapRef.current, {
             center: { lat: 46.2050242, lng: 6.1090692 },
             zoom: 15,
             mapTypeId: 'satellite',
@@ -278,14 +279,13 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
                 triggerTransition(marker.label.text)
             })
         }  
-    
 
     }, []);
     
 
     return (
         <Container>
-            <div id="map"></div>
+            <div id="map" ref={mapRef}></div>
             {/* <svg>
                 <filter id="svg-filter-orange" x="-10%" y="-10%" width="120%" height="120%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
                     <feColorMatrix type="matrix" values="1 0 0 0 0

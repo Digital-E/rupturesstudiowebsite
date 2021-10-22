@@ -143,6 +143,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
             currentIndex={currentIndex}
             data={allArtistPagesData}
             hasClicked={hasClicked}
+            key="artists"
             // hasClicked={(value) => setHasClicked(value)}
             />
           </InnerContainerLeft>

@@ -193,8 +193,6 @@ const MySelect = ({ label, ...props }) => {
 // And now we can use these
 const SignupForm = ({ data }) => {
 
-  console.log(data)
-
   return (
     <Container>
       <Formik

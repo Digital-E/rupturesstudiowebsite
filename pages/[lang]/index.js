@@ -223,6 +223,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
             currentIndex={currentIndex}
             data={allArtistPagesData}
             hasClicked={hasClicked}
+            key="home"
             // hasClicked={(value) => setHasClicked(value)}
           />
         </BackgroundContainer>
