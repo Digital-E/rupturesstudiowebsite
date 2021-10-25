@@ -7,6 +7,8 @@ import {Loader} from '@googlemaps/js-api-loader';
 
 import { gsap } from "gsap";
 
+import html2canvas from "html2canvas";
+
 
 
 const Container = styled.div`
@@ -22,7 +24,7 @@ const Container = styled.div`
         filter: 
         grayscale(1) 
         contrast(2)
-        url(#svg-filter-orange)
+        // url(#svg-filter-orange)
         ;
     }
 
@@ -105,7 +107,9 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             shadowCircle.style.left =`${x}px`
 
             mapDiv.style.WebkitMaskImage = `radial-gradient( 20px at ${ x + 20 }px ${ y + 20 }px, transparent 99%, black 100% )`
-        }, 10)
+            // mapDiv.style.WebkitMaskImage = `radial-gradient( 20px at ${ x + 20 }px ${ y + 20 }px,rgba(0,0,0,0) 80%, rgba(0,0,0,1) 90%, rgba(0,0,0,1) 100% )`
+            // radial-gradient( 20px at 420px 420px,rgba(0,0,0,0) 0%, rgba(0,0,0,1) 70%, rgba(0,0,0,1) 100%)
+        }, 0)
     }
 
     let removeTransparentCircle = () => {
@@ -142,9 +146,8 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
         router.push(`/${artistData.node._meta.lang}/${url[0]}/${url[1]}`)
 
         // Expand Circle
-
-
-        gsap.to(mapDiv, {webkitMaskImage: `radial-gradient( 999px at ${ x + 20 }px ${ y + 20 }px, transparent 99%, black 100% )`, duration: 1 })
+      
+        gsap.to(mapDiv, {webkitMaskImage: `radial-gradient( 1500px at ${ x + 20 }px ${ y + 20 }px, transparent 99%, black 100% )`, duration: 1 })
 
         // gsap.to(shadowCircle, {scale: 50})
         shadowCircle.style.display = "none";
@@ -211,9 +214,21 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
                 addMarker({ lat: item.node.geo_point.latitude, lng: item.node.geo_point.longitude }, item, map, google);
             })
 
+            let bounds = new google.maps.LatLngBounds(
+                new google.maps.LatLng(-84.999999, -179.999999),
+                new google.maps.LatLng(84.999999, 179.999999));
+            
+            new google.maps.Rectangle({
+                bounds: bounds,
+                fillColor: "#ff9443",
+                fillOpacity: 0.7,
+                strokeWeight: 0,
+                map: map
+            });
+
             setTimeout(() => {
                 mapRef.current.style.opacity = 1
-            }, 1000)
+            }, 500)
           })
 
 
@@ -223,7 +238,12 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             zoom: 15,
             mapTypeId: 'satellite',
             mapTypeControl: false,
-            disableDefaultUI: true
+            disableDefaultUI: true,
+            styles: [{
+                stylers: [{
+                  saturation: -100
+                }]
+              }]
           });
 
           map.setTilt(0);

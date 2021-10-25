@@ -159,7 +159,7 @@ export default function Index({ preview, data, footerData }) {
         <title>{SITE_NAME} | {data[0].node.title}</title>
       </Head>
 
-      <Container>
+      <Container className="hello">
       <ContainerInner>
         <Title>{data[0].node.title}</Title>
         <InnerContainer id="inner-container">
