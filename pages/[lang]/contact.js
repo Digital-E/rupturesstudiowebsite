@@ -62,7 +62,7 @@ const SocialsTwo = styled.div`
     }
 
     @media(min-width: 990px) {
-        background-color: none !important;
+        background-color: transparent !important;
     }
 `
 

@@ -160,7 +160,7 @@ const Submit = ({ children, ...props}) => {
     }
 
 
-    return (<button type="submit" className={isActive ? null : "disabled"}><Button>{children}</Button></button>)
+    return (<button type="submit" id="submit-button" className={isActive ? null : "disabled"}><Button>{children}</Button></button>)
 }
 
 // Styled components ....
@@ -204,6 +204,40 @@ const MySelect = ({ label, ...props }) => {
 // And now we can use these
 const SignupForm = ({ data }) => {
 
+  const addEmailToList = async (values) => {
+    let dataObj = {
+      email: values.email,
+      nom: values.name,
+      prenom: values.surname
+    }
+
+  try {
+      const res = await fetch("/api/subscribe", {
+        "method": "POST",
+        "headers": { "Content-Type": "application/json" },
+        "body": JSON.stringify(dataObj)
+      })
+      .then((response) => response.json())
+      .then(data => {
+        if(data.status !== "error") {
+          document.querySelectorAll(".text-input").forEach(item => {
+            item.value="";
+            document.querySelector("#submit-button").children[0].innerText = "✓"
+            // item.placeholder="Thanks for subscribing!";
+          })
+        } else {
+          document.querySelectorAll(".text-input").forEach(item => {
+            item.value="";
+            document.querySelector("#submit-button").children[0].innerText = data.message
+            // item.placeholder = data.message;
+          })
+        }
+      })
+    } catch (error) {
+          alert(error);
+    }
+  }
+
   return (
     <Container>
       <Formik
@@ -224,8 +258,9 @@ const SignupForm = ({ data }) => {
             .required("Required")
         })}
         onSubmit={async (values, { setSubmitting }) => {
-          await new Promise(r => setTimeout(r, 500));
-          setSubmitting(false);
+          // await new Promise(r => setTimeout(r, 500));
+          // setSubmitting(false);
+          addEmailToList(values);
         }}
       >
         <Form>

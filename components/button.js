@@ -4,8 +4,12 @@ import { gsap } from "gsap"
 import styled from "styled-components"
 
 const Container = styled.span`
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 15px 10px;
+    min-height: 62px;
+    min-width: 62px;
     border-radius: 999px !important;
     color: ${props => props.secondary ? "black" : "black"};
     border: ${props => props.secondary ? "1px solid black" : "1px solid black"};
