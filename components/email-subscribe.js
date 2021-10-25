@@ -7,13 +7,8 @@ const PrismicDOM = require("prismic-dom");
 const Container = styled.div`
     padding: 0 20px;
 
-    > div:nth-child(1) {
-
-    }
-
     @media(max-width: 989px) {
-        > div:nth-child(1) {
-        }
+        padding: 0 10px;
     }
 `;
 

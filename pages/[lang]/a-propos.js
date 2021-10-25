@@ -17,14 +17,22 @@ const Container = styled.div`
     padding-top: 0.2vw;
     padding-bottom: 2.2vw;
   }
+
+  @media(max-width: 989px) {
+    margin-top: 53px;
+  }
 `
 
 const Divider = styled.div`
   width: 100%;
   border-bottom: 1px solid black;
   padding: 5px 25px;
-
   font-size: 30px;
+
+  @media(max-width: 989px) {
+    padding: 5px 10px;
+    font-size: 20px;
+  }
 `
 const Text = styled.div`
   padding: 30px 25px;
@@ -35,6 +43,10 @@ const Text = styled.div`
 
   & .large-font-size p {
     font-size: inherit;
+  }
+
+  @media(max-width: 989px) {
+    padding: 20px 10px;
   }
 `
 

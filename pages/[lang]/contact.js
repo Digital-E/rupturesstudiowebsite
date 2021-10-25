@@ -26,10 +26,18 @@ const Container = styled.div`
     padding-top: 0.2vw;
     padding-bottom: 0.2vw;
   }
+
+  @media(max-width: 989px) {
+    margin-top: 53px;
+  }
 `
 
 const InnerContainer = styled.div`
   display: flex;
+
+  @media(max-width: 989px) {
+    flex-direction: column;
+  }
 `
 const ColOne = styled.div`
     flex-basis: 50%;
@@ -40,15 +48,39 @@ const Socials = styled.div`
     align-items: center;
     justify-content: space-between;
     padding-right: 20px;
+
+    @media(max-width: 989px) {
+        padding: 20px 10px;
+    }
 `
 
-const SocialsTwo = styled.div``
+const SocialsTwo = styled.div`
+    @media(max-width: 989px) {
+        padding: 20px 10px;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+
+    @media(min-width: 990px) {
+        background-color: none !important;
+    }
+`
 
 const Icons = styled.div`
     display: flex;
 
     > a {
         margin-left: 15px;
+    }
+
+    @media(max-width: 989px) {
+        > a {
+            margin-left: 10px;
+        }
+
+        svg {
+            height: 30px;
+        }
     }
 `
 
@@ -62,6 +94,14 @@ const Email = styled.div`
     }
 
     margin-bottom: 30px;
+
+    @media(max-width: 989px) {
+        padding: 0 10px;
+
+        svg {
+            display: none;
+        }
+    }
 `
 
 
@@ -71,25 +111,35 @@ const ColTwo = styled.div`
     justify-content: space-between;
     flex-basis: 50%; 
     
-
-    // > div:nth-child(1) {
-    //     border-left: 1px solid black;
-    // }   
 `
 
 const ColTwoTop = styled.div`
     display: flex;
     flex-grow: 1;
+
+    @media(max-width: 989px) {
+        flex-direction: column;
+    }
 `
 
 const ColTwoTopOne = styled.div`
     flex-basis: 50%;
     border-left: 1px solid black;
+
+    @media(max-width: 989px) {
+        border-left: none;
+        border-top: 1px solid black;
+    }
 `
 
 const ColTwoTopTwo = styled.div`
     flex-basis: 50%;
     border-left: 1px solid black;
+
+    @media(max-width: 989px) {
+        border-left: none;
+        border-top: 1px solid black;
+    }
 `
 
 const ColTwoBottom = styled.div`
@@ -100,6 +150,11 @@ const ColTwoBottom = styled.div`
   span {
       color: black;
   }
+
+  @media(max-width: 989px) {
+      padding: 10px;
+      border-left: none;
+}
 `
 
 
@@ -108,6 +163,11 @@ const Divider = styled.div`
   border-bottom: 1px solid black;
   padding: 5px 20px;
   font-size: 30px;
+
+  @media(max-width: 989px) {
+    padding: 5px 10px;
+    font-size: 20px;
+  }
 `
 
 const Text = styled.div`
@@ -126,6 +186,10 @@ const Text = styled.div`
     & .large-font-size p
      {
         font-size: inherit;
+    }
+
+    @media(max-width: 989px) {
+        padding: 20px 10px;
     }
 `
 
@@ -149,11 +213,29 @@ const TextSecondary = styled.div`
 
     a {
         font-size: 25px !important;
-        color: black;
+    }
+
+    @media(min-width: 990px) {
+        a {
+            color: black;
+        }
+    }
+
+    @media(max-width: 989px) {
+        padding: 0;
+
+        a {
+            font-size: 20px !important;
+        }
     }
 `
 
-const EmailSubscribeWrapper = styled.div``
+const EmailSubscribeWrapper = styled.div`
+    @media(max-width: 989px) {
+        border-bottom: 1px solid black;
+        margin-bottom: 20px;
+    }
+`
 
 
 
@@ -219,7 +301,7 @@ export default function Index({ preview, data, footerData }) {
                     </Icons>
                 </Socials>
 
-                <SocialsTwo>
+                <SocialsTwo className="orange-background">
                     <TextSecondary className="medium-font-size">
                             <RichText render={data[0].node.socials_text_two} />
                     </TextSecondary> 

@@ -17,6 +17,14 @@ const LinkResolver = (data) => {
         return newUrl
     }
 
+    split = data.uid.split("_")
+
+    if(split.length === 2) {
+        let newUrl = `/${lang}/${split[0]}#${split[1]}`
+
+        return newUrl
+    }
+
     let newUrl = `/${lang}/${data.uid}`
 
     return newUrl

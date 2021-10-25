@@ -29,6 +29,22 @@ const Container = styled.div`
     > div:nth-child(2) {
         flex-basis: calc( 34.3% + 1px);
     }
+
+    @media(max-width: 989px) {
+      position: relative;
+      flex-direction: column;
+      top: 53px;
+
+      > div:nth-child(1) {
+        flex-basis: auto;
+      }
+
+      > div:nth-child(2) {
+        flex-basis: auto;
+      }
+
+      height: 100%;
+    }
 `
 
 

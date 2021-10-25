@@ -29,6 +29,12 @@
   margin: 10px !important;
 }
 
+@media (max-width: 989px) {
+  .CookieConsent > div:nth-child(2) {
+    margin-left: auto;
+  }
+}
+
 .CookieConsent #rcc-decline-button,
 .CookieConsent #rcc-confirm-button {
   font-size: 20px;
@@ -80,6 +86,20 @@ body {
   line-height: 1.2;
 }
 
+@media (max-width: 989px) {
+  .small-font-size {
+    font-size: 14px;
+  }
+
+  .medium-font-size {
+    font-size: 20px;
+  }
+
+  .large-font-size {
+    font-size: 20px;
+  }
+}
+
 #__next > div:nth-child(n + 2) {
   position: absolute;
 }
@@ -115,8 +135,10 @@ button {
   background-color: var(--orange);
 }
 
-a:hover {
-  color: var(--orange) !important;
+@media (min-width: 990px) {
+  a:hover {
+    color: var(--orange) !important;
+  }
 }
 
 .active-link {

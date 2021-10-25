@@ -26,7 +26,7 @@ const Container = styled.div`
         border: 1px solid black;
     }
 
-    form  input::placeholder {
+    form input::placeholder {
         color: #A6A6A6;
         font-size: 0.8125rem;
     }
@@ -87,6 +87,7 @@ const Container = styled.div`
     }
 
     @media(max-width: 989px) {
+      margin: 30px 0;
     }
 `;
 
@@ -102,6 +103,16 @@ const Input = styled.div`
 
     > div:nth-child(2) {
       flex-basis: 77%;
+    }
+
+    @media(max-width: 989px) {
+      > label:nth-child(1) {
+        flex-basis: 35%;
+      }
+
+      > div:nth-child(2) {
+        flex-basis: 65%;
+      }
     }
 `
 

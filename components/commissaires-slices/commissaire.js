@@ -10,6 +10,10 @@ const InnerContainer = styled.div`
     height: fit-content;
     padding: 20px;
     border-bottom: 1px solid black;
+
+    @media(max-width: 989px) {
+        padding: 20px 10px;
+    }
 `
 
 

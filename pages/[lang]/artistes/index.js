@@ -77,6 +77,12 @@ const InnerContainerRight = styled.div`
   flex-basis: 18.8%;
   border-left: 1px solid black;
   background-color: white;
+
+  @media(max-width: 989px) {
+    top: 53px;
+    flex-basis: 100%;
+    border-left: none;
+  }
 `
 
 const ListItem = styled.div`
@@ -97,6 +103,21 @@ const ListItem = styled.div`
   }
 `
 
+const Divider = styled.div`
+  width: 100%;
+  border-bottom: 1px solid black;
+  padding: 5px 20px;
+  font-size: 30px;
+  display: none;
+
+  @media(max-width: 989px) {
+    display: block;
+    padding: 5px 10px;
+    font-size: 20px;
+  }
+`
+
+
 
 
 
@@ -104,6 +125,8 @@ const ListItem = styled.div`
 export default function Index({ preview, data, allArtistPagesData, footerData }) {
   let [currentIndex, setCurrentIndex] = useState(null);
   let [hasClicked, setHasClicked] = useState(false);
+  let [isMobile, setIsMobile] = useState(true);
+  let [isParcoursInteractif, setIsParcoursInteractif] = useState(false);
 
 
   useEffect(() => {
@@ -117,6 +140,16 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
     backgroundImages[currentIndex - 1].style.opacity = 1;
 
   }, [currentIndex])
+
+  useEffect(() => {
+    if(window.innerWidth > 989) {
+      setIsMobile(false);
+    }
+
+    if(window.location.hash === "#parcours-interactif") {
+      setIsParcoursInteractif(true)
+    }
+  },[])
 
   return (
     <Layout 
@@ -138,29 +171,40 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
         <Title>{data[0].node.title}</Title>
         <InnerContainer>
           <InnerContainerLeft>
-            <Map 
-            setCurrentIndex={(index) => setCurrentIndex(index)}
-            currentIndex={currentIndex}
-            data={allArtistPagesData}
-            hasClicked={hasClicked}
-            key="artists"
-            // hasClicked={(value) => setHasClicked(value)}
-            />
+            {
+              ( !isMobile || isParcoursInteractif )?
+                <Map 
+                setCurrentIndex={(index) => setCurrentIndex(index)}
+                currentIndex={currentIndex}
+                data={allArtistPagesData}
+                hasClicked={hasClicked}
+                key="artists"
+                // hasClicked={(value) => setHasClicked(value)}
+                />
+                :
+                null
+            }
           </InnerContainerLeft>
-          <InnerContainerRight>
-            {allArtistPagesData.map((item, index) => {
-              return <ListItem 
-              key={index} className={index + 1 === parseInt(currentIndex) ? "is-active orange-hover" : "orange-hover"}
-              onMouseEnter={() => setCurrentIndex(index + 1)}
-              onMouseLeave={() => setCurrentIndex(null)}
-              onClick={() => setHasClicked(true)}
-              >
-                <Link href={`${item.node._meta.uid}`}>
-                  <span>{item.node.number}. {item.node.name}</span>
-                </Link>
-                </ListItem>
-            })}
-          </InnerContainerRight>
+          {
+            ( !isParcoursInteractif || !isMobile ) ?
+              <InnerContainerRight>
+              <Divider className="orange-background">{data[0].node.title}</Divider>
+              {allArtistPagesData.map((item, index) => {
+                return <ListItem 
+                key={index} className={index + 1 === parseInt(currentIndex) ? "is-active orange-hover" : "orange-hover"}
+                onMouseEnter={() => setCurrentIndex(index + 1)}
+                onMouseLeave={() => setCurrentIndex(null)}
+                onClick={() => setHasClicked(true)}
+                >
+                  <Link href={`${item.node._meta.uid}`}>
+                    <span>{item.node.number}. {item.node.name}</span>
+                  </Link>
+                  </ListItem>
+              })}
+            </InnerContainerRight>
+            :
+            null
+          }
         </InnerContainer>
       </ContainerInner>
       </Container>

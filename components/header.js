@@ -36,6 +36,14 @@ const Menu = styled.div`
     line-height: 0.95;
     color: black;
   }
+
+  @media(max-width: 989px) {
+    a, span {
+      font-size: 20px;
+      line-height: 1;
+      color: black;
+    }
+  }
 `
 
 
@@ -46,9 +54,6 @@ const Container = styled.div`
 
   a:hover {
     background-color: rgb(255, 148, 67);
-  }
-
-  @media(max-width: 989px) {
   }
 `;
 
@@ -61,6 +66,10 @@ const ColLeft = styled.div`
   padding: 0 2.08vw 0 0.69vw;
   border-bottom: 1px solid black;
   align-items: center;
+
+  @media(max-width: 989px) {
+    padding: 5px 10px;
+  }
 `;
 
 const ColLeftInnerLeft = styled.div`
@@ -68,6 +77,12 @@ const ColLeftInnerLeft = styled.div`
 
   a {
     background-color: transparent !important;
+  }
+
+  @media(max-width: 989px) {
+    a {
+      font-size: 14px;
+    }
   }
 `;
 
@@ -87,15 +102,29 @@ const ColLeftInnerRight = styled.div`
   p {
     margin: 0;
   }
+
+  @media(max-width: 989px) {
+    display: none;
+  }
 `;
 
 const ColRight = styled.div`
   display: flex;
   flex-basis: 50%;
+
+  @media(max-width: 989px) {
+    justify-content: flex-end;
+    padding: 0 10px;
+    border-bottom: 1px solid black;
+  }
 `;
 
 const ColRightInnerLeft = styled.div`
   flex-basis: 94%;
+
+  @media(max-width: 989px) {
+    display: none;
+  }
 `;
 
 const ColRightInnerRight = styled.div`
@@ -119,6 +148,10 @@ const ColRightInnerRight = styled.div`
   }
 }
 
+@media(max-width: 989px) {
+  display: none;
+}
+
 
 `;
 
@@ -133,9 +166,9 @@ const DesktopMenu = styled.div`
     padding: 0.48vw 0.69vw 0.24vw 0.69vw;
   }
 
-  @media(max-width: 989px) {
-    display: none;
-  }
+  // @media(max-width: 989px) {
+  //   display: none;
+  // }
 `
 
 
@@ -143,7 +176,8 @@ const MobileBurger = styled.div`
   display: none;
 
   @media(max-width: 989px) {
-    display: block;
+    display: flex;
+    align-items: center;
   }
 `
 
@@ -156,6 +190,10 @@ const MobileMenu = styled.div`
   left: 0;
   z-index: 9999;
 
+  > div {
+    width: 100%;
+  }
+
   display: none;
 `
 
@@ -163,9 +201,8 @@ const ContainerMobile = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 45px 80px;
-
-  border-bottom: 2px solid #C5C7CA;
+  padding: 0;
+  border-bottom: 1px solid black;
 
 
   .cls-1 {
@@ -182,7 +219,7 @@ const ContainerMobile = styled.div`
 
   @media(max-width: 989px) {
 
-    padding: 25px;
+    padding: 5px 10px;
 
     svg {
       height: 40px;
@@ -191,10 +228,14 @@ const ContainerMobile = styled.div`
 `;
 
 const MobileMenuInner = styled.div`
-  padding: 15px 40px;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  width: fit-content;
+  width: fit-content;s
+
+  @media(max-width: 989px) {
+    width: 100%;
+  }
 `
 
 const LinkStyle = styled.div`
@@ -215,8 +256,83 @@ const LinkStyle = styled.div`
   }
 
   @media(max-width: 989px) {
+    border-left: 0;
+    height: auto;
+    
+    > a {
+      display: block;
+      // padding: 7px 10px;
+      padding: 20px 10px;
+      height: 100%;
+      width: 100%;
+      line-height: 0.8;
+    }
   }
 `
+
+const MobileColLeft = styled.div`
+  a {
+    font-size: 14px;
+  }
+`
+
+const MobileColRight = styled.div``
+
+const MobileLocaleSwitch = styled.div`
+  display: flex;
+
+  > div {
+    flex-basis: 50%;
+  }
+
+  > div:nth-child(2) {
+    border-left: 1px solid black;
+  }
+`
+const MobileBurgerClose = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 30px;
+  height: 30px;
+
+  > div {
+    position: absolute;
+    height: 1px;
+    width: 30px;
+    background-color: black;
+  }
+
+  > div:nth-child(1) {
+    transform: rotateZ(45deg);
+    transform-origin: center center;
+  }
+
+  > div:nth-child(2) {
+    transform: rotateZ(-45deg);
+    transform-origin: center center;
+  }
+`
+
+const MobileBurgerOpen = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 30px;
+  height: 35px;
+
+  > div {
+    height: 1px;
+    width: 30px;
+    background-color: black;
+    margin: 5px 0;
+  } 
+`
+
+
 
 
 
@@ -231,21 +347,21 @@ export default function Header({ data }) {
   const { state, dispatch } = context;
 
   useEffect(() => {
-    // let menuClose = document.querySelector("#menu-close");
-    // let menuOpen = document.querySelector("#menu-open");
+    let menuClose = document.querySelector("#menu-close");
+    let menuOpen = document.querySelector("#menu-open");
 
-    // const closeMenu = () => {
-    //   document.querySelector(".mobile-menu").classList.remove("mobile-menu--open")
-    // }
+    const closeMenu = () => {
+      document.querySelector(".mobile-menu").classList.remove("mobile-menu--open")
+    }
 
-    // const openMenu = () => {
-    //   document.querySelector(".mobile-menu").classList.add("mobile-menu--open")
-    // }
+    const openMenu = () => {
+      document.querySelector(".mobile-menu").classList.add("mobile-menu--open")
+    }
 
-    // menuClose.addEventListener("click", () => closeMenu())
-    // menuOpen.addEventListener("click", () => openMenu())
+    menuClose.addEventListener("click", () => closeMenu())
+    menuOpen.addEventListener("click", () => openMenu())
 
-    // document.querySelectorAll("a").forEach(item => {item.addEventListener("click", () => closeMenu())})
+    document.querySelectorAll("a").forEach(item => {item.addEventListener("click", () => closeMenu())})
 
 
   },[]);
@@ -256,36 +372,37 @@ export default function Header({ data }) {
     <Menu>
     <MobileMenu className="mobile-menu">
     <ContainerMobile>
-      <ColLeft>
+      <MobileColLeft>
         <MenuLink href="">
+          Art au Centre <br/> Genève <br/>
+          25.11.21-28.02.22
         </MenuLink>
-      </ColLeft>
+      </MobileColLeft>
 
-      <ColRight>
+      <MobileColRight>
         <MobileBurger id="menu-close">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 0V24H24V0H0ZM20.0287 18.9638L18.9713 20.025L12 13.0537L5.02875 20.025L3.97125 18.9638L10.9388 12L3.97125 5.025L5.02875 3.96375L12 10.935L18.9713 3.96375L20.0287 5.025L13.0613 12L20.0287 18.9638Z" fill="black"/>
-          </svg>
+          <MobileBurgerClose>
+            <div></div>  
+            <div></div>
+          </MobileBurgerClose>          
         </MobileBurger>
-      </ColRight>
+      </MobileColRight>
     </ContainerMobile>
 
       <MobileMenuInner>
-        {data !== null ? 
-        data.menu_items.map((item, index) => 
+        {data.mobile_menu_items !== null ? 
+          <>
           {
-            if(index === 0) {
-              return (
-                <>
-                <LinkStyle key={index} className="button"><Link data={item.link}>{item.link_text}</Link></LinkStyle>
-                {/* <SubMenu>
-                   { data.menu_sub_items.map((item, index) => <SubLinkStyle className="button" colour={item.underline_colour}><Link data={item.link}>{item.link_text}</Link></SubLinkStyle>)}
-                </SubMenu> */}
-                </>
-              )
-            }
-            return <LinkStyle key={index} className="button"><Link data={item.link}>{item.link_text}</Link></LinkStyle>
-          }) 
+            data.mobile_menu_items.map((item, index) => 
+              {
+                return <LinkStyle key={item.index} className="button"><Link data={item.link}>{item.link_text}</Link></LinkStyle>
+              })
+          }
+          <MobileLocaleSwitch>
+            <LinkStyle><LocaleLink href="/fr-fr"><span>Fr</span></LocaleLink></LinkStyle>
+            <LinkStyle><LocaleLink href="/en-gb"><span>En</span></LocaleLink></LinkStyle>
+          </MobileLocaleSwitch>
+          </>
         : 
         null}
       </MobileMenuInner>
@@ -309,7 +426,7 @@ export default function Header({ data }) {
       <ColRight>
         <ColRightInnerLeft>
           <DesktopMenu>
-            {data !== null ? data.menu_items.map((item, index) => <LinkStyle key={item.index}><Link data={item.link}><span>{item.link_text}</span></Link></LinkStyle>) : null}
+            {data.menu_items !== null ? data.menu_items.map((item, index) => <LinkStyle key={item.index}><Link data={item.link}><span>{item.link_text}</span></Link></LinkStyle>) : null}
           </DesktopMenu>
         </ColRightInnerLeft>
 
@@ -318,11 +435,13 @@ export default function Header({ data }) {
           <LinkStyle><LocaleLink href="/en-gb"><span>En</span></LocaleLink></LinkStyle>
         </ColRightInnerRight>
         
-         {/* <MobileBurger id="menu-open">
-           <svg width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-             <path d="M24 16H0V13.3333H24V16ZM24 9.33333H0V6.66667H24V9.33333ZM24 2.66667H0V0H24V2.66667Z" fill="black"/>
-           </svg>
-         </MobileBurger> */}
+         <MobileBurger id="menu-open">
+           <MobileBurgerOpen>
+             <div></div>
+             <div></div>
+             <div></div>
+           </MobileBurgerOpen>
+         </MobileBurger>
       </ColRight>
     </Container>
     </Menu>

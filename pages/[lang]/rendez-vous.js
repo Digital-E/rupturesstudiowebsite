@@ -26,10 +26,18 @@ const Container = styled.div`
     padding-top: 0.2vw;
     padding-bottom: 0.2vw;
   }
+
+  @media(max-width: 989px) {
+    margin-top: 53px;
+  }
 `
 
 const InnerContainer = styled.div`
   display: flex;
+
+  @media(max-width: 989px) {
+    flex-direction: column;
+  }
 `
 
 const ColLeft = styled.div`
@@ -37,8 +45,13 @@ const ColLeft = styled.div`
 `
 
 const ColRight = styled.div`
-flex-basis: 50%;
-border-left: 1px solid black;
+  flex-basis: 50%;
+  border-left: 1px solid black;
+
+  @media(max-width: 989px) {
+    border-left: none;
+    border-top: 1px solid black;
+  }
 `
 
 
@@ -47,11 +60,24 @@ const Divider = styled.div`
   border-bottom: 1px solid black;
   padding: 5px 20px;
   font-size: 30px;
+
+  @media(max-width: 989px) {
+    padding: 5px 10px;
+    font-size: 20px;
+  }
 `
 
 const Text = styled.div`
   padding: 20px;
   border-bottom: 1px solid black;
+
+  @media(max-width: 989px) {
+    padding: 20px 10px;
+
+    p {
+      margin: 0;
+    }
+  }
 `
 
 
@@ -70,6 +96,10 @@ const ListLeftItemTitle = styled.div`
 const ListLeftItem = styled.div`
   padding: 0 20px;
   margin: 20px 0;
+
+  @media(max-width: 989px) {
+    padding: 0px 10px;
+  }
 `
 
 const ListLeftItemLinkWrapper = styled.div`
@@ -92,7 +122,13 @@ const ListLeftItemInformation = styled.div`
 
   > div > div:nth-child(2) {
       margin-left: 10px;
-}
+  }
+
+  @media(max-width: 989px) {
+    svg {
+      height: 25px;
+    }
+  }
 `
 
 const ListRight = styled.div`
@@ -118,9 +154,14 @@ const ListRightItem = styled.div`
       margin-left: 25px;
   }
 
-//   :last-child .divider-horizontal {
-//     display: none;
-//   }
+
+@media(max-width: 989px) {
+  padding: 0px 10px;
+
+  svg {
+    height: 30px;
+  }
+}
 `
 
 const ListRightItemLinkWrapper = styled.div``
@@ -139,6 +180,7 @@ export default function Index({ preview, data, footerData }) {
 
 
     useEffect(() => {
+      if(window.innerWidth > 989) {
         ScrollTrigger.create({
             trigger: "#divider-one",
             start: `top top+=${0.049 * window.innerWidth}px`,
@@ -151,7 +193,8 @@ export default function Index({ preview, data, footerData }) {
             start: `top top+=${0.049 * window.innerWidth}px`,
             pin: true,
             pinSpacing: false,
-        });          
+        });   
+      }       
     },[])
 
     let eventsList = data[0].node.list_one.sort(function(a,b){

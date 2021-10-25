@@ -18,10 +18,18 @@ const Container = styled.div`
     padding-top: 0.2vw;
     padding-bottom: 2.2vw;
   }
+
+  @media(max-width: 989px) {
+    margin-top: 53px;
+  }
 `
 
 const InnerContainer = styled.div`
   display: flex;
+
+  @media(max-width: 989px) {
+    flex-direction: column;
+  }
 `
 
 const ColLeft = styled.div`
@@ -35,6 +43,12 @@ const ColLeft = styled.div`
 const ColRight = styled.div`
 flex-basis: 25%;
 border-left: 1px solid black;
+
+@media(max-width: 989px) {
+  border-left: none;
+  border-top: 1px solid black;
+  margin-top: 30px;
+}
 `
 
 
@@ -43,6 +57,11 @@ const Divider = styled.div`
   border-bottom: 1px solid black;
   padding: 5px 20px;
   font-size: 30px;
+
+  @media(max-width: 989px) {
+    padding: 5px 10px;
+    font-size: 20px;
+  }
 `
 
 const ListMain = styled.div``
@@ -57,6 +76,10 @@ const List = styled.div`
 
 const ListTitle = styled.div`
   padding: 0 20px;
+
+  @media(max-width: 989px) {
+    padding: 0 10px;
+  }
 `
 
 
@@ -84,10 +107,36 @@ const ListItem = styled.div`
   > a > div:nth-child(2) > img {
     height: 70px;
   }
+
+  @media(max-width: 989px) {
+    padding: 0 10px;
+
+    > a {
+      flex-direction: column;
+      font-size: 30px;
+    }
+
+    > a > div:nth-child(1) {
+      width: 100%;
+      margin-bottom 20px;
+    }
+
+    > a > div:nth-child(2) {
+      width: 100%;
+    }
+
+    > a > div:nth-child(2) > img {
+      height: 50px;
+    }
+  }
 `
 
 const ListTwo = styled.div`
-  padding: 10px 20px;  
+  padding: 10px 20px; 
+  
+  @media(max-width: 989px) {
+    padding: 10px;
+  }
 `
 
 const ListTwoItem = styled.div`

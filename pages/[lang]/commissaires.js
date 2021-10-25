@@ -41,11 +41,18 @@ const InnerContainer = styled.div`
   margin-top: 17.6vw;
   // height: calc(100vh - 17.6vw);
   // height: calc(100vh - 4.9vw);
+
+  @media(max-width: 989px) {
+    margin-top: 53px;
+  }
 `
 
 const InnerContainerLeft = styled.div`
   flex-basis: 81.25%;
-  // overflow: scroll;
+
+  @media(max-width: 989px) {
+    flex-basis: 100%;
+  }
 `
 
 const InnerContainerRight = styled.div`
@@ -54,6 +61,10 @@ const InnerContainerRight = styled.div`
   border-left: 1px solid black;
   background-color: white;
   overflow: scroll;
+
+  @media(max-width: 989px) {
+    display: none;
+  }
 `
 
 const ListItem = styled.div`
@@ -80,6 +91,18 @@ const Grid = styled.div`
 > div:nth-child(odd) {
   border-right: 1px solid black;
 }
+
+@media(max-width: 989px) {
+  > div {
+    float: none;
+    width: 100%;
+    border-bottom: 1px solid black;
+  }
+
+  > div:nth-child(odd) {
+    border-right: none;
+  }
+}
 `
 
 
@@ -96,29 +119,34 @@ export default function Index({ preview, data, footerData }) {
 
   useEffect(() => {
     var grid = document.querySelector('.grid');
-    var msnry = new Masonry( grid, {
-    itemSelector: '.grid-item',
-    // columnWidth: 500
-    });
 
-    ScrollTrigger.create({
-      trigger: "#inner-container-right",
-      start: `top top+=${0.049 * window.innerWidth}px`,
-      pin: true,
-      // endTrigger: "#otherID",
-      // end: "bottom 50%+=100px",
-      // onToggle: self => console.log("toggled, isActive:", self.isActive),
-      onToggle: self => {
-        // if(self.isActive) {
-        //   document.querySelector("#commissionners-grid").style.overflow = "scroll"
-        // } else {
-        //   document.querySelector("#commissionners-grid").style.overflow = "hidden"
+    if(window.innerWidth > 989) {
+
+      var msnry = new Masonry( grid, {
+      itemSelector: '.grid-item',
+      // columnWidth: 500
+      });
+
+      ScrollTrigger.create({
+        trigger: "#inner-container-right",
+        start: `top top+=${0.049 * window.innerWidth}px`,
+        pin: true,
+        // endTrigger: "#otherID",
+        // end: "bottom 50%+=100px",
+        // onToggle: self => console.log("toggled, isActive:", self.isActive),
+        onToggle: self => {
+          // if(self.isActive) {
+          //   document.querySelector("#commissionners-grid").style.overflow = "scroll"
+          // } else {
+          //   document.querySelector("#commissionners-grid").style.overflow = "hidden"
+          // }
+        }
+        // onUpdate: self => {
+        //   console.log("progress:", self.progress.toFixed(3), "direction:", self.direction, "velocity", self.getVelocity());
         // }
-      }
-      // onUpdate: self => {
-      //   console.log("progress:", self.progress.toFixed(3), "direction:", self.direction, "velocity", self.getVelocity());
-      // }
-    });
+      });
+
+    } 
   },[]);
 
 

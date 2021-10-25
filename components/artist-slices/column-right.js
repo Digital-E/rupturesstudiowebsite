@@ -9,6 +9,10 @@ import MenuLink from "../menu-link"
 
 const Container = styled.div`
     border-left: 1px solid black;
+
+    @media(max-width: 989px) {
+        border-left: none;
+    }
 `
 
 const Name = styled.div`
@@ -103,6 +107,12 @@ const Arrows = styled.div`
 
 const ArrowLeft = styled.div`
     cursor: pointer;
+
+    @media(max-width: 989px) {
+        svg {
+          height: 20px !important;
+        }
+      }
 `
 
 const ArrowRight = styled.div`
@@ -111,6 +121,14 @@ const ArrowRight = styled.div`
     top: -4px;
     cursor: pointer;
     margin-left: 15px;
+
+    @media(max-width: 989px) {
+        svg {
+          height: 20px !important;
+        }
+
+        top: 1px;
+      }
 `
 
 
@@ -118,11 +136,13 @@ const ArrowRight = styled.div`
 const Component = ({ data, nextPrevArtists }) => {
 
     useEffect( () => {
-        let textWrapper = document.querySelector(".text-wrapper");
-        let textWrapperTop = textWrapper.getBoundingClientRect().y;
-        let textWrapperHeight = window.innerHeight - textWrapperTop;
-
-        textWrapper.style.height = `${textWrapperHeight}px`;
+        if(window.innerWidth > 989) {
+            let textWrapper = document.querySelector(".text-wrapper");
+            let textWrapperTop = textWrapper.getBoundingClientRect().y;
+            let textWrapperHeight = window.innerHeight - textWrapperTop;
+    
+            textWrapper.style.height = `${textWrapperHeight}px`;
+        }
     })
 
     return (

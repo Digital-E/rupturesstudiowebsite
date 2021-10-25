@@ -28,6 +28,19 @@ const LinkComponent = ({data, children}) => {
         
         if(split.length === 2) {
             let newUrl = `/${lang}/${split[0]}/${split[1]}`
+
+            return (
+                <Link href={newUrl} scroll={false}>
+                    <a className={router.asPath === newUrl ? "active-link" : ""}>{children}</a>
+                </Link>               
+            )
+        }
+
+        split = data._meta.uid.split("_")
+
+        if(split.length === 2) {
+            let newUrl = `/${lang}/${split[0]}#${split[1]}`
+
             return (
                 <Link href={newUrl} scroll={false}>
                     <a className={router.asPath === newUrl ? "active-link" : ""}>{children}</a>

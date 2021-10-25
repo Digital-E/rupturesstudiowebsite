@@ -107,6 +107,33 @@ const Title = styled.div`
     right: 3%;
     bottom: 3%;
   }
+
+  @media(max-width: 600px) {
+    > span {
+      font-size: 25vw;
+    }
+
+    > .art {
+      top: 8%;
+      left: 3%;
+    }
+  
+    > .au {
+      top: 30%;
+      right: 15%;
+    }
+  
+    > .centre {
+      top: 55%;
+      left: 3%;
+    }
+  
+    > .geneve {
+      left: 3%;
+      right: auto;
+      bottom: 3%;
+    }
+  }
 `
 const IntroText = styled.div`
   position: fixed;
@@ -119,11 +146,21 @@ const IntroText = styled.div`
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   transform: translateY(-50%);
+  pointer-events: none;
 
   * {
     margin: 0;
     line-height: 1;
     font-size: 40px;
+  }
+
+  a {
+    pointer-events: all;
+  }
+
+  @media(max-width: 989px) {
+    // height: 100%;
+    // margin-top: 53px
   }
 `
 
@@ -132,6 +169,7 @@ const IntroText = styled.div`
 export default function Index({ preview, data, allArtistPagesData, footerData }) {
   let [currentIndex, setCurrentIndex] = useState(null);
   let [hasClicked, setHasClicked] = useState(false);
+  let [isMobile, setIsMobile] = useState(true);
 
 
   useEffect(() => {
@@ -194,6 +232,12 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
     }
   },[])
 
+  useEffect(() => {
+    if(window.innerWidth > 989) {
+      setIsMobile(false);
+    }
+  },[])
+
   return (
     <Layout 
     preview={preview} name={data[0].node.title} content={data[0].node.content} 
@@ -216,16 +260,18 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
         </IntroText>
         <div id="shadow-circle"></div>
         <BackgroundContainer id="map-container">
-          {/* <Overlay /> */}
-          {/* <img src="/map.png" /> */}
-          <Map 
-            setCurrentIndex={(index) => setCurrentIndex(index)}
-            currentIndex={currentIndex}
-            data={allArtistPagesData}
-            hasClicked={hasClicked}
-            key="home"
-            // hasClicked={(value) => setHasClicked(value)}
-          />
+            {!isMobile ?
+              <Map 
+              setCurrentIndex={(index) => setCurrentIndex(index)}
+              currentIndex={currentIndex}
+              data={allArtistPagesData}
+              hasClicked={hasClicked}
+              key="home"
+              // hasClicked={(value) => setHasClicked(value)}
+              />
+              :
+              null
+            }
         </BackgroundContainer>
       </Container>
     </Layout>
