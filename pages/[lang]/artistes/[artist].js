@@ -85,8 +85,8 @@ export default function Index({ preview, data, dataAll, footerData }) {
         <title>{SITE_NAME} | {data[0].node.name}</title>
       </Head>
       <Container>
-          <Carousel data={data[0].node.images} />
-          <ColRight data={data[0].node} nextPrevArtists={nextPrevArtists}/>
+          <Carousel key={`carousel-${data[0].node._meta.uid}`} data={data[0].node.images} />
+          <ColRight key={`colright-${data[0].node._meta.uid}`} data={data[0].node} nextPrevArtists={nextPrevArtists}/>
       </Container>
     </Layout>
   )
