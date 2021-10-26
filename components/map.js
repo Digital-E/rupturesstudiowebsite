@@ -145,7 +145,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
 
         let url = artistData.node._meta.uid.split("__");
 
-        // router.push(`/${lang}/${url[0]}/${url[1]}`)
+        router.push(`/${lang}/${url[0]}/${url[1]}`)
 
         // Expand Circle
 
@@ -159,7 +159,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
         let browser = Bowser.getParser(window.navigator.userAgent).parsedResult.browser.name
 
         if(window.innerWidth > 990 && browser !== "Safari") {
-            gsap.to(mapDiv, {webkitMaskImage: `radial-gradient( 1500px at ${ x + 20 }px ${ y + 20 }px, transparent 99%, black 100% )`, duration: 1.5 })
+            gsap.to(mapDiv, {webkitMaskImage: `radial-gradient( 1500px at ${ x + 20 }px ${ y + 20 }px, transparent 99%, black 100% )`, duration: 1 })
 
             // gsap.to(shadowCircle, {scale: 50})
             shadowCircle.style.display = "none";
@@ -234,7 +234,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             new google.maps.Rectangle({
                 bounds: bounds,
                 fillColor: "#ff9443",
-                fillOpacity: 0.7,
+                fillOpacity: 0.8,
                 strokeWeight: 0,
                 map: map
             });

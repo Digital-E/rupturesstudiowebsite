@@ -187,11 +187,9 @@ a:hover polygon {
   top: 31px;
 }
 
-.marker:after {
+/* .marker:after {
   content: "";
   position: absolute;
-  /* left: -19px;
-  top: -19px; */
   left: 0;
   top: 0;
   height: 39px;
@@ -199,7 +197,7 @@ a:hover polygon {
   background-color: transparent;
   box-shadow: inset 1px 0px 3px black;
   border-radius: 999px;
-}
+} */
 
 * {
   box-sizing: border-box;

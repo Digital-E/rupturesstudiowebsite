@@ -215,7 +215,7 @@ export default function Index({ preview, data, footerData }) {
           <InnerContainer>
             <ColLeft>
               <Divider id="divider-one" className="orange-background"><span>{data[0].node.list_one_title}</span></Divider>
-              <Text>
+              <Text className="medium-font-size">
                 <RichText render={data[0].node.list_one_text} />
               </Text>
               <ListLeft>
@@ -269,7 +269,7 @@ export default function Index({ preview, data, footerData }) {
               <Divider id="divider-two" className="orange-background">
                 {data[0].node.list_two_title}
               </Divider>
-              <Text>
+              <Text className="medium-font-size">
                 <RichText render={data[0].node.list_two_text} />                       
               </Text>
               <ListRight>

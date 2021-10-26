@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 import { getHome, getHomePagesSlugs, getAllArtistPages, getMenu, getFooter } from "../../lib/api";
 
-import Map from "../../components/map"
+import Map from "../../components/home-map"
 
 import { SITE_NAME } from "../../lib/constants"
 import RichText from '../../components/rich-text';
@@ -38,6 +38,8 @@ const BackgroundContainer = styled.div`
   width: 100vw;
   opacity: 1;
 
+  background: url("/mobile-background-min.jpeg");
+
   #shadow-circle {
     position: absolute;
     height: 40px;
@@ -59,6 +61,7 @@ const BackgroundContainer = styled.div`
     filter: grayscale(100%);
     opacity: 1;
   }
+
 `
 
 
@@ -138,14 +141,14 @@ const Title = styled.div`
 const IntroText = styled.div`
   position: fixed;
   z-index: 999;
-  top: -300px;
+  top: 0;
   left: 0;
   width: 100vw;
   padding: 40px 20px;
   background: white;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
-  transform: translateY(-50%);
+  // transform: translateY(-100%);
   pointer-events: none;
 
   * {
@@ -206,26 +209,54 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
       }
     })
 
+
     tl.to("#index-title", 
       {
         x: window.innerWidth, 
-        duration: 5, 
-        stagger: 0.3, 
+        duration: 2, 
+        stagger: 0.1, 
         ease: "sine.inOut"
       },
       "start"
       )
 
-    tl.to("#intro-text",
+    tl.fromTo("#intro-text",
       {
-        top: "50%",
-        duration: 5,
+        y: "-100%",
+      },
+      {
+        y: window.innerHeight - document.querySelector("#intro-text").getBoundingClientRect().height,
+        duration: 2,
         ease: "sine.inOut"
       },
       "start"
     )
+    .then(() => {
+      tl.kill()
+      
+      // Move Markers
+
+      let allMarkers = document.querySelector(".gm-style").children[1].children[0].children[3].children
+
+      gsap.to(allMarkers, {y: -1000, duration: 0})
+
+      gsap.to(allMarkers, {y:0, duration: 1, opacity: 1})
+
+      Array.from(allMarkers).forEach(item => item.classList.add("show"))
+
+      document.querySelector("#scroll-trigger").style.pointerEvents = "none";
+    })
 
     tl.pause()
+
+
+    document.querySelector("#container").addEventListener("click", () => {
+      tl.play()
+    })
+
+    setTimeout(() => {
+      tl.play()
+    }, 5000)
 
     return () => {
       document.querySelector("body").style.overflow = "visible"
