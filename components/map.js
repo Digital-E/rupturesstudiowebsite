@@ -9,6 +9,8 @@ import { gsap } from "gsap";
 
 import html2canvas from "html2canvas";
 
+import Bowser from "bowser";
+
 
 
 const Container = styled.div`
@@ -143,14 +145,25 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
 
         let url = artistData.node._meta.uid.split("__");
 
-        router.push(`/${artistData.node._meta.lang}/${url[0]}/${url[1]}`)
+        // router.push(`/${lang}/${url[0]}/${url[1]}`)
 
         // Expand Circle
-      
-        gsap.to(mapDiv, {webkitMaskImage: `radial-gradient( 1500px at ${ x + 20 }px ${ y + 20 }px, transparent 99%, black 100% )`, duration: 1 })
 
-        // gsap.to(shadowCircle, {scale: 50})
-        shadowCircle.style.display = "none";
+        // html2canvas(mapDiv, {allowTaint: true, useCORS: true}).then(function(canvas) {
+        //     // mapDiv.innerHTML = "";
+        //     mapDiv.appendChild(canvas);
+        //     // gsap.to(mapDiv, {webkitMaskImage: `radial-gradient( 1500px at ${ x + 20 }px ${ y + 20 }px, transparent 99%, black 100% )`, duration: 1.5 })
+        // });
+      
+        
+        let browser = Bowser.getParser(window.navigator.userAgent).parsedResult.browser.name
+
+        if(window.innerWidth > 990 && browser !== "Safari") {
+            gsap.to(mapDiv, {webkitMaskImage: `radial-gradient( 1500px at ${ x + 20 }px ${ y + 20 }px, transparent 99%, black 100% )`, duration: 1.5 })
+
+            // gsap.to(shadowCircle, {scale: 50})
+            shadowCircle.style.display = "none";
+        }
 
         // let init = 20;
 

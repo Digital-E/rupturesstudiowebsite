@@ -11,6 +11,17 @@
   --orange: rgb(255, 148, 67);
 }
 
+/* #map-container {
+  transition-duration: 0.3s;
+  --mask: radial-gradient(
+    20px at var(--x) var(--y),
+    transparent 99%,
+    black 100%
+  );
+  -webkit-mask-image: var(--mask);
+  mask-image: var(--mask);
+} */
+
 .CookieConsent {
   background-color: #ffffff !important;
   border-top: 1px solid black !important;
