@@ -252,11 +252,11 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             mapTypeId: 'satellite',
             mapTypeControl: false,
             disableDefaultUI: true,
-            styles: [{
-                stylers: [{
-                  saturation: -100
-                }]
-              }]
+            // styles: [{
+            //     stylers: [{
+            //       saturation: -100
+            //     }]
+            //   }]
           });
 
           map.setTilt(0);

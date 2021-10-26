@@ -38,9 +38,7 @@ const InnerContainer = styled.div`
   width: 100%;
   z-index: 0;
   width: 100vw;
-  margin-top: 17.6vw;
-  // height: calc(100vh - 17.6vw);
-  // height: calc(100vh - 4.9vw);
+  margin-top: 17.5vw;
 
   @media(max-width: 989px) {
     margin-top: 53px;
@@ -48,7 +46,7 @@ const InnerContainer = styled.div`
 `
 
 const InnerContainerLeft = styled.div`
-  flex-basis: 81.25%;
+  flex-basis: 81.3%;
 
   @media(max-width: 989px) {
     flex-basis: 100%;
@@ -57,7 +55,7 @@ const InnerContainerLeft = styled.div`
 
 const InnerContainerRight = styled.div`
   position: relative;
-  flex-basis: 18.75%;
+  flex-basis: 18.7%;
   border-left: 1px solid black;
   background-color: white;
   overflow: scroll;
@@ -86,6 +84,7 @@ const Grid = styled.div`
 > div {
   float: left;
   width: 50%;
+  border-bottom: 1px solid black;
 }
 
 > div:nth-child(odd) {
@@ -109,12 +108,36 @@ const Grid = styled.div`
 
 
 
-
+let scrollTriggerInstance = null;
 
 export default function Index({ preview, data, footerData }) {
 
   let scrollTo = (id) => {
     gsap.to(window, {duration: 1, scrollTo: {y:`#${id}`, offsetY: 0.048 * window.innerWidth}});
+  }
+
+  let init = (reset) => {
+
+    if(reset === true) {
+      if(scrollTriggerInstance !== null) {
+          ScrollTrigger.getById("scroll-trigger-one").kill(true);
+      }
+    }
+
+    if(window.innerWidth > 989) {
+
+    scrollTriggerInstance = ScrollTrigger.create({
+        trigger: "#inner-container-right",
+        id: "scroll-trigger-one",
+        start: `top top+=${0.048 * window.innerWidth}px`,
+        pin: true,
+      });
+
+    } 
+  }
+
+  let initWrapper = () => {
+    init(true)
   }
 
   useEffect(() => {
@@ -127,26 +150,16 @@ export default function Index({ preview, data, footerData }) {
       // columnWidth: 500
       });
 
-      ScrollTrigger.create({
-        trigger: "#inner-container-right",
-        start: `top top+=${0.049 * window.innerWidth}px`,
-        pin: true,
-        // endTrigger: "#otherID",
-        // end: "bottom 50%+=100px",
-        // onToggle: self => console.log("toggled, isActive:", self.isActive),
-        onToggle: self => {
-          // if(self.isActive) {
-          //   document.querySelector("#commissionners-grid").style.overflow = "scroll"
-          // } else {
-          //   document.querySelector("#commissionners-grid").style.overflow = "hidden"
-          // }
-        }
-        // onUpdate: self => {
-        //   console.log("progress:", self.progress.toFixed(3), "direction:", self.direction, "velocity", self.getVelocity());
-        // }
-      });
+      init();
 
     } 
+
+    window.addEventListener("resize", initWrapper)
+
+    return () => {
+        window.removeEventListener("resize", initWrapper)
+    }
+
   },[]);
 
 

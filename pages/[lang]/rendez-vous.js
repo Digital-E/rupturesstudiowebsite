@@ -174,27 +174,56 @@ const DividerHorizontal = styled.div`
 `
 
 
-
+let scrollTriggerInstanceOne = null;
+let scrollTriggerInstanceTwo = null;
 
 export default function Index({ preview, data, footerData }) {
 
+  let init = (reset) => {
+
+    if(reset === true) {
+      if(scrollTriggerInstanceOne !== null || scrollTriggerInstanceTwo !== null) {
+          ScrollTrigger.getById("scroll-trigger-one").kill(true);
+          ScrollTrigger.getById("scroll-trigger-two").kill(true);
+      }
+    }
+
+    if(window.innerWidth > 989) {
+
+      scrollTriggerInstanceOne = ScrollTrigger.create({
+          trigger: "#divider-one",
+          id: "scroll-trigger-one",
+          start: `top top+=${0.048 * window.innerWidth}px`,
+          end: `top+=${document.querySelector(".inner-container").offsetHeight}`,
+          pin: true,
+          pinSpacing: false,
+          invalidateOnRefresh: true
+        });
+
+      scrollTriggerInstanceTwo = ScrollTrigger.create({
+          trigger: "#divider-two",
+          id: "scroll-trigger-two",
+          start: `top top+=${0.048 * window.innerWidth}px`,
+          end: `top+=${document.querySelector(".inner-container").offsetHeight}`,
+          pin: true,
+          pinSpacing: false,
+          invalidateOnRefresh: true
+      });   
+    }    
+  }
+
+  let initWrapper = () => {
+    init(true)
+  } 
 
     useEffect(() => {
-      if(window.innerWidth > 989) {
-        ScrollTrigger.create({
-            trigger: "#divider-one",
-            start: `top top+=${0.049 * window.innerWidth}px`,
-            pin: true,
-            pinSpacing: false,
-          });
+      init(true) 
 
-        ScrollTrigger.create({
-            trigger: "#divider-two",
-            start: `top top+=${0.049 * window.innerWidth}px`,
-            pin: true,
-            pinSpacing: false,
-        });   
-      }       
+      window.addEventListener("resize", initWrapper)
+
+      return () => {
+          window.removeEventListener("resize", initWrapper)
+      }
     },[])
 
     let eventsList = data[0].node.list_one.sort(function(a,b){
@@ -212,7 +241,7 @@ export default function Index({ preview, data, footerData }) {
 
       <Container>
           <Title>{data[0].node.title}</Title>
-          <InnerContainer>
+          <InnerContainer className="inner-container">
             <ColLeft>
               <Divider id="divider-one" className="orange-background"><span>{data[0].node.list_one_title}</span></Divider>
               <Text className="medium-font-size">
