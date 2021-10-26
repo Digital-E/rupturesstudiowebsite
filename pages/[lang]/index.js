@@ -9,7 +9,6 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger)
 
-
 import { getHome, getHomePagesSlugs, getAllArtistPages, getMenu, getFooter } from "../../lib/api";
 
 import Map from "../../components/home-map"
@@ -21,6 +20,33 @@ const Container = styled.div`
   height: 100vh;
   width: 100vw;
   overflow: scroll;
+
+
+  #shadow-circle {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    box-shadow: inset 0 1px 3px black;
+    z-index: 999;
+    border-radius: 999px !important;
+    pointer-events: none;
+    display: none;
+    background-color: white;
+  }
+
+  #text-circle {
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 200px;
+    border-radius: 999px !important;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 999;
+    transform: translate(-40%, -40%);
+    padding: 20px;
+  }
 `
 
 const Trigger = styled.div`
@@ -39,17 +65,6 @@ const BackgroundContainer = styled.div`
   opacity: 1;
 
   background: url("/mobile-background-min.jpeg");
-
-  #shadow-circle {
-    position: absolute;
-    height: 40px;
-    width: 40px;
-    box-shadow: inset 0 1px 3px black;
-    z-index: 999;
-    border-radius: 999px !important;
-    pointer-events: none;
-    display: none;
-  }
 
   
   img {
@@ -289,7 +304,8 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
         <IntroText id="intro-text" className="large-font-size">
           <RichText render={data[0].node.intro_text} />
         </IntroText>
-        <div id="shadow-circle"></div>
+        {/* <div id="shadow-circle"></div>
+        <div id="text-circle"><span></span></div> */}
         <BackgroundContainer id="map-container">
             {!isMobile ?
               <Map 

@@ -28,27 +28,6 @@ const Container = styled.div`
         ;
     }
 
-    // .gm-style > div:nth-child(2) > div:nth-child(2):after {
-    //     content: "";
-    //     position: fixed;
-    //     z-index: 999;
-    //     top: 0;
-    //     left: 0;
-    //     height: 100vh;
-    //     width: 100vw;
-    //     background-color: rgb(255, 148, 67, 0.5);
-    // }
-
-    // #circle {
-    //     position: fixed;
-    //     top: 50%;
-    //     left: 50%;
-    //     height: 40px;
-    //     width: 40px;
-    //     background-color: white;
-    //     z-index: 999;
-    //     border-radius: 999px !important;
-    // }
 
     #map {    
         position: fixed !important;
@@ -105,71 +84,56 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
     let mapRef = useRef();
 
     let router = useRouter();
+
+    let timelines = [];
     
 
     let triggerTransparentCircle = (index, data) => {
         if(index === null) {
-            removeTransparentCircle();
+            removeTransparentCircle(index);
             return
         }
 
-        // let x = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().x
-        // let y = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().y
+        timelines[index] = gsap.timeline();
 
-        // let shadowCircle = document.querySelector('#shadow-circle');
+        let x = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().x
+        let y = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().y
+        
+        let shadowCircle = document.querySelector(`.shadow-circle-${index - 1}`);
+        
+        let textCircle = document.querySelector(`.text-circle-${index - 1}`);
 
         // let mapDiv = document.querySelector('#map-container');
 
-        console.log(data)
 
-        let allMarkers = document.querySelector(".gm-style").children[1].children[0].children[3].children
+        // let allMarkers = document.querySelector(".gm-style").children[1].children[0].children[3].children
 
-        gsap.to(allMarkers[index * 2 - 2], {scale: 5, duration: 1})
+        // gsap.to(allMarkers[index * 2 - 2], {scale: 5, duration: 1})
 
-        allMarkers[index * 2 - 1].children[0].children[0].children[0].innerText = data.name;
+        // allMarkers[index * 2 - 1].children[0].children[0].children[0].innerText = data.name;
 
 
 
         // setCurrentIndex(index)
 
-        // setTimeout(() => {
-        //     shadowCircle.style.display = "block";
-        //     shadowCircle.style.top =`${y}px`
-        //     shadowCircle.style.left =`${x}px`
+        // textCircle.children[0].innerText = data.name;
+        timelines[index].to(shadowCircle, {top: `${y}px`, left: `${x}px`, duration: 0})
+        timelines[index].to(shadowCircle, {display: "block", scale: 5, duration: 0.5})
 
-        //     mapDiv.style.WebkitMaskImage = `radial-gradient( 20px at ${ x + 20 }px ${ y + 20 }px, transparent 99%, black 100% )`
-        // }, 0)
+        timelines[index].to(textCircle, {top: `${y}px`, left: `${x}px`, duration: 0})
+        timelines[index].to(textCircle, {display: "flex", opacity: 1, duration: 0.3})
+
     }
 
     let removeTransparentCircle = (index) => {
 
-        if(document.querySelector(".gm-style")) {
-            let allMarkers = document.querySelector(".gm-style").children[1].children[0].children[3].children
-            gsap.to(allMarkers[index * 2 - 2], {scale: 1, duration: 1})
-            allMarkers[index * 2 - 1].children[0].children[0].children[0].innerText = index;
+        if(timelines[index]) {
+            timelines[index].reverse();
         }
-
-        // let mapDiv = document.querySelector('#map-container')
-        // let shadowCircle = document.querySelector('#shadow-circle');
-
-        // shadowCircle.style.display = "none";
-
-        // setCurrentIndex(null)
-
-        // mapDiv.style.WebkitMaskImage = ``
+        
     }
 
     let triggerTransition = (index) => {
-        let artistData = data[parseInt(index) - 1]
-
-        let x = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().x
-        let y = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().y
-
-        let mapDiv = document.querySelector('#map-container')
-
-        let shadowCircle = document.querySelector('#shadow-circle');
-
-        mapDiv.style.WebkitMaskImage = `radial-gradient( 20px at ${ x + 20 }px ${ y + 20 }px, transparent 99%, black 100% )`
 
         // Route to page
 
@@ -179,15 +143,6 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
 
         router.push(`/${lang}/${url[0]}/${url[1]}`)
 
-        // Expand Circle
-      
-        let browser = Bowser.getParser(window.navigator.userAgent).parsedResult.browser.name
-
-        if(window.innerWidth > 990 && browser !== "Safari") {
-            gsap.to(mapDiv, {webkitMaskImage: `radial-gradient( 1500px at ${ x + 20 }px ${ y + 20 }px, transparent 99%, black 100% )`, duration: 1 })
-
-            shadowCircle.style.display = "none";
-        }
     }
 
     useEffect(() => {
@@ -216,6 +171,22 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
 
             data.forEach((item, index) => {
                 addMarker({ lat: item.node.geo_point.latitude, lng: item.node.geo_point.longitude }, item, map, google);
+
+                // Create Circle DOM Nodes
+
+                let shadowCircleDiv = document.createElement("div")
+                shadowCircleDiv.setAttribute("id", "shadow-circle")
+                shadowCircleDiv.classList.add(`shadow-circle-${index}`);
+                document.querySelector("#container").appendChild(shadowCircleDiv);
+
+
+                let textCircleDiv = document.createElement("div")
+                let textCircleSpan = document.createElement("span")
+                textCircleSpan.innerHTML = `${item.node.name}<br>${item.node.arcade_name}`
+                textCircleDiv.appendChild(textCircleSpan)
+                textCircleDiv.setAttribute("id", "text-circle")
+                textCircleDiv.classList.add(`text-circle-${index}`)
+                document.querySelector("#container").appendChild(textCircleDiv)
             })
 
             let bounds = new google.maps.LatLngBounds(
@@ -251,6 +222,15 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
           });
 
           map.setTilt(0);
+
+          map.addListener("center_changed", () => {
+            timelines.forEach(item => { item.restart().pause() })
+          })
+
+          map.addListener("zoom_changed", () => {
+            timelines.forEach(item => item.restart().pause() )
+          })
+
         }
 
           
