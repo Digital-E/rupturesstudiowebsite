@@ -205,6 +205,8 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
 
   useEffect(() => {
 
+    let introHasTriggered = sessionStorage.getItem('ArtAuCentreGeneveIntroAnim', 'true');
+
     document.querySelector("body").style.overflow = "hidden"
 
     let tl = gsap.timeline({
@@ -248,6 +250,12 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
     )
     .then(() => {
       tl.kill()
+
+      if(introHasTriggered === "true") {
+        document.querySelector("#container").classList.add("has-triggered");
+        document.querySelector("#scroll-trigger").style.pointerEvents = "none";
+        return
+      }
       
       // Move Markers
 
@@ -260,6 +268,8 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
       Array.from(allMarkers).forEach(item => item.classList.add("show"))
 
       document.querySelector("#scroll-trigger").style.pointerEvents = "none";
+
+      sessionStorage.setItem('ArtAuCentreGeneveIntroAnim', 'true');
     })
 
     tl.pause()
@@ -272,6 +282,11 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
     setTimeout(() => {
       tl.play()
     }, 5000)
+
+    if(introHasTriggered === "true") {
+      tl.progress(1)
+      return
+    }
 
     return () => {
       document.querySelector("body").style.overflow = "visible"
@@ -292,7 +307,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
       <Head>
         <title>{SITE_NAME} | {data[0].node.title}</title>
       </Head>
-      <Container id="container">
+      <Container id="container" className="has-not-triggered">
         <Trigger id="scroll-trigger" />
         <Title>
           <span id="index-title" className="geneve">Genève</span>

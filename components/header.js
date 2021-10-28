@@ -334,10 +334,6 @@ const MobileBurgerOpen = styled.div`
 
 
 
-
-
-
-
 export default function Header({ data }) {
 
   let router = useRouter()
@@ -349,6 +345,8 @@ export default function Header({ data }) {
   useEffect(() => {
     let menuClose = document.querySelector("#menu-close");
     let menuOpen = document.querySelector("#menu-open");
+
+    if(menuClose === null || menuOpen === null) return;
 
     const closeMenu = () => {
       document.querySelector(".mobile-menu").classList.remove("mobile-menu--open")

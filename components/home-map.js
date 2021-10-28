@@ -53,6 +53,10 @@ const Container = styled.div`
         opacity: 0;
     }
 
+    .has-triggered & .gm-style > div:nth-child(2) > div:nth-child(1) > div:nth-child(4) > div {
+        opacity: 1;
+    }
+
     .gm-style > div:nth-child(2) > div:nth-child(1) > div:nth-child(4) > div.show {
         opacity: 1;
     }
@@ -133,13 +137,13 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
         
     }
 
-    let triggerTransition = (index) => {
-
+    let triggerTransition = (data) => {
+ 
         // Route to page
 
-        let lang = artistData.node._meta.lang;
+        let lang = data._meta.lang;
 
-        let url = artistData.node._meta.uid.split("__");
+        let url = data._meta.uid.split("__");
 
         router.push(`/${lang}/${url[0]}/${url[1]}`)
 
@@ -270,7 +274,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             })
 
             marker.addListener("click", () => {
-                triggerTransition(marker.label.text)
+                triggerTransition(data.node)
             })
         }  
 

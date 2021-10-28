@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import Head from 'next/head'
-import Layout from "../../components/layout";
+import Layout from "../components/layout";
 import styled from 'styled-components';
-import RichText from '../../components/rich-text';
+import RichText from '../components/rich-text';
 
 import moment from "moment";
 
-import Link from "../../components/link"
+import Link from "../components/link"
 
-import Title from "../../components/title"
+import Title from "../components/title"
 
-import { getRendezVousPageSlugs, getRendezVousPage, getMenu, getFooter } from "../../lib/api";
+import { getRendezVousPageSlugs, getRendezVousPage, getMenu, getFooter } from "../lib/api";
 
-import { SITE_NAME } from "../../lib/constants"
+import { SITE_NAME } from "../lib/constants"
 
 import { gsap } from "gsap";
 
@@ -359,33 +359,17 @@ export default function Index({ preview, data, footerData }) {
   )
 }
 
-export async function getStaticPaths({}) {
-
-  let lang = await getRendezVousPageSlugs();
-
-
-  let paths = lang.map((item) => ({
-    params: {
-      lang: item.node._meta.lang
-    }
-  }))
-
-
-  return {
-    paths: paths,
-    fallback: false
-  }
-}
 
 export async function getStaticProps({ params, preview = false, previewData }) {
 
+  let lang = "fr-fr"
 
-  const data = await getRendezVousPage(params.lang, previewData);
+  const data = await getRendezVousPage(lang, previewData);
 
 
   // Get Menu And Footer
 
-  const menuData = await getMenu(params.lang);
+  const menuData = await getMenu(lang);
 
   // const footerData = await getFooter(lang);
 
