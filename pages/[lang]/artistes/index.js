@@ -151,6 +151,12 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
     }
   },[])
 
+  let handleSetCurrentIndex = (index) => {
+    if(window.innerWidth > 989) {
+      setCurrentIndex(index)
+    }
+  }
+
   return (
     <Layout 
     preview={preview} name={data[0].node.title} content={data[0].node.content} 
@@ -192,8 +198,8 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
               {allArtistPagesData.map((item, index) => {
                 return <ListItem 
                 key={index} className={index + 1 === parseInt(currentIndex) ? "is-active orange-hover" : "orange-hover"}
-                onMouseEnter={() => setCurrentIndex(index + 1)}
-                onMouseLeave={() => setCurrentIndex(null)}
+                onMouseEnter={() => handleSetCurrentIndex(index + 1)}
+                onMouseLeave={() => handleSetCurrentIndex(null)}
                 onClick={() => setHasClicked(true)}
                 >
                   <Link href={`${item.node._meta.uid}`}>

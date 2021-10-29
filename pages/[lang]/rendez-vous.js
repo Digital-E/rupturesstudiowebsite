@@ -16,9 +16,12 @@ import { SITE_NAME } from "../../lib/constants"
 
 import { gsap } from "gsap";
 
+import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
+
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollToPlugin);
 
 const Container = styled.div`
   .page-title {
@@ -179,6 +182,17 @@ let scrollTriggerInstanceTwo = null;
 
 export default function Index({ preview, data, footerData }) {
 
+  useEffect(() => {
+    if(window.innerWidth < 990) {
+      if(window.location.hash === "#podcasts") {
+        gsap.to(window, {scrollTo: {y: "#podcasts", offsetY: 53}, duration: 1})
+      } else {
+        gsap.to(window, {scrollTo: {y: "#visites-guidees", offsetY: 53}, duration: 1})
+      }
+    }
+
+  });
+
   let init = (reset) => {
 
     if(reset === true) {
@@ -242,7 +256,7 @@ export default function Index({ preview, data, footerData }) {
       <Container>
           <Title>{data[0].node.title}</Title>
           <InnerContainer className="inner-container">
-            <ColLeft>
+            <ColLeft id="visites-guidees">
               <Divider id="divider-one" className="orange-background"><span>{data[0].node.list_one_title}</span></Divider>
               <Text className="medium-font-size">
                 <RichText render={data[0].node.list_one_text} />
@@ -294,7 +308,7 @@ export default function Index({ preview, data, footerData }) {
                   )}
               </ListLeft>
             </ColLeft>
-            <ColRight>
+            <ColRight id="podcasts">
               <Divider id="divider-two" className="orange-background">
                 {data[0].node.list_two_title}
               </Divider>
