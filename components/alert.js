@@ -16,9 +16,9 @@ const Container = styled.div`
 
 const Alert = ({ preview }) => {
   return (
-    <Container>
+    <div>
         {preview ? (
-          <div>
+          <Container>
             This is page is a preview.{" "}
             <Link href="/api/exit-preview">
               <a>
@@ -27,9 +27,9 @@ const Alert = ({ preview }) => {
             </Link>
             {" "}
             to exit preview mode.
-          </div>
+          </Container>
         ) : null}
-    </Container>
+    </div>
   );
 }
 
