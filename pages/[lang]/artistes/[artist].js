@@ -59,6 +59,9 @@ export default function Index({ preview, data, dataAll, footerData }) {
     prev: ""
   }
 
+  if(data.length === 0) return null
+
+
   dataAll.forEach((item, index) => {
     if(item.node._meta.uid === data[0].node._meta.uid) {
       currArtistIndex = index
@@ -133,7 +136,7 @@ export async function getStaticPaths({}) {
 export async function getStaticProps({ params, preview = false, previewData }) {
 
 
-  const data = await getArtistPage(params.artist, params.lang, previewData);
+  const data = await getArtistPage(`artistes__${params.artist}`, params.lang, previewData);
 
   const dataAll = await getAllArtistPages(params.lang, previewData);
   
