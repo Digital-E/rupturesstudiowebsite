@@ -23,11 +23,11 @@ const Container = styled.div`
     
 
     > div:nth-child(1) {
-        flex-basis: 65.7%;
+        flex-basis: 65.65%;
     }
 
     > div:nth-child(2) {
-        flex-basis: calc( 34.3% + 1px);
+        flex-basis: 34.35%;
     }
 
     @media(max-width: 989px) {

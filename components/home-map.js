@@ -44,13 +44,14 @@ const Container = styled.div`
     }
 
     .gm-style > div:nth-child(15) > div,
-    .gm-style > div:nth-child(17)
-     {
+    .gm-style > div:nth-child(17) {
         display: none;
     }
 
-    .gm-style > div:nth-child(2) > div:nth-child(1) > div:nth-child(4) > div {
-        opacity: 0;
+    @media(min-width: 990px) {
+        .gm-style > div:nth-child(2) > div:nth-child(1) > div:nth-child(4) > div {
+            opacity: 0;
+        }
     }
 
     .has-triggered & .gm-style > div:nth-child(2) > div:nth-child(1) > div:nth-child(4) > div {
@@ -61,20 +62,6 @@ const Container = styled.div`
         opacity: 1;
     }
 
-
-    // .gm-style > div:nth-child(2) > div:nth-child(1) > div:nth-child(4) > div:nth-child(odd):not(:last-child):after {
-    //     content: "";
-    //     position: absolute;
-    //     // left: -19px;
-    //     // top: -19px;
-    //     left: 0;
-    //     top: 0;
-    //     height: 38px;
-    //     width: 38px;
-    //     background-color: transparent;
-    //     box-shadow: inset 1px 0px 3px black;
-    //     border-radius: 999px;
-    //   }
 
     .marker {
         height: 39px;
@@ -98,34 +85,35 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             return
         }
 
-        timelines[index] = gsap.timeline();
 
         let x = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().x
         let y = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().y
+
+        // Change class to expanded
+
         
-        let shadowCircle = document.querySelector(`.shadow-circle-${index - 1}`);
+        let shadowCircle = document.querySelector(`.shadow-circle-home-map-${index - 1}`);
         
-        let textCircle = document.querySelector(`.text-circle-${index - 1}`);
+        let textCircle = document.querySelector(`.text-circle-home-map-${index - 1}`);
 
-        // let mapDiv = document.querySelector('#map-container');
+        textCircle.classList.add("expanded");
 
+        shadowCircle.style.top = `${y}px`;
+        shadowCircle.style.left = `${x}px`;
 
-        // let allMarkers = document.querySelector(".gm-style").children[1].children[0].children[3].children
+        textCircle.style.top = `${y}px`;
+        textCircle.style.left = `${x}px`;
 
-        // gsap.to(allMarkers[index * 2 - 2], {scale: 5, duration: 1})
+        if(timelines[index] !== undefined) {
+            timelines[index].play()
+            return
+        }
 
-        // allMarkers[index * 2 - 1].children[0].children[0].children[0].innerText = data.name;
+        timelines[index] = gsap.timeline();
 
+        timelines[index].to(shadowCircle, {display: "block", scale: 5, duration: 0.3}, "start")
 
-
-        // setCurrentIndex(index)
-
-        // textCircle.children[0].innerText = data.name;
-        timelines[index].to(shadowCircle, {top: `${y}px`, left: `${x}px`, duration: 0})
-        timelines[index].to(shadowCircle, {display: "block", scale: 5, duration: 0.5})
-
-        timelines[index].to(textCircle, {top: `${y}px`, left: `${x}px`, duration: 0})
-        timelines[index].to(textCircle, {display: "flex", opacity: 1, duration: 0.3})
+        timelines[index].to(textCircle, {display: "flex", opacity: 1, duration: 0.3, delay: 0.1}, "start")
 
     }
 
@@ -137,7 +125,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
         
     }
 
-    let triggerTransition = (data) => {
+    let triggerTransition = (index, data) => {
  
         // Route to page
 
@@ -145,8 +133,11 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
 
         let url = data._meta.uid.split("__");
 
-        router.push(`/${lang}/${url[0]}/${url[1]}`)
+        let textCircle = document.querySelector(`.text-circle-home-map-${index - 1}`);
 
+        if(textCircle.classList.contains("expanded")) {
+            router.push(`/${lang}/${url[0]}/${url[1]}`)
+        }
     }
 
     useEffect(() => {
@@ -179,8 +170,8 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
                 // Create Circle DOM Nodes
 
                 let shadowCircleDiv = document.createElement("div")
-                shadowCircleDiv.setAttribute("id", "shadow-circle")
-                shadowCircleDiv.classList.add(`shadow-circle-${index}`);
+                shadowCircleDiv.setAttribute("id", "shadow-circle-home-map")
+                shadowCircleDiv.classList.add(`shadow-circle-home-map-${index}`);
                 document.querySelector("#container").appendChild(shadowCircleDiv);
 
 
@@ -188,8 +179,8 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
                 let textCircleSpan = document.createElement("span")
                 textCircleSpan.innerHTML = `${item.node.name}<br>${item.node.arcade_name}`
                 textCircleDiv.appendChild(textCircleSpan)
-                textCircleDiv.setAttribute("id", "text-circle")
-                textCircleDiv.classList.add(`text-circle-${index}`)
+                textCircleDiv.setAttribute("id", "text-circle-home-map")
+                textCircleDiv.classList.add(`text-circle-home-map-${index}`)
                 document.querySelector("#container").appendChild(textCircleDiv)
             })
 
@@ -207,7 +198,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
 
             setTimeout(() => {
                 mapRef.current.style.opacity = 1
-            }, 1500)
+            }, 500)
           })
 
 
@@ -229,6 +220,11 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
 
           map.addListener("center_changed", () => {
             timelines.forEach(item => { item.restart().pause() })
+
+            document.querySelectorAll(`#text-circle-home-map`).forEach(item => {
+                item.classList.remove("expanded");
+            });
+
           })
 
           map.addListener("zoom_changed", () => {
@@ -274,7 +270,8 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             })
 
             marker.addListener("click", () => {
-                triggerTransition(data.node)
+                triggerTransparentCircle(parseInt(marker.label.text), data.node);
+                triggerTransition(parseInt(marker.label.text), data.node)
             })
         }  
 

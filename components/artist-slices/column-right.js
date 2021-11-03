@@ -135,13 +135,25 @@ const ArrowRight = styled.div`
 
 const Component = ({ data, nextPrevArtists }) => {
 
-    useEffect( () => {
+
+    const init = () => {
         if(window.innerWidth > 989) {
             let textWrapper = document.querySelector(".text-wrapper");
             let textWrapperTop = textWrapper.getBoundingClientRect().y;
             let textWrapperHeight = window.innerHeight - textWrapperTop;
     
             textWrapper.style.height = `${textWrapperHeight}px`;
+        }
+    }
+
+    useEffect(() => {
+
+        init();
+
+        window.addEventListener("resize", init)
+
+        return () => {
+            window.removeEventListener("resize", init)
         }
     })
 

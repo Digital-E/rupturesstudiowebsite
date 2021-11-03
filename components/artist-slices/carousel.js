@@ -25,6 +25,10 @@ const Container = styled.div`
       transition-duration: 0.3s;
     }
 
+    .flickity-viewport {
+      height: 100% !important;
+    }
+
     @media(max-width: 989px) {
       order: 1;
     }
@@ -110,7 +114,6 @@ const Component = ({ data }) => {
     let gallery = useRef();
 
     useEffect(() => {
-        setTimeout(()=>{
           if(window.innerWidth > 989) {
           let flickity = new Flickity(gallery.current, {
             // options, defaults listed
@@ -199,7 +202,7 @@ const Component = ({ data }) => {
       
           setFlickity(flickity);
         }
-        }, 250);
+
     
     
         // flickity.on("change", () => {
@@ -212,10 +215,6 @@ const Component = ({ data }) => {
         // flickity.select(initSlide);
         // }, 0);
     
-    
-        // setTimeout(() => {
-        //   flickity.resize();
-        // }, 750);
     
         // return () => {
         //   flickity.destroy();

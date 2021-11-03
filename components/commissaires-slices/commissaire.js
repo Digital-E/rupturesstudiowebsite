@@ -53,10 +53,14 @@ const BiographyText = styled.div`
 
 const Component = ({ data }) => {
 
-    let id = data.item_title.toLowerCase().split(" ").join("-")
+    let sanitizeTags = (item) => {
+        let sanitized = item.item_title.toLowerCase().split(" ").filter(item => item !== "&")
+        return sanitized.join("-")
+      }
+
 
     return (
-    <Container className="grid-item" id={id}>
+    <Container className="grid-item" id={sanitizeTags(data)}>
         <InnerContainer>
             <Name>{data.item_title}</Name>
             <Artists>

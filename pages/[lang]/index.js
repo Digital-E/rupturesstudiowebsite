@@ -22,7 +22,7 @@ const Container = styled.div`
   overflow: scroll;
 
 
-  #shadow-circle {
+  #shadow-circle-home-map {
     position: absolute;
     height: 40px;
     width: 40px;
@@ -34,7 +34,7 @@ const Container = styled.div`
     background-color: white;
   }
 
-  #text-circle {
+  #text-circle-home-map {
     position: absolute;
     justify-content: center;
     align-items: center;
@@ -64,18 +64,20 @@ const BackgroundContainer = styled.div`
   width: 100vw;
   opacity: 1;
 
-  background: url("/mobile-background-min.jpeg");
+  @media(max-width: 989px) {
+    background: url("/mobile-background-min.jpeg");
+  }
 
   
-  img {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    z-index: -1;
-    filter: grayscale(100%);
-    opacity: 1;
-  }
+  // img {
+  //   position: absolute;
+  //   height: 100%;
+  //   width: 100%;
+  //   object-fit: cover;
+  //   z-index: -1;
+  //   filter: grayscale(100%);
+  //   opacity: 1;
+  // }
 
 `
 
@@ -182,7 +184,7 @@ const IntroText = styled.div`
   }
 `
 
-
+let tl = null;
 
 export default function Index({ preview, data, allArtistPagesData, footerData }) {
   let [currentIndex, setCurrentIndex] = useState(null);
@@ -202,94 +204,116 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
 
   }, [currentIndex])
 
+  let init = (reset) => {
+    if(reset === true) {
+      if(tl!== null) {
+          tl.kill(true);
+      }
+    }
+
+      let introHasTriggered = sessionStorage.getItem('ArtAuCentreGeneveIntroAnim', 'true');
+  
+      document.querySelector("body").style.overflow = "hidden"
+  
+      tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#trigger",
+          scroller: "#container",
+          // pin: true,   // pin the trigger element while active
+          start: "top top", // when the top of the trigger hits the top of the viewport
+          // end: "+=500", // end after scrolling 500px beyond the start
+          scrub: 2, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+          // snap: {
+          //   snapTo: "labels", // snap to the closest label in the timeline
+          //   duration: {min: 0.2, max: 3}, // the snap animation should be at least 0.2 seconds, but no more than 3 seconds (determined by velocity)
+          //   delay: 0.2, // wait 0.2 seconds from the last scroll event before doing the snapping
+          //   ease: "power1.inOut" // the ease of the snap animation ("power3" by default)
+          // }
+        }
+      })
+  
+      tl.to("#index-title", 
+        {
+          x: window.innerWidth, 
+          duration: 2, 
+          stagger: 0.1, 
+          ease: "sine.inOut"
+        },
+        "start"
+        )
+  
+      tl.fromTo("#intro-text",
+        {
+          y: "-100%",
+        },
+        {
+          y: window.innerHeight - document.querySelector("#intro-text").getBoundingClientRect().height,
+          duration: 2,
+          ease: "sine.inOut"
+        },
+        "start"
+      )
+      .then(() => {
+        tl.kill()
+  
+        if(introHasTriggered === "true") {
+          document.querySelector("#container").classList.add("has-triggered");
+          document.querySelector("#scroll-trigger").style.pointerEvents = "none";
+          return
+        }
+        
+        // Move Markers
+  
+        let allMarkers = document.querySelector(".gm-style").children[1].children[0].children[3].children
+  
+        gsap.to(allMarkers, {y: -1000, duration: 0})
+  
+        gsap.to(allMarkers, {y:0, duration: 1, opacity: 1})
+  
+        Array.from(allMarkers).forEach(item => item.classList.add("show"))
+  
+        document.querySelector("#scroll-trigger").style.pointerEvents = "none";
+  
+        sessionStorage.setItem('ArtAuCentreGeneveIntroAnim', 'true');
+      })
+  
+      tl.pause()
+  
+  
+      document.querySelector("#container").addEventListener("click", () => {
+        tl.play()
+      })
+  
+      setTimeout(() => {
+        tl.play()
+      }, 5000)
+  
+      if(introHasTriggered === "true") {
+        tl.progress(1)
+      }
+  
+
+
+  }
+
+  let initWrapper = () => {
+    init(true)
+  }
+
 
   useEffect(() => {
 
-    let introHasTriggered = sessionStorage.getItem('ArtAuCentreGeneveIntroAnim', 'true');
-
-    document.querySelector("body").style.overflow = "hidden"
-
-    let tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#trigger",
-        scroller: "#container",
-        // pin: true,   // pin the trigger element while active
-        start: "top top", // when the top of the trigger hits the top of the viewport
-        // end: "+=500", // end after scrolling 500px beyond the start
-        scrub: 2, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
-        // snap: {
-        //   snapTo: "labels", // snap to the closest label in the timeline
-        //   duration: {min: 0.2, max: 3}, // the snap animation should be at least 0.2 seconds, but no more than 3 seconds (determined by velocity)
-        //   delay: 0.2, // wait 0.2 seconds from the last scroll event before doing the snapping
-        //   ease: "power1.inOut" // the ease of the snap animation ("power3" by default)
-        // }
-      }
-    })
-
-
-    tl.to("#index-title", 
-      {
-        x: window.innerWidth, 
-        duration: 2, 
-        stagger: 0.1, 
-        ease: "sine.inOut"
-      },
-      "start"
-      )
-
-    tl.fromTo("#intro-text",
-      {
-        y: "-100%",
-      },
-      {
-        y: window.innerHeight - document.querySelector("#intro-text").getBoundingClientRect().height,
-        duration: 2,
-        ease: "sine.inOut"
-      },
-      "start"
-    )
-    .then(() => {
-      tl.kill()
-
-      if(introHasTriggered === "true") {
-        document.querySelector("#container").classList.add("has-triggered");
-        document.querySelector("#scroll-trigger").style.pointerEvents = "none";
-        return
-      }
-      
-      // Move Markers
-
-      let allMarkers = document.querySelector(".gm-style").children[1].children[0].children[3].children
-
-      gsap.to(allMarkers, {y: -1000, duration: 0})
-
-      gsap.to(allMarkers, {y:0, duration: 1, opacity: 1})
-
-      Array.from(allMarkers).forEach(item => item.classList.add("show"))
-
-      document.querySelector("#scroll-trigger").style.pointerEvents = "none";
-
-      sessionStorage.setItem('ArtAuCentreGeneveIntroAnim', 'true');
-    })
-
-    tl.pause()
-
-
-    document.querySelector("#container").addEventListener("click", () => {
-      tl.play()
-    })
+    init();
 
     setTimeout(() => {
-      tl.play()
-    }, 5000)
+      init(true);
+    },100)
 
-    if(introHasTriggered === "true") {
-      tl.progress(1)
-      return
-    }
+    window.addEventListener("resize", initWrapper)
 
     return () => {
       document.querySelector("body").style.overflow = "visible"
+      window.removeEventListener("resize", initWrapper)
     }
   },[])
 
@@ -319,8 +343,6 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
         <IntroText id="intro-text" className="large-font-size">
           <RichText render={data[0].node.intro_text} />
         </IntroText>
-        {/* <div id="shadow-circle"></div>
-        <div id="text-circle"><span></span></div> */}
         <BackgroundContainer id="map-container">
             {!isMobile ?
               <Map 

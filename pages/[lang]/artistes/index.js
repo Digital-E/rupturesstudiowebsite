@@ -9,6 +9,8 @@ import Image from "../../../components/image"
 
 import Map from "../../../components/map"
 
+import HomeMap from "../../../components/home-map"
+
 import Title from "../../../components/title"
 
 import { getArtistsPage, getArtistsPageSlugs, getAllArtistPages, getMenu, getFooter } from "../../../lib/api";
@@ -47,6 +49,32 @@ const Container = styled.div`
   border-radius: 999px !important;
   pointer-events: none;
   display: none;
+}
+
+#shadow-circle-home-map {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  box-shadow: inset 0 1px 3px black;
+  z-index: 999;
+  border-radius: 999px !important;
+  pointer-events: none;
+  display: none;
+  background-color: white;
+}
+
+#text-circle-home-map {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 200px;
+  border-radius: 999px !important;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 999;
+  transform: translate(-40%, -40%);
+  padding: 20px;
 }
 
 `
@@ -129,6 +157,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
   let [isParcoursInteractif, setIsParcoursInteractif] = useState(false);
 
 
+
   useEffect(() => {
     let backgroundImages = document.querySelector("#background-image").children;
 
@@ -144,18 +173,36 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
   useEffect(() => {
     if(window.innerWidth > 989) {
       setIsMobile(false);
+    } else {
+      setIsMobile(true);
     }
 
     if(window.location.hash === "#parcours-interactif") {
       setIsParcoursInteractif(true)
+    } else {
+      setIsParcoursInteractif(false)
     }
-  },[])
+  })
 
   let handleSetCurrentIndex = (index) => {
     if(window.innerWidth > 989) {
       setCurrentIndex(index)
     }
   }
+
+  useEffect(() => {
+    // setTimeout(() => {
+    //   // Move Markers
+
+    //   let allMarkers = document.querySelector(".gm-style").children[1].children[0].children[3].children
+
+    //   gsap.to(allMarkers, {y: -1000, duration: 0})
+
+    //   gsap.to(allMarkers, {y:0, duration: 1, opacity: 1})
+
+    //   Array.from(allMarkers).forEach(item => item.classList.add("show"))
+    // }, 1000)
+  },[])
 
   return (
     <Layout 
@@ -166,7 +213,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
         <title>{SITE_NAME} | {data[0].node.title}</title>
       </Head>
 
-      <Container>
+      <Container id="container">
       <div id="background-image">
         {
           allArtistPagesData.map((item, index) => <Image key={index} src={item.node.images[0].image} />)
@@ -178,7 +225,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
         <InnerContainer>
           <InnerContainerLeft>
             {
-              ( !isMobile || isParcoursInteractif )?
+              !isMobile ?
                 <Map 
                 setCurrentIndex={(index) => setCurrentIndex(index)}
                 currentIndex={currentIndex}
@@ -186,6 +233,15 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
                 hasClicked={hasClicked}
                 key="artists"
                 // hasClicked={(value) => setHasClicked(value)}
+                />
+                :
+                ( isMobile && isParcoursInteractif ) ?
+                <HomeMap
+                  setCurrentIndex={(index) => setCurrentIndex(index)}
+                  currentIndex={currentIndex}
+                  data={allArtistPagesData}
+                  hasClicked={hasClicked}
+                  key="artists-mobile" 
                 />
                 :
                 null

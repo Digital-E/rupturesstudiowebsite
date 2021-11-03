@@ -81,13 +81,15 @@ const ListItem = styled.div`
 
 const Grid = styled.div`
 
+margin-right: -1px;
+
 > div {
   float: left;
   width: 50%;
   border-bottom: 1px solid black;
 }
 
-> div:nth-child(odd) {
+> div {
   border-right: 1px solid black;
 }
 
@@ -147,6 +149,7 @@ export default function Index({ preview, data, footerData }) {
 
       var msnry = new Masonry( grid, {
       itemSelector: '.grid-item',
+      transitionDuration: 0
       // columnWidth: 500
       });
 
@@ -161,6 +164,11 @@ export default function Index({ preview, data, footerData }) {
     }
 
   },[]);
+
+  let sanitizeTags = (item) => {
+    let sanitized = item.item_title.toLowerCase().split(" ").filter(item => item !== "&")
+    return sanitized.join("-")
+  }
 
 
   return (
@@ -185,7 +193,7 @@ export default function Index({ preview, data, footerData }) {
           </InnerContainerLeft>
           <InnerContainerRight id="inner-container-right">
             {data[0].node.list.length > 0 && 
-              data[0].node.list.map((item, index) => <ListItem key={index} onClick={() => scrollTo(item.item_title.toLowerCase().split(" ").join("-"))}><span className="orange-hover">{index + 1}. {item.item_title}</span></ListItem>)
+              data[0].node.list.map((item, index) => <ListItem key={index} onClick={() => scrollTo(sanitizeTags(item))}><span className="orange-hover">{index + 1}. {item.item_title}</span></ListItem>)
             }
           </InnerContainerRight>
         </InnerContainer>
