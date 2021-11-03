@@ -270,8 +270,8 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             })
 
             marker.addListener("click", () => {
-                triggerTransparentCircle(parseInt(marker.label.text), data.node);
                 triggerTransition(parseInt(marker.label.text), data.node)
+                triggerTransparentCircle(parseInt(marker.label.text), data.node);
             })
         }  
 
