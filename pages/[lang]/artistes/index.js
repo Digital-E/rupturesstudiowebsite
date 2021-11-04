@@ -18,6 +18,7 @@ import { getArtistsPage, getArtistsPageSlugs, getAllArtistPages, getMenu, getFoo
 import { SITE_NAME } from "../../../lib/constants"
 
 const Container = styled.div`
+  position: fixed;
 
   #background-image {
     position: absolute;
@@ -191,19 +192,6 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
     }
   }
 
-  useEffect(() => {
-    // setTimeout(() => {
-    //   // Move Markers
-
-    //   let allMarkers = document.querySelector(".gm-style").children[1].children[0].children[3].children
-
-    //   gsap.to(allMarkers, {y: -1000, duration: 0})
-
-    //   gsap.to(allMarkers, {y:0, duration: 1, opacity: 1})
-
-    //   Array.from(allMarkers).forEach(item => item.classList.add("show"))
-    // }, 1000)
-  },[])
 
   return (
     <Layout 

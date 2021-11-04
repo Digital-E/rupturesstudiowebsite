@@ -349,7 +349,9 @@ export default function Header({ data }) {
     if(menuClose === null || menuOpen === null) return;
 
     const closeMenu = () => {
-      document.querySelector(".mobile-menu").classList.remove("mobile-menu--open")
+      setTimeout(() => {
+        document.querySelector(".mobile-menu").classList.remove("mobile-menu--open")
+      }, 100)
     }
 
     const openMenu = () => {
