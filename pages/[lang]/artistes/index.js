@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Head from 'next/head'
 import Layout from "../../../components/layout";
 import styled from 'styled-components';
@@ -156,6 +156,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
   let [isMobile, setIsMobile] = useState(true);
   let [isParcoursInteractif, setIsParcoursInteractif] = useState(false);
 
+  let containerRef = useRef();
 
 
   useEffect(() => {
@@ -213,7 +214,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
         <title>{SITE_NAME} | {data[0].node.title}</title>
       </Head>
 
-      <Container id="container">
+      <Container ref={containerRef}>
       <div id="background-image">
         {
           allArtistPagesData.map((item, index) => <Image key={index} src={item.node.images[0].image} />)
@@ -242,6 +243,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
                   data={allArtistPagesData}
                   hasClicked={hasClicked}
                   key="artists-mobile" 
+                  containerRef={containerRef}
                 />
                 :
                 null

@@ -88,6 +88,12 @@ const ListLeft = styled.div`
     > div:last-child > .divider-horizontal {
         display: none;
     }
+
+    .old-event {
+      opacity: 0.3;
+      pointer-events: none;
+      filter: blur(1px);
+    }
 `
 
 
@@ -263,7 +269,7 @@ export default function Index({ preview, data, footerData }) {
               </Text>
               <ListLeft>
                   {eventsList.map((item,index) => 
-                      <div key={index}>
+                      <div key={index} className={new Date(item.list_one_item_date) < new Date() ? "old-event" : ""}>
                         <ListLeftItem>
                             <ListLeftItemTitle className="medium-font-size">{moment(item.list_one_item_date).format('dddd Do MMMM HH:mm')}</ListLeftItemTitle>
                             <ListLeftItemTitle className="medium-font-size">{item.list_one_item_title}</ListLeftItemTitle>

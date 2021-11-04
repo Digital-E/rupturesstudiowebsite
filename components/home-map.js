@@ -71,7 +71,7 @@ const Container = styled.div`
 `
 
 
-const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
+const Map = ({ data, currentIndex, setCurrentIndex, hasClicked, containerRef }) => {
     let mapRef = useRef();
 
     let router = useRouter();
@@ -172,7 +172,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
                 let shadowCircleDiv = document.createElement("div")
                 shadowCircleDiv.setAttribute("id", "shadow-circle-home-map")
                 shadowCircleDiv.classList.add(`shadow-circle-home-map-${index}`);
-                document.querySelector("#container").appendChild(shadowCircleDiv);
+                containerRef.current.appendChild(shadowCircleDiv);
 
 
                 let textCircleDiv = document.createElement("div")
@@ -181,7 +181,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
                 textCircleDiv.appendChild(textCircleSpan)
                 textCircleDiv.setAttribute("id", "text-circle-home-map")
                 textCircleDiv.classList.add(`text-circle-home-map-${index}`)
-                document.querySelector("#container").appendChild(textCircleDiv)
+                containerRef.current.appendChild(textCircleDiv)
             })
 
             let bounds = new google.maps.LatLngBounds(

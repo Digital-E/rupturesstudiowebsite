@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Head from 'next/head'
 import Layout from "../../components/layout";
 import styled from 'styled-components';
@@ -191,6 +191,8 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
   let [hasClicked, setHasClicked] = useState(false);
   let [isMobile, setIsMobile] = useState(true);
 
+  let containerRef = useRef();
+
 
   useEffect(() => {
     // let backgroundImages = document.querySelector("#background-image").children;
@@ -218,7 +220,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
       tl = gsap.timeline({
         scrollTrigger: {
           trigger: "#trigger",
-          scroller: "#container",
+          scroller: containerRef.current,
           // pin: true,   // pin the trigger element while active
           start: "top top", // when the top of the trigger hits the top of the viewport
           // end: "+=500", // end after scrolling 500px beyond the start
@@ -257,7 +259,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
         tl.kill()
   
         if(introHasTriggered === "true") {
-          document.querySelector("#container").classList.add("has-triggered");
+          containerRef.current.classList.add("has-triggered");
           document.querySelector("#scroll-trigger").style.pointerEvents = "none";
           return
         }
@@ -280,7 +282,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
       tl.pause()
   
   
-      document.querySelector("#container").addEventListener("click", () => {
+      containerRef.current.addEventListener("click", () => {
         tl.play()
       })
   
@@ -331,7 +333,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
       <Head>
         <title>{SITE_NAME} | {data[0].node.title}</title>
       </Head>
-      <Container id="container" className="has-not-triggered">
+      <Container ref={containerRef} className="has-not-triggered">
         <Trigger id="scroll-trigger" />
         <Title>
           <span id="index-title" className="geneve">Genève</span>
@@ -351,6 +353,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
               data={allArtistPagesData}
               hasClicked={hasClicked}
               key="home"
+              containerRef={containerRef}
               // hasClicked={(value) => setHasClicked(value)}
               />
               :
