@@ -86,6 +86,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked, containerRef }) 
         }
 
 
+        if(document.querySelectorAll('.marker')[parseInt(index) - 1] === undefined) return
         let x = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().x
         let y = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().y
 
@@ -165,7 +166,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked, containerRef }) 
             initMap(google);
 
             data.forEach((item, index) => {
-                addMarker({ lat: item.node.geo_point.latitude, lng: item.node.geo_point.longitude }, item, map, google);
+                addMarker({ lat: item.node.geo_point?.latitude || 0 , lng: item.node.geo_point?.longitude || 0 }, item, map, google);
 
                 // Create Circle DOM Nodes
 
@@ -205,7 +206,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked, containerRef }) 
         let initMap = (google) => {
           map = new google.maps.Map(mapRef.current, {
             center: { lat: 46.2050242, lng: 6.1090692 },
-            zoom: 15,
+            zoom: 14,
             mapTypeId: 'satellite',
             mapTypeControl: false,
             disableDefaultUI: true,
