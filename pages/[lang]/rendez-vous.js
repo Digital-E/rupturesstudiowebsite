@@ -90,9 +90,9 @@ const ListLeft = styled.div`
     }
 
     .old-event {
-      opacity: 0.3;
+      opacity: 0.2;
       pointer-events: none;
-      filter: blur(1px);
+      // filter: blur(1px);
     }
 `
 

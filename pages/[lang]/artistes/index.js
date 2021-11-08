@@ -106,11 +106,14 @@ const InnerContainerRight = styled.div`
   flex-basis: 18.8%;
   border-left: 1px solid black;
   background-color: white;
+  height: calc(100vh - 17.5vw);
+  overflow: scroll;
 
   @media(max-width: 989px) {
     top: 53px;
     flex-basis: 100%;
     border-left: none;
+    height: 100%;
   }
 `
 
@@ -240,19 +243,19 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
           {
             ( !isParcoursInteractif || !isMobile ) ?
               <InnerContainerRight>
-              <Divider className="orange-background">{data[0].node.title}</Divider>
-              {allArtistPagesData.map((item, index) => {
-                return <ListItem 
-                key={index} className={index + 1 === parseInt(currentIndex) ? "is-active orange-hover" : "orange-hover"}
-                onMouseEnter={() => handleSetCurrentIndex(index + 1)}
-                onMouseLeave={() => handleSetCurrentIndex(null)}
-                onClick={() => setHasClicked(true)}
-                >
-                  <Link href={`${item.node._meta.uid}`}>
-                    <span>{item.node.number}. {item.node.name}</span>
-                  </Link>
-                  </ListItem>
-              })}
+              {/* <Divider className="orange-background">{data[0].node.title}</Divider> */}
+                {allArtistPagesData.map((item, index) => {
+                  return <ListItem 
+                  key={index} className={index + 1 === parseInt(currentIndex) ? "is-active orange-hover" : "orange-hover"}
+                  onMouseEnter={() => handleSetCurrentIndex(index + 1)}
+                  onMouseLeave={() => handleSetCurrentIndex(null)}
+                  onClick={() => setHasClicked(true)}
+                  >
+                    <Link href={`${item.node._meta.uid}`}>
+                      <span>{item.node.number}. {item.node.name}</span>
+                    </Link>
+                    </ListItem>
+                })}
             </InnerContainerRight>
             :
             null

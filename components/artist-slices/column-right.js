@@ -172,7 +172,7 @@ const Component = ({ data, nextPrevArtists }) => {
                         </MenuLink>  
                     </ArrowLeft>
                     <ArrowRight>
-                        <MenuLink href={nextPrevArtists.prev}>
+                        <MenuLink href={nextPrevArtists.next}>
                             <svg height="25px" x="0px" y="0px" viewBox="0 0 16.63 12.99">
                             <polygon points="6.68,0.14 0.32,6.5 6.68,12.86 8.74,12.86 3.17,7.24 16.34,7.24 16.34,5.76 3.17,5.76 8.74,0.14 "/>
                             </svg>   
@@ -185,7 +185,7 @@ const Component = ({ data, nextPrevArtists }) => {
                     <div><span>{data.number}</span></div>
                 </div>
                 <div>
-                    <div>{data.arcade_title}:</div>
+                    <div>{data.arcade_title}</div>
                     <div><Link data={data.arcade_link}>{data.arcade_name}</Link></div>
                 </div>
             </Gallery>

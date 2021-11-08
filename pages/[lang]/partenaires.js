@@ -64,7 +64,11 @@ const Divider = styled.div`
   }
 `
 
-const ListMain = styled.div``
+const ListMain = styled.div`
+  @media(min-width: 990px) {
+    margin-bottom: 25px;
+  }
+`
 
 const List = styled.div`
   padding: 10px 0 0 0; 
@@ -90,7 +94,8 @@ const ListItem = styled.div`
 
   > a {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    // align-items: center;
     font-size: 34px;
     color: black;
     line-height: 1.2;
@@ -102,10 +107,13 @@ const ListItem = styled.div`
 
   > a > div:nth-child(2) {
     flex-basis: 40%;
+    margin-top: 25px;
   }
 
   > a > div:nth-child(2) > img {
-    height: 70px;
+    height: auto;
+    max-height: 100px;
+    max-width: 450px;
   }
 
   @media(max-width: 989px) {
@@ -126,7 +134,9 @@ const ListItem = styled.div`
     }
 
     > a > div:nth-child(2) > img {
-      height: 50px;
+      height: auto;
+      max-height: 70px;
+      max-width: 200px;
     }
   }
 `
@@ -191,7 +201,7 @@ export default function Index({ preview, data, footerData }) {
                               <div className="default-font-size">{item.list_item_subtitle}</div>
                             </div>
                             <div>
-                              <img src={item.image.url}/>
+                              <img src={item.image?.url}/>
                             </div>
                           </Link>
                         </ListItem>

@@ -59,7 +59,7 @@ export default function Index({ preview, data, dataAll, footerData }) {
     prev: ""
   }
 
-  if(data.length === 0) return null
+  if(data === undefined) return null
 
 
   dataAll.forEach((item, index) => {
@@ -129,7 +129,7 @@ export async function getStaticPaths({}) {
 
   return {
     paths: paths,
-    fallback: false
+    fallback: true
   }
 }
 
