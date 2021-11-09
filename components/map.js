@@ -51,11 +51,11 @@ const Container = styled.div`
         line-height: 1.9;
     }
 `
-
+let allCoords = [];
 
 const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
     let mapRef = useRef();
-    let [allCoords, setAllCoords] = useState([]);
+    // let [allCoords, setAllCoords] = useState([]);
     let [map, setMap] = useState();
 
     let router = useRouter();
@@ -103,12 +103,14 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
     }
 
     let triggerTransition = (index) => {
+
         let artistData = data[parseInt(index) - 1]
 
         // let x = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().x
         // let y = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().y
 
         let marker = allCoords[parseInt(index) - 1];
+
         let markerCoords = getMarkerCoords(marker);
         let x = markerCoords.x;
         let y = markerCoords.y;
@@ -268,7 +270,9 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
                 // title: "marker"
             });
 
-            setAllCoords(prev => [...prev, marker])
+            // setAllCoords(prev => [...prev, marker])
+
+            allCoords.push(marker)
 
             marker.addListener("mouseover", () => {
                 setCurrentIndex(parseInt(marker.label.text))
@@ -281,7 +285,8 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             })
 
             marker.addListener("click", () => {
-                triggerTransition(marker.label.text)
+                setCurrentIndex(parseInt(marker.label.text))
+                triggerTransition(parseInt(marker.label.text))
             })
         }  
 
