@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useState, useRef } from "react"
 import styled from "styled-components";
 
 import { useRouter } from "next/router"
@@ -6,8 +6,6 @@ import { useRouter } from "next/router"
 import {Loader} from '@googlemaps/js-api-loader';
 
 import { gsap } from "gsap";
-
-import html2canvas from "html2canvas";
 
 import Bowser from "bowser";
 
@@ -57,6 +55,8 @@ const Container = styled.div`
 
 const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
     let mapRef = useRef();
+    let [allCoords, setAllCoords] = useState([]);
+    let [map, setMap] = useState();
 
     let router = useRouter();
     
@@ -67,9 +67,15 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             return
         }
 
-        if(document.querySelectorAll('.marker')[parseInt(index) - 1] === undefined) return
-        let x = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().x
-        let y = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().y
+        let marker = allCoords[parseInt(index) - 1];
+        if(marker === undefined) return
+        let markerCoords = getMarkerCoords(marker);
+        let x = markerCoords.x;
+        let y = markerCoords.y;
+
+        // if(document.querySelectorAll('.marker')[parseInt(index) - 1] === undefined) return
+        // let x = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().x
+        // let y = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().y
 
         let shadowCircle = document.querySelector('#shadow-circle');
 
@@ -79,20 +85,19 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
 
         setTimeout(() => {
             shadowCircle.style.display = "block";
-            shadowCircle.style.top =`${y}px`
-            shadowCircle.style.left =`${x}px`
+            shadowCircle.style.top =`${y + 4}px`
+            shadowCircle.style.left =`${x - 6}px`
 
-            mapDiv.style.WebkitMaskImage = `radial-gradient( 20px at ${ x + 20 }px ${ y + 20 }px, transparent 99%, black 100% )`
+            mapDiv.style.WebkitMaskImage = `radial-gradient( 20px at ${ x + 14 }px ${ y + 24 }px, transparent 99%, black 100% )`
         }, 0)
     }
 
     let removeTransparentCircle = () => {
+
         let mapDiv = document.querySelector('#map-container')
         let shadowCircle = document.querySelector('#shadow-circle');
 
         shadowCircle.style.display = "none";
-
-        setCurrentIndex(null)
 
         mapDiv.style.WebkitMaskImage = ``
     }
@@ -100,8 +105,13 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
     let triggerTransition = (index) => {
         let artistData = data[parseInt(index) - 1]
 
-        let x = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().x
-        let y = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().y
+        // let x = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().x
+        // let y = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().y
+
+        let marker = allCoords[parseInt(index) - 1];
+        let markerCoords = getMarkerCoords(marker);
+        let x = markerCoords.x;
+        let y = markerCoords.y;
 
         let mapDiv = document.querySelector('#map-container')
 
@@ -139,6 +149,40 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             triggerTransition(currentIndex)
         }
     }, [hasClicked])
+
+    const getMarkerCoords = (marker) => {
+        var scale = Math.pow(2, map.getZoom());
+        var nw = new google.maps.LatLng(
+            map.getBounds().getNorthEast().lat(),
+            map.getBounds().getSouthWest().lng()
+        );
+        var worldCoordinateNW = map.getProjection().fromLatLngToPoint(nw);
+        var worldCoordinate = map.getProjection().fromLatLngToPoint(marker.getPosition());
+        // var pixelOffset = new google.maps.Point(
+        //     Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale),
+        //     Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale)
+        // );
+
+        var scale = Math.pow(2, map.getZoom());
+        var nw = new google.maps.LatLng(
+            map.getBounds().getNorthEast().lat(),
+            map.getBounds().getSouthWest().lng()
+        );
+        var worldCoordinateNW = map.getProjection().fromLatLngToPoint(map.getCenter());
+        var worldCoordinate = map.getProjection().fromLatLngToPoint(marker.getPosition());
+        var pixelOffset = new google.maps.Point(
+            Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale + map.getDiv().getBoundingClientRect().width / 2),
+            Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale + map.getDiv().getBoundingClientRect().height / 2)
+        );                
+
+        var topRight = map.getProjection().fromLatLngToPoint(map.getBounds().getNorthEast());
+        var bottomLeft = map.getProjection().fromLatLngToPoint(map.getBounds().getSouthWest());
+        var scale = Math.pow(2, map.getZoom());
+        var worldPoint = map.getProjection().fromLatLngToPoint(marker.getPosition());
+        var markerCoords = new google.maps.Point((worldPoint.x - bottomLeft.x) * scale, (worldPoint.y - topRight.y) * scale);
+        
+        return markerCoords;
+    }
     
 
     useEffect(() => {
@@ -148,16 +192,15 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             version: 'weekly',
           });
 
-          let map; 
-        //   let google = window.google; // ADDED
-
           loader.load().then((google) => {
 
             initMap(google);
 
+
             data.forEach((item, index) => {
                 addMarker({ lat: item.node.geo_point?.latitude || 0 , lng: item.node.geo_point?.longitude || 0 }, item, map, google);
             })
+
 
             let bounds = new google.maps.LatLngBounds(
                 new google.maps.LatLng(-84.999999, -179.999999),
@@ -185,6 +228,8 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             mapTypeControl: false,
             disableDefaultUI: true,
           });
+
+          setMap(map);
 
           map.setTilt(0);
 
@@ -223,13 +268,15 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
                 // title: "marker"
             });
 
-            marker.addListener("mouseover", () => {
-                
-                triggerTransparentCircle(parseInt(marker.label.text));
+            setAllCoords(prev => [...prev, marker])
 
+            marker.addListener("mouseover", () => {
+                setCurrentIndex(parseInt(marker.label.text))
+                triggerTransparentCircle(parseInt(marker.label.text));
             })
 
             marker.addListener("mouseout", () => {
+                setCurrentIndex(null)
                 removeTransparentCircle();
             })
 

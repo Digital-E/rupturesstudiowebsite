@@ -80,11 +80,12 @@ const ListItem = styled.div`
 `
 
 const Grid = styled.div`
-
 margin-right: -1px;
+display: flex;
+flex-wrap: wrap;
 
 > div {
-  float: left;
+  //float: left;
   width: 50%;
   border-bottom: 1px solid black;
 }
@@ -143,15 +144,21 @@ export default function Index({ preview, data, footerData }) {
   }
 
   useEffect(() => {
+    if(window.location.hash) {
+      setTimeout(() => {
+        scrollTo(decodeURIComponent(window.location.hash.split("#")[1]))
+      }, 250)
+    }
+
     var grid = document.querySelector('.grid');
 
     if(window.innerWidth > 989) {
 
-      var msnry = new Masonry( grid, {
-      itemSelector: '.grid-item',
-      transitionDuration: 0
-      // columnWidth: 500
-      });
+      // var msnry = new Masonry( grid, {
+      // itemSelector: '.grid-item',
+      // transitionDuration: 0
+      // // columnWidth: 500
+      // });
 
       init();
 

@@ -9,7 +9,7 @@ const Container = styled.div`
 const InnerContainer = styled.div`
     height: fit-content;
     padding: 20px;
-    border-bottom: 1px solid black;
+    // border-bottom: 1px solid black;
 
     @media(max-width: 989px) {
         padding: 20px 10px;
@@ -75,7 +75,7 @@ const Component = ({ data }) => {
             </BiographyText>
         </InnerContainer>
 
-        <Image src={data.item_image}/>
+        {data.item_image !== null ? <Image src={data.item_image}/> : null}
     </Container>
     )
 }

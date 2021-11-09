@@ -55,7 +55,7 @@ const Commissionner = styled.div`
     border-bottom: 1px solid;
 
     > div > span:nth-child(2) {
-        padding-left: 10px;
+        padding-left: 6px;
     }
 `
 
@@ -191,7 +191,7 @@ const Component = ({ data, nextPrevArtists }) => {
             </Gallery>
             <Commissionner>
                 <div>
-                    <span>{data.commissionner_title}:</span>
+                    <span>{data.commissionner_title}</span>
                     <span><Link data={data.commissionner_link}>{data.commissionner_name}</Link></span>
                 </div>
                 {/* <div>
@@ -240,7 +240,7 @@ const Component = ({ data, nextPrevArtists }) => {
                         />
                     </Text>
 
-                    <BiographyTitle>Biographie</BiographyTitle>
+                    {/* <BiographyTitle>Biographie</BiographyTitle> */}
 
                     <BioText className="small-font-size">
                         <RichText render={data.biography} 

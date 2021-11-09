@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useState, useRef } from "react"
 import styled from "styled-components";
 
 import { useRouter } from "next/router"
@@ -69,26 +69,35 @@ const Container = styled.div`
         line-height: 1.9;
     }
 `
-
+let timelines = [];
 
 const Map = ({ data, currentIndex, setCurrentIndex, hasClicked, containerRef }) => {
     let mapRef = useRef();
+    let [allCoords, setAllCoords] = useState([]);
+    let [map, setMap] = useState();
 
     let router = useRouter();
 
-    let timelines = [];
     
 
-    let triggerTransparentCircle = (index, data) => {
+    let triggerTransparentCircle = (index) => {
+
         if(index === null) {
             removeTransparentCircle(index);
             return
         }
 
+        let marker = allCoords[parseInt(index) - 1];
 
-        if(document.querySelectorAll('.marker')[parseInt(index) - 1] === undefined) return
-        let x = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().x
-        let y = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().y
+        if(marker === undefined) return
+        let markerCoords = getMarkerCoords(marker);
+        let x = markerCoords.x;
+        let y = markerCoords.y;
+
+        // if(document.querySelectorAll('.marker')[parseInt(index) - 1] === undefined) return
+        // let x = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().x
+        // let y = document.querySelectorAll('.marker')[parseInt(index) - 1].getBoundingClientRect().y
+
 
         // Change class to expanded
 
@@ -119,7 +128,6 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked, containerRef }) 
     }
 
     let removeTransparentCircle = (index) => {
-
         if(timelines[index]) {
             timelines[index].reverse();
         }
@@ -150,6 +158,40 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked, containerRef }) 
             triggerTransition(currentIndex)
         }
     }, [hasClicked])
+
+    const getMarkerCoords = (marker) => {
+        var scale = Math.pow(2, map.getZoom());
+        var nw = new google.maps.LatLng(
+            map.getBounds().getNorthEast().lat(),
+            map.getBounds().getSouthWest().lng()
+        );
+        var worldCoordinateNW = map.getProjection().fromLatLngToPoint(nw);
+        var worldCoordinate = map.getProjection().fromLatLngToPoint(marker.getPosition());
+        // var pixelOffset = new google.maps.Point(
+        //     Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale),
+        //     Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale)
+        // );
+
+        var scale = Math.pow(2, map.getZoom());
+        var nw = new google.maps.LatLng(
+            map.getBounds().getNorthEast().lat(),
+            map.getBounds().getSouthWest().lng()
+        );
+        var worldCoordinateNW = map.getProjection().fromLatLngToPoint(map.getCenter());
+        var worldCoordinate = map.getProjection().fromLatLngToPoint(marker.getPosition());
+        var pixelOffset = new google.maps.Point(
+            Math.floor((worldCoordinate.x - worldCoordinateNW.x) * scale + map.getDiv().getBoundingClientRect().width / 2),
+            Math.floor((worldCoordinate.y - worldCoordinateNW.y) * scale + map.getDiv().getBoundingClientRect().height / 2)
+        );                
+
+        var topRight = map.getProjection().fromLatLngToPoint(map.getBounds().getNorthEast());
+        var bottomLeft = map.getProjection().fromLatLngToPoint(map.getBounds().getSouthWest());
+        var scale = Math.pow(2, map.getZoom());
+        var worldPoint = map.getProjection().fromLatLngToPoint(marker.getPosition());
+        var markerCoords = new google.maps.Point((worldPoint.x - bottomLeft.x) * scale, (worldPoint.y - topRight.y) * scale);
+        
+        return markerCoords;
+    }
     
 
     useEffect(() => {
@@ -217,9 +259,12 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked, containerRef }) 
               }]
           });
 
+          setMap(map);
+
           map.setTilt(0);
 
           map.addListener("center_changed", () => {
+            setCurrentIndex(null)
             timelines.forEach(item => { item.restart().pause() })
 
             document.querySelectorAll(`#text-circle-home-map`).forEach(item => {
@@ -229,8 +274,15 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked, containerRef }) 
           })
 
           map.addListener("zoom_changed", () => {
+            setCurrentIndex(null)
             timelines.forEach(item => item.restart().pause() )
           })
+
+        //   map.addListener("click", () => {
+        //       console.log("hello")
+        //     setCurrentIndex(null)
+        //     timelines.forEach(item => item.restart().pause() )
+        //   })
 
         }
 
@@ -260,22 +312,23 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked, containerRef }) 
                 // title: "marker"
             });
 
-            marker.addListener("mouseover", () => {
-                
-                triggerTransparentCircle(parseInt(marker.label.text), data.node);
+            setAllCoords(prev => [...prev, marker])
 
+            marker.addListener("mouseover", () => {
+                setCurrentIndex(parseInt(marker.label.text))
+                triggerTransparentCircle(parseInt(marker.label.text), allCoords);
             })
 
             marker.addListener("mouseout", () => {
+                setCurrentIndex(null)
                 removeTransparentCircle(parseInt(marker.label.text));
             })
 
             marker.addListener("click", () => {
+                setCurrentIndex(parseInt(marker.label.text))
                 triggerTransition(parseInt(marker.label.text), data.node)
-                triggerTransparentCircle(parseInt(marker.label.text), data.node);
             })
-        }  
-
+        } 
 
     }, []);
     

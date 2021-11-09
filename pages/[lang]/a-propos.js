@@ -68,7 +68,7 @@ export default function Index({ preview, data, footerData }) {
       <Container>
           <Title>{data[0].node.title}</Title>
           <Divider className="orange-background">Art au Centre Genève</Divider>
-          <Text className="large-font-size">
+          <Text className="medium-font-size">
             <RichText render={data[0].node.text} />
           </Text>
       </Container>
