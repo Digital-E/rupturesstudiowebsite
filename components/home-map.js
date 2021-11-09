@@ -69,11 +69,14 @@ const Container = styled.div`
         line-height: 1.9;
     }
 `
-let timelines = [];
+
 
 const Map = ({ data, currentIndex, setCurrentIndex, hasClicked, containerRef }) => {
     let mapRef = useRef();
-    let [allCoords, setAllCoords] = useState([]);
+    // let [allCoords, setAllCoords] = useState([]);
+    let timelines = [];
+    let allCoords = [];
+    
     let [map, setMap] = useState();
 
     let router = useRouter();
@@ -201,8 +204,6 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked, containerRef }) 
             version: 'weekly',
           });
 
-          let map; 
-
           loader.load().then((google) => {
 
             initMap(google);
@@ -312,7 +313,9 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked, containerRef }) 
                 // title: "marker"
             });
 
-            setAllCoords(prev => [...prev, marker])
+            // setAllCoords(prev => [...prev, marker])
+
+            allCoords.push(marker)
 
             marker.addListener("mouseover", () => {
                 setCurrentIndex(parseInt(marker.label.text))
@@ -328,7 +331,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked, containerRef }) 
                 setCurrentIndex(parseInt(marker.label.text))
                 triggerTransition(parseInt(marker.label.text), data.node)
             })
-        } 
+        }
 
     }, []);
     

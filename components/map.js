@@ -51,11 +51,11 @@ const Container = styled.div`
         line-height: 1.9;
     }
 `
-let allCoords = [];
 
 const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
     let mapRef = useRef();
     // let [allCoords, setAllCoords] = useState([]);
+    let allCoords = [];
     let [map, setMap] = useState();
 
     let router = useRouter();
