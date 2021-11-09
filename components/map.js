@@ -122,7 +122,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
 
         let shadowCircle = document.querySelector('#shadow-circle');
 
-        mapDiv.style.WebkitMaskImage = `radial-gradient( 20px at ${ x + 20 }px ${ y + 20 }px, transparent 99%, black 100% )`
+        mapDiv.style.WebkitMaskImage = `radial-gradient( 20px at ${ x + 14 }px ${ y + 24 }px, transparent 99%, black 100% )`
 
         // Route to page
 
@@ -137,7 +137,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
         let browser = Bowser.getParser(window.navigator.userAgent).parsedResult.browser.name
 
         if(window.innerWidth > 990 && browser !== "Safari") {
-            gsap.to(mapDiv, {webkitMaskImage: `radial-gradient( ${window.innerWidth}px at ${ x + 20 }px ${ y + 20 }px, transparent 99%, black 100% )`, duration: 1 })
+            gsap.to(mapDiv, {webkitMaskImage: `radial-gradient( ${window.innerWidth}px at ${ x + 14 }px ${ y + 24 }px, transparent 99%, black 100% )`, duration: 1 })
 
             // gsap.to(shadowCircle, {scale: 50})
             shadowCircle.style.display = "none";
