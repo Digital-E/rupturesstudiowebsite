@@ -70,6 +70,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
         }
 
         let marker = allCoords[parseInt(index) - 1];
+
         if(marker === undefined) return
         let markerCoords = getMarkerCoords(marker);
         let x = markerCoords.x;
@@ -290,7 +291,11 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
                 setCurrentIndex(parseInt(marker.label.text))
                 triggerTransition(parseInt(marker.label.text))
             })
-        }  
+        }
+        
+        return () => {
+            allCoords = []
+        }
 
     }, []);
     
