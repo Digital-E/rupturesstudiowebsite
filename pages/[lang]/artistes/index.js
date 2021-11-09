@@ -83,6 +83,7 @@ const Container = styled.div`
 const ContainerInner = styled.div`
   position:relative;
   overflow: hidden;
+  background-color: white;
 `
 
 
