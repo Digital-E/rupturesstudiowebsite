@@ -49,6 +49,35 @@ const BiographyText = styled.div`
     }
 `
 
+const TopRow = styled.div`
+    display: flex;
+
+    > div:nth-child(1) {
+        flex-basis: 75%
+    }
+
+    > div:nth-child(2) {
+        flex-basis: 25%
+    }
+
+    @media(max-width: 989px) {
+        flex-direction: column;
+
+        > div:nth-child(2) {
+           order: -1;
+        }
+
+        > div:nth-child(2) > div {
+            margin-bottom: 25px;
+        }
+    }
+`
+
+const TopRowLeft = styled.div``
+
+const TopRowRight = styled.div``
+
+
 
 
 const Component = ({ data }) => {
@@ -62,20 +91,25 @@ const Component = ({ data }) => {
     return (
     <Container className="grid-item" id={sanitizeTags(data)}>
         <InnerContainer>
-            <Name>{data.item_title}</Name>
-            <Artists>
-                <div className="small-font-size">{data.item_subtitle}:</div>
-                <div>
-                    <RichText render={data.item_subtitle_text} />
-                </div>
-            </Artists>
+            <TopRow>
+                <TopRowLeft>
+                    <Name>{data.item_title}</Name>
+                    <Artists>
+                        <div className="small-font-size">{data.item_subtitle}:</div>
+                        <div>
+                            <RichText render={data.item_subtitle_text} />
+                        </div>
+                    </Artists>
+                </TopRowLeft>
+                <TopRowRight>
+                    {data.item_image !== null ? <Image src={data.item_image}/> : null}
+                </TopRowRight>
+            </TopRow>
             <BiographyTitle>{data.item_biography_title}</BiographyTitle>
             <BiographyText className="small-font-size">
                 <RichText render={data.item_biography} />
             </BiographyText>
         </InnerContainer>
-
-        {data.item_image !== null ? <Image src={data.item_image}/> : null}
     </Container>
     )
 }

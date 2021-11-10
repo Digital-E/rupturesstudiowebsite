@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
 import Head from 'next/head'
 import Layout from "../../components/layout";
 import styled from 'styled-components';
 import RichText from '../../components/rich-text';
 
-
 import Title from "../../components/title"
 
-import { getAProposPageSlugs, getAProposPage, getMenu, getFooter } from "../../lib/api";
+import { getLegalPage, getLegalPagesSlugs, getMenu, getFooter } from "../../lib/api";
 
 import { SITE_NAME } from "../../lib/constants"
+
+
 
 const Container = styled.div`
   .page-title {
@@ -20,6 +20,10 @@ const Container = styled.div`
 
   @media(max-width: 989px) {
     margin-top: 53px;
+  }
+
+  @media(max-width: 989px) {
+    width: 100vw;
   }
 `
 
@@ -58,8 +62,10 @@ const Text = styled.div`
 
 
 
-export default function Index({ preview, data, footerData }) {
+export default function Legal({ preview, data, footerData }) {
 
+
+  if(data === undefined) return null
 
   return (
     <Layout 
@@ -69,10 +75,9 @@ export default function Index({ preview, data, footerData }) {
       <Head>
         <title>{SITE_NAME} | {data[0].node.title}</title>
       </Head>
-
       <Container>
           <Title>{data[0].node.title}</Title>
-          <Divider className="orange-background">Art au Centre Genève</Divider>
+          {/* <Divider className="orange-background">Art au Centre Genève</Divider> */}
           <Text className="medium-font-size">
             <RichText render={data[0].node.text} />
           </Text>
@@ -83,27 +88,47 @@ export default function Index({ preview, data, footerData }) {
 
 export async function getStaticPaths({}) {
 
-  let lang = await getAProposPageSlugs();
+  let lang = await getLegalPagesSlugs();
 
-  let paths = lang.map((item) => ({
-    params: {
-      lang: item.node._meta.lang
+  // let paths = lang.map((item) => ({
+  //   params: {
+  //     artist: item.node._meta.uid,
+  //     lang: item.node._meta.lang
+  //   }
+  // }))
+
+  let paths = lang.map((item => {
+
+    if(item.node._meta.uid.split("__").length === 2) {
+        return { 
+            params: { 
+                legal: item.node._meta.uid.split("__")[1], 
+                lang: item.node._meta.lang 
+            }
+        }
     }
-  }))
 
+    return {
+        params: { 
+            legal: item.node._meta.uid, 
+            lang: item.node._meta.lang
+        }
+    }
+
+  })) 
+  
 
   return {
     paths: paths,
-    fallback: false
+    fallback: true
   }
 }
 
 export async function getStaticProps({ params, preview = false, previewData }) {
 
 
-  const data = await getAProposPage(params.lang, previewData);
-
-
+  const data = await getLegalPage(params.legal, params.lang, previewData);
+  
 
   // Get Menu And Footer
 

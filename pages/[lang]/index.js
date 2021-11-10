@@ -17,6 +17,7 @@ import { SITE_NAME } from "../../lib/constants"
 import RichText from '../../components/rich-text';
 
 const Container = styled.div`
+  position: relative;
   height: 100vh;
   width: 100vw;
   overflow: scroll;
@@ -47,6 +48,10 @@ const Container = styled.div`
     transform: translate(-40%, -40%);
     padding: 20px;
   }
+
+  @media(max-width: 989px) {
+    height: 85vh;
+  }
 `
 
 const Trigger = styled.div`
@@ -54,6 +59,11 @@ const Trigger = styled.div`
   z-index: 998;
   height: 500vh;
   width: 100vw;
+
+  @media(max-width: 989px) {
+    display: none;
+    height: 85vh;
+  }
 `
 
 const BackgroundContainer = styled.div`
@@ -68,27 +78,11 @@ const BackgroundContainer = styled.div`
     background: url("/mobile-background-min.jpeg");
   }
 
-  
-  // img {
-  //   position: absolute;
-  //   height: 100%;
-  //   width: 100%;
-  //   object-fit: cover;
-  //   z-index: -1;
-  //   filter: grayscale(100%);
-  //   opacity: 1;
-  // }
+  @media(max-width: 989px) {
+    position: absolute;
+    height: 85vh;
+  }
 
-`
-
-
-const Overlay = styled.div`
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  z-index: 0;
-  background-color: rgba(255, 174, 80, 0.8);
 `
 
 
@@ -128,7 +122,35 @@ const Title = styled.div`
     bottom: 3%;
   }
 
-  @media(max-width: 600px) {
+
+  @media(max-width: 990px) {
+    > span {
+      font-size: 15vw;
+    }
+
+    > .art {
+      top: 8%;
+      left: 3%;
+    }
+  
+    > .au {
+      top: 30%;
+      right: 15%;
+    }
+  
+    > .centre {
+      top: 55%;
+      left: 3%;
+    }
+  
+    > .geneve {
+      right: 3%;
+      left: auto;
+      bottom: 3%;
+    }
+  }
+
+  @media(max-width: 575px) {
     > span {
       font-size: 25vw;
     }
@@ -153,6 +175,10 @@ const Title = styled.div`
       right: auto;
       bottom: 3%;
     }
+  }
+
+  @media(max-width: 989px) {
+    position: absolute;
   }
 `
 const IntroText = styled.div`
@@ -179,8 +205,25 @@ const IntroText = styled.div`
   }
 
   @media(max-width: 989px) {
-    // height: 100%;
-    // margin-top: 53px
+    display: none;
+  }
+`
+
+const IntroTextMobile = styled.div`
+  width: 100vw;
+  padding: 40px 20px;
+  background: white;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+
+  * {
+    margin: 0;
+    line-height: 1;
+    font-size: 40px;
+  }
+
+  @media(min-width: 990px) {
+    display: none;
   }
 `
 
@@ -194,17 +237,17 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
   let containerRef = useRef();
 
 
-  useEffect(() => {
-    // let backgroundImages = document.querySelector("#background-image").children;
+  // useEffect(() => {
+  //   let backgroundImages = document.querySelector("#background-image").children;
 
-    // Array.from(backgroundImages).forEach(item => {
-    //   item.style.opacity = 0;
-    // });
+  //   Array.from(backgroundImages).forEach(item => {
+  //     item.style.opacity = 0;
+  //   });
 
-    // if(currentIndex === null) return;
-    // backgroundImages[currentIndex - 1].style.opacity = 1;
+  //   if(currentIndex === null) return;
+  //   backgroundImages[currentIndex - 1].style.opacity = 1;
 
-  }, [currentIndex])
+  // }, [currentIndex])
 
   let init = (reset) => {
     if(reset === true) {
@@ -283,32 +326,50 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
   
   
       containerRef.current.addEventListener("click", () => {
-        tl.play()
+        if(tl) {
+          tl.play()
+        }
       })
   
       setTimeout(() => {
-        tl.play()
+        if(tl) {
+          tl.play()
+        }
       }, 5000)
   
       if(introHasTriggered === "true") {
         tl.progress(1)
       }
   
-
-
   }
 
   let initWrapper = () => {
+    if(window.innerWidth > 989) {
+      setIsMobile(false);
+    } else {
+      document.querySelector("body").style.overflow = "visible"
+      if(tl) {
+        tl.kill(true)
+        tl = null;
+        gsap.set("#index-title", {clearProps: true});
+      }
+      return setIsMobile(true)
+    }
+
     init(true)
   }
 
 
   useEffect(() => {
 
-    init();
+    if(window.innerWidth > 989) {
+      setIsMobile(false);
+    }
+
+    initWrapper();
 
     setTimeout(() => {
-      init(true);
+      initWrapper(true);
     },100)
 
     window.addEventListener("resize", initWrapper)
@@ -316,12 +377,6 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
     return () => {
       document.querySelector("body").style.overflow = "visible"
       window.removeEventListener("resize", initWrapper)
-    }
-  },[])
-
-  useEffect(() => {
-    if(window.innerWidth > 989) {
-      setIsMobile(false);
     }
   },[])
 
@@ -361,6 +416,9 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
             }
         </BackgroundContainer>
       </Container>
+      <IntroTextMobile className="large-font-size">
+          <RichText render={data[0].node.intro_text} />
+      </IntroTextMobile>
     </Layout>
   )
 }

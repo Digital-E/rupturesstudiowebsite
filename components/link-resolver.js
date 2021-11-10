@@ -7,7 +7,7 @@ const LinkResolver = (data) => {
     let lang = router.query.lang
 
 
-    if(data.uid === null) return null;
+    if(data.uid === null || data.uid === undefined) return null;
 
     let split = data.uid.split("__")
     
