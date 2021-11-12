@@ -28,6 +28,8 @@ gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(ScrollToPlugin);
 
 const Container = styled.div`
+  background-color: white;  
+  
   .page-title {
     position: relative;
     padding-top: 0.2vw;

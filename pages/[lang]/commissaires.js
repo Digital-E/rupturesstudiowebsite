@@ -26,7 +26,9 @@ if(typeof window !== "undefined") {
 gsap.registerPlugin(ScrollToPlugin);
 gsap.registerPlugin(ScrollTrigger);
 
-const Container = styled.div``
+const Container = styled.div`
+  background-color: white;
+`
 
 const ContainerInner = styled.div`
   overflow: hidden;

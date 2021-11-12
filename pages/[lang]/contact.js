@@ -21,6 +21,8 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const Container = styled.div`
+   background-color: white;
+
   .page-title {
     position: relative;
     padding-top: 0.2vw;
