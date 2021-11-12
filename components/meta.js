@@ -39,6 +39,7 @@ const meta = ({ name, content }) => {
         name={`${SITE_NAME} | ${name}`}
         content={ content }
       />
+      <meta name="theme-color" content="rgb(255, 148, 67)" />
       {/* <meta property="og:image" content={"/OGImage/AD-REM_favicon(1500px).png"} /> */}
     </Head>
   );
