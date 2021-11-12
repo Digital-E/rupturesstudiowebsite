@@ -9,7 +9,7 @@ const Container = styled.div`
   
   .show-image {
     opacity: 1;
-    transition-duration: 0.2s;
+    transition-duration: 0.5s;
   }
 
   picture {
