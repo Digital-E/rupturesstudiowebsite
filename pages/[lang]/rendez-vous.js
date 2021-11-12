@@ -6,6 +6,8 @@ import RichText from '../../components/rich-text';
 
 import moment from "moment";
 
+import 'moment/locale/fr' 
+
 import Link from "../../components/link"
 
 import Title from "../../components/title"
@@ -19,6 +21,8 @@ import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+import { useRouter } from "next/router";
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(ScrollToPlugin);
@@ -188,6 +192,8 @@ let scrollTriggerInstanceTwo = null;
 
 export default function Index({ preview, data, footerData }) {
 
+  let router = useRouter();
+
   useEffect(() => {
     if(window.innerWidth < 990) {
       if(window.location.hash === "#podcasts") {
@@ -202,9 +208,13 @@ export default function Index({ preview, data, footerData }) {
   let init = (reset) => {
 
     if(reset === true) {
-      if(scrollTriggerInstanceOne !== null || scrollTriggerInstanceTwo !== null) {
-          ScrollTrigger.getById("scroll-trigger-one").kill(true);
-          ScrollTrigger.getById("scroll-trigger-two").kill(true);
+      if(
+        scrollTriggerInstanceOne !== null || scrollTriggerInstanceTwo !== null
+        ) {
+          if(ScrollTrigger.getById("scroll-trigger-one") !== undefined && ScrollTrigger.getById("scroll-trigger-two") !== undefined) {
+            ScrollTrigger.getById("scroll-trigger-one").kill(true);
+            ScrollTrigger.getById("scroll-trigger-two").kill(true);
+          }
       }
     }
 
@@ -232,14 +242,38 @@ export default function Index({ preview, data, footerData }) {
     }    
   }
 
-  let initWrapper = () => {
-    init(true)
-  } 
+    let initWrapper = () => {
+      init(true)
+      introTextHeight();
+    } 
+
+    let introTextHeight = () => {
+
+      document.querySelectorAll(".rendez-vous-intro-text").forEach(item => {
+        item.style.height = "auto"
+      })
+
+      let maxHeight = 0
+
+      document.querySelectorAll(".rendez-vous-intro-text").forEach(item => {
+        if(item.getBoundingClientRect().height > maxHeight) {
+          maxHeight = item.getBoundingClientRect().height
+        }
+      })
+
+      document.querySelectorAll(".rendez-vous-intro-text").forEach(item => {
+        item.style.height = `${maxHeight}px`
+      })
+    }
 
     useEffect(() => {
       init(true) 
 
       window.addEventListener("resize", initWrapper)
+
+      introTextHeight();
+
+      
 
       return () => {
           window.removeEventListener("resize", initWrapper)
@@ -249,6 +283,15 @@ export default function Index({ preview, data, footerData }) {
     let eventsList = data[0].node.list_one.sort(function(a,b){
         return new Date(b.list_one_item_date) - new Date(a.list_one_item_date);
       });
+
+
+      let getDate = (date) => {
+        if(router.query.lang === "fr-fr") {
+          return moment(date).locale('fr').format('dddd Do MMMM HH:mm')
+        }
+
+        return moment(date).format('dddd Do MMMM HH:mm')
+      }
 
   return (
     <Layout 
@@ -264,14 +307,14 @@ export default function Index({ preview, data, footerData }) {
           <InnerContainer className="inner-container">
             <ColLeft id="visites-guidees">
               <Divider id="divider-one" className="orange-background"><span>{data[0].node.list_one_title}</span></Divider>
-              <Text className="medium-font-size">
+              <Text className="medium-font-size rendez-vous-intro-text">
                 <RichText render={data[0].node.list_one_text} />
               </Text>
               <ListLeft>
                   {eventsList.map((item,index) => 
                       <div key={index} className={new Date(item.list_one_item_date) < new Date() ? "old-event" : ""}>
                         <ListLeftItem>
-                            <ListLeftItemTitle className="medium-font-size">{moment(item.list_one_item_date).format('dddd Do MMMM HH:mm')}</ListLeftItemTitle>
+                            <ListLeftItemTitle className="medium-font-size">{getDate(item.list_one_item_date)}</ListLeftItemTitle>
                             <ListLeftItemTitle className="medium-font-size">{item.list_one_item_title}</ListLeftItemTitle>
                             <ListLeftItemLinkWrapper>
                                 <Link data={item.list_one_item_link_url}>{item.list_one_item_link_text}</Link>
@@ -318,7 +361,7 @@ export default function Index({ preview, data, footerData }) {
               <Divider id="divider-two" className="orange-background">
                 {data[0].node.list_two_title}
               </Divider>
-              <Text className="medium-font-size">
+              <Text className="medium-font-size rendez-vous-intro-text">
                 <RichText render={data[0].node.list_two_text} />                       
               </Text>
               <ListRight>
