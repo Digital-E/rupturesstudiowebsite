@@ -259,6 +259,7 @@ export default function Index({ preview, data, footerData }) {
 
     let initWrapper = () => {
       init(true)
+      if(window.innerWidth < 990) return
       introTextHeight();
     } 
 
