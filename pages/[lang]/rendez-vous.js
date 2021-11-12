@@ -133,7 +133,9 @@ const ListLeftItemInformation = styled.div`
   }
 
 
-  > div > div:nth-child(2) {
+  > div > div:nth-child(2),
+  > div > a:nth-child(2)
+   {
       margin-left: 10px;
   }
 
@@ -335,7 +337,7 @@ export default function Index({ preview, data, footerData }) {
                                         </g>
                                         </svg>                                        
                                     </div>
-                                    <div className="small-font-size">{item.list_one_item_information_one}</div>
+                                    <Link data={item.list_one_item_information_one_link}>{item.list_one_item_information_one}</Link>
                                 </div>
                                 <div>
                                     <div>

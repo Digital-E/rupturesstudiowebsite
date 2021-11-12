@@ -9,8 +9,15 @@ import { StateProvider } from "../store"
 
 import CookieConsent from "react-cookie-consent"
 import RichText from '../components/rich-text';
+import { useEffect } from 'react';
 
 function MyApp({ Component, pageProps, router }) {
+
+  useEffect(() => {
+    setTimeout(() => {
+      document.querySelector("#__next").style.opacity = 1
+    }, 250)
+  },[])
 
   return (
     <StateProvider>

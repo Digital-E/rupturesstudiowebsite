@@ -11,16 +11,16 @@
   --orange: rgb(255, 148, 67);
 }
 
-/* #map-container {
-  transition-duration: 0.3s;
-  --mask: radial-gradient(
-    20px at var(--x) var(--y),
-    transparent 99%,
-    black 100%
-  );
-  -webkit-mask-image: var(--mask);
-  mask-image: var(--mask);
-} */
+#__next {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+#map > div,
+#map-container
+ {
+  background-color: rgb(255, 148, 67) !important;
+}
 
 .CookieConsent {
   background-color: #ffffff !important;
@@ -69,6 +69,7 @@ body {
   font-size: 20px;
   line-height: 1.1;
   font-weight: 500;
+  background-color: var(--orange)
 }
 
 .default-font-size {

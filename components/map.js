@@ -35,10 +35,6 @@ const Container = styled.div`
         transition-duration: 0.3s;
     }
 
-    #map > div {
-        background-color: white !important;
-    }
-
     .gm-style > div:nth-child(15) > div,
     .gm-style > div:nth-child(17)
      {
