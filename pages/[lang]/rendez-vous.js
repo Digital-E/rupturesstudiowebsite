@@ -29,7 +29,7 @@ gsap.registerPlugin(ScrollToPlugin);
 
 const Container = styled.div`
   background-color: white;  
-  
+
   .page-title {
     position: relative;
     padding-top: 0.2vw;
@@ -141,7 +141,18 @@ const ListLeftItemInformation = styled.div`
       margin-left: 10px;
   }
 
+  & .small-font-size a {
+    font-size: inherit !important;
+  }
+
   @media(max-width: 989px) {
+    flex-direction: column;
+
+    > div:nth-child(1)
+     {
+        margin-bottom: 10px;
+    }
+
     svg {
       height: 25px;
     }
@@ -327,7 +338,7 @@ export default function Index({ preview, data, footerData }) {
                                 <RichText render={item.list_one_item_text} />                                
                             </ListLeftItemText>
                             <ListLeftItemInformation>
-                                <div>
+                                <div className="small-font-size">
                                     <div>
                                         <svg version="1.1" height="35px" x="0px" y="0px"
                                             viewBox="0 0 15.7 17.23">
