@@ -12,6 +12,8 @@ import { SITE_NAME } from "../../lib/constants"
 
 
 const Container = styled.div`
+  background-color: white;
+  
   .page-title {
     position: relative;
     padding-top: 0.2vw;

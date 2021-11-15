@@ -31,7 +31,11 @@ function MyApp({ Component, pageProps, router }) {
             declineButtonText={pageProps.menuData[0].node.refuse_text}
             enableDeclineButton
             cookieName={"ArtAuCentreCookieConsent"}
-            onAccept={() => {}}
+            onAccept={() => {
+              gtag('consent', 'update', {
+                'analytics_storage': 'granted'
+              });
+            }}
             onDecline={() => {}}
           >
             <RichText render={pageProps.menuData[0].node.cookie_text} />

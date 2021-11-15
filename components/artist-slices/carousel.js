@@ -3,11 +3,19 @@ import styled from "styled-components"
 
 import Image from "../image"
 
-let Flickity = null
+import { gsap }  from  "gsap"
 
-if (typeof window !== "undefined") {
-    Flickity = require("flickity");
-  }
+import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin"
+
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
+
+// let Flickity = null
+
+// if (typeof window !== "undefined") {
+//     Flickity = require("flickity");
+//   }
 
 const Container = styled.div`
     position: relative;
@@ -108,6 +116,34 @@ const ArrowRight = styled.div`
   @media(max-width: 989px) {
     display: none;
   }
+`
+
+const ScrollButtonWrapper = styled.div`
+    position: absolute;
+    bottom: 3vh;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    cursor: pointer;
+
+    .hero-scroll-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border: 1px solid black;
+      height: 45px;
+      width: 45px;
+    }
+
+    .hero-scroll-button svg {
+      transform: rotateZ(-90deg);
+      width: 20px;
+    }
+
+    @media(max-width: 989px) {
+      display: none;
+    }
 `
 
 
@@ -231,13 +267,38 @@ const Component = ({ data }) => {
     //     })
     //   }, []);
       
-      const changeSlide = (value) => {
-        if(value === "previous") {
-          flickity.previous()
-        } else {
-          flickity.next()
-        }
-      }
+      // const changeSlide = (value) => {
+      //   if(value === "previous") {
+      //     flickity.previous()
+      //   } else {
+      //     flickity.next()
+      //   }
+      // }
+
+      useEffect(() => {
+        gsap.fromTo(".hero-scroll-button",{y: 0}, { y: -5 , duration: 1, yoyo: true, ease: "power1.inOut", repeat: -1});
+
+        document.querySelector(".hero-scroll-button").addEventListener("click", () => {
+            gsap.to(gallery.current, {duration: 2, ease: "power2.inOut",scrollTo: window.innerHeight * 1.5})
+        })
+
+        let tl = gsap.timeline({
+            // yes, we can add it to an entire timeline!
+            scrollTrigger: {
+              // trigger: ".carousel-container",
+              scroller: gallery.current,
+              // pin: true,   // pin the trigger element while active
+              // start: "top top", // when the top of the trigger hits the top of the viewport
+              // end: "+=500", // end after scrolling 500px beyond the start
+              start: 0,
+              end: window.innerHeight / 2,
+              scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+            }
+        });
+
+        tl.fromTo(".hero-scroll-button-wrapper", { y:0 }, { y:100 })
+
+      },[]);
 
     return (
         <Container className="carousel-container">
@@ -259,7 +320,14 @@ const Component = ({ data }) => {
             <svg height="25px" x="0px" y="0px" viewBox="0 0 16.63 12.99">
             <polygon points="6.68,0.14 0.32,6.5 6.68,12.86 8.74,12.86 3.17,7.24 16.34,7.24 16.34,5.76 3.17,5.76 8.74,0.14 "/>
             </svg>
-          </ArrowRight>              
+          </ArrowRight>
+          <ScrollButtonWrapper className="hero-scroll-button-wrapper">
+              <div className="hero-scroll-button">
+                <svg height="25px" x="0px" y="0px" viewBox="0 0 16.63 12.99">
+                <polygon points="6.68,0.14 0.32,6.5 6.68,12.86 8.74,12.86 3.17,7.24 16.34,7.24 16.34,5.76 3.17,5.76 8.74,0.14 "/>
+                </svg>                
+              </div>
+          </ScrollButtonWrapper>                        
         </Container>
     )
 }

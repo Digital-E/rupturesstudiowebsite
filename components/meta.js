@@ -41,6 +41,20 @@ const meta = ({ name, content }) => {
       />
       <meta name="theme-color" content="rgb(255, 148, 67)" />
       {/* <meta property="og:image" content={"/OGImage/AD-REM_favicon(1500px).png"} /> */}
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2097VL72Q"></script>
+      <script dangerouslySetInnerHTML={{__html:
+      `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('consent', 'default', {
+          'ad_storage': 'denied'
+          'analytics_storage': 'denied'
+        });
+        gtag('js', new Date());
+      
+        gtag('config', 'G-E2097VL72Q');
+      `
+      }}/>
     </Head>
   );
 }
