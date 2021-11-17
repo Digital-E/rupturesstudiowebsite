@@ -46,12 +46,12 @@ const Container = styled.div`
   }
 
   img {
-    width: 50%;
+    width: 25%;
   }
 
   @media(max-width: 989px) {
     img {
-      width: 100%;
+      width: 25%;
     }
   }
 `

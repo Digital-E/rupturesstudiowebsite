@@ -96,7 +96,7 @@ const ListItem = styled.div`
 
   > a {
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
     // align-items: center;
     font-size: 34px;
     color: black;
@@ -110,6 +110,7 @@ const ListItem = styled.div`
   > a > div:nth-child(2) {
     flex-basis: 40%;
     margin-top: 25px;
+    padding-left: 50px;
   }
 
   > a > div:nth-child(2) > img {
@@ -133,6 +134,7 @@ const ListItem = styled.div`
 
     > a > div:nth-child(2) {
       width: 100%;
+      padding-left: 0;
     }
 
     > a > div:nth-child(2) > img {
