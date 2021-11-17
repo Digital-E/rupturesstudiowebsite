@@ -19,7 +19,6 @@ import { SITE_NAME } from "../../../lib/constants"
 
 const Container = styled.div`
   position: fixed;
-  background-color: white;
 
   #background-image {
     position: absolute;
