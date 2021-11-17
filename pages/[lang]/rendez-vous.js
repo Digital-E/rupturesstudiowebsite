@@ -312,7 +312,7 @@ export default function Index({ preview, data, footerData }) {
 
       setTimeout(() => {
         introTextHeight();
-      }, 250)
+      }, 0)
 
       return () => {
           window.removeEventListener("resize", initWrapper)
