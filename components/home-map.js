@@ -124,7 +124,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked, containerRef }) 
 
         timelines[index] = gsap.timeline();
 
-        timelines[index].to(shadowCircle, {display: "block", scale: 5, duration: 0.3}, "start")
+        timelines[index].to(shadowCircle, {display: "block", scale: 6, duration: 0.3}, "start")
 
         timelines[index].to(textCircle, {display: "flex", opacity: 1, duration: 0.3, delay: 0.1}, "start")
 
@@ -248,8 +248,8 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked, containerRef }) 
 
         let initMap = (google) => {
           map = new google.maps.Map(mapRef.current, {
-            center: { lat: 46.2050242, lng: 6.1290692 },
-            zoom: 13,
+            center: { lat: 46.2020242, lng: 6.1450692 },
+            zoom: 15,
             mapTypeId: 'satellite',
             mapTypeControl: false,
             disableDefaultUI: true,

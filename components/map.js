@@ -223,8 +223,8 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
 
         let initMap = (google) => {
           map = new google.maps.Map(mapRef.current, {
-            center: { lat: 46.2050242, lng: 6.1290692 },
-            zoom: 13,
+            center: { lat: 46.2050242, lng: 6.1480692 },
+            zoom: 15,
             mapTypeId: 'satellite',
             mapTypeControl: false,
             disableDefaultUI: true,

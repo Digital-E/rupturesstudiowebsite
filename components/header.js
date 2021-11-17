@@ -253,6 +253,7 @@ const LinkStyle = styled.div`
     height: 100%;
     width: 100%;
     line-height: 0.8;
+    cursor: pointer;
   }
 
   @media(max-width: 989px) {
@@ -364,7 +365,7 @@ export default function Header({ data }) {
     document.querySelectorAll("a").forEach(item => {item.addEventListener("click", () => closeMenu())})
 
 
-  },[]);
+  });
 
 
   

@@ -24,6 +24,11 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 import { useRouter } from "next/router";
 
+import Prismic from '@prismicio/client';
+
+const apiEndpoint = 'https://artaucentregeneve.cdn.prismic.io/api/v2'
+const client = Prismic.client(apiEndpoint)
+
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -38,6 +43,16 @@ const Container = styled.div`
 
   @media(max-width: 989px) {
     margin-top: 53px;
+  }
+
+  img {
+    width: 50%;
+  }
+
+  @media(max-width: 989px) {
+    img {
+      width: 100%;
+    }
   }
 `
 
@@ -209,6 +224,8 @@ export default function Index({ preview, data, footerData }) {
 
   let router = useRouter();
 
+  let [allDates, setAllDates] = useState([]);
+
   useEffect(() => {
     if(window.innerWidth < 990) {
       if(window.location.hash === "#podcasts") {
@@ -259,15 +276,21 @@ export default function Index({ preview, data, footerData }) {
 
     let initWrapper = () => {
       init(true)
-      if(window.innerWidth < 990) return
+
+      document.querySelectorAll(".rendez-vous-intro-text").forEach(item => {
+        item.style.height = "auto"
+      })
+
+      if(window.innerWidth < 989) return
+
       introTextHeight();
     } 
 
     let introTextHeight = () => {
 
-      document.querySelectorAll(".rendez-vous-intro-text").forEach(item => {
-        item.style.height = "auto"
-      })
+      // document.querySelectorAll(".rendez-vous-intro-text").forEach(item => {
+      //   item.style.height = "auto"
+      // })
 
       let maxHeight = 0
 
@@ -287,18 +310,43 @@ export default function Index({ preview, data, footerData }) {
 
       window.addEventListener("resize", initWrapper)
 
-      introTextHeight();
-
-      
+      setTimeout(() => {
+        introTextHeight();
+      }, 250)
 
       return () => {
           window.removeEventListener("resize", initWrapper)
       }
     },[])
 
-    let eventsList = data[0].node.list_one.sort(function(a,b){
-        return new Date(b.list_one_item_date) - new Date(a.list_one_item_date);
-      });
+    // let eventsList = data[0].node.list_one.sort(function(a,b){
+    //     return new Date(b.list_one_item_date) - new Date(a.list_one_item_date);
+    // });
+
+    const getDataOnLoad = async () => {
+      const response = await client.query(
+        Prismic.Predicates.at('document.type', 'rendez-vous_page'),
+        { lang :  router.query.lang }
+      )
+      if (response) {
+        let res = response.results[0].data.list_one;
+        let now = new Date();
+        now = now.getTime();
+
+        let orderedDates = res.sort(function(a,b) {
+          var aToDate = (new Date(a.list_one_item_date)).getTime();
+          var bToDate = (new Date(b.list_one_item_date)).getTime();
+          return Math.abs(aToDate - now) - Math.abs(bToDate - now);
+        })
+
+        setAllDates(orderedDates)
+      }
+    }
+
+    
+    useEffect(() => {
+      getDataOnLoad();
+    }, [])
 
 
       let getDate = (date) => {
@@ -306,7 +354,7 @@ export default function Index({ preview, data, footerData }) {
           return moment(date).locale('fr').format('dddd Do MMMM HH:mm')
         }
 
-        return moment(date).format('dddd Do MMMM HH:mm')
+        return moment(date).locale('en').format('dddd Do MMMM HH:mm')
       }
 
   return (
@@ -327,7 +375,7 @@ export default function Index({ preview, data, footerData }) {
                 <RichText render={data[0].node.list_one_text} />
               </Text>
               <ListLeft>
-                  {eventsList.map((item,index) => 
+                  {allDates.map((item,index) => 
                       <div key={index} className={new Date(item.list_one_item_date) < new Date() ? "old-event" : ""}>
                         <ListLeftItem>
                             <ListLeftItemTitle className="medium-font-size">{getDate(item.list_one_item_date)}</ListLeftItemTitle>
@@ -457,7 +505,6 @@ export async function getStaticPaths({}) {
 }
 
 export async function getStaticProps({ params, preview = false, previewData }) {
-
 
   const data = await getRendezVousPage(params.lang, previewData);
 

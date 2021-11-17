@@ -19,26 +19,27 @@ import { SITE_NAME } from "../../../lib/constants"
 
 const Container = styled.div`
   position: fixed;
+  background-color: white;
 
   #background-image {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
+    // height: 100%;
     top: 4.8vw;
-    height: calc(100vh - 4.8vw);
+    // height: calc(100vh - 4.8vw);
     width: 65.65%;
 
     > div {
-      padding: 0;
-      height: 100%;
-      opacity: 0;
+      // padding: 0;
+      // height: 100%;
+      // opacity: 0;
       position: absolute;
     }
 
-    > div > picture > img {
-      object-fit: cover;
-    }
+    // > div > picture > img {
+    //   object-fit: cover;
+    // }
 }
 
 #shadow-circle {

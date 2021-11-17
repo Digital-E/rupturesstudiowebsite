@@ -280,7 +280,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
       tl.to("#index-title", 
         {
           x: window.innerWidth, 
-          duration: 2, 
+          duration: 1.5, 
           stagger: 0.1, 
           ease: "sine.inOut"
         },
@@ -293,7 +293,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
         },
         {
           y: window.innerHeight - document.querySelector("#intro-text").getBoundingClientRect().height,
-          duration: 2,
+          duration: 1.5,
           ease: "sine.inOut"
         },
         "start"

@@ -47,7 +47,7 @@ const meta = ({ name, content }) => {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('consent', 'default', {
-          'ad_storage': 'denied'
+          'ad_storage': 'denied',
           'analytics_storage': 'denied'
         });
         gtag('js', new Date());
