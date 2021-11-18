@@ -57,7 +57,7 @@ const LinkComponent = ({data, children}) => {
         )
     }
 
-    return null
+    return <span>{children}</span>
 
 }
 

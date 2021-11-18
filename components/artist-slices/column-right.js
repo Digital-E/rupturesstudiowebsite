@@ -36,6 +36,8 @@ const Gallery = styled.div`
         justify-content: center;
         height: 50px;
         width: 50px;
+        min-height: 50px;
+        min-width: 50px;
         border-radius: 999px !important;
         box-shadow: inset 0px 1px 2px black;
         font-size: 20px;
@@ -116,18 +118,18 @@ const ArrowLeft = styled.div`
 `
 
 const ArrowRight = styled.div`
-    transform: rotateZ(180deg);
     position: relative;
-    top: -4px;
     cursor: pointer;
     margin-left: 15px;
+
+    svg {
+        transform: rotateZ(180deg);
+    }
 
     @media(max-width: 989px) {
         svg {
           height: 20px !important;
         }
-
-        top: 1px;
       }
 `
 

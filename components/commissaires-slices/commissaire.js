@@ -3,6 +3,8 @@ import RichText from '../rich-text';
 
 import Image from "../image"
 
+let deburr = require('lodash/deburr');
+
 const Container = styled.div`
 `
 
@@ -84,7 +86,7 @@ const Component = ({ data }) => {
 
     let sanitizeTags = (item) => {
         let sanitized = item.item_title.toLowerCase().split(" ").filter(item => item !== "&")
-        return sanitized.join("-")
+        return deburr(sanitized.join("-"))
       }
 
 

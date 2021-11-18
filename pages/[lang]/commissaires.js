@@ -17,6 +17,8 @@ import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
+let deburr = require('lodash/deburr');
+
 let Masonry = null;
 
 if(typeof window !== "undefined") {
@@ -176,7 +178,7 @@ export default function Index({ preview, data, footerData }) {
 
   let sanitizeTags = (item) => {
     let sanitized = item.item_title.toLowerCase().split(" ").filter(item => item !== "&")
-    return sanitized.join("-")
+    return deburr(sanitized.join("-"))
   }
 
 

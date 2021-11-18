@@ -151,7 +151,8 @@ const ListLeftItemInformation = styled.div`
 
 
   > div > div:nth-child(2),
-  > div > a:nth-child(2)
+  > div > a:nth-child(2),
+  > div > span:nth-child(2)
    {
       margin-left: 10px;
   }
