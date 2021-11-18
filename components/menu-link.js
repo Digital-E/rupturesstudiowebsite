@@ -7,6 +7,10 @@ const LinkComponent = ({href, children}) => {
 
     let lang = router.query.lang
 
+    if(lang === undefined) {
+        lang = "en-gb"
+    }
+
     let split = href.split("__")
         
     if(split.length === 2) {

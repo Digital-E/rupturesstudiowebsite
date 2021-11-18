@@ -6,6 +6,10 @@ const LinkComponent = ({data, children}) => {
     let router = useRouter()
 
     let lang = router.query.lang
+
+    if(lang === undefined) {
+        lang = "en-gb"
+    }
     
 
     if(data === null) {
