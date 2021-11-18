@@ -10,21 +10,20 @@ const LinkComponent = ({data, children}) => {
     if(lang === undefined) {
         lang = "en-gb"
     }
-    
 
     if(data === null) {
         return <a>{ children }</a>;
     }
 
-    if(data._linkType === 'Link.web') {
+    if(data._linkType === 'Link.web' || data.link_type === 'Web') {
         return <a href={data.url} target="_blank" rel="noreferrer">{children}</a>
     }
 
-    if (data._linkType === 'Link.file') {
+    if (data._linkType === 'Link.file' || data.link_type === 'File') {
         return <a href={data.url} target="_blank" rel="noreferrer">{children}</a>
     }
 
-    if (data._linkType === 'Link.document') {
+    if (data._linkType === 'Link.document' || data.link_type === 'Document') {
 
         if(data._meta.uid === null) return null;
 

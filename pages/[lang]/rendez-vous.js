@@ -309,7 +309,7 @@ export default function Index({ preview, data, footerData }) {
     useEffect(() => {
       setTimeout(() => {
         init(true) 
-      }, 500)
+      }, 1000)
 
       window.addEventListener("resize", initWrapper)
 
