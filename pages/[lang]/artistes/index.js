@@ -165,6 +165,8 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
 
 
   useEffect(() => {
+    if(hasClicked) return;
+    
     let backgroundImages = document.querySelector("#background-image").children;
 
     Array.from(backgroundImages).forEach(item => {

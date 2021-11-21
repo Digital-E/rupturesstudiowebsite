@@ -217,7 +217,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
 
             setTimeout(() => {
                 mapRef.current.style.opacity = 1
-            }, 500)
+            }, 1000)
           })
 
 
