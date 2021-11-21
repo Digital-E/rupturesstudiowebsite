@@ -10,7 +10,7 @@ export default function Index({ preview, data, footerData }) {
         } else if (lang === "fr-FR") {
             router.replace("/fr-fr")
         } else {
-            router.replace("/en-gb")
+            router.replace("/fr-fr")
         }
     },[])
 

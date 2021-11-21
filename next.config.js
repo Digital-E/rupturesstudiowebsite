@@ -9,12 +9,12 @@ module.exports = {
   // }
   async rewrites() {
     return [
-      { source: "/a-propos", destination: "/en-gb/a-propos" },
-      { source: "/commissaires", destination: "/en-gb/commissaires" },
-      { source: "/contact", destination: "/en-gb/contact" },
-      { source: "/partenaires", destination: "/en-gb/partenaires" },
-      { source: "/artistes/:id", destination: "/en-gb/artistes/:id" },
-      { source: "/artistes", destination: "/en-gb/artistes" },
+      { source: "/a-propos", destination: "/fr-fr/a-propos" },
+      { source: "/commissaires", destination: "/fr-fr/commissaires" },
+      { source: "/contact", destination: "/fr-fr/contact" },
+      { source: "/partenaires", destination: "/fr-fr/partenaires" },
+      { source: "/artistes/:id", destination: "/fr-fr/artistes/:id" },
+      { source: "/artistes", destination: "/fr-fr/artistes" },
       // { source: "/:first", destination: "/fr-fr/:first" },
       // { source: "/:first/:second", destination: "/fr-fr/:first/:second" }
     ];
