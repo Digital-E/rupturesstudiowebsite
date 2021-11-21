@@ -50,6 +50,8 @@ const Container = styled.div`
 
 let allCoords = [];
 
+let transitionHasStarted = false;
+
 const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
     let mapRef = useRef();
     // let [allCoords, setAllCoords] = useState([]);
@@ -60,6 +62,8 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
     
 
     let triggerTransparentCircle = (index) => {
+        if(hasClicked) return;
+
         if(index === null) {
             removeTransparentCircle();
             return
@@ -102,6 +106,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
     }
 
     let triggerTransition = (index) => {
+        transitionHasStarted = true;
 
         let artistData = data[parseInt(index) - 1]
 
@@ -148,6 +153,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
     useEffect(() => {
         if(hasClicked === true) {
             triggerTransition(currentIndex)
+            transitionHasStarted = true
         }
     }, [hasClicked])
 
@@ -274,11 +280,13 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
             allCoords.push(marker)
 
             marker.addListener("mouseover", () => {
+                if(transitionHasStarted) return;
                 setCurrentIndex(parseInt(marker.label.text))
                 triggerTransparentCircle(parseInt(marker.label.text));
             })
 
             marker.addListener("mouseout", () => {
+                if(transitionHasStarted) return;
                 setCurrentIndex(null)
                 removeTransparentCircle();
             })
@@ -291,6 +299,7 @@ const Map = ({ data, currentIndex, setCurrentIndex, hasClicked }) => {
         
         return () => {
             allCoords = []
+            transitionHasStarted = false;
         }
 
     }, []);
