@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint"
   },
@@ -30,6 +31,7 @@
     "multiparty": "^4.2.2",
     "next": "11.1.2",
     "next-connect": "^0.10.2",
+    "next-sitemap": "^1.6.203",
     "prismic-dom": "^2.2.6",
     "prismic-javascript": "^3.0.2",
     "prismic-reactjs": "^1.3.4",

@@ -9,6 +9,7 @@ module.exports = {
   // }
   async rewrites() {
     return [
+      { source: "/", destination: "/fr-fr" },
       { source: "/a-propos", destination: "/fr-fr/a-propos" },
       { source: "/commissaires", destination: "/fr-fr/commissaires" },
       { source: "/contact", destination: "/fr-fr/contact" },
