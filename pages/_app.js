@@ -9,14 +9,19 @@ import { StateProvider } from "../store"
 
 import CookieConsent from "react-cookie-consent"
 import RichText from '../components/rich-text';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function MyApp({ Component, pageProps, router }) {
+  let [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     setTimeout(() => {
       document.querySelector("#__next").style.opacity = 1
     }, 250)
+
+    if(window.innerWidth < 990) {
+      setIsMobile(true)
+    }
   },[])
 
   return (
@@ -83,7 +88,7 @@ function MyApp({ Component, pageProps, router }) {
             // y: "-100%",
             transition: {
               // delay: 1,
-              duration: router.route === "/[lang]/artistes" ? 1 : 0,
+              duration: (router.route === "/[lang]/artistes" && !isMobile) ? 1 : 0,
               //duration: 1,
             }
           }

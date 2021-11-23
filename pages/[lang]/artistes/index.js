@@ -115,6 +115,7 @@ const InnerContainerRight = styled.div`
     flex-basis: 100%;
     border-left: none;
     height: 100%;
+    padding-bottom: 53px;
   }
 `
 

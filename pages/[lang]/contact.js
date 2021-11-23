@@ -39,6 +39,8 @@ const InnerContainer = styled.div`
 
   @media(max-width: 989px) {
     flex-direction: column;
+    width: 100vw;
+    overflow: hidden;
   }
 `
 const ColOne = styled.div`
