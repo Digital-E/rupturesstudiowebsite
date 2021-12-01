@@ -164,6 +164,8 @@ const Component = ({ data, nextPrevArtists }) => {
     })
 
     const newTabFunction = () => {
+        if(document.querySelector("#newTab").children[0].children[0].children[0].src === "") return
+
         var w = window.open();
         var html = document.querySelector("#newTab").innerHTML;
       
@@ -248,7 +250,7 @@ const Component = ({ data, nextPrevArtists }) => {
                 <div id="newTab">
                     <div style={{display: "flex", height: "100vh", width: "100vw", alignItems: "center", justifyContent: "center"}}>
                         <audio controls>
-                        <source src={data.podcast_link.url} type="audio/mpeg" />
+                        <source src={data.podcast_link?.url} type="audio/mpeg" />
                         Your browser does not support the audio element.
                         </audio>
                     </div>
