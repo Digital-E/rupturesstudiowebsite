@@ -13,6 +13,10 @@ const Container = styled.div`
     @media(max-width: 989px) {
         border-left: none;
     }
+
+    #newTab {
+        display: none;
+    }
 `
 
 const Name = styled.div`
@@ -159,6 +163,14 @@ const Component = ({ data, nextPrevArtists }) => {
         }
     })
 
+    const newTabFunction = () => {
+        var w = window.open();
+        var html = document.querySelector("#newTab").innerHTML;
+      
+        w.document.body.innerHTML = html;
+        w.document.title = `Podcast | ${data.name}`;
+    }
+
     return (
         <Container>
             <Name>
@@ -231,7 +243,16 @@ const Component = ({ data, nextPrevArtists }) => {
                     </g>
                     </svg>                    
                 </div>
-                <div><Link data={data.podcast_link}>Podcast</Link></div>
+                {/* <div><Link data={data.podcast_link}>Podcast</Link></div> */}
+                <div><a href="javascript:;" id="podcast-link-open" onClick={() => newTabFunction()}>Podcast</a></div>
+                <div id="newTab">
+                    <div style={{display: "flex", height: "100vh", width: "100vw", alignItems: "center", justifyContent: "center"}}>
+                        <audio controls>
+                        <source src={data.podcast_link.url} type="audio/mpeg" />
+                        Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>            
             </Podcast>
 
             <TextWrapper className="text-wrapper">

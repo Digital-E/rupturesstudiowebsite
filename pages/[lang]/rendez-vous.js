@@ -84,6 +84,7 @@ const Divider = styled.div`
   border-bottom: 1px solid black;
   padding: 5px 20px;
   font-size: 30px;
+  z-index: 999;
 
   @media(max-width: 989px) {
     padding: 5px 10px;
@@ -342,7 +343,19 @@ export default function Index({ preview, data, footerData }) {
           return Math.abs(aToDate - now) - Math.abs(bToDate - now);
         })
 
-        setAllDates(orderedDates)
+        let allDates = orderedDates.filter(item => {
+          if(new Date(item.list_one_item_date) > new Date()) {
+            return item
+          }
+        })
+
+        let previousDates = orderedDates.filter(item => {
+          if(new Date(item.list_one_item_date) < new Date()) {
+            return item
+          }
+        })
+
+        setAllDates([...allDates, ...previousDates])
       }
     }
 
