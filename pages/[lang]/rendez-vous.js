@@ -33,7 +33,11 @@ gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(ScrollToPlugin);
 
 const Container = styled.div`
-  background-color: white;  
+  background-color: white; 
+  
+  #newTab {
+    display: none;
+  }
 
   .page-title {
     position: relative;
@@ -373,6 +377,18 @@ export default function Index({ preview, data, footerData }) {
         return moment(date).locale('en').format('dddd Do MMMM HH:mm')
       }
 
+    const newTabFunction = () => {
+      if(document.querySelector("#newTab").children[0].children[0].children[0].src === "") return
+
+      let name = document.querySelector("#newTab").getAttribute("data-name");
+
+      var w = window.open();
+      var html = document.querySelector("#newTab").innerHTML;
+
+      w.document.body.innerHTML = html;
+      w.document.title = `Podcast | ${name}`;
+    }      
+
   return (
     <Layout 
     preview={preview} name={data[0].node.title} content={data[0].node.content} 
@@ -481,14 +497,24 @@ export default function Index({ preview, data, footerData }) {
                             </div>
                             <div>
                                 <ListRightItemTitle>
-                                    <Link data={item.list_two_item_link_url}>
+                                    {/* <Link data={item.list_two_item_link_url}>
                                         <span className="default-font-size">{item.list_two_item_title}</span>
-                                    </Link>
+                                    </Link> */}
+                                    <div><a href="javascript:;" id="podcast-link-open" className="default-font-size" onClick={() => newTabFunction()}>{item.list_two_item_title}</a></div>
                                 </ListRightItemTitle>
                                 <ListRightItemTitle>{item.list_two_item_title_two}</ListRightItemTitle>
                                 <ListRightItemLinkWrapper>
                                     <Link data={item.list_two_item_link_two_url}>{item.list_two_item_link_two_text}</Link>
                                 </ListRightItemLinkWrapper>
+                            
+                            <div id="newTab" data-name={item.list_two_item_title}>
+                                <div style={{display: "flex", height: "100vh", width: "100vw", alignItems: "center", justifyContent: "center"}}>
+                                    <audio controls>
+                                    <source src={item.list_two_item_link_url?.url} type="audio/mpeg" />
+                                    Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </div>                                  
                             </div>
                         </ListRightItem>
                         <DividerHorizontal className="divider-horizontal" />
