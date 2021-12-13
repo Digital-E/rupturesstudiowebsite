@@ -9,7 +9,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger)
 
-import { getHome, getHomePagesSlugs, getAllArtistPages, getMenu, getFooter } from "../../lib/api";
+import { getHome, getHomePagesSlugs, getAllArtistPages, getAllArtistPagesPaginate, getMenu, getFooter } from "../../lib/api";
 
 import Map from "../../components/home-map"
 
@@ -229,7 +229,7 @@ const IntroTextMobile = styled.div`
 
 let tl = null;
 
-export default function Index({ preview, data, allArtistPagesData, footerData }) {
+export default function Index({ preview, data, allArtistPagesDataPaginate, footerData }) {
   let [currentIndex, setCurrentIndex] = useState(null);
   let [hasClicked, setHasClicked] = useState(false);
   let [isMobile, setIsMobile] = useState(true);
@@ -405,7 +405,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
               <Map 
               setCurrentIndex={(index) => setCurrentIndex(index)}
               currentIndex={currentIndex}
-              data={allArtistPagesData}
+              data={allArtistPagesDataPaginate}
               hasClicked={hasClicked}
               key="home"
               containerRef={containerRef}
@@ -446,7 +446,20 @@ export async function getStaticProps({ params, preview = false, previewData }) {
 
   const data = await getHome(params.lang, previewData);
 
-  const allArtistPagesData = await getAllArtistPages(params.lang, previewData);
+  let allArtistPagesData = await getAllArtistPages(params.lang, previewData);
+
+  let allArtistPagesDataPaginate = [];
+
+  allArtistPagesDataPaginate.push(...allArtistPagesData.edges);
+
+  // Paginate if returning over 20 results
+
+  while(allArtistPagesData.pageInfo.hasNextPage === true) {
+    let after = allArtistPagesData.pageInfo.endCursor;
+    let data = await getAllArtistPagesPaginate(params.lang, after);
+    allArtistPagesData = data;
+    allArtistPagesDataPaginate.push(...data.edges)
+  }
 
 
   // Get Menu And Footer
@@ -458,6 +471,6 @@ export async function getStaticProps({ params, preview = false, previewData }) {
   const footerData = null;
 
   return {
-    props: { preview, data, allArtistPagesData, menuData, footerData },
+    props: { preview, data, allArtistPagesDataPaginate, menuData, footerData },
   };
 }

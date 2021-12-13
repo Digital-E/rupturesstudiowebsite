@@ -13,7 +13,7 @@ import HomeMap from "../../../components/home-map"
 
 import Title from "../../../components/title"
 
-import { getArtistsPage, getArtistsPageSlugs, getAllArtistPages, getMenu, getFooter } from "../../../lib/api";
+import { getArtistsPage, getArtistsPageSlugs, getAllArtistPages, getAllArtistPagesPaginate, getMenu, getFooter } from "../../../lib/api";
 
 import { SITE_NAME } from "../../../lib/constants"
 
@@ -156,14 +156,13 @@ const Divider = styled.div`
 
 
 
-export default function Index({ preview, data, allArtistPagesData, footerData }) {
+export default function Index({ preview, data, allArtistPagesDataPaginate, footerData }) {
   let [currentIndex, setCurrentIndex] = useState(null);
   let [hasClicked, setHasClicked] = useState(false);
   let [isMobile, setIsMobile] = useState(true);
   let [isParcoursInteractif, setIsParcoursInteractif] = useState(false);
 
   let containerRef = useRef();
-
 
   useEffect(() => {
     if(hasClicked) return;
@@ -212,7 +211,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
       <Container ref={containerRef}>
       <div id="background-image">
         {
-          allArtistPagesData.map((item, index) => <Image key={index} src={item.node.images[0].image} />)
+          allArtistPagesDataPaginate.map((item, index) => <Image key={index} src={item.node.images[0].image} />)
         }
       </div>
       <div id="shadow-circle"></div>
@@ -225,7 +224,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
                 <Map 
                 setCurrentIndex={(index) => setCurrentIndex(index)}
                 currentIndex={currentIndex}
-                data={allArtistPagesData}
+                data={allArtistPagesDataPaginate}
                 hasClicked={hasClicked}
                 key="artists"
                 // hasClicked={(value) => setHasClicked(value)}
@@ -235,7 +234,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
                 <HomeMap
                   setCurrentIndex={(index) => setCurrentIndex(index)}
                   currentIndex={currentIndex}
-                  data={allArtistPagesData}
+                  data={allArtistPagesDataPaginate}
                   hasClicked={hasClicked}
                   key="artists-mobile" 
                   containerRef={containerRef}
@@ -248,7 +247,7 @@ export default function Index({ preview, data, allArtistPagesData, footerData })
             ( !isParcoursInteractif || !isMobile ) ?
               <InnerContainerRight>
               {/* <Divider className="orange-background">{data[0].node.title}</Divider> */}
-                {allArtistPagesData.map((item, index) => {
+                {allArtistPagesDataPaginate.map((item, index) => {
                   return <ListItem 
                   key={index} className={index + 1 === parseInt(currentIndex) ? "is-active orange-hover" : "orange-hover"}
                   onMouseEnter={() => handleSetCurrentIndex(index + 1)}
@@ -294,7 +293,20 @@ export async function getStaticProps({ params, preview = false, previewData }) {
 
   const data = await getArtistsPage(params.lang, previewData);
 
-  const allArtistPagesData = await getAllArtistPages(params.lang, previewData);
+  let allArtistPagesData = await getAllArtistPages(params.lang);
+
+  let allArtistPagesDataPaginate = [];
+
+  allArtistPagesDataPaginate.push(...allArtistPagesData.edges);
+
+  // Paginate if returning over 20 results
+
+  while(allArtistPagesData.pageInfo.hasNextPage === true) {
+    let after = allArtistPagesData.pageInfo.endCursor;
+    let data = await getAllArtistPagesPaginate(params.lang, after);
+    allArtistPagesData = data;
+    allArtistPagesDataPaginate.push(...data.edges)
+  }
 
 
   // Get Menu And Footer
@@ -306,6 +318,6 @@ export async function getStaticProps({ params, preview = false, previewData }) {
   const footerData = null;
 
   return {
-    props: { preview, data, allArtistPagesData, menuData, footerData },
+    props: { preview, data, allArtistPagesDataPaginate, menuData, footerData },
   };
 }
