@@ -538,7 +538,7 @@ export default function Index({ preview, data, footerData }) {
                             
                             <div id={`newTab-${index}`} className="newTab" data-name={item.list_two_item_title}>
                                 <div style={{display: "flex", height: "100vh", width: "100vw", alignItems: "center", justifyContent: "center"}}>
-                                    <audio controls>
+                                    <audio controls style={{width: "80%"}}>
                                     <source src={item.list_two_item_link_url?.url} type="audio/mpeg" />
                                     Your browser does not support the audio element.
                                     </audio>

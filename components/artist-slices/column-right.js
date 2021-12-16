@@ -249,7 +249,7 @@ const Component = ({ data, nextPrevArtists }) => {
                 <div><a href="javascript:;" id="podcast-link-open" onClick={() => newTabFunction()}>Podcast</a></div>
                 <div id="newTab">
                     <div style={{display: "flex", height: "100vh", width: "100vw", alignItems: "center", justifyContent: "center"}}>
-                        <audio controls>
+                        <audio controls style={{width: "80%"}}>
                         <source src={data.podcast_link?.url} type="audio/mpeg" />
                         Your browser does not support the audio element.
                         </audio>
