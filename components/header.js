@@ -414,7 +414,7 @@ export default function Header({ data }) {
         <ColLeftInnerLeft>
           <MenuLink href="">
             Art au Centre <br/> Genève <br/>
-            25.11.21-28.02.22
+            25.11.21-06.03.22
           </MenuLink>
         </ColLeftInnerLeft>
 
