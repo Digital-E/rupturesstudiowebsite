@@ -10,6 +10,7 @@ import { SITE_NAME } from "../../../lib/constants"
 import Carousel from "../../../components/artist-slices/carousel"
 
 import ColRight from "../../../components/artist-slices/column-right"
+import { useEffect } from 'react';
 
 const Container = styled.div`
     position: absolute;
