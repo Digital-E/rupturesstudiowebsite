@@ -123,7 +123,7 @@ const ScrollButtonWrapper = styled.div`
     bottom: 3vh;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 999;
+    z-index: 998;
     cursor: pointer;
 
     .hero-scroll-button {
