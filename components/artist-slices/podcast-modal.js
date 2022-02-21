@@ -120,8 +120,8 @@ const Component = ({ data }) => {
     let [popUpOpen, setPopUpOpen] = useState(false);
 
 
-    const togglePopUp = (index) => {
-        if(popUpOneOpen) {
+    const togglePopUp = () => {
+        if(popUpOpen) {
             setPopUpOpen(false)
         } else {
             setPopUpOpen(true)
