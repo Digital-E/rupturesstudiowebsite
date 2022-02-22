@@ -11,7 +11,6 @@ import Carousel from "../../../components/artist-slices/carousel"
 
 import ColRight from "../../../components/artist-slices/column-right"
 
-import PodcastModal from "../../../components/artist-slices/podcast-modal"
 
 const Container = styled.div`
     position: absolute;
@@ -89,7 +88,6 @@ export default function Index({ preview, data, allArtistPagesDataPaginate, foote
       <Head>
         <title>{SITE_NAME} | {data[0].node.name}</title>
       </Head>
-      <PodcastModal data={data[0].node}/>
       <Container>
           <Carousel key={`carousel-${data[0].node._meta.uid}`} data={data[0].node.images} />
           <ColRight key={`colright-${data[0].node._meta.uid}`} data={data[0].node} nextPrevArtists={nextPrevArtists}/>

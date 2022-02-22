@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components"
 
 import RichText from '../rich-text';
@@ -6,6 +6,8 @@ import RichText from '../rich-text';
 import Link from "../link"
 
 import MenuLink from "../menu-link"
+
+import PodcastModal from "./podcast-modal"
 
 const Container = styled.div`
     border-left: 1px solid black;
@@ -83,6 +85,10 @@ const Podcast = styled.div`
     #podcast {
         width: 25px;
     }
+
+    a {
+        cursor: pointer;
+    }
 `
 
 const Text = styled.div`
@@ -140,6 +146,7 @@ const ArrowRight = styled.div`
 
 
 const Component = ({ data, nextPrevArtists }) => {
+    let [popUpOpen, setPopUpOpen] = useState(false);
 
 
     const init = () => {
@@ -163,15 +170,15 @@ const Component = ({ data, nextPrevArtists }) => {
         }
     })
 
-    const newTabFunction = () => {
-        if(document.querySelector("#newTab").children[0].children[0].children[0].src === "") return
+    // const newTabFunction = () => {
+    //     if(document.querySelector("#newTab").children[0].children[0].children[0].src === "") return
 
-        var w = window.open();
-        var html = document.querySelector("#newTab").innerHTML;
+    //     var w = window.open();
+    //     var html = document.querySelector("#newTab").innerHTML;
       
-        w.document.body.innerHTML = html;
-        w.document.title = `Podcast | ${data.name}`;
-    }
+    //     w.document.body.innerHTML = html;
+    //     w.document.title = `Podcast | ${data.name}`;
+    // }
 
     return (
         <Container>
@@ -246,15 +253,16 @@ const Component = ({ data, nextPrevArtists }) => {
                     </svg>                    
                 </div>
                 {/* <div><Link data={data.podcast_link}>Podcast</Link></div> */}
-                <div><a href="javascript:;" id="podcast-link-open" onClick={() => newTabFunction()}>Podcast</a></div>
-                <div id="newTab">
+                {/* <div><a href="javascript:;" id="podcast-link-open" onClick={() => newTabFunction()}>Podcast</a></div> */}
+                <div><a onClick={() => setPopUpOpen(true)}>{`Podcast - ${data.podcast_name}`}</a></div>
+                {/* <div id="newTab">
                     <div style={{display: "flex", height: "100vh", width: "100vw", alignItems: "center", justifyContent: "center"}}>
                         <audio controls style={{width: "80%"}}>
                         <source src={data.podcast_link?.url} type="audio/mpeg" />
                         Your browser does not support the audio element.
                         </audio>
                     </div>
-                </div>            
+                </div>             */}
             </Podcast>
 
             <TextWrapper className="text-wrapper">
@@ -274,7 +282,7 @@ const Component = ({ data, nextPrevArtists }) => {
                     </BioText>
                 </div>
             </TextWrapper>
-
+            <PodcastModal data={data} popUpOpen={popUpOpen} setPopUpOpen={(val) => setPopUpOpen(val)}/>
         </Container>
     )
 }

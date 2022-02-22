@@ -7,7 +7,7 @@ const PopUp = styled(motion.div)`
     // width: 380px;
     height: auto;
     z-index: 999;
-    max-width: 380px;
+    min-width: 380px;
 
     @media(max-width: 989px) {
         width: calc(100% - 80px);
@@ -16,7 +16,7 @@ const PopUp = styled(motion.div)`
 
 const Podcast = styled.div`
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
     background-color: white;
     border: 1px solid black;
@@ -75,6 +75,16 @@ const Overlay = styled(motion.div)`
     background-color: rgba(255, 148, 67, 0.8);
 `
 
+const Player = styled.div`
+    width: 100%;
+    margin-top: 10px;
+
+    audio {
+        width: 100%;
+    }
+`
+
+
 const popUpVariants = {
     hidden: {
         opacity: 1,
@@ -116,9 +126,7 @@ const overlayVariants = {
     }
 }
 
-const Component = ({ data }) => {
-    let [popUpOpen, setPopUpOpen] = useState(false);
-
+const Component = ({ data, popUpOpen, setPopUpOpen }) => {
 
     const togglePopUp = () => {
         if(popUpOpen) {
@@ -134,15 +142,15 @@ const Component = ({ data }) => {
         }
       },[])
 
-        const newTabFunction = () => {
-        if(document.querySelector("#newTab").children[0].children[0].children[0].src === "") return
+        // const newTabFunction = () => {
+        // if(document.querySelector("#newTab").children[0].children[0].children[0].src === "") return
 
-        var w = window.open();
-        var html = document.querySelector("#newTab").innerHTML;
+        // var w = window.open();
+        // var html = document.querySelector("#newTab").innerHTML;
 
-        w.document.body.innerHTML = html;
-        w.document.title = `Podcast | ${data.name}`;
-        }      
+        // w.document.body.innerHTML = html;
+        // w.document.title = `Podcast | ${data.name}`;
+        // }      
 
     return (
         <>
@@ -170,7 +178,7 @@ const Component = ({ data }) => {
                     <p>{data.name}</p>
                     <p>{data.podcast_name}</p>
                 </Text>
-                <a href="javascript:;" id="podcast-link-open" onClick={() => newTabFunction()}>
+                {/* <a href="javascript:;" id="podcast-link-open" onClick={() => newTabFunction()}>
                     <svg version="1.1" id="podcast" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                     viewBox="0 0 15.7 17.23">
                     <g>
@@ -201,15 +209,13 @@ const Component = ({ data }) => {
                     <Text>
                         Ecouter Podcast
                     </Text>                      
-                </a>                  
-                {/* <div id="newTab">
-                    <div style={{display: "flex", height: "100vh", width: "100vw", alignItems: "center", justifyContent: "center"}}>
-                        <audio controls style={{width: "80%"}}>
-                        <source src={data.podcast_link?.url} type="audio/mpeg" />
-                        Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                </div>             */}               
+                </a>                   */}
+                <Player>
+                    <audio controls>
+                    <source src={data.podcast_link?.url} type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                    </audio>
+                </Player>            
             </Podcast>            
         </PopUp>
         </>          
