@@ -154,7 +154,7 @@ const Component = ({ data, popUpOpen, setPopUpOpen }) => {
 
     return (
         <>
-        <Overlay onClick={() => togglePopUp()} animate={popUpOpen ? "visible" : "hidden"} variants={overlayVariants}/>
+        <Overlay initial={"hidden"} onClick={() => togglePopUp()} animate={popUpOpen ? "visible" : "hidden"} variants={overlayVariants}/>
         <PopUp initial={"hidden"} animate={popUpOpen ? "visible" : "hidden"} variants={popUpVariants}>
             {/* <CloseButton onClick={() => togglePopUp(1)}>
                 <svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1">
