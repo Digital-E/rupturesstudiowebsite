@@ -8,7 +8,7 @@
 }
 
 :root {
-  --orange: rgb(255, 148, 67);
+  --gray: #BFBFBF;
 }
 
 #__next {
@@ -69,7 +69,7 @@ body {
   font-size: 20px;
   line-height: 1.1;
   font-weight: 500;
-  background-color: var(--orange)
+  background-color: var(--gray)
 }
 
 .default-font-size {
@@ -140,65 +140,19 @@ button {
 }
 
 .orange-background {
-  background-color: var(--orange);
+  background-color: var(--gray);
 }
 
 .orange-hover:hover {
-  background-color: var(--orange);
+  background-color: var(--gray);
 }
 
 @media (min-width: 990px) {
   a:hover {
-    color: var(--orange) !important;
+    color: var(--gray) !important;
   }
 }
 
-.active-link {
-  background-color: var(--orange);
-}
-
-.is-active {
-  background-color: var(--orange);
-}
-
-a:hover path,
-a:hover polygon {
-  fill: var(--orange);
-}
-
-/* [title="marker"] {
-  position: absolute;
-}
-
-[title="marker"]:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 40px;
-  width: 40px;
-  background-color: transparent;
-  box-shadow: inset 1px 0px 3px black;
-  border-radius: 999px;
-} */
-
-.marker {
-  position: absolute;
-  left: -19px;
-  top: 31px;
-}
-
-.marker:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 39px;
-  width: 39px;
-  background-color: transparent;
-  box-shadow: inset 1px 0px 3px black;
-  border-radius: 999px;
-}
 
 * {
   box-sizing: border-box;

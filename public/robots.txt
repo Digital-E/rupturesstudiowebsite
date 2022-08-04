@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://artaucentregeneve.ch
-
-# Sitemaps
-Sitemap: https://artaucentregeneve.ch/sitemap.xml
