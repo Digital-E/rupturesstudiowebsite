@@ -8,8 +8,6 @@ import Link from "./link";
 
 import MenuLink from "./menu-link";
 
-import LocaleLink from "./locale-link";
-
 import { store } from "../store";
 
 import RichText from './rich-text';
@@ -20,27 +18,22 @@ const Menu = styled.div`
     display: block !important;
   }
 
+  padding: 20px 20px;
+
   position: fixed;
   z-index: 999 !important;
   width: 100%;
   top: 0;
   left: 0;
-  background-color: white;
+  // background-color: white;
 
-
-  font-size: 1.38vw;
-  line-height: 0.95;
 
   a, span {
-    font-size: 1.38vw;
-    line-height: 0.95;
     color: black;
   }
 
   @media(max-width: 989px) {
     a, span {
-      font-size: 20px;
-      line-height: 1;
       color: black;
     }
   }
@@ -52,23 +45,18 @@ const Container = styled.div`
   justify-content: space-between;
   width: 100%;
 
-  a:hover {
-    background-color: rgb(255, 148, 67);
-  }
+  // a:hover {
+  //   background-color: rgb(255, 148, 67);
+  // }
 `;
 
 
 
 const ColLeft = styled.div`
   display: flex;
-  flex-basis: 50%;
-  // padding: 0 30px 0 10px;
-  padding: 0 2.08vw 0 0.69vw;
-  border-bottom: 1px solid black;
   align-items: center;
 
   @media(max-width: 989px) {
-    padding: 5px 10px;
   }
 `;
 
@@ -77,17 +65,16 @@ const ColLeftInnerLeft = styled.div`
 
   a {
     background-color: transparent !important;
+    display: block;
   }
 
   @media(max-width: 989px) {
     a {
-      font-size: 14px;
     }
   }
 `;
 
 const ColLeftInnerRight = styled.div`
-  flex-basis: 43%;
   display: flex;
   justify-content: flex-end;
 
@@ -108,51 +95,12 @@ const ColLeftInnerRight = styled.div`
   }
 `;
 
-const ColRight = styled.div`
-  display: flex;
-  flex-basis: 50%;
-
-  @media(max-width: 989px) {
-    justify-content: flex-end;
-    padding: 0 10px;
-    border-bottom: 1px solid black;
-  }
-`;
+const ColRight = styled.div``;
 
 const ColRightInnerLeft = styled.div`
-  flex-basis: 94%;
-
   @media(max-width: 989px) {
     display: none;
   }
-`;
-
-const ColRightInnerRight = styled.div`
-  flex-basis: 6%;
-  display: flex;
-  flex-direction: column;
-
-  > div {
-    flex-basis: 50%;
-  }
-
-  > div:nth-child(1) > a {
-    display: flex;
-    align-items: flex-end;
-  }
-
-  > div:nth-child(1) > a {
-    display: flex;
-    align-items: flex-end;
-    padding: 0.48vw 0.69vw 0.24vw 0.69vw;
-  }
-}
-
-@media(max-width: 989px) {
-  display: none;
-}
-
-
 `;
 
 const DesktopMenu = styled.div`
@@ -160,15 +108,9 @@ const DesktopMenu = styled.div`
   flex-wrap: wrap;
   height: 100%;
 
-  > div:nth-last-child(n+4) > a {
-    display: flex;
-    align-items: flex-end;
-    padding: 0.48vw 0.69vw 0.24vw 0.69vw;
+  > div {
+    margin-left: 30px;
   }
-
-  // @media(max-width: 989px) {
-  //   display: none;
-  // }
 `
 
 
@@ -202,7 +144,6 @@ const ContainerMobile = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0;
-  border-bottom: 1px solid black;
 
 
   .cls-1 {
@@ -240,40 +181,24 @@ const MobileMenuInner = styled.div`
 
 const LinkStyle = styled.div`
   display: flex;
-  flex-basis: 33.3333%;
-  border-left: 1px solid black;
-  border-bottom: 1px solid black;
-  // height: 35px;
-  height: 2.43vw;
+  text-transform: uppercase;
 
   > a {
     display: block;
-    // padding: 7px 10px;
-    padding: 0.48vw 0.69vw;
-    height: 100%;
-    width: 100%;
-    line-height: 0.8;
     cursor: pointer;
   }
 
   @media(max-width: 989px) {
-    border-left: 0;
     height: auto;
     
     > a {
       display: block;
-      // padding: 7px 10px;
-      padding: 20px 10px;
-      height: 100%;
-      width: 100%;
-      line-height: 0.8;
     }
   }
 `
 
 const MobileColLeft = styled.div`
   a {
-    font-size: 14px;
   }
 `
 
@@ -287,7 +212,6 @@ const MobileLocaleSwitch = styled.div`
   }
 
   > div:nth-child(2) {
-    border-left: 1px solid black;
   }
 `
 const MobileBurgerClose = styled.div`
@@ -375,8 +299,9 @@ export default function Header({ data }) {
     <ContainerMobile>
       <MobileColLeft>
         <MenuLink href="">
-          Art au Centre <br/> Genève <br/>
-          25.11.21-06.03.22
+          <svg width="50" height="50" viewBox="0 0 35 35" fill="none">
+          <path d="M18.4542 18.4183L21.0743 20.3172L18.5057 18.2108L24.2617 20.8257L18.743 18.024L21.8273 18.9164L19.2897 17.9618L35 17.4948L19.2897 17.0382L21.8273 16.0836L18.743 16.976L24.2617 14.1743L18.5057 16.7892L21.0743 14.6828L18.4542 16.5817L26.1701 7.689L18.0519 16.5609L19.8777 13.2923L17.8146 16.426L20.0015 9.74355L18.0312 15.2016L18.4129 12.6282L17.763 15.2224L17.5052 0.155648V0L17.4948 0.0726356V0V0.155648L17.237 15.2224L16.5871 12.6282L16.9688 15.2016L14.9985 9.74355L17.1854 16.426L15.1223 13.2923L16.9481 16.5609L8.82994 7.689L16.5458 16.5817L13.9154 14.6828L16.4943 16.7892L10.728 14.1743L16.257 16.976L13.1727 16.0836L15.7103 17.0382L0 17.4948L15.7103 17.9618L13.1727 18.9164L16.257 18.024L10.728 20.8257L16.4943 18.2108L13.9154 20.3172L16.5458 18.4183L8.82994 27.311L16.9481 18.4391L15.1223 21.7077L17.1854 18.574L14.9985 25.2564L16.9688 19.788L16.5871 22.3718L17.237 19.788L17.4948 34.8444V35V34.9274L17.5052 35V34.8444L17.763 19.788L18.4129 22.3718L18.0312 19.788L20.0015 25.2564L17.8146 18.574L19.8777 21.7077L18.0519 18.4391L26.1701 27.311L18.4542 18.4183Z" fill="black"/>
+          </svg>
         </MenuLink>
       </MobileColLeft>
 
@@ -391,7 +316,7 @@ export default function Header({ data }) {
     </ContainerMobile>
 
       <MobileMenuInner>
-        {data.mobile_menu_items !== null ? 
+        {/* {data.mobile_menu_items !== null ? 
           <>
           {
             data.mobile_menu_items.map((item, index) => 
@@ -405,7 +330,7 @@ export default function Header({ data }) {
           </MobileLocaleSwitch>
           </>
         : 
-        null}
+        null} */}
       </MobileMenuInner>
     </MobileMenu>
 
@@ -413,8 +338,9 @@ export default function Header({ data }) {
       <ColLeft>
         <ColLeftInnerLeft>
           <MenuLink href="">
-            Art au Centre <br/> Genève <br/>
-            25.11.21-06.03.22
+            <svg width="50" height="50" viewBox="0 0 35 35" fill="none">
+            <path d="M18.4542 18.4183L21.0743 20.3172L18.5057 18.2108L24.2617 20.8257L18.743 18.024L21.8273 18.9164L19.2897 17.9618L35 17.4948L19.2897 17.0382L21.8273 16.0836L18.743 16.976L24.2617 14.1743L18.5057 16.7892L21.0743 14.6828L18.4542 16.5817L26.1701 7.689L18.0519 16.5609L19.8777 13.2923L17.8146 16.426L20.0015 9.74355L18.0312 15.2016L18.4129 12.6282L17.763 15.2224L17.5052 0.155648V0L17.4948 0.0726356V0V0.155648L17.237 15.2224L16.5871 12.6282L16.9688 15.2016L14.9985 9.74355L17.1854 16.426L15.1223 13.2923L16.9481 16.5609L8.82994 7.689L16.5458 16.5817L13.9154 14.6828L16.4943 16.7892L10.728 14.1743L16.257 16.976L13.1727 16.0836L15.7103 17.0382L0 17.4948L15.7103 17.9618L13.1727 18.9164L16.257 18.024L10.728 20.8257L16.4943 18.2108L13.9154 20.3172L16.5458 18.4183L8.82994 27.311L16.9481 18.4391L15.1223 21.7077L17.1854 18.574L14.9985 25.2564L16.9688 19.788L16.5871 22.3718L17.237 19.788L17.4948 34.8444V35V34.9274L17.5052 35V34.8444L17.763 19.788L18.4129 22.3718L18.0312 19.788L20.0015 25.2564L17.8146 18.574L19.8777 21.7077L18.0519 18.4391L26.1701 27.311L18.4542 18.4183Z" fill="black"/>
+            </svg>
           </MenuLink>
         </ColLeftInnerLeft>
 
@@ -431,11 +357,6 @@ export default function Header({ data }) {
           </DesktopMenu>
         </ColRightInnerLeft>
 
-        <ColRightInnerRight>
-          <LinkStyle><LocaleLink href="/fr-fr"><span>Fr</span></LocaleLink></LinkStyle>
-          <LinkStyle><LocaleLink href="/en-gb"><span>En</span></LocaleLink></LinkStyle>
-        </ColRightInnerRight>
-        
          <MobileBurger id="menu-open">
            <MobileBurgerOpen>
              <div></div>

@@ -6,7 +6,8 @@ const Container = styled.div`
   overflow: hidden;
   height: 100%;
   width: fit-content;
-  // background-color: #fafafa;
+  padding-bottom: ${props => props.aspectRatio}%;
+  background-color: #b2b2b2;
   
   .show-image {
     opacity: 1;
@@ -41,13 +42,21 @@ const Image = ({ src }) => {
 
 
   if (src !== undefined) {
-    ({ height, width } = src.dimensions);
-    xs = src.url;
-    s = src["400"].url;
-    m = src["800"].url;
-    l = src["1200"].url;
-    xl = src["1600"].url;
-    xxl = src["2400"].url;
+    // ({ height, width } = src.dimensions);
+    // xs = src.url;
+    // s = src["400"].url;
+    // m = src["800"].url;
+    // l = src["1200"].url;
+    // xl = src["1600"].url;
+    // xxl = src["2400"].url;
+    width = src.width;
+    height = src.height;
+    xs = src.img;
+    s = src.img;
+    m = src.img;
+    l = src.img;
+    xl = src.img;
+    xxl = src.img;
     
     if(height > width) {
       aspectRatio = (height / width) * 100;
@@ -72,7 +81,15 @@ const Image = ({ src }) => {
 
   return (
     <Container aspectRatio={aspectRatio}>
-      {src === undefined ? (
+      <StyledImage 
+        src={src.img}
+        alt=""
+        draggable="false"
+        ref={imageRef}
+        className={hasLoaded && "show-image"}
+        onLoad={() => triggerHasLoaded()}
+      />      
+      {/* {src === undefined ? (
         <picture>
           <source sizes="100vw" />
           <StyledImage
@@ -106,7 +123,7 @@ const Image = ({ src }) => {
             width={width}
           />
         </picture>
-      )}
+      )} */}
     </Container>
   );
 };

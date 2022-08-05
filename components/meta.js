@@ -39,10 +39,10 @@ const meta = ({ name, content }) => {
         name={`${SITE_NAME} | ${name}`}
         content={ content }
       />
-      <meta name="theme-color" content="rgb(255, 148, 67)" />
+      {/* <meta name="theme-color" content="rgb(255, 148, 67)" /> */}
       {/* <meta property="og:image" content={"/OGImage/AD-REM_favicon(1500px).png"} /> */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2097VL72Q"></script>
-      <script dangerouslySetInnerHTML={{__html:
+      {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2097VL72Q"></script> */}
+      {/* <script dangerouslySetInnerHTML={{__html:
       `
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -54,7 +54,7 @@ const meta = ({ name, content }) => {
       
         gtag('config', 'G-E2097VL72Q');
       `
-      }}/>
+      }}/> */}
     </Head>
   );
 }
