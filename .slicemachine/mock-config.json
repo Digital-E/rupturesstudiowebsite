@@ -5,5 +5,20 @@
     "archive": {},
     "project": {},
     "about": {}
+  },
+  "slices": {
+    "Text": {
+      "default": {
+        "items": {},
+        "primary": {}
+      }
+    },
+    "MediaGallery": {
+      "default": {
+        "primary": {},
+        "items": {}
+      }
+    },
+    "Carousel": {}
   }
 }

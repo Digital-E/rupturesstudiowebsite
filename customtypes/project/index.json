@@ -26,6 +26,44 @@
           "placeholder": ""
         }
       },
+      "hero_image": {
+        "type": "Image",
+        "config": {
+          "label": "Hero Image",
+          "constraint": {
+            "width": 400
+          },
+          "thumbnails": [
+            {
+              "name": "s",
+              "width": 800,
+              "height": null
+            },
+            {
+              "name": "m",
+              "width": 1200,
+              "height": null
+            },
+            {
+              "name": "l",
+              "width": 1600,
+              "height": null
+            },
+            {
+              "name": "xl",
+              "width": 2400,
+              "height": null
+            }
+          ]
+        }
+      },
+      "hero_video": {
+        "type": "Text",
+        "config": {
+          "label": "Hero Video",
+          "placeholder": ""
+        }
+      },
       "year": {
         "type": "Number",
         "config": {
@@ -44,6 +82,20 @@
                 "label": "Tag",
                 "placeholder": ""
               }
+            }
+          }
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "text": {
+              "type": "SharedSlice"
+            },
+            "media_gallery": {
+              "type": "SharedSlice"
             }
           }
         }

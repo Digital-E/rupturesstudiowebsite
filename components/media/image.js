@@ -5,7 +5,7 @@ const Container = styled.div`
   position: relative;
   overflow: hidden;
   height: 100%;
-  width: fit-content;
+  width: 100%;
   padding-bottom: ${props => props.aspectRatio}%;
   background-color: #b2b2b2;
   
@@ -21,8 +21,9 @@ const Container = styled.div`
 `;
 
 const StyledImage = styled.img`
+  position: absolute;
   height: 100%;
-  width: auto;
+  width: 100%;
   opacity: 0;
   transition: opacity 500ms ease 0s;
 `;
@@ -36,34 +37,34 @@ const Image = ({ src }) => {
     m,
     l,
     xl,
-    xxl,
     height,
     width = null;
 
 
   if (src !== undefined) {
-    // ({ height, width } = src.dimensions);
-    // xs = src.url;
-    // s = src["400"].url;
-    // m = src["800"].url;
-    // l = src["1200"].url;
-    // xl = src["1600"].url;
-    // xxl = src["2400"].url;
-    width = src.width;
-    height = src.height;
-    xs = src.img;
-    s = src.img;
-    m = src.img;
-    l = src.img;
-    xl = src.img;
-    xxl = src.img;
+    ({ height, width } = src.dimensions);
+    xs = src.url;
+    s = src.s.url;
+    m = src.m.url;
+    l = src.l.url;
+    xl = src.xl.url;
+    // width = src.width;
+    // height = src.height;
+    // xs = src.img;
+    // s = src.img;
+    // m = src.img;
+    // l = src.img;
+    // xl = src.img;
+    // xxl = src.img;
+
     
-    if(height > width) {
+    if(height < width) {
       aspectRatio = (height / width) * 100;
     } else {
       aspectRatio = (width / height) * 100;
     }
   }
+
 
   useEffect(() => {
     const img = imageRef.current;
@@ -81,15 +82,15 @@ const Image = ({ src }) => {
 
   return (
     <Container aspectRatio={aspectRatio}>
-      <StyledImage 
+      {/* <StyledImage 
         src={src.img}
         alt=""
         draggable="false"
         ref={imageRef}
         className={hasLoaded && "show-image"}
         onLoad={() => triggerHasLoaded()}
-      />      
-      {/* {src === undefined ? (
+      />       */}
+      {src === undefined ? (
         <picture>
           <source sizes="100vw" />
           <StyledImage
@@ -107,11 +108,11 @@ const Image = ({ src }) => {
         <picture>
           <source
             sizes="100vw"
-            srcSet={`${xs} 200w, ${s} 400w, ${m} 800w, ${l} 1200w, ${xl} 1600w, ${xxl} 2400w`}
+            srcSet={`${xs} 400w, ${s} 800w, ${m} 1200w, ${l} 1600w, ${xl} 2400w`}
           />
           <StyledImage
             sizes="100vw"
-            srcSet={`${xs} 200w, ${s} 400w, ${m} 800w, ${l} 1200w, ${xl} 1600w, ${xxl} 2400w`}
+            srcSet={`${xs} 400w, ${s} 800w, ${m} 1200w, ${l} 1600w, ${xl} 2400w`}
             alt=""
             draggable="false"
             ref={imageRef}
@@ -123,7 +124,7 @@ const Image = ({ src }) => {
             width={width}
           />
         </picture>
-      )} */}
+      )}
     </Container>
   );
 };

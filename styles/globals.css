@@ -70,7 +70,7 @@ body {
   line-height: 1.1;
   font-weight: 500;
   background-color: var(--gray);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 main {
@@ -181,6 +181,10 @@ button {
 * {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+h1 {
+  font-size: 2rem;
 }
 
 h1,

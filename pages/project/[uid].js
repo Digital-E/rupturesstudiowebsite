@@ -9,49 +9,19 @@ import { SITE_NAME } from "../../lib/constants"
 
 // import Carousel from "../../../components/artist-slices/carousel"
 
-// import ColRight from "../../../components/artist-slices/column-right"
+import Hero from "../../components/project-slices/hero"
+
+import Slices from "../../components/project-slices/index"
 
 
-const Container = styled.div`
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-    top: 4.8vw;
-    height: calc(100vh - 4.8vw);
-    width: 100vw;
-    overflow: hidden;
-    background: white;
-    
-
-    > div:nth-child(1) {
-        flex-basis: 65.65%;
-    }
-
-    > div:nth-child(2) {
-        flex-basis: 34.35%;
-    }
-
-    @media(max-width: 989px) {
-      position: relative;
-      flex-direction: column;
-      top: 53px;
-
-      > div:nth-child(1) {
-        flex-basis: auto;
-      }
-
-      > div:nth-child(2) {
-        flex-basis: auto;
-      }
-
-      height: 100%;
-    }
-`
+const Container = styled.div``
 
 
 
 
 export default function Index({ preview, data, allArtistPagesDataPaginate, footerData }) {
+
+data = data[0].node
 
 //   let currArtistIndex = 0;
 
@@ -82,15 +52,15 @@ export default function Index({ preview, data, allArtistPagesDataPaginate, foote
 
   return (
     <Layout 
-    preview={preview} name={data[0].node.title} content={data[0].node.content} 
+    preview={preview} name={data.title} content={data.content} 
     // footerData={footerData}
     >
       <Head>
-        <title>{data[0].node.title} | {SITE_NAME}</title>
+        <title>{data.title} | {SITE_NAME}</title>
       </Head>
       <Container>
-          {/* <Carousel key={`carousel-${data[0].node._meta.uid}`} data={data[0].node.images} />
-          <ColRight key={`colright-${data[0].node._meta.uid}`} data={data[0].node} nextPrevArtists={nextPrevArtists}/> */}
+        <Hero data={data} />
+        <Slices data={data} />
       </Container>
     </Layout>
   )

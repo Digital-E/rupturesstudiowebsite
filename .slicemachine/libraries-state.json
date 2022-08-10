@@ -1,5 +1,274 @@
 {
   "slices": {
-    "components": {}
+    "components": {
+      "carousel": {
+        "library": "slices",
+        "id": "carousel",
+        "name": "Carousel",
+        "description": "Carousel",
+        "model": {
+          "id": "carousel",
+          "type": "SharedSlice",
+          "name": "Carousel",
+          "description": "Carousel",
+          "variations": [
+            {
+              "id": "default",
+              "name": "Default",
+              "docURL": "...",
+              "version": "sktwi1xtmkfgx8626",
+              "description": "Carousel",
+              "primary": {
+                "title": {
+                  "type": "StructuredText",
+                  "config": {
+                    "single": "heading1",
+                    "label": "Title",
+                    "placeholder": "This is where it all begins..."
+                  }
+                },
+                "description": {
+                  "type": "StructuredText",
+                  "config": {
+                    "single": "paragraph",
+                    "label": "Description",
+                    "placeholder": "A nice description of your feature"
+                  }
+                }
+              },
+              "items": {},
+              "imageUrl": "https://images.prismic.io/slice-machine/621a5ec4-0387-4bc5-9860-2dd46cbc07cd_default_ss.png?auto=compress,format"
+            }
+          ]
+        },
+        "mocks": {
+          "default": {
+            "variation": "default",
+            "version": "sktwi1xtmkfgx8626",
+            "items": [
+              {}
+            ],
+            "primary": {
+              "title": [
+                {
+                  "type": "heading1",
+                  "text": "Mysterious",
+                  "spans": []
+                }
+              ],
+              "description": [
+                {
+                  "type": "paragraph",
+                  "text": "Sint amet esse ea Lorem occaecat culpa aliquip consequat cillum. Dolore occaecat consectetur anim ex pariatur.",
+                  "spans": []
+                }
+              ]
+            },
+            "slice_type": "carousel"
+          }
+        },
+        "meta": {
+          "fileName": "index",
+          "extension": "js"
+        },
+        "screenshotPaths": {}
+      },
+      "media_gallery": {
+        "library": "slices",
+        "id": "media_gallery",
+        "name": "MediaGallery",
+        "description": "MediaGallery",
+        "model": {
+          "id": "media_gallery",
+          "type": "SharedSlice",
+          "name": "MediaGallery",
+          "description": "MediaGallery",
+          "variations": [
+            {
+              "id": "default",
+              "name": "Default",
+              "docURL": "...",
+              "version": "sktwi1xtmkfgx8626",
+              "description": "MediaGallery",
+              "primary": {
+                "carousel": {
+                  "type": "Boolean",
+                  "config": {
+                    "label": "Carousel",
+                    "placeholder_false": "false",
+                    "placeholder_true": "true",
+                    "default_value": false
+                  }
+                }
+              },
+              "items": {
+                "image": {
+                  "type": "Image",
+                  "config": {
+                    "label": "Image",
+                    "constraint": {
+                      "width": 400
+                    },
+                    "thumbnails": [
+                      {
+                        "name": "s",
+                        "width": 800,
+                        "height": 0
+                      },
+                      {
+                        "name": "m",
+                        "width": 1200,
+                        "height": 0
+                      },
+                      {
+                        "name": "l",
+                        "width": 1600,
+                        "height": 0
+                      },
+                      {
+                        "name": "xl",
+                        "width": 2400,
+                        "height": 0
+                      }
+                    ]
+                  }
+                },
+                "video": {
+                  "type": "Text",
+                  "config": {
+                    "label": "Video",
+                    "placeholder": ""
+                  }
+                }
+              },
+              "imageUrl": "https://images.prismic.io/slice-machine/621a5ec4-0387-4bc5-9860-2dd46cbc07cd_default_ss.png?auto=compress,format"
+            }
+          ]
+        },
+        "mocks": {
+          "default": {
+            "variation": "default",
+            "version": "sktwi1xtmkfgx8626",
+            "items": [
+              {
+                "image": {
+                  "dimensions": {
+                    "width": 400,
+                    "height": 500
+                  },
+                  "alt": null,
+                  "copyright": null,
+                  "url": "https://images.unsplash.com/photo-1571126770897-2d612d1f7b89",
+                  "s": {
+                    "dimensions": {
+                      "width": 800,
+                      "height": 500
+                    },
+                    "alt": null,
+                    "copyright": null,
+                    "url": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6"
+                  },
+                  "m": {
+                    "dimensions": {
+                      "width": 1200,
+                      "height": 500
+                    },
+                    "alt": null,
+                    "copyright": null,
+                    "url": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
+                  },
+                  "l": {
+                    "dimensions": {
+                      "width": 1600,
+                      "height": 500
+                    },
+                    "alt": null,
+                    "copyright": null,
+                    "url": "https://images.unsplash.com/photo-1531771686035-25f47595c87a"
+                  },
+                  "xl": {
+                    "dimensions": {
+                      "width": 2400,
+                      "height": 500
+                    },
+                    "alt": null,
+                    "copyright": null,
+                    "url": "https://images.unsplash.com/photo-1587840171670-8b850147754e"
+                  }
+                },
+                "video": "author"
+              }
+            ],
+            "primary": {
+              "carousel": false
+            },
+            "slice_type": "media_gallery"
+          }
+        },
+        "meta": {
+          "fileName": "index",
+          "extension": "js"
+        },
+        "screenshotPaths": {}
+      },
+      "text": {
+        "library": "slices",
+        "id": "text",
+        "name": "Text",
+        "description": "Text",
+        "model": {
+          "id": "text",
+          "type": "SharedSlice",
+          "name": "Text",
+          "description": "Text",
+          "variations": [
+            {
+              "id": "default",
+              "name": "Default",
+              "docURL": "...",
+              "version": "sktwi1xtmkfgx8626",
+              "description": "Text",
+              "primary": {
+                "text": {
+                  "type": "StructuredText",
+                  "config": {
+                    "label": "Text",
+                    "placeholder": "",
+                    "allowTargetBlank": true,
+                    "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+                  }
+                }
+              },
+              "items": {},
+              "imageUrl": "https://images.prismic.io/slice-machine/621a5ec4-0387-4bc5-9860-2dd46cbc07cd_default_ss.png?auto=compress,format"
+            }
+          ]
+        },
+        "mocks": {
+          "default": {
+            "variation": "default",
+            "version": "sktwi1xtmkfgx8626",
+            "items": [
+              {}
+            ],
+            "primary": {
+              "text": [
+                {
+                  "type": "paragraph",
+                  "text": "Do duis sunt ad laboris ea velit dolore.",
+                  "spans": []
+                }
+              ]
+            },
+            "slice_type": "text"
+          }
+        },
+        "meta": {
+          "fileName": "index",
+          "extension": "js"
+        },
+        "screenshotPaths": {}
+      }
+    }
   }
 }
