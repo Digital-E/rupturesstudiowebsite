@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components"
 
-import Media from "./media"
+import Media from "../media"
 
 import wheel from 'wheel';
 import normalizeWheel from 'normalize-wheel';
 
-import Tag from "./tag"
+import Tags from "../tags"
 
 import { motion } from "framer-motion"
 
@@ -96,15 +96,8 @@ const Information = styled.div``;
 
 const Title = styled.div`
     font-family: Neue Haas Grotesk Regular;
-    font-size: 1rem;
     margin-top: 8px;
     text-transform: capitalize;
-`;
-
-const Tags = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin-top: 8px;
 `;
 
 let media = [
@@ -422,10 +415,7 @@ export default ({ data }) => {
                                 <Media asset={item} />
                                 <Information>
                                     <Title>{item.title}</Title>
-                                    <Tags>
-                                        <Tag alt={true}>{item.year}</Tag>
-                                        {item.tags?.map(item => <Tag>{item.tag}</Tag>)}
-                                    </Tags>
+                                    <Tags data={item} />
                                 </Information>
                             </MediaContainer>
                         </Slide>

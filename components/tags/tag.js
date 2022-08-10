@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 const Container = styled.div`
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     background: ${props => props.alt ? "black" : "white"};
     color: ${props => props.alt ? "white" : "black"};
     width: fit-content;

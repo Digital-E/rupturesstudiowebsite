@@ -1,18 +1,22 @@
 import { useEffect } from "react"
 import router, { useRouter } from "next/router"
 import Head from 'next/head'
-import Layout from "../components/layout"
-import { getMenu, getHome } from "../lib/api"
+import Layout from "../../components/layout"
+import { getMenu, getHome } from "../../lib/api"
 
-import { SITE_NAME } from "../lib/constants"
+import { SITE_NAME } from "../../lib/constants"
 
-import RichText from '../components/rich-text'
-import Carousel from "../components/home/carousel"
+import RichText from '../../components/rich-text'
+import Carousel from "../../components/archive/carousel"
+
+import Plyr from 'plyr';
+
+import Filter from "../../components/archive/filter"
 
 export default function Index({ preview, data, menuData, footerData }) {
 
     useEffect(() => {
-
+        const players = Plyr.setup('.player');
     },[])
 
     return (
@@ -23,9 +27,10 @@ export default function Index({ preview, data, menuData, footerData }) {
         >
             <Head>
                 <title>
-                    {SITE_NAME} | {data[0].node.title}
+                    {data[0].node.title} | {SITE_NAME} 
                 </title>
             </Head>
+            <Filter />
             <Carousel />
         </Layout>
     )

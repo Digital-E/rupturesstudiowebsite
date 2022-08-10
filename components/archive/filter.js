@@ -15,11 +15,14 @@ const Item = styled.div`
     font-family: "Neue Haas Grotesk Regular";
     margin-right: 5px;
     margin-left: 3px;
-    color: black;
-    transition: color 1s;
+    // color: black;
+    // transition: color 1s;
+    filter: blur(0px);
+    transition: filter 0.7s;
 
     &.is-selected {
-        color: white;
+        // color: white;
+        filter: blur(0.8px);
     }
 
     > span:nth-child(1) {
@@ -34,9 +37,11 @@ const Item = styled.div`
     }
 
     :hover {
-        color: white;
+        // color: white;
         cursor: pointer;
-        transition: color 0.2s;
+        // transition: color 0.2s;
+        filter: blur(0.8px);
+        transition: filter 0.3s;
     }
 `
 

@@ -1,62 +1,26 @@
-import React, { useRef, useState, useEffect } from "react";
-import styled from "styled-components";
 
-const Container = styled.div`
-  position: relative;
-  overflow: hidden;
-  height: 100%;
-  width: fit-content;
-  // background-color: #fafafa;
+export default function Component({ data, id }) {
 
-  .show-video {
-    opacity: 1;
-    transition-duration: 0.2s;
-  }
-`;
+    let videoId = data;
 
-const StyledVideo = styled.video`
-  height: 100%;
-  width: auto;
-  opacity: 0;
-  transition: opacity 500ms ease 0s;
-`;
+    let regExp = /[a-zA-Z]/g;
 
-const Video = ({ src, height, width }) => {
-  let [hasLoaded, setHasLoaded] = useState(false);
-  let videoRef = useRef();
+    let isYoutube = regExp.test(data);
 
-
-  const triggerHasLoaded = () => {
-    if (!hasLoaded) {
-      setHasLoaded(true);
-    }
-  };
-
-
-  return (
-    <Container>
-      {src === undefined ? (
-          <div></div>
-      ) : (
-        <StyledVideo
-          autoPlay 
-          muted
-          loop
-          playsInline
-          alt=""
-          draggable="false"
-          ref={videoRef}
-          className={hasLoaded && (height/width >= 1 ? "show-video portrait" : "show-video")}
-          onPlay={() => triggerHasLoaded()}
-          width={width}
-          height={height}
-        >
-        <source src={src ? src.url : null} type="video/mp4"/>
-        Your browser does not support the video tag.
-        </StyledVideo>
-      )}
-    </Container>
-  );
-};
-
-export default Video;
+    return videoId !== null ?
+        <div class="plyr__video-embed player" id={id}>
+            <iframe
+            src={
+            isYoutube ?
+            `https://youtube.com/embed/${videoId}?controls=0&amp;loop=false&amp;byline=false&amp;modestbranding=1&amp;showinfo=0&amp;`
+            :
+            `https://player.vimeo.com/video/${videoId}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media`
+            }
+            allowfullscreen
+            allowtransparency
+            allow="autoplay"
+            ></iframe>
+        </div>
+    :
+    null
+}

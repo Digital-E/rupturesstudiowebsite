@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 import { getHome, getHomePagesSlugs, getAllArtistPages, getAllArtistPagesPaginate, getMenu, getFooter } from "../../lib/api";
 
-import Map from "../../components/home-map"
+// import Map from "../../components/home-map"
 
 import { SITE_NAME } from "../../lib/constants"
 import RichText from '../../components/rich-text';

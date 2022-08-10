@@ -5,6 +5,9 @@ const Media = ({ asset }) => {
 
     return <Image src={asset} />
 
+    // <Video src={asset} />
+    // <SliceWrapper key={slice._id}><Video data={slice.video} id={`video-${index}`}/></SliceWrapper>
+
     // return asset.image !== null ?
     //     <Image src={asset.image}/>
     //     :
