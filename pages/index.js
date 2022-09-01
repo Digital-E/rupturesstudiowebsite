@@ -1,15 +1,20 @@
 import { useEffect } from "react"
 import router, { useRouter } from "next/router"
 import Head from 'next/head'
+import styled from "styled-components"
 import Layout from "../components/layout"
-import { getMenu, getHome } from "../lib/api"
-
+import { getMenu, getHome, getAllProjects } from "../lib/api"
 import { SITE_NAME } from "../lib/constants"
 
 import RichText from '../components/rich-text'
 import Carousel from "../components/home/carousel"
 
-export default function Index({ preview, data, menuData, footerData }) {
+const Container = styled.div`
+    margin-top: 150px;
+`
+
+
+export default function Index({ preview, data, allProjects, menuData, footerData }) {
 
     useEffect(() => {
 
@@ -26,7 +31,9 @@ export default function Index({ preview, data, menuData, footerData }) {
                     {SITE_NAME} | {data[0].node.title}
                 </title>
             </Head>
-            <Carousel />
+            <Container>
+                {allProjects.map(item => <Carousel data={item.node} />)}
+            </Container>
         </Layout>
     )
   }
@@ -38,7 +45,9 @@ export async function getStaticProps({ params, preview = false, previewData }) {
 
     const data = await getHome(previewData);
 
+    const allProjects = await getAllProjects(previewData);
+
     return {
-        props: { data, menuData }, // will be passed to the page component as props
+        props: { data, allProjects, menuData } // will be passed to the page component as props
     }
 }

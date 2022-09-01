@@ -6,6 +6,7 @@ const Tags = styled.div`
     display: flex;
     flex-direction: row;
     margin-top: 8px;
+    pointer-events: none;
 `;
 
 const Component = ({ data }) => {

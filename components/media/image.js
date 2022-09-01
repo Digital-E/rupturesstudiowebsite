@@ -5,8 +5,8 @@ const Container = styled.div`
   position: relative;
   overflow: hidden;
   height: 100%;
-  width: 100%;
-  padding-bottom: ${props => props.aspectRatio}%;
+  width: ${props => props.width}px;
+  // padding-bottom: ${props => props.aspectRatio}%;
   background-color: #b2b2b2;
   
   .show-image {
@@ -28,7 +28,7 @@ const StyledImage = styled.img`
   transition: opacity 500ms ease 0s;
 `;
 
-const Image = ({ src }) => {
+const Image = ({ src, windowHeight }) => {
   let [hasLoaded, setHasLoaded] = useState(false);
   let imageRef = useRef();
   let aspectRatio = 0;
@@ -39,7 +39,6 @@ const Image = ({ src }) => {
     xl,
     height,
     width = null;
-
 
   if (src !== undefined) {
     ({ height, width } = src.dimensions);
@@ -57,12 +56,13 @@ const Image = ({ src }) => {
     // xl = src.img;
     // xxl = src.img;
 
+    aspectRatio = (height / width) * 100;
     
-    if(height < width) {
-      aspectRatio = (height / width) * 100;
-    } else {
-      aspectRatio = (width / height) * 100;
-    }
+    // if(height < width) {
+    //   aspectRatio = (height / width) * 100;
+    // } else {
+    //   aspectRatio = (width / height) * 100;
+    // }
   }
 
 
@@ -79,9 +79,8 @@ const Image = ({ src }) => {
     }
   };
 
-
   return (
-    <Container aspectRatio={aspectRatio}>
+    <Container aspectRatio={aspectRatio} width={windowHeight  * (1 / aspectRatio * 100)}>
       {/* <StyledImage 
         src={src.img}
         alt=""
@@ -100,8 +99,6 @@ const Image = ({ src }) => {
             ref={imageRef}
             className={hasLoaded && "show-image"}
             onLoad={() => triggerHasLoaded()}
-            height={height}
-            width={width}
           />
         </picture>
       ) : (
@@ -120,8 +117,6 @@ const Image = ({ src }) => {
             onLoad={() => triggerHasLoaded()}
             data-scroll 
             data-scroll-speed="-1"
-            height={height}
-            width={width}
           />
         </picture>
       )}

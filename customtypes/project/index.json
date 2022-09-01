@@ -26,6 +26,66 @@
           "placeholder": ""
         }
       },
+      "thumbnails": {
+        "type": "Group",
+        "config": {
+          "label": "Thumbnails",
+          "fields": {
+            "image": {
+              "type": "Image",
+              "config": {
+                "label": "Image",
+                "constraint": {
+                  "width": 400
+                },
+                "thumbnails": [
+                  {
+                    "name": "s",
+                    "width": 800,
+                    "height": 0
+                  },
+                  {
+                    "name": "m",
+                    "width": 1200,
+                    "height": 0
+                  },
+                  {
+                    "name": "l",
+                    "width": 1600,
+                    "height": 0
+                  },
+                  {
+                    "name": "xl",
+                    "width": 2400,
+                    "height": 0
+                  }
+                ]
+              }
+            },
+            "video": {
+              "type": "Text",
+              "config": {
+                "label": "Video",
+                "placeholder": ""
+              }
+            },
+            "video_height": {
+              "type": "Number",
+              "config": {
+                "label": "Video Height",
+                "placeholder": ""
+              }
+            },
+            "video_width": {
+              "type": "Number",
+              "config": {
+                "label": "Video Width",
+                "placeholder": ""
+              }
+            }
+          }
+        }
+      },
       "hero_image": {
         "type": "Image",
         "config": {

@@ -3,7 +3,9 @@
     "menu": {},
     "home": {},
     "archive": {},
-    "project": {},
+    "project": {
+      "thumbnails": {}
+    },
     "about": {}
   },
   "slices": {

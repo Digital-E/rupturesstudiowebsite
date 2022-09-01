@@ -1,26 +1,49 @@
+import styled from "styled-components";
 
-export default function Component({ data, id }) {
+const Container = styled.div`
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    width: ${props => props.width}px;
+    // padding-bottom: ${props => props.aspectRatio}%;
+    background-color: #b2b2b2;
 
-    let videoId = data;
+    .show-image {
+    opacity: 1;
+    transition-duration: 0.2s;
+    }
 
-    let regExp = /[a-zA-Z]/g;
+    video {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+`;
 
-    let isYoutube = regExp.test(data);
+export default function Component({ src, height, width, windowHeight, id }) {
+    let aspectRatio = 0;
+
+    let videoId = src;
+
+    // let regExp = /[a-zA-Z]/g;
+
+    // let isYoutube = regExp.test(data);
+
+    if (src !== undefined) {
+        aspectRatio = (height / width) * 100;
+    }
 
     return videoId !== null ?
-        <div class="plyr__video-embed player" id={id}>
-            <iframe
-            src={
-            isYoutube ?
-            `https://youtube.com/embed/${videoId}?controls=0&amp;loop=false&amp;byline=false&amp;modestbranding=1&amp;showinfo=0&amp;`
-            :
-            `https://player.vimeo.com/video/${videoId}?loop=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=0&amp;gesture=media`
-            }
-            allowfullscreen
-            allowtransparency
-            allow="autoplay"
-            ></iframe>
-        </div>
+            <Container aspectRatio={aspectRatio} width={windowHeight  * (1 / aspectRatio * 100)}>
+                <video id="player" 
+                playsinline
+                autoPlay 
+                muted
+                // data-poster="/path/to/poster.jpg"
+                >
+                    <source src={videoId} type="video/mp4" />
+                </video>
+            </Container>
     :
     null
 }

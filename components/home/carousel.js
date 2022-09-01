@@ -8,8 +8,6 @@ import normalizeWheel from 'normalize-wheel';
 
 import Tags from "../tags"
 
-import { motion } from "framer-motion"
-
 import gsap from "gsap"
 
 let Flickity = null
@@ -19,11 +17,9 @@ if (typeof window !== "undefined") {
   }
 
 const Container = styled.div`
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 50px;
 
     .flickity-viewport {
         overflow: visible !important;
@@ -72,27 +68,12 @@ const Slide = styled.div`
 const MediaContainer = styled.div`
     height: 50vh;
     width: fit-content;
-    // overflow: hidden;
     position: relative;
-    // border-radius: 15px;
-
-    > div:nth-child(1) {
-        object-fit: cover;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    img, video {
-        position: relative;
-        object-fit: cover;
-        // width: 100%;
-        height: 100%;
-        // border-radius: 15px;
-    }
 `;
 
-const Information = styled.div``;
+const Information = styled.div`
+    margin-left: 10px;
+`;
 
 const Title = styled.div`
     font-family: Neue Haas Grotesk Regular;
@@ -100,134 +81,37 @@ const Title = styled.div`
     text-transform: capitalize;
 `;
 
-let media = [
-    {
-        key: 1,
-        img: "/images/1.jpeg",
-        width: 600,
-        height: 791,
-        title: "Prada - Autmnal Chaos",
-        year: 2022,
-        tags: [{tag: "Art Direction"}, {tag: "Photography"}, {tag: "Production"} ]
-    },
-    {
-        key: 2,
-        img: "/images/2.jpeg",
-        width: 736,
-        height: 869,
-        title: "Balenciaga - Chaos Eternity",
-        year: 2022,
-        tags: [{tag: "Photography"}, {tag: "Production"} ]
-    },
-    {
-        key: 3,
-        img: "/images/3.png",
-        width: 2778,
-        height: 1224,
-        title: "La Nuit Me Va Si Bien",
-        year: 2020,
-        tags: [{tag: "Art Direction"}, {tag: "Photography"}, {tag: "Production"} ]
-    },
-    {
-        key: 4,
-        img: "/images/4.png",
-        width: 3024,
-        height: 1318,
-        title: "Dior - Le Souffre du Temps",
-        year: 2019,
-        tags: [{tag: "3D"}, {tag: "Production"} ]
-    },
-    {
-        key: 5,
-        img: "/images/5.png",
-        width: 1492,
-        height: 1360,
-        title: "Prada - Autmnal Chaos",
-        year: 2022,
-        tags: [{tag: "CGI"}, {tag: "Casting"}]
-    },
-    {
-        key: 6,
-        img: "/images/6.png",
-        width: 2466,
-        height: 1294,
-        title: "Balenciaga - Chaos Eternity",
-        year: 2023,
-        tags: [{tag: "Art Direction"}, {tag: "Photography"}, {tag: "Production"} ]
-    },
-    {
-        key: 7,
-        img: "/images/7.png",
-        width: 2616,
-        height: 1386,
-        title: "La Nuit Me Va Si Bien",
-        year: 2018,
-        tags: [{tag: "Film"}, {tag: "Casting"}, {tag: "Production"} ]
-    },
-]
-
-// let mediaTwo = [
-//     {
-//         key: 1,
-//         img: One,
-//         width: 600,
-//         height: 791,
-//         title: "Prada - Autmnal Chaos",
-//         year: 2022,
-//         tags: [{tag: "Art Direction"}, {tag: "Photography"}, {tag: "Production"} ]
-//     },
-//     {
-//         key: 2,
-//         img: Two,
-//         width: 736,
-//         height: 869,
-//         title: "Balenciaga - Chaos Eternity",
-//         year: 2022,
-//         tags: [{tag: "Photography"}, {tag: "Production"} ]
-//     },
-//     {
-//         key: 4,
-//         img: Four,
-//         width: 3024,
-//         height: 1318,
-//         title: "Dior - Le Souffre du Temps",
-//         year: 2019,
-//         tags: [{tag: "3D"}, {tag: "Production"} ]
-//     },
-//     {
-//         key: 5,
-//         img: Five,
-//         width: 1492,
-//         height: 1360,
-//         title: "Prada - Autmnal Chaos",
-//         year: 2022,
-//         tags: [{tag: "CGI"}, {tag: "Casting"}]
-//     },
-//     {
-//         key: 7,
-//         img: Seven,
-//         width: 2616,
-//         height: 1386,
-//         title: "La Nuit Me Va Si Bien",
-//         year: 2018,
-//         tags: [{tag: "Film"}, {tag: "Casting"}, {tag: "Production"} ]
-//     },
-// ]
-
-
 
 export default ({ data }) => {
     let [flickity, setFlickity] = useState(null);
-    let [displayProjects, setDisplayProjects] = useState(media)
-    let [hasTransitioned, setHasTransitioned] = useState(false);
+    let [windowHeight, setWindowHeight] = useState(0);
     let gallery = useRef();
+
+    let scrollTimeout = null;
+    let isScrolling = false;
+
+
+    let scroll = () => {
+        clearTimeout(scrollTimeout);
+        isScrolling = true;
+
+        scrollTimeout = setTimeout(() => {
+            isScrolling = false;
+        }, 250);
+    }
+
+    useEffect(() => {
+        setWindowHeight(window.innerHeight / 2)
+
+        // window.addEventListener("scroll", scroll)
+    }, []);
 
     useEffect(() => {
 
         setTimeout(()=>{
             let flickity = new Flickity(gallery.current, {
                 // options, defaults listed
-                imagesLoaded: true,
+                imagesLoaded: false,
             
                 fade: false,
             
@@ -328,8 +212,10 @@ export default ({ data }) => {
             // Mouse swipe
 
             wheel.addWheelListener(gallery.current, event => {
+
+                if(isScrolling) return;
+
                 const wheelNormalized = normalizeWheel(event);
-                flickity.applyForce(-wheelNormalized.pixelY / 16);
                 flickity.applyForce(-wheelNormalized.pixelX / 16);
                 flickity.startAnimation();
                 flickity.dragEnd();
@@ -381,47 +267,25 @@ export default ({ data }) => {
         //   flickity.destroy();
         // };
       }, []);  
-      
-      let transition = () => {
-        gsap.killTweensOf(".marquee-item")
-
-
-        if(!hasTransitioned) {
-            document.querySelectorAll(".carousel-slide")[0].classList.add("hide-slide")
-            document.querySelectorAll(".carousel-slide")[3].classList.add("hide-slide")
-
-            // document.querySelectorAll(".carousel-slide")[0].classList.add("hide-slide")
-            // document.querySelectorAll(".carousel-slide")[7].classList.add("hide-slide")
-            setHasTransitioned(true)
-        } else {
-            document.querySelectorAll(".carousel-slide")[0].classList.remove("hide-slide")
-            document.querySelectorAll(".carousel-slide")[3].classList.remove("hide-slide")
-
-            // document.querySelectorAll(".carousel-slide")[0].classList.remove("hide-slide")
-            // document.querySelectorAll(".carousel-slide")[7].classList.remove("hide-slide")
-            setHasTransitioned(false)
-        }
     
-    }
-
 
     return (
-        <Container onClick={() => transition()}>
+        <Container>
             <Carousel ref={gallery}>
-                {displayProjects.map((item, index) => {
+                {data.thumbnails.map((item, index) => {
                 return (
                         <Slide key={index} className="carousel-slide">
                             <MediaContainer>
-                                <Media asset={item} />
-                                <Information>
-                                    <Title>{item.title}</Title>
-                                    <Tags data={item} />
-                                </Information>
+                                <Media asset={item} windowHeight={windowHeight} />
                             </MediaContainer>
                         </Slide>
                 );
                 })}
             </Carousel>
+            <Information>
+                <Title>{data.title}</Title>
+                <Tags data={data} />
+            </Information>
         </Container>
     )
 }
