@@ -19,7 +19,7 @@ if (typeof window !== "undefined") {
 const Container = styled.div`
     position: relative;
     overflow: hidden;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
 
     .flickity-viewport {
         overflow: visible !important;

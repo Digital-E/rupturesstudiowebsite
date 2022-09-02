@@ -2,6 +2,8 @@ import '../styles/globals.css'
 
 import "../styles/flickity.css";
 
+import "plyr/dist/plyr.css";
+
 import Header from "../components/header";
 
 import { motion, AnimatePresence } from "framer-motion"

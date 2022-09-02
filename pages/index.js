@@ -5,19 +5,36 @@ import styled from "styled-components"
 import Layout from "../components/layout"
 import { getMenu, getHome, getAllProjects } from "../lib/api"
 import { SITE_NAME } from "../lib/constants"
+import Plyr from "plyr"
 
 import RichText from '../components/rich-text'
 import Carousel from "../components/home/carousel"
 
 const Container = styled.div`
-    margin-top: 150px;
+    margin: 150px 0;
 `
 
 
 export default function Index({ preview, data, allProjects, menuData, footerData }) {
+    let players = null;
 
     useEffect(() => {
 
+        players = Plyr.setup('#player', {
+            autoplay: true,
+            muted: true,
+            controls: ['play', 'progress', 'mute'
+            // , 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'
+        ]
+        });
+
+        players?.forEach(item => {
+            item.muted = true;
+        })
+
+        return () => {
+            players?.forEach(item => item.destroy())
+        }
     },[])
 
     return (

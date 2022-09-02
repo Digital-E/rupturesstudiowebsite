@@ -1,22 +1,58 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import router, { useRouter } from "next/router"
 import Head from 'next/head'
 import Layout from "../../components/layout"
-import { getMenu, getHome } from "../../lib/api"
+import { getMenu, getHome, getAllProjects } from "../../lib/api"
+import Plyr from "plyr"
 
 import { SITE_NAME } from "../../lib/constants"
 
 import RichText from '../../components/rich-text'
 import Carousel from "../../components/archive/carousel"
 
-import Plyr from 'plyr';
-
 import Filter from "../../components/archive/filter"
 
-export default function Index({ preview, data, menuData, footerData }) {
+
+let tags = [
+    {
+        label: "All",
+        count: ""
+    },
+    {
+        label: "Image",
+        count: 14
+    },
+    {
+        label: "Video",
+        count: 3
+    },
+    {
+        label: "Typography",
+        count: 40
+    },
+]
+
+export default function Index({ preview, data, allProjects, menuData, footerData }) {
+    let players = null;
+    let [selectedTagIndex, setSelectedTagIndex] = useState(0);
 
     useEffect(() => {
-        const players = Plyr.setup('.player');
+
+        players = Plyr.setup('#player', {
+            autoplay: true,
+            muted: true,
+            controls: ['play', 'progress', 'mute'
+            // , 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'
+        ]
+        });
+
+        players?.forEach(item => {
+            item.muted = true;
+        })
+
+        return () => {
+            players?.forEach(item => item.destroy())
+        }
     },[])
 
     return (
@@ -30,8 +66,8 @@ export default function Index({ preview, data, menuData, footerData }) {
                     {data[0].node.title} | {SITE_NAME} 
                 </title>
             </Head>
-            <Filter />
-            <Carousel />
+            <Filter tags={tags} selectedTagIndex={selectedTagIndex} setSelectedTagIndex={(i) => setSelectedTagIndex(i)}/>
+            <Carousel data={allProjects} selectedTag={tags[selectedTagIndex]}/>
         </Layout>
     )
   }
@@ -43,7 +79,9 @@ export async function getStaticProps({ params, preview = false, previewData }) {
 
     const data = await getHome(previewData);
 
+    const allProjects = await getAllProjects(previewData);
+
     return {
-        props: { data, menuData }, // will be passed to the page component as props
+        props: { data, allProjects, menuData }, // will be passed to the page component as props
     }
 }

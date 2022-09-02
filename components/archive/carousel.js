@@ -6,6 +6,8 @@ import Media from "../media"
 import wheel from 'wheel';
 import normalizeWheel from 'normalize-wheel';
 
+import sanitizeTag from "../../lib/sanitizeTag"
+
 import Tags from "../tags"
 
 import { motion } from "framer-motion"
@@ -56,6 +58,7 @@ const Slide = styled.div`
         opacity: 1;
         filter: blur(10px);
         transition: filter ease-in-out 1s,opacity ease-in-out 1s;
+        pointer-events: none;
     }
 
     > div > div {
@@ -72,24 +75,7 @@ const Slide = styled.div`
 const MediaContainer = styled.div`
     height: 50vh;
     width: fit-content;
-    // overflow: hidden;
     position: relative;
-    // border-radius: 15px;
-
-    > div:nth-child(1) {
-        object-fit: cover;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    img, video {
-        position: relative;
-        object-fit: cover;
-        // width: 100%;
-        height: 100%;
-        // border-radius: 15px;
-    }
 `;
 
 const Information = styled.div``;
@@ -101,127 +87,18 @@ const Title = styled.div`
 `;
 
 
-let media = [
-    {
-        key: 1,
-        img: "/images/1.jpeg",
-        width: 600,
-        height: 791,
-        title: "Prada - Autmnal Chaos",
-        year: 2022,
-        tags: [{tag: "Art Direction"}, {tag: "Photography"}, {tag: "Production"} ]
-    },
-    {
-        key: 2,
-        img: "/images/2.jpeg",
-        width: 736,
-        height: 869,
-        title: "Balenciaga - Chaos Eternity",
-        year: 2022,
-        tags: [{tag: "Photography"}, {tag: "Production"} ]
-    },
-    {
-        key: 3,
-        img: "/images/3.png",
-        width: 2778,
-        height: 1224,
-        title: "La Nuit Me Va Si Bien",
-        year: 2020,
-        tags: [{tag: "Art Direction"}, {tag: "Photography"}, {tag: "Production"} ]
-    },
-    {
-        key: 4,
-        img: "/images/4.png",
-        width: 3024,
-        height: 1318,
-        title: "Dior - Le Souffre du Temps",
-        year: 2019,
-        tags: [{tag: "3D"}, {tag: "Production"} ]
-    },
-    {
-        key: 5,
-        img: "/images/5.png",
-        width: 1492,
-        height: 1360,
-        title: "Prada - Autmnal Chaos",
-        year: 2022,
-        tags: [{tag: "CGI"}, {tag: "Casting"}]
-    },
-    {
-        key: 6,
-        img: "/images/6.png",
-        width: 2466,
-        height: 1294,
-        title: "Balenciaga - Chaos Eternity",
-        year: 2023,
-        tags: [{tag: "Art Direction"}, {tag: "Photography"}, {tag: "Production"} ]
-    },
-    {
-        key: 7,
-        img: "/images/7.png",
-        width: 2616,
-        height: 1386,
-        title: "La Nuit Me Va Si Bien",
-        year: 2018,
-        tags: [{tag: "Film"}, {tag: "Casting"}, {tag: "Production"} ]
-    },
-]
 
-// let mediaTwo = [
-//     {
-//         key: 1,
-//         img: One,
-//         width: 600,
-//         height: 791,
-//         title: "Prada - Autmnal Chaos",
-//         year: 2022,
-//         tags: [{tag: "Art Direction"}, {tag: "Photography"}, {tag: "Production"} ]
-//     },
-//     {
-//         key: 2,
-//         img: Two,
-//         width: 736,
-//         height: 869,
-//         title: "Balenciaga - Chaos Eternity",
-//         year: 2022,
-//         tags: [{tag: "Photography"}, {tag: "Production"} ]
-//     },
-//     {
-//         key: 4,
-//         img: Four,
-//         width: 3024,
-//         height: 1318,
-//         title: "Dior - Le Souffre du Temps",
-//         year: 2019,
-//         tags: [{tag: "3D"}, {tag: "Production"} ]
-//     },
-//     {
-//         key: 5,
-//         img: Five,
-//         width: 1492,
-//         height: 1360,
-//         title: "Prada - Autmnal Chaos",
-//         year: 2022,
-//         tags: [{tag: "CGI"}, {tag: "Casting"}]
-//     },
-//     {
-//         key: 7,
-//         img: Seven,
-//         width: 2616,
-//         height: 1386,
-//         title: "La Nuit Me Va Si Bien",
-//         year: 2018,
-//         tags: [{tag: "Film"}, {tag: "Casting"}, {tag: "Production"} ]
-//     },
-// ]
-
-
-
-export default ({ data }) => {
+export default ({ data, selectedTag }) => {
     let [flickity, setFlickity] = useState(null);
-    let [displayProjects, setDisplayProjects] = useState(media)
+    let [displayProjects, setDisplayProjects] = useState(data)
     let [hasTransitioned, setHasTransitioned] = useState(false);
+    let [windowHeight, setWindowHeight] = useState(0);
     let gallery = useRef();
+
+
+    useEffect(() => {
+        setWindowHeight(window.innerHeight / 2)
+    }, []);
 
     useEffect(() => {
 
@@ -382,38 +259,49 @@ export default ({ data }) => {
         //   flickity.destroy();
         // };
       }, []);  
-      
-      let transition = () => {
-        gsap.killTweensOf(".marquee-item")
 
 
-        if(!hasTransitioned) {
-            document.querySelectorAll(".carousel-slide")[0].classList.add("hide-slide")
-            document.querySelectorAll(".carousel-slide")[3].classList.add("hide-slide")
+    useEffect(() => {
+        if(sanitizeTag(selectedTag.label) === "all") {
+            document.querySelectorAll(".carousel-slide").forEach(item => {
+                item.classList.remove("hide-slide")
+            })
 
-            // document.querySelectorAll(".carousel-slide")[0].classList.add("hide-slide")
-            // document.querySelectorAll(".carousel-slide")[7].classList.add("hide-slide")
-            setHasTransitioned(true)
-        } else {
-            document.querySelectorAll(".carousel-slide")[0].classList.remove("hide-slide")
-            document.querySelectorAll(".carousel-slide")[3].classList.remove("hide-slide")
-
-            // document.querySelectorAll(".carousel-slide")[0].classList.remove("hide-slide")
-            // document.querySelectorAll(".carousel-slide")[7].classList.remove("hide-slide")
-            setHasTransitioned(false)
+            return
         }
-    
+
+        document.querySelectorAll(".carousel-slide").forEach(item => {
+            if(item.classList.contains(sanitizeTag(selectedTag.label))) {
+                item.classList.remove("hide-slide")
+            } else {
+                item.classList.add("hide-slide")
+            }
+        })
+    }, [selectedTag]);
+
+
+    let getCategories = (data) => {
+        let categories = [];
+
+        data.forEach(item => {
+            categories.push(item.tag?.toLowerCase())
+        })
+
+        return `${categories.join(" ")}`
     }
 
 
     return (
-        <Container onClick={() => transition()}>
+        <Container>
             <Carousel ref={gallery}>
                 {displayProjects.map((item, index) => {
+
+                item = item.node
+
                 return (
-                        <Slide key={index} className="carousel-slide">
+                        <Slide key={index} className={`carousel-slide ${getCategories(item.tags)}`}>
                             <MediaContainer>
-                                <Media asset={item} />
+                                <Media asset={item.thumbnails[0]} windowHeight={windowHeight} />
                                 <Information>
                                     <Title>{item.title}</Title>
                                     <Tags data={item} />
