@@ -29,7 +29,7 @@ const Component = ({ data }) => {
 
     return (
         <Container>
-            <Media asset={data.hero_image} />
+            <Media asset={data} />
             <InnerContainer>
                 <Title>{ data.title }</Title>
                 <Tags data={ data } />

@@ -13,6 +13,38 @@ const htmlSerializer = function(type, element, content, children, key) {
 
   var props = {};
 
+
+  // const replaceStar = (children, type) => {
+
+  //   let newChildren = children;
+
+  //   if(type === "paragraph") {
+
+  //     if(newChildren[0].length > 0) {
+  //       newChildren[0] = newChildren[0].map((itemOne, indexOne) => {
+  //         if(indexOne === 4) {
+  //           let indexOfStar = [];
+  //           let splitString = itemOne.split("");
+
+  //           splitString.forEach((itemTwo, indexTwo) => {
+  //                   if(itemTwo === "*") indexOfStar.push(indexTwo)
+  //           })   
+
+  //           indexOfStar.forEach((item, index) => {
+  //             splitString.splice(item, 1, "<span class='ruptures-logo'></span>")
+  //           })    
+
+  //           return splitString.join("");
+  //         }
+  //         return itemOne
+  //       })
+  //     }
+  //   }
+
+
+  //   return newChildren;
+  // }
+
   switch(type) {
       
     case Elements.heading1: // Heading 1
@@ -34,6 +66,7 @@ const htmlSerializer = function(type, element, content, children, key) {
       return React.createElement('h6', propsWithUniqueKey(props, key), children);
       
     case Elements.paragraph: // Paragraph
+      // return React.createElement('p', propsWithUniqueKey(props, key), replaceStar(children, type));
       return React.createElement('p', propsWithUniqueKey(props, key), children);
       
     case Elements.preformatted: // Preformatted

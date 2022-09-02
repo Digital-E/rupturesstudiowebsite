@@ -4,19 +4,14 @@ import styled from "styled-components";
 const Container = styled.div`
   position: relative;
   overflow: hidden;
-  height: 100%;
-  width: ${props => props.width}px;
-  // padding-bottom: ${props => props.aspectRatio}%;
+  width: ${props => props.width ? `${props.width}px` : `100%`};
+  height: ${props => props.width ? `100%` : `auto`};
+  padding-bottom: ${props => isNaN(props.width)  ? `${props.aspectRatio}%` : `auto`};
   background-color: #b2b2b2;
   
   .show-image {
     opacity: 1;
     transition-duration: 0.2s;
-  }
-
-  picture {
-    display: block;
-    height: 100%;
   }
 `;
 
@@ -59,9 +54,9 @@ const Image = ({ src, windowHeight }) => {
     aspectRatio = (height / width) * 100;
     
     // if(height < width) {
-    //   aspectRatio = (height / width) * 100;
-    // } else {
     //   aspectRatio = (width / height) * 100;
+    // } else {
+    //   aspectRatio = (height / width) * 100;
     // }
   }
 
@@ -81,14 +76,6 @@ const Image = ({ src, windowHeight }) => {
 
   return (
     <Container aspectRatio={aspectRatio} width={windowHeight  * (1 / aspectRatio * 100)}>
-      {/* <StyledImage 
-        src={src.img}
-        alt=""
-        draggable="false"
-        ref={imageRef}
-        className={hasLoaded && "show-image"}
-        onLoad={() => triggerHasLoaded()}
-      />       */}
       {src === undefined ? (
         <picture>
           <source sizes="100vw" />

@@ -3,6 +3,10 @@ import Video from "./video"
 
 const Media = ({ asset, windowHeight }) => {
 
+    if(asset?.hero_image) {
+        asset.image = asset.hero_image;
+    }
+
     return asset.image !== null ?
         <Image src={asset.image} windowHeight={windowHeight} />
         :

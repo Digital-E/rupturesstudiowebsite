@@ -7,12 +7,20 @@ import { getMenu, getHome, getAllProjects } from "../lib/api"
 import { SITE_NAME } from "../lib/constants"
 import Plyr from "plyr"
 
+import LogoAppear from "../components/logo-appear"
+
 import RichText from '../components/rich-text'
 import Carousel from "../components/home/carousel"
 
 const Container = styled.div`
-    margin: 150px 0;
+    position: relative;
+    margin: 150px 0 0 0;
 `
+
+const Trigger = styled.div`
+    height: 500px;
+`
+
 
 
 export default function Index({ preview, data, allProjects, menuData, footerData }) {
@@ -45,12 +53,14 @@ export default function Index({ preview, data, allProjects, menuData, footerData
         >
             <Head>
                 <title>
-                    {SITE_NAME} | {data[0].node.title}
+                    {SITE_NAME}
                 </title>
             </Head>
             <Container>
                 {allProjects.map(item => <Carousel data={item.node} />)}
             </Container>
+            <LogoAppear />
+            <Trigger id="scroll-trigger" />
         </Layout>
     )
   }

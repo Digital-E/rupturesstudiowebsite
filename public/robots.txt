@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://rupturesstudio.com
+
+# Sitemaps
+Sitemap: https://rupturesstudio.com/sitemap.xml

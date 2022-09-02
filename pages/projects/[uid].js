@@ -14,14 +14,16 @@ import Hero from "../../components/project-slices/hero"
 import Slices from "../../components/project-slices/index"
 
 
-const Container = styled.div``
+const Container = styled.div`
+  margin: 0 0 150px 0;
+`
 
 
 
 
 export default function Index({ preview, data, allArtistPagesDataPaginate, footerData }) {
 
-data = data[0].node
+data = data[0]?.node
 
 //   let currArtistIndex = 0;
 
@@ -78,7 +80,7 @@ export async function getStaticPaths({}) {
   
   return {
     paths: paths,
-    fallback: true
+    fallback: false
   }
 }
 

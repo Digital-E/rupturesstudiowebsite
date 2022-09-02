@@ -58,12 +58,14 @@ export default function Index({ preview, data, allProjects, menuData, footerData
     return (
         <Layout 
         preview={preview} 
-        name={data[0].node.title} content={data[0].node.content} 
+        // name={data[0].node.title} content={data[0].node.content} 
+        name={"Index"} content={"Index"} 
         // footerData={footerData}
         >
             <Head>
                 <title>
-                    {data[0].node.title} | {SITE_NAME} 
+                    {/* {data[0].node.title} | {SITE_NAME}  */}
+                    Index | {SITE_NAME} 
                 </title>
             </Head>
             <Filter tags={tags} selectedTagIndex={selectedTagIndex} setSelectedTagIndex={(i) => setSelectedTagIndex(i)}/>

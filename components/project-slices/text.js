@@ -3,8 +3,8 @@ import RichText from '../rich-text';
 import styled from "styled-components"
 
 const Container = styled.div`
-    margin: 0 auto;
-    padding: 20px;
+    margin: 80px auto;
+    padding: 0 20px;
     max-width: 800px;
     text-align: center;
 `

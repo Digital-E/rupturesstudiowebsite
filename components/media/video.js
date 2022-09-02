@@ -3,9 +3,9 @@ import styled from "styled-components";
 const Container = styled.div`
     position: relative;
     overflow: hidden;
-    height: 100%;
-    width: ${props => props.width}px;
-    // padding-bottom: ${props => props.aspectRatio}%;
+    width: ${props => props.width ? `${props.width}px` : `100%`};
+    height: ${props => props.width ? `100%` : `auto`};
+    padding-bottom: ${props => isNaN(props.width)  ? `${props.aspectRatio}%` : `auto`};
     background-color: #b2b2b2;
 
     .show-image {
@@ -14,6 +14,12 @@ const Container = styled.div`
     }
 
     video {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+
+    .plyr {
         position: absolute;
         height: 100%;
         width: 100%;
@@ -39,6 +45,7 @@ export default function Component({ src, height, width, windowHeight, id }) {
                 playsinline
                 autoPlay 
                 muted
+                loop
                 // data-poster="/path/to/poster.jpg"
                 >
                     <source src={videoId} type="video/mp4" />

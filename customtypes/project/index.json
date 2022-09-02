@@ -69,17 +69,17 @@
                 "placeholder": ""
               }
             },
-            "video_height": {
-              "type": "Number",
-              "config": {
-                "label": "Video Height",
-                "placeholder": ""
-              }
-            },
             "video_width": {
               "type": "Number",
               "config": {
                 "label": "Video Width",
+                "placeholder": ""
+              }
+            },
+            "video_height": {
+              "type": "Number",
+              "config": {
+                "label": "Video Height",
                 "placeholder": ""
               }
             }

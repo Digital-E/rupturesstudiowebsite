@@ -1,12 +1,12 @@
 module.exports = {
-  reactStrictMode: true,
+  // reactStrictMode: true,
   // i18n: {
   //   locales: ['fr-fr', 'en-gb'],
   //   defaultLocale: 'fr-fr'
   // },
-  // eslint: {
-  //   ignoreDuringBuilds: true
-  // }
+  eslint: {
+    ignoreDuringBuilds: true
+  }
   // async redirects() {
   //   return [
   //     { source: "/", destination: "/fr-fr", permanent: false },

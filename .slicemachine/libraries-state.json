@@ -99,6 +99,19 @@
                     "placeholder_true": "true",
                     "default_value": false
                   }
+                },
+                "width": {
+                  "type": "Select",
+                  "config": {
+                    "label": "Width",
+                    "placeholder": "",
+                    "options": [
+                      "S",
+                      "M",
+                      "L"
+                    ],
+                    "default_value": "S"
+                  }
                 }
               },
               "items": {
@@ -139,6 +152,20 @@
                     "label": "Video",
                     "placeholder": ""
                   }
+                },
+                "video_width": {
+                  "type": "Number",
+                  "config": {
+                    "label": "Video Width",
+                    "placeholder": ""
+                  }
+                },
+                "video_height": {
+                  "type": "Number",
+                  "config": {
+                    "label": "Video Height",
+                    "placeholder": ""
+                  }
                 }
               },
               "imageUrl": "https://images.prismic.io/slice-machine/621a5ec4-0387-4bc5-9860-2dd46cbc07cd_default_ss.png?auto=compress,format"
@@ -158,7 +185,7 @@
                   },
                   "alt": null,
                   "copyright": null,
-                  "url": "https://images.unsplash.com/photo-1571126770897-2d612d1f7b89",
+                  "url": "https://images.unsplash.com/photo-1493119508027-2b584f234d6c",
                   "s": {
                     "dimensions": {
                       "width": 800,
@@ -166,7 +193,7 @@
                     },
                     "alt": null,
                     "copyright": null,
-                    "url": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6"
+                    "url": "https://images.unsplash.com/photo-1498050108023-c5249f4df085"
                   },
                   "m": {
                     "dimensions": {
@@ -175,7 +202,7 @@
                     },
                     "alt": null,
                     "copyright": null,
-                    "url": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
+                    "url": "https://images.unsplash.com/photo-1607582278038-6bebbd4d7b72"
                   },
                   "l": {
                     "dimensions": {
@@ -184,7 +211,7 @@
                     },
                     "alt": null,
                     "copyright": null,
-                    "url": "https://images.unsplash.com/photo-1531771686035-25f47595c87a"
+                    "url": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853"
                   },
                   "xl": {
                     "dimensions": {
@@ -193,14 +220,17 @@
                     },
                     "alt": null,
                     "copyright": null,
-                    "url": "https://images.unsplash.com/photo-1587840171670-8b850147754e"
+                    "url": "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2"
                   }
                 },
-                "video": "author"
+                "video": "powerful",
+                "video_width": 49,
+                "video_height": 58
               }
             ],
             "primary": {
-              "carousel": false
+              "carousel": true,
+              "width": "S"
             },
             "slice_type": "media_gallery"
           }

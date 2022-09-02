@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components"
 
+import Link from "../menu-link"
+
 import Media from "../media"
 
 import wheel from 'wheel';
@@ -43,6 +45,12 @@ const Slide = styled.div`
     opacity: 1;
     filter: blur(0px);
     transition: filter ease-in-out 1s, opacity ease-in-out 1s;
+    cursor: pointer;
+
+    :hover .more {
+        opacity: 1;
+        transition: opacity 0.3s;
+    }
 
     img, video {
         transform: scale(1);
@@ -82,9 +90,27 @@ const Information = styled.div``;
 
 const Title = styled.div`
     font-family: Neue Haas Grotesk Regular;
-    margin-top: 8px;
+    padding-top: 8px;
     text-transform: capitalize;
+    width: fit-content;
+
+    a {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        color: black !important;
+    }
 `;
+
+const More = styled.div`
+    position: relative;
+    top: 1.5px;
+    height: 12px;
+    width: 12px;
+    margin-left: 4px;
+    opacity: 0;
+    transition: opacity 0.5s;
+`
 
 
 
@@ -101,9 +127,10 @@ export default ({ data, selectedTag }) => {
     }, []);
 
     useEffect(() => {
+        let flickity;
 
         setTimeout(()=>{
-            let flickity = new Flickity(gallery.current, {
+            flickity = new Flickity(gallery.current, {
                 // options, defaults listed
                 imagesLoaded: true,
             
@@ -251,9 +278,9 @@ export default ({ data, selectedTag }) => {
         // }, 0);
     
     
-        // setTimeout(() => {
-        //   flickity.resize();
-        // }, 750);
+        setTimeout(() => {
+            flickity.resize();
+        }, 10);
     
         // return () => {
         //   flickity.destroy();
@@ -290,7 +317,6 @@ export default ({ data, selectedTag }) => {
         return `${categories.join(" ")}`
     }
 
-
     return (
         <Container>
             <Carousel ref={gallery}>
@@ -303,7 +329,20 @@ export default ({ data, selectedTag }) => {
                             <MediaContainer>
                                 <Media asset={item.thumbnails[0]} windowHeight={windowHeight} />
                                 <Information>
-                                    <Title>{item.title}</Title>
+                                    <Title>
+                                        <Link href={`/projects/${item._meta.uid}`}>
+                                            <span>{item.title}</span>
+                                            <More className="more">
+                                                <svg viewBox="0 0 700 700">
+                                                    <g>
+                                                    <path d="m210 260h-0.28125c-11.043 0-20.004 8.9414-20.004 20.004 0 11.059 8.9414 20.004 20.004 20.004h0.29688 279.96 0.28125c11.043 0 20.004-8.9414 20.004-20.004 0-11.059-8.9414-20.004-20.004-20.004h-0.29688z"/>
+                                                    <path d="m370 140v-0.28125c0-11.043-8.9414-20.004-20.004-20.004-11.059 0-20.004 8.9414-20.004 20.004v0.29688-0.015625 279.98 0.28125c0 11.043 8.9414 20.004 20.004 20.004 11.059 0 20.004-8.9414 20.004-20.004v-0.29688 0.015625z"/>
+                                                    <path d="m350 0c-154.4 0-279.98 125.6-279.98 279.98s125.6 279.98 279.98 279.98c154.4 0 279.98-125.6 279.98-279.98s-125.6-279.98-279.98-279.98zm0 40.004c132.79 0 240 107.22 240 240s-107.2 240-240 240c-132.79 0-240-107.2-240-240 0-132.79 107.2-240 240-240z"/>
+                                                    </g>
+                                                </svg>
+                                            </More>
+                                        </Link>
+                                    </Title>
                                     <Tags data={item} />
                                 </Information>
                             </MediaContainer>
