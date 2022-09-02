@@ -39,9 +39,6 @@ const SliceSwitch = ({ data }) => {
 }
 
 export default ({ data }) => {
-    // useEffect(() => {
-    //     const players = Array.from(document.querySelectorAll('#player')).map(p => new Plyr(p));
-    // },[])
 
     return data.slices?.map((item, index) => <SliceSwitch key={index} data={item} /> )
 }
