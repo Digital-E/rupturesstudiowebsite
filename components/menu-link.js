@@ -26,7 +26,7 @@ const LinkComponent = ({href, children}) => {
     // let newUrl = `/${lang}/${href !== null ? href : ""}`
     
     return (
-        <Link href={href} scroll={false}>
+        <Link href={`/${href}`} scroll={false}>
             <a className={router.asPath === href ? "active-link" : ""}>{children}</a>
         </Link>
     )

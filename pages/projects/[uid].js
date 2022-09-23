@@ -87,7 +87,7 @@ export async function getStaticPaths({}) {
 export async function getStaticProps({ params, preview = false, previewData }) {
 
 
-  const data = await getProjectPage(`${params.uid}`, params.lang, previewData);
+  const data = await getProjectPage(`${params.uid}`, previewData);
 
   let dataAll = null;
 
@@ -109,7 +109,7 @@ let allProjectPagesDataPaginate = [];
 
   // Get Menu And Footer
 
-  const menuData = await getMenu(params.lang);
+  const menuData = await getMenu();
 
   // const footerData = await getFooter(lang);
 
