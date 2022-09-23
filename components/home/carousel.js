@@ -131,6 +131,10 @@ export default ({ data }) => {
         setWindowHeight(window.innerHeight / 2)
 
         // window.addEventListener("scroll", scroll)
+
+        window.addEventListener('resize', () => {
+            setWindowHeight(window.innerHeight / 2)
+        })
     }, []);
 
     useEffect(() => {
@@ -291,9 +295,9 @@ export default ({ data }) => {
           flickity.resize();
         }, 10);
     
-        // return () => {
-        //   flickity.destroy();
-        // };
+        return () => {
+          flickity.destroy();
+        };
       }, []);  
     
 

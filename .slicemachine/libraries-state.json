@@ -73,6 +73,67 @@
         },
         "screenshotPaths": {}
       },
+      "clients": {
+        "library": "slices",
+        "id": "clients",
+        "name": "Clients",
+        "description": "Clients",
+        "model": {
+          "id": "clients",
+          "type": "SharedSlice",
+          "name": "Clients",
+          "description": "Clients",
+          "variations": [
+            {
+              "id": "default",
+              "name": "Default",
+              "docURL": "...",
+              "version": "sktwi1xtmkfgx8626",
+              "description": "Clients",
+              "primary": {},
+              "items": {
+                "image": {
+                  "type": "Image",
+                  "config": {
+                    "label": "Image",
+                    "constraint": {
+                      "width": 400
+                    },
+                    "thumbnails": []
+                  }
+                }
+              },
+              "imageUrl": "https://images.prismic.io/slice-machine/621a5ec4-0387-4bc5-9860-2dd46cbc07cd_default_ss.png?auto=compress,format"
+            }
+          ]
+        },
+        "mocks": {
+          "default": {
+            "variation": "default",
+            "version": "sktwi1xtmkfgx8626",
+            "items": [
+              {
+                "image": {
+                  "dimensions": {
+                    "width": 400,
+                    "height": 500
+                  },
+                  "alt": null,
+                  "copyright": null,
+                  "url": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853"
+                }
+              }
+            ],
+            "primary": {},
+            "slice_type": "clients"
+          }
+        },
+        "meta": {
+          "fileName": "index",
+          "extension": "js"
+        },
+        "screenshotPaths": {}
+      },
       "media_gallery": {
         "library": "slices",
         "id": "media_gallery",

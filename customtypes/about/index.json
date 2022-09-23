@@ -62,6 +62,13 @@
                 "label": "Tag",
                 "placeholder": ""
               }
+            },
+            "client": {
+              "type": "Link",
+              "config": {
+                "label": "Client",
+                "select": "document"
+              }
             }
           }
         }

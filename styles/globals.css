@@ -176,7 +176,7 @@ a, .hover {
   /* filter: blur(0px);
   transition: filter 0.7s; */
   color: black;
-  transition: color 0.7s;
+  /* transition: color 0.7s; */
 }
 
 button {
@@ -195,7 +195,7 @@ button {
     transition: filter 0.3s; */
     color: white;
     cursor: pointer;
-    transition: color 0.2s;
+    /* transition: color 0.2s; */
   }
 }
 

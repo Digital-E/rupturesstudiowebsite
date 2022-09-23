@@ -1,0 +1,36 @@
+{
+  "id": "client",
+  "label": "Client",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "client": {
+        "type": "Text",
+        "config": {
+          "label": "Client",
+          "placeholder": ""
+        }
+      },
+      "link": {
+        "type": "Link",
+        "config": {
+          "label": "Link",
+          "placeholder": "",
+          "select": null
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "clients": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    }
+  }
+}

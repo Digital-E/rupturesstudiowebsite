@@ -1,0 +1,9 @@
+import MyComponent from '../../../../slices/Clients';
+
+export default {
+  title: 'slices/Clients'
+}
+
+
+export const _Default = () => <MyComponent slice={{"variation":"default","version":"sktwi1xtmkfgx8626","items":[{"image":{"dimensions":{"width":400,"height":500},"alt":null,"copyright":null,"url":"https://images.unsplash.com/photo-1496181133206-80ce9b88a853"}}],"primary":{},"slice_type":"clients","id":"_Default"}} />
+_Default.storyName = ''

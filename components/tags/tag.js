@@ -8,6 +8,7 @@ const Container = styled.div`
     border-radius: 999px;
     padding: 5px 10px;
     margin-right: 4px;
+    white-space: nowrap;
 `;
 
 const Component = ({ alt, children }) => {

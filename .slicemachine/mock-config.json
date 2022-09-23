@@ -6,7 +6,8 @@
     "project": {
       "thumbnails": {}
     },
-    "about": {}
+    "about": {},
+    "client": {}
   },
   "slices": {
     "Text": {
@@ -21,6 +22,12 @@
         "items": {}
       }
     },
-    "Carousel": {}
+    "Carousel": {},
+    "Clients": {
+      "default": {
+        "primary": {},
+        "items": {}
+      }
+    }
   }
 }
