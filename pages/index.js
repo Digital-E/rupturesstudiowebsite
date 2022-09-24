@@ -14,6 +14,10 @@ import Carousel from "../components/home/carousel"
 const Container = styled.div`
     position: relative;
     margin: 120px 0 0 0;
+
+    @media(max-width: 989px) {
+        margin: 70px 0 0 0;
+    }
 `
 
 

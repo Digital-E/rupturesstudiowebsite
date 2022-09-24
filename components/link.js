@@ -84,7 +84,7 @@ const LinkComponent = ({data, children}) => {
         // )
 
         return (
-            <Link href={data._meta.uid} scroll={false}>
+            <Link href={`/${data._meta.uid}`} scroll={false}>
                 <a className={router.asPath === data._meta.uid ? "active-link" : ""}>{children}</a>
             </Link>
         )

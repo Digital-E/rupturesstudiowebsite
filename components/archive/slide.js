@@ -20,6 +20,7 @@ const Slide = styled.div`
         position: relative; 
         padding: 0 10px;
         margin-bottom: 50px;
+        transform: none !important;
     }
 
     :hover .more {

@@ -14,17 +14,21 @@ import styled from "styled-components";
 
 const Container = styled.div``;
 
+let scroll = null;
+
 export default function Layout({ preview, children, name, content, footerData }) {
-  let scroll = null;
+
 
   useEffect(() => {
+    scroll = new LocomotiveScroll({
+      el: document.querySelector('[data-scroll-container]'),
+      smooth: true,
+      lerp: 0.04,
+      multiplier: 0.8
+    });
+
     setTimeout(() => {
-      scroll = new LocomotiveScroll({
-        el: document.querySelector('[data-scroll-container]'),
-        smooth: true,
-        lerp: 0.04,
-        multiplier: 0.8
-      });
+      scroll.update()
     }, 0)
 
     return () => {

@@ -26,6 +26,7 @@ const Logo = styled.div`
 
     @media(max-width: 989px) {
         width: 100%;
+        margin-bottom: 65px;
     }
 `
 

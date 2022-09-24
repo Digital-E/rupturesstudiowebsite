@@ -31,7 +31,7 @@ const Container = styled.div`
 const Component = ({ data, alt, children}) => {
     let router = useRouter()
 
-    return <Container alt={alt} className={router.asPath === `/${data?._meta?.uid}` ? "active-link" : ""}>{children}</Container>
+    return <Container alt={alt} className={(router.asPath === `/${data?._meta?.uid}`) || (router.asPath === data) ? "active-link" : ""}>{children}</Container>
 }
 
 export default Component

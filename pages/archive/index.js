@@ -1,18 +1,24 @@
 import { useEffect, useState } from "react"
-import router, { useRouter } from "next/router"
 import Head from 'next/head'
 import Layout from "../../components/layout"
 import { getMenu, getHome, getAllProjects } from "../../lib/api"
 import Plyr from "plyr"
 
+import styled from "styled-components"
+
 import { SITE_NAME } from "../../lib/constants"
 
-import RichText from '../../components/rich-text'
 import Carousel from "../../components/archive/carousel"
 
 import Filter from "../../components/archive/filter"
 
 import LogoAppear from "../../components/logo-appear"
+
+const HideOnDesktop = styled.div`
+    @media(min-width: 990px) {
+        display: none;
+    }
+`
 
 
 let tags = [
@@ -72,7 +78,9 @@ export default function Index({ preview, data, allProjects, menuData, footerData
             </Head>
             <Filter tags={tags} selectedTagIndex={selectedTagIndex} setSelectedTagIndex={(i) => setSelectedTagIndex(i)}/>
             <Carousel data={allProjects} selectedTag={tags[selectedTagIndex]}/>
-            <LogoAppear />
+            <HideOnDesktop>
+                <LogoAppear />
+            </HideOnDesktop>
         </Layout>
     )
   }

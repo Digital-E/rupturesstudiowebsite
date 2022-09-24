@@ -18,6 +18,12 @@ const Container = styled.div`
         opacity: 0;
         transition: opacity 0.3s;
     }
+
+    @media(max-width: 989px) {
+        img {
+            width: 100px;
+        }
+    }
 `
 let interval = null;
 

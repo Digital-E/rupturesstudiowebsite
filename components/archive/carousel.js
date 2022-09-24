@@ -39,7 +39,7 @@ const Container = styled.div`
         position: relative;
         top: 0;
         transform: none;
-        margin: 120px 0 0 0;
+        margin: 70px 0 0 0;
     }
 `
 
@@ -49,11 +49,12 @@ const Carousel = styled.div`
 
 
 export default ({ data, selectedTag }) => {
-    let [flickity, setFlickity] = useState(null);
     let [displayProjects, setDisplayProjects] = useState(data)
     let [hasTransitioned, setHasTransitioned] = useState(false);
     let [windowHeight, setWindowHeight] = useState(0);
     let gallery = useRef();
+
+    let flickity;
 
 
     let setWindowHeightFunction = () => {
@@ -64,20 +65,17 @@ export default ({ data, selectedTag }) => {
         }
     }
 
-    useEffect(() => {
-        setWindowHeightFunction()
+    let initFlickity = (resize) => {
 
-        window.addEventListener('resize', () => {
-            setWindowHeightFunction()
-        })
-    }, []);
-
-    useEffect(() => {
-        let flickity;
-
-        if(window.innerWidth < 989) {
-                return;
+        if(window.innerWidth < 990) {
+            if(flickity !== undefined && flickity !== null) {
+                flickity.destroy();
+                flickity = null;
+            }
+            return;
         }
+
+        if(resize === true && flickity !== undefined && flickity !== null) return;
 
         setTimeout(()=>{
             flickity = new Flickity(gallery.current, {
@@ -169,8 +167,6 @@ export default ({ data, selectedTag }) => {
             });
 
             // introGallery();
-        
-            setFlickity(flickity);
 
             // Cancel Page Swipe Back
 
@@ -209,28 +205,40 @@ export default ({ data, selectedTag }) => {
             e.preventDefault()
         };
 
-        let introGallery = () => {
+        // let introGallery = () => {
             
-            gsap.to(".carousel-slide", {opacity: 0, top: "0"});
+        //     gsap.to(".carousel-slide", {opacity: 0, top: "0"});
 
-            gsap.to(".carousel-slide", {opacity: 1, stagger: 0.1, duration: 3, ease: "power3.out",  top: "0"});
-        }
+        //     gsap.to(".carousel-slide", {opacity: 1, stagger: 0.1, duration: 3, ease: "power3.out",  top: "0"});
+        // }
 
-    
-        // flickity.on("change", () => {
-        //     let projectIndex = document.querySelector(".is-selected").getAttribute("data-project-index")
-        //     let slideIndex = document.querySelector(".is-selected").getAttribute("data-slide-index")
-    
-        //     updateIndex(projectIndex, slideIndex);
-        // })
-    
-        // flickity.select(initSlide);
-        // }, 0);
-    
-    
         setTimeout(() => {
             flickity.resize();
         }, 10);
+
+
+        // flickity.on("change", () => {
+        //     let projectIndex = document.querySelector(".is-selected").getAttribute("data-project-index")
+        //     let slideIndex = document.querySelector(".is-selected").getAttribute("data-slide-index")
+
+        //     updateIndex(projectIndex, slideIndex);
+        // })
+
+        // flickity.select(initSlide);
+        // }, 0);
+    }
+
+
+    useEffect(() => {
+
+        initFlickity();
+
+        setWindowHeightFunction()
+
+        window.addEventListener('resize', () => {
+            setWindowHeightFunction()
+            initFlickity(true);
+        })
     
         return () => {
           flickity.destroy();

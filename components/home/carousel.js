@@ -55,6 +55,7 @@ const Slide = styled.div`
     }
 
 
+
     img, video {
         transform: scale(1);
         transition: transform 5s, opacity ease-in-out 1s !important;
@@ -122,22 +123,23 @@ const More = styled.div`
 
 
 export default ({ data }) => {
-    let [flickity, setFlickity] = useState(null);
     let [windowHeight, setWindowHeight] = useState(0);
     let gallery = useRef();
 
     let scrollTimeout = null;
     let isScrolling = false;
 
+    let flickity;
 
-    let scroll = () => {
-        clearTimeout(scrollTimeout);
-        isScrolling = true;
 
-        scrollTimeout = setTimeout(() => {
-            isScrolling = false;
-        }, 250);
-    }
+    // let scroll = () => {
+    //     clearTimeout(scrollTimeout);
+    //     isScrolling = true;
+
+    //     scrollTimeout = setTimeout(() => {
+    //         isScrolling = false;
+    //     }, 250);
+    // }
 
     let setWindowHeightFunction = () => {
         if(window.innerWidth < 990) {
@@ -147,20 +149,19 @@ export default ({ data }) => {
         }
     }
 
-    useEffect(() => {
-        setWindowHeightFunction()
+    let initFlickity = (resize) => {
 
-        // window.addEventListener("scroll", scroll)
+        // if(window.innerWidth < 990) {
+        //     if(flickity !== undefined && flickity !== null) {
+        //         flickity.destroy();
+        //         flickity = null;
+        //     }
+        //     return;
+        // }
 
-        window.addEventListener('resize', () => {
-            setWindowHeightFunction()
-        })
-    }, []);
-
-    useEffect(() => {
-        let flickity;
-
-        setTimeout(()=>{
+        // if(resize === true && flickity !== undefined && flickity !== null) return;
+        
+        setTimeout(() => {
             flickity = new Flickity(gallery.current, {
                 // options, defaults listed
                 imagesLoaded: false,
@@ -199,7 +200,7 @@ export default ({ data }) => {
                 // number of pixels a user must scroll horizontally to start dragging
                 // increase to allow more room for vertical scroll for touch devices
             
-                freeScroll: window.innerWidth > 989 ? true : false,
+                freeScroll: true,
 
                 // enables content to be freely scrolled and flicked
                 // without aligning cells
@@ -249,9 +250,6 @@ export default ({ data }) => {
                 // at end of cells, wraps-around to first for infinite scrolling
             });
 
-            // introGallery();
-        
-            setFlickity(flickity);
 
             // Cancel Page Swipe Back
 
@@ -274,6 +272,7 @@ export default ({ data }) => {
             });
 
             // Mobile disable scroll while moving
+
             flickity.on( 'dragMove', function( event, pointer ) {
                 clearTimeout(stopScrollTimeout)
 
@@ -292,14 +291,11 @@ export default ({ data }) => {
             e.preventDefault()
         };
 
-        let introGallery = () => {
             
-            gsap.to(".carousel-slide", {opacity: 0, top: "0"});
+        setTimeout(() => {
+            flickity.resize();
+        }, 10);
 
-            gsap.to(".carousel-slide", {opacity: 1, stagger: 0.1, duration: 3, ease: "power3.out",  top: "0"});
-        }
-
-    
         // flickity.on("change", () => {
         //     let projectIndex = document.querySelector(".is-selected").getAttribute("data-project-index")
         //     let slideIndex = document.querySelector(".is-selected").getAttribute("data-slide-index")
@@ -308,12 +304,22 @@ export default ({ data }) => {
         // })
     
         // flickity.select(initSlide);
-        // }, 0);
-    
-    
-        setTimeout(() => {
-          flickity.resize();
-        }, 10);
+        // }, 0);        
+
+    }
+
+
+
+    useEffect(() => {
+
+        initFlickity();
+
+        setWindowHeightFunction()
+
+        window.addEventListener('resize', () => {
+            setWindowHeightFunction()
+            // initFlickity(true);
+        })
     
         return () => {
           flickity.destroy();

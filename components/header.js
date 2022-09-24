@@ -23,6 +23,10 @@ const Menu = styled.div`
   z-index: 999 !important;
   top: 0;
   left: 0;
+
+  @media(max-width: 989px) {
+    margin: 15px 10px 0 10px;
+  }
 `
 
 
@@ -150,7 +154,7 @@ export default function Header({ data }) {
                 }
               }}
               >
-                <LinkTag>
+                <LinkTag data={"/"}>
                   <MenuLink href="/">Home</MenuLink>
                 </LinkTag>
               </NavEl>
