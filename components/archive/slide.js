@@ -16,6 +16,12 @@ const Slide = styled.div`
     transition: filter ease-in-out 1s, opacity ease-in-out 1s;
     cursor: pointer;
 
+    @media(max-width: 989px) {
+        position: relative; 
+        padding: 0 10px;
+        margin-bottom: 50px;
+    }
+
     :hover .more {
         opacity: 1;
         transition: opacity 0.3s;
@@ -53,6 +59,11 @@ const MediaContainer = styled.div`
     height: 50vh;
     width: fit-content;
     position: relative;
+
+    @media(max-width: 989px) {
+        height: auto;
+        width: 100%;
+    }
 `;
 
 const Information = styled.div`
@@ -112,7 +123,7 @@ export default ({ item, windowHeight }) => {
                 <Media asset={item.thumbnails[0]} windowHeight={windowHeight} />
                 <Information ref={informationRef}>
                     <Title>
-                        <Link href={`/projects/${item._meta.uid}`}>
+                        <Link href={`projects/${item._meta.uid}`}>
                             <span>{item.title}</span>
                             <More className="more">
                                 <svg viewBox="0 0 700 700">

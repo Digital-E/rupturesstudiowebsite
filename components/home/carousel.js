@@ -32,6 +32,10 @@ const Container = styled.div`
         opacity: 1;
         transition: opacity 0.3s;
     }
+
+    @media(max-width: 989px) {
+        margin-bottom: 50px;
+    }
 `
 
 const Carousel = styled.div`
@@ -45,6 +49,10 @@ const Slide = styled.div`
     opacity: 1;
     filter: blur(0px);
     transition: filter ease-in-out 1s, opacity ease-in-out 1s;
+
+    @media(max-width: 989px) {
+        padding: 0 2.5px;
+    }
 
 
     img, video {
@@ -78,6 +86,10 @@ const MediaContainer = styled.div`
     height: 50vh;
     width: fit-content;
     position: relative;
+
+    @media(max-width: 989px) {
+        height: 200px;
+    }
 `;
 
 const Information = styled.div`
@@ -127,13 +139,21 @@ export default ({ data }) => {
         }, 250);
     }
 
+    let setWindowHeightFunction = () => {
+        if(window.innerWidth < 990) {
+            setWindowHeight(200)
+        } else {
+            setWindowHeight(window.innerHeight / 2)
+        }
+    }
+
     useEffect(() => {
-        setWindowHeight(window.innerHeight / 2)
+        setWindowHeightFunction()
 
         // window.addEventListener("scroll", scroll)
 
         window.addEventListener('resize', () => {
-            setWindowHeight(window.innerHeight / 2)
+            setWindowHeightFunction()
         })
     }, []);
 
@@ -303,7 +323,7 @@ export default ({ data }) => {
 
     return (
         <Container>
-            <Carousel ref={gallery}>
+            <Carousel ref={gallery} key='home'>
                 {data.thumbnails.map((item, index) => {
                 return (
                         <Slide key={index} className="carousel-slide">
@@ -316,7 +336,7 @@ export default ({ data }) => {
             </Carousel>
             <Information>
             <Title>
-                <Link href={`/projects/${data._meta.uid}`}>
+                <Link href={`projects/${data._meta.uid}`}>
                     <span>{data.title}</span>
                     <More className="more">
                         <svg viewBox="0 0 700 700">

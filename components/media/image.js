@@ -6,7 +6,7 @@ const Container = styled.div`
   overflow: hidden;
   width: ${props => props.width ? `${props.width}px` : `100%`};
   height: ${props => props.width ? `100%` : `auto`};
-  padding-bottom: ${props => isNaN(props.width)  ? `${props.aspectRatio}%` : `auto`};
+  padding-bottom: ${props => (isNaN(props.width) || props.width === 0)  ? `${props.aspectRatio}%` : `auto`};
   background-color: #b2b2b2;
   
   .show-image {
@@ -102,8 +102,8 @@ const Image = ({ src, windowHeight }) => {
             ref={imageRef}
             className={hasLoaded && (height/width >= 1 ? "show-image portrait" : "show-image")}
             onLoad={() => triggerHasLoaded()}
-            data-scroll 
-            data-scroll-speed="-1"
+            // data-scroll 
+            // data-scroll-speed="-1"
           />
         </picture>
       )}

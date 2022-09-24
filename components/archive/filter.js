@@ -14,6 +14,12 @@ const Container = styled.div`
     background: #b2b2b2;
     padding: 7px 18px;
     border-radius: 999px;
+
+    @media(max-width: 989px) {
+        position: fixed;
+        top: 70px;
+        z-index: 999;
+    }
 `
 
 const Item = styled.div`
@@ -22,6 +28,7 @@ const Item = styled.div`
     margin-left: 3px;
     filter: blur(0px);
     text-transform: uppercase;
+    white-space: nowrap;
 
     > span:nth-child(1) {
         font-size: 0.75rem;

@@ -12,6 +12,8 @@ import Carousel from "../../components/archive/carousel"
 
 import Filter from "../../components/archive/filter"
 
+import LogoAppear from "../../components/logo-appear"
+
 
 let tags = [
     {
@@ -70,6 +72,7 @@ export default function Index({ preview, data, allProjects, menuData, footerData
             </Head>
             <Filter tags={tags} selectedTagIndex={selectedTagIndex} setSelectedTagIndex={(i) => setSelectedTagIndex(i)}/>
             <Carousel data={allProjects} selectedTag={tags[selectedTagIndex]}/>
+            <LogoAppear />
         </Layout>
     )
   }

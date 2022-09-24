@@ -34,6 +34,13 @@ const Container = styled.div`
     .flickity-viewport {
         overflow: visible !important;
     }
+
+    @media(max-width: 989px) {
+        position: relative;
+        top: 0;
+        transform: none;
+        margin: 120px 0 0 0;
+    }
 `
 
 const Carousel = styled.div`
@@ -49,16 +56,28 @@ export default ({ data, selectedTag }) => {
     let gallery = useRef();
 
 
+    let setWindowHeightFunction = () => {
+        if(window.innerWidth < 990) {
+            setWindowHeight(null)
+        } else {
+            setWindowHeight(window.innerHeight / 2)
+        }
+    }
+
     useEffect(() => {
-        setWindowHeight(window.innerHeight / 2)
+        setWindowHeightFunction()
 
         window.addEventListener('resize', () => {
-            setWindowHeight(window.innerHeight / 2)
+            setWindowHeightFunction()
         })
     }, []);
 
     useEffect(() => {
         let flickity;
+
+        if(window.innerWidth < 989) {
+                return;
+        }
 
         setTimeout(()=>{
             flickity = new Flickity(gallery.current, {
@@ -213,9 +232,9 @@ export default ({ data, selectedTag }) => {
             flickity.resize();
         }, 10);
     
-        // return () => {
-        //   flickity.destroy();
-        // };
+        return () => {
+          flickity.destroy();
+        };
       }, []);  
 
 
@@ -250,7 +269,7 @@ export default ({ data, selectedTag }) => {
 
     return (
         <Container>
-            <Carousel ref={gallery}>
+            <Carousel ref={gallery} key='archive'>
                 {displayProjects.map((item, index) => {
 
                 item = item.node

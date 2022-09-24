@@ -18,9 +18,21 @@ const Container = styled.div`
     }
 
     > div > div {
-        // width: ${props => props.itemCount === 3 ? "20%" : props.itemCount === 2 ? "50%" : "50%"};
         width: 100%;
         padding: 0 5px;
+    }
+
+    @media(max-width: 989px) {
+        > div {
+            flex-direction: column;
+            width: 100%;
+        }
+
+
+    > div > div {
+        width: 100%;
+        padding: 5px;
+    }
     }
 `
 

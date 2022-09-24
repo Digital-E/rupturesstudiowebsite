@@ -9,17 +9,13 @@ import Plyr from "plyr"
 
 import LogoAppear from "../components/logo-appear"
 
-import RichText from '../components/rich-text'
 import Carousel from "../components/home/carousel"
 
 const Container = styled.div`
     position: relative;
-    margin: 150px 0 0 0;
+    margin: 120px 0 0 0;
 `
 
-const Trigger = styled.div`
-    height: 500px;
-`
 
 
 
@@ -60,7 +56,6 @@ export default function Index({ preview, data, allProjects, menuData, footerData
                 {allProjects.map(item => <Carousel data={item.node} />)}
             </Container>
             <LogoAppear />
-            <Trigger id="scroll-trigger" />
         </Layout>
     )
   }

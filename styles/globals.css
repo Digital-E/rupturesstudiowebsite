@@ -166,7 +166,7 @@ input {
 }
 
 .link-out-icon {
-  height: 10px;
+  height: 7px;
   margin-left: 3px;
 }
 
@@ -196,6 +196,10 @@ button {
     color: white;
     cursor: pointer;
     /* transition: color 0.2s; */
+  }
+
+  a:hover .link-out-icon {
+    fill: white;
   }
 }
 

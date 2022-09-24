@@ -1,6 +1,13 @@
+import { useEffect, useState } from 'react';
 import Alert from "../components/alert";
 import Footer from "../components/footer";
 import Meta from "../components/meta";
+
+let LocomotiveScroll = null;
+
+if(typeof window !== 'undefined') {
+  LocomotiveScroll = require('locomotive-scroll').default;
+}
 
 
 import styled from "styled-components";
@@ -8,7 +15,22 @@ import styled from "styled-components";
 const Container = styled.div``;
 
 export default function Layout({ preview, children, name, content, footerData }) {
+  let scroll = null;
 
+  useEffect(() => {
+    setTimeout(() => {
+      scroll = new LocomotiveScroll({
+        el: document.querySelector('[data-scroll-container]'),
+        smooth: true,
+        lerp: 0.04,
+        multiplier: 0.8
+      });
+    }, 0)
+
+    return () => {
+      scroll.destroy();
+    }
+  }, []);
 
   return (
     <>

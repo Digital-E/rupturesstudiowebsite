@@ -9,39 +9,46 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 const Logo = styled.div`
-    position: fixed;
-    width: 50vw;
-    bottom: calc(-1 * 50vw);
+    position: relative;
+    width: 20%;
+    // bottom: calc(-1 * 50vw);
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     z-index: 0;
-    opacity: 0;
+    opacity: 1;
+    padding: 0 10px;
+    margin-bottom: 15px;
 
     svg {
         height: 100%;
+    }
+
+    @media(max-width: 989px) {
+        width: 100%;
     }
 `
 
 export default function Component () {
     let logoRef = useRef();
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        setTimeout(() => {
+    //     setTimeout(() => {
 
-        let tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#scroll-trigger",
-                start: `top bottom`,
-                end: `bottom bottom`,
-                scrub: 0
-            }
-        })
+    //     let tl = gsap.timeline({
+    //         scrollTrigger: {
+    //             trigger: "#scroll-trigger",
+    //             start: `top bottom`,
+    //             end: `bottom bottom`,
+    //             scrub: 0
+    //         }
+    //     })
 
-        tl.from(logoRef.current, { opacity: 0, y: 0, ease: "linear" }).to(logoRef.current, { opacity: 1, y: -0.25 * window.innerWidth, ease: "linear"})
-        }, 100)
+    //     tl.from(logoRef.current, { opacity: 0, y: 0, ease: "linear" }).to(logoRef.current, { opacity: 1, y: -0.25 * window.innerWidth, ease: "linear"})
+    //     }, 100)
 
-    }, []);
+    // }, []);
 
     return (
         <Logo ref={logoRef}>
