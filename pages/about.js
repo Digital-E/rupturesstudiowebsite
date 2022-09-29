@@ -54,7 +54,7 @@ const Container = styled.div`
 const ColOne = styled.div`
     position: relative;
     flex-basis: 70%;
-    padding: 20px;
+    padding: 15px;
     z-index: 1;
 
     @media(max-width: 989px) {
@@ -79,7 +79,7 @@ const ColTwo = styled.div`
 `
 const Tags = styled.div`
     display: flex;
-    margin: 2px 0 20px 0;
+    margin: 2px 0 15px 0;
     flex-wrap: wrap;
 
     :nth-child(6) {

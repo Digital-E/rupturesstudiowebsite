@@ -18,7 +18,7 @@ import { motion } from 'framer-motion'
 
 
 const Menu = styled.div`
-  margin: 25px 10px 0 10px;
+  margin: 15px 10px 0 10px;
   position: fixed;
   z-index: 999 !important;
   top: 0;

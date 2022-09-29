@@ -10,8 +10,6 @@ import normalizeWheel from 'normalize-wheel';
 
 import Tags from "../tags"
 
-import gsap from "gsap"
-
 let Flickity = null
 
 if (typeof window !== "undefined") {
@@ -294,7 +292,7 @@ export default ({ data }) => {
             
         setTimeout(() => {
             flickity.resize();
-        }, 10);
+        }, 100);
 
         // flickity.on("change", () => {
         //     let projectIndex = document.querySelector(".is-selected").getAttribute("data-project-index")
@@ -312,9 +310,9 @@ export default ({ data }) => {
 
     useEffect(() => {
 
-        initFlickity();
+        setWindowHeightFunction();
 
-        setWindowHeightFunction()
+        initFlickity();
 
         window.addEventListener('resize', () => {
             setWindowHeightFunction()

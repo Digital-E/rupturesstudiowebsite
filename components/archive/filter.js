@@ -10,6 +10,7 @@ const Container = styled.div`
     display: flex;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 999;
 
     background: #b2b2b2;
     padding: 7px 12px;

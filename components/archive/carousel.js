@@ -214,7 +214,7 @@ export default ({ data, selectedTag }) => {
 
         setTimeout(() => {
             flickity.resize();
-        }, 10);
+        }, 100);
 
 
         // flickity.on("change", () => {
@@ -231,9 +231,9 @@ export default ({ data, selectedTag }) => {
 
     useEffect(() => {
 
+        setWindowHeightFunction();
+        
         initFlickity();
-
-        setWindowHeightFunction()
 
         window.addEventListener('resize', () => {
             setWindowHeightFunction()

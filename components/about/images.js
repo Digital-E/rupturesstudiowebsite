@@ -34,6 +34,8 @@ let timeout = null;
 const Component = ({ data, index }) => {
     let containerRef = useRef();
 
+    let margin = 10;
+
 
     let randomIntFromInterval = (min, max) => {
         return Math.floor(Math.random() * (max - min + 1) + min)
