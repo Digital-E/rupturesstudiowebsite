@@ -52,8 +52,6 @@ const Slide = styled.div`
         padding: 0 2.5px;
     }
 
-
-
     img, video {
         transform: scale(1);
         transition: transform 5s, opacity ease-in-out 1s !important;
@@ -92,7 +90,23 @@ const MediaContainer = styled.div`
 `;
 
 const Information = styled.div`
-    margin-left: 10px;
+    position: relative;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, rgba(0, 0, 0, 1) 80%, transparent 100%);
+
+    @media(min-width: 990px) {
+        margin-left: 10px;
+    }
+
+    @media(max-width: 989px) {
+        .tags > div > div:first-child {
+            margin-left: 10px;
+        }
+
+        .tags > div > div:last-child {
+            margin-right: 10px;
+        }
+    }
 `;
 
 const Title = styled.div`
@@ -106,6 +120,10 @@ const Title = styled.div`
         align-items: center;
         flex-direction: row;
         color: black !important;
+    }
+
+    @media(max-width: 989px) {
+        margin: 0 10px;
     }
 `;
 

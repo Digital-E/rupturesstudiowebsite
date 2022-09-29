@@ -18,6 +18,12 @@ const HideOnDesktop = styled.div`
     @media(min-width: 990px) {
         display: none;
     }
+
+    @media(max-width: 989px) {
+        .footer-logo {
+            margin-bottom: 65px;
+        }
+    }
 `
 
 

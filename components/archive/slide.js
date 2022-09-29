@@ -18,7 +18,7 @@ const Slide = styled.div`
 
     @media(max-width: 989px) {
         position: relative; 
-        padding: 0 10px;
+        padding: 0;
         margin-bottom: 50px;
         transform: none !important;
     }
@@ -71,6 +71,16 @@ const Information = styled.div`
     position: relative;
     overflow: hidden;
     mask-image: linear-gradient(90deg, rgba(0, 0, 0, 1) 80%, transparent 100%);
+
+    @media(max-width: 989px) {
+        .tags > div > div:first-child {
+            margin-left: 10px;
+        }
+
+        .tags > div > div:last-child {
+            margin-right: 10px;
+        }
+    }
 `;
 
 const Title = styled.div`
@@ -84,6 +94,10 @@ const Title = styled.div`
         align-items: center;
         flex-direction: row;
         color: black !important;
+    }
+
+    @media(max-width: 989px) {
+        margin: 0 10px;
     }
 `;
 

@@ -9,7 +9,7 @@ const Container = styled.div`
     width: 100vw;
 
     img {
-        position: absolute;
+        position: fixed;
         width: 200px;
         transition: opacity 0.3s;
     }

@@ -17,6 +17,7 @@ const Container = styled.div`
         position: absolute;
         height: 100%;
         width: 100%;
+        pointer-events: none !important;
     }
 
     .plyr {
@@ -42,7 +43,7 @@ export default function Component({ src, height, width, windowHeight, id }) {
     return videoId !== null ?
             <Container aspectRatio={aspectRatio} width={windowHeight  * (1 / aspectRatio * 100)}>
                 <video id="player" 
-                playsinline
+                playsInline
                 autoPlay 
                 muted
                 loop

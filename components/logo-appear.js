@@ -26,7 +26,7 @@ const Logo = styled.div`
 
     @media(max-width: 989px) {
         width: 100%;
-        margin-bottom: 65px;
+        margin-bottom: 30px;
     }
 `
 
@@ -52,7 +52,7 @@ export default function Component () {
     // }, []);
 
     return (
-        <Logo ref={logoRef}>
+        <Logo ref={logoRef} className="footer-logo">
             <svg version="1.2" baseProfile="tiny" id="Calque_1"
                 x="0px" y="0px" viewBox="0 0 130.9 26.3"
                 overflow="visible">
