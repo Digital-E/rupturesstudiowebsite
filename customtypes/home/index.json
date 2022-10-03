@@ -33,6 +33,13 @@
             }
           }
         }
+      },
+      "video": {
+        "type": "Text",
+        "config": {
+          "label": "Video",
+          "placeholder": ""
+        }
       }
     }
   }

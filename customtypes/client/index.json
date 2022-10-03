@@ -12,23 +12,29 @@
           "placeholder": ""
         }
       },
-      "link": {
-        "type": "Link",
+      "images": {
+        "type": "Group",
         "config": {
-          "label": "Link",
-          "placeholder": "",
-          "select": null
+          "label": "Images",
+          "fields": {
+            "image": {
+              "type": "Image",
+              "config": {
+                "label": "Image",
+                "constraint": {
+                  "width": 400
+                },
+                "thumbnails": []
+              }
+            }
+          }
         }
       },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",
         "config": {
-          "choices": {
-            "clients": {
-              "type": "SharedSlice"
-            }
-          }
+          "choices": {}
         }
       }
     }

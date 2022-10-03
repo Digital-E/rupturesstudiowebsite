@@ -137,7 +137,7 @@ const Component = ({ data, index }) => {
 
         // Create Images
 
-        data.node.slices[0].variation.items.forEach((item, index) => {
+        data.node.images.forEach((item, index) => {
             let img = document.createElement('img')
             img.src = item.image.url
             img.classList.add('hide-image')
@@ -168,7 +168,7 @@ const Component = ({ data, index }) => {
 
                 containerRef.current.children[indexOfImage].classList.remove('hide-image')
                 indexOfImage += 1;
-                if(indexOfImage === data.node.slices[0].variation.items.length) {
+                if(indexOfImage === data.node.images.length) {
                     indexOfImage = 0;
                     revealRound = false;
                 }

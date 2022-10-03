@@ -11,11 +11,20 @@
   "lang": "en-us",
   "alternate_languages": [],
   "data": {
-    "client": "community",
-    "link": {
-      "link_type": "Web",
-      "url": "https://slicemachine.dev"
-    },
+    "client": "shut",
+    "images": [
+      {
+        "image": {
+          "dimensions": {
+            "width": 400,
+            "height": 500
+          },
+          "alt": null,
+          "copyright": null,
+          "url": "https://images.unsplash.com/photo-1591012911207-0dbac31f37da"
+        }
+      }
+    ],
     "slices": []
   }
 }

@@ -11,8 +11,8 @@
   "lang": "en-us",
   "alternate_languages": [],
   "data": {
-    "title": "higher",
-    "content": "useful",
+    "title": "seems",
+    "content": "clean",
     "featured": [
       {
         "project": {
@@ -26,6 +26,7 @@
           "last_publication_date": "1970-01-01T01:00:00+0000"
         }
       }
-    ]
+    ],
+    "video": "pick"
   }
 }

@@ -7,7 +7,9 @@
       "thumbnails": {}
     },
     "about": {},
-    "client": {}
+    "client": {
+      "clients": {}
+    }
   },
   "slices": {
     "Text": {
