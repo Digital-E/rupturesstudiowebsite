@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import Head from 'next/head'
 import Layout from "../../components/layout"
-import { getMenu, getHome, getAllProjects } from "../../lib/api"
+import { getMenu, getArchive, getAllProjects } from "../../lib/api"
 import Plyr from "plyr"
 
 import styled from "styled-components"
@@ -50,6 +50,7 @@ export default function Index({ preview, data, allProjects, menuData, footerData
     let players = null;
     let [selectedTagIndex, setSelectedTagIndex] = useState(0);
 
+
     useEffect(() => {
 
         players = Plyr.setup('#player', {
@@ -82,7 +83,7 @@ export default function Index({ preview, data, allProjects, menuData, footerData
                     Index | {SITE_NAME} 
                 </title>
             </Head>
-            <Filter tags={tags} selectedTagIndex={selectedTagIndex} setSelectedTagIndex={(i) => setSelectedTagIndex(i)}/>
+            <Filter tags={data[0].node.tags} selectedTagIndex={selectedTagIndex} setSelectedTagIndex={(i) => setSelectedTagIndex(i)}/>
             <Carousel data={allProjects} selectedTag={tags[selectedTagIndex]}/>
             <HideOnDesktop>
                 <LogoAppear />
@@ -96,7 +97,7 @@ export async function getStaticProps({ params, preview = false, previewData }) {
 
     const menuData = await getMenu(); 
 
-    const data = await getHome(previewData);
+    const data = await getArchive(previewData);
 
     const allProjects = await getAllProjects(previewData);
 

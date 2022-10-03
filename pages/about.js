@@ -205,7 +205,6 @@ export async function getStaticProps({ params, preview = false, previewData }) {
     data[0].node.tags_one.forEach(item => {
         if(item.client !== null) {
             let getClientPromise = new Promise((resolve, reject) => {
-                    console.log(item.client._meta.id)
                     let getClientResult = getClient(item.client._meta.id, previewData)
                     resolve(getClientResult);
             });

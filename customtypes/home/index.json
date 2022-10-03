@@ -18,6 +18,21 @@
           "label": "Content",
           "placeholder": ""
         }
+      },
+      "featured": {
+        "type": "Group",
+        "config": {
+          "label": "Featured",
+          "fields": {
+            "project": {
+              "type": "Link",
+              "config": {
+                "label": "Project",
+                "select": "document"
+              }
+            }
+          }
+        }
       }
     }
   }

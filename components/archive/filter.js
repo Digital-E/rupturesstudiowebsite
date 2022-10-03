@@ -70,7 +70,7 @@ const Component = ({ tags, selectedTagIndex, setSelectedTagIndex }) => {
                 tags.map( (item, index) =>
                 <Item  className={`${selectedTagIndex === index ? 'filter-is-selected hover' : 'hover'}`} onClick={() => toggleTag(index)} >
                     <Tag>
-                        <span>{item.label}</span>
+                        <span>{item.tag}</span>
                         <span>{item.count}</span>
                     </Tag>
                 </Item> 

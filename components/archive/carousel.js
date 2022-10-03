@@ -214,7 +214,7 @@ export default ({ data, selectedTag }) => {
 
         setTimeout(() => {
             flickity.resize();
-        }, 100);
+        }, 10);
 
 
         // flickity.on("change", () => {

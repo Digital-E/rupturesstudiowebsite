@@ -25,6 +25,21 @@
           "label": "Content",
           "placeholder": ""
         }
+      },
+      "tags": {
+        "type": "Group",
+        "config": {
+          "label": "Tags",
+          "fields": {
+            "tag": {
+              "type": "Text",
+              "config": {
+                "label": "Tag",
+                "placeholder": ""
+              }
+            }
+          }
+        }
       }
     }
   }
