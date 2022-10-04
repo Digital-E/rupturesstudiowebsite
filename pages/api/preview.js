@@ -17,7 +17,7 @@ export default async function preview(req, res) {
   const { token: ref, documentId } = req.query
 
   // Check the token parameter against the Prismic SDK
-  const url = await PrismicClient.getPreviewResolver(ref, documentId).resolve(
+  let url = await PrismicClient.getPreviewResolver(ref, documentId).resolve(
     linkResolver,
     '/'
   )

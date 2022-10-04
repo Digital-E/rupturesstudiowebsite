@@ -218,6 +218,6 @@ export async function getStaticProps({ params, preview = false, previewData }) {
     });
 
     return {
-        props: { data, clientData, menuData } // will be passed to the page component as props
+        props: { preview, data, clientData, menuData } // will be passed to the page component as props
     }
 }

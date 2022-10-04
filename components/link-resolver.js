@@ -6,13 +6,13 @@ const LinkResolver = (data) => {
 
     let lang = router.query.lang
 
-
     if(data.uid === null || data.uid === undefined) return null;
 
     let split = data.uid.split("__")
     
     if(split.length === 2) {
-        let newUrl = `/${lang}/${split[0]}/${split[1]}`
+        // let newUrl = `/${lang}/${split[0]}/${split[1]}`
+        let newUrl = `/${split[0]}/${split[1]}`
 
         return newUrl
     }
@@ -20,12 +20,14 @@ const LinkResolver = (data) => {
     split = data.uid.split("_")
 
     if(split.length === 2) {
-        let newUrl = `/${lang}/${split[0]}#${split[1]}`
+        // let newUrl = `/${lang}/${split[0]}#${split[1]}`
+        let newUrl = `/${split[0]}#${split[1]}`
 
         return newUrl
     }
 
-    let newUrl = `/${lang}/${data.uid}`
+    // let newUrl = `/${lang}/${data.uid}`
+    let newUrl = `/${data.uid}`
 
     return newUrl
   

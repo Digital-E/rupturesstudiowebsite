@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -8,29 +8,43 @@ const Container = styled.div`
     top: 0;
     left: 0;
     z-index: 999;
-    background: black;
+    background-color: var(--gray);
     overflow: hidden;
 
     video {
+        position: absolute;
         height: 100%;
         width: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         object-fit: cover;
+        opacity: 0;
+        z-index: 1;
+    }
+
+    .show-video {
+        opacity: 1 !important;
     }
 
 
-    &.hide-intro-video {
+    &.hide-intro-video {
         // filter: blur(20px);
         opacity: 0;
         transition: filter 1s, opacity 0.3s;
     }
 `
 
+const Videos = styled.div``
+
+
 const Logo = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
+    width: 60%;
+    z-index: 0;
 
     path, polygon {
         fill: white;
@@ -41,11 +55,14 @@ const Logo = styled.div`
 
 const Component = ({ data }) => {
     let containerRef = useRef();
+    let videoRef = useRef();
+    let [hasLoaded, setHasLoaded] = useState(false);
 
     let videoId = data;
 
-    let hasLoaded = (e) => {
+    let hasLoadedFunc = (e) => {
         document.querySelector('#home-container').style.opacity = 1
+        setHasLoaded(true)
     }
 
     let hasClicked = () => {
@@ -57,9 +74,24 @@ const Component = ({ data }) => {
         }, 500);
     }
 
+    useEffect(() => {
+        if(hasLoaded) {
+            setTimeout(() => {
+               videoRef.current.classList.add("show-video")
+            //    let zoomAmount = 50
+
+            //    let interval = setInterval(() => {
+            //         videoRef.current.style.width = `${zoomAmount}%`
+
+            //         zoomAmount += 50
+            //    }, 300)
+            }, 1000)
+        }
+    }, [hasLoaded])
+
     return (
     <Container ref={containerRef} onClick={hasClicked}>
-    {/* <Logo>
+    <Logo>
         <svg version="1.2" baseProfile="tiny" id="Calque_1"
             x="0px" y="0px" viewBox="0 0 130.9 26.3"
             overflow="visible">
@@ -96,18 +128,21 @@ const Component = ({ data }) => {
         <path fill="#060607" d="M123.2,12.8c0-2.6,1.6-4.1,3.9-4.1s3.9,1.5,3.9,4.1s-1.6,4.1-3.9,4.1S123.2,15.3,123.2,12.8z M127.1,15.5
             c1.4,0,2.3-1,2.3-2.7s-0.9-2.7-2.3-2.7H127c-1.4,0-2.3,1-2.3,2.7s0.9,2.7,2.3,2.7H127.1z"/>
         </svg>
-    </Logo> */}
-    <video
-        id='video-intro'
-        playsInline
-        autoPlay 
-        muted
-        loop
-        onLoadedData={hasLoaded}
-        // data-poster="/path/to/poster.jpg"
-    >
-        <source src={videoId} type="video/mp4" />
-    </video>
+    </Logo>
+    <Videos>
+        <video
+            ref={videoRef}
+            id='video-intro'
+            playsInline
+            autoPlay 
+            muted
+            loop
+            onLoadedData={hasLoadedFunc}
+            // data-poster="/path/to/poster.jpg"
+        >
+            <source src={videoId} type="video/mp4" />
+        </video>
+    </Videos>
     </Container>
     )
 }

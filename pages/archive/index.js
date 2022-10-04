@@ -102,6 +102,6 @@ export async function getStaticProps({ params, preview = false, previewData }) {
     const allProjects = await getAllProjects(previewData);
 
     return {
-        props: { data, allProjects, menuData }, // will be passed to the page component as props
+        props: { preview, data, allProjects, menuData }, // will be passed to the page component as props
     }
 }
