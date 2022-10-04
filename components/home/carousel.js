@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from 'next/router'
 import styled from "styled-components"
 
 import Link from "../menu-link"
@@ -21,6 +22,7 @@ const Container = styled.div`
     z-index: 1;
     overflow: hidden;
     margin-bottom: 100px;
+    cursor: pointer;
 
     .flickity-viewport {
         overflow: visible !important;
@@ -110,6 +112,7 @@ const Information = styled.div`
 `;
 
 const Title = styled.div`
+    display: flex;
     font-family: Neue Haas Grotesk Regular;
     padding-top: 8px;
     text-transform: capitalize;
@@ -139,6 +142,7 @@ const More = styled.div`
 
 
 export default ({ data }) => {
+    const router = useRouter()
     let [windowHeight, setWindowHeight] = useState(0);
     let gallery = useRef();
 
@@ -299,6 +303,14 @@ export default ({ data }) => {
                 }, 100)
             });
 
+            flickity.on("staticClick", (event, pointer, cellElement, cellIndex) => {
+                if(event.target.classList.contains('plyr__control')) {
+                    return
+                }
+
+                router.push(cellElement.getAttribute("data-url"))
+            })
+
         }, 0);
 
         let stopScrollTimeout = null;
@@ -345,34 +357,35 @@ export default ({ data }) => {
 
     return (
         <Container>
-            <Carousel ref={gallery} key='home'>
-                {data.thumbnails.map((item, index) => {
-                return (
-                        <Slide key={index} className="carousel-slide">
-                            <MediaContainer>
-                                <Media asset={item} windowHeight={windowHeight} />
-                            </MediaContainer>
-                        </Slide>
-                );
-                })}
-            </Carousel>
-            <Information>
-            <Title>
-                <Link href={`projects/${data._meta.uid}`}>
-                    <span>{data.title}</span>
-                    <More className="more">
-                        <svg viewBox="0 0 700 700">
-                            <g>
-                            <path d="m210 260h-0.28125c-11.043 0-20.004 8.9414-20.004 20.004 0 11.059 8.9414 20.004 20.004 20.004h0.29688 279.96 0.28125c11.043 0 20.004-8.9414 20.004-20.004 0-11.059-8.9414-20.004-20.004-20.004h-0.29688z"/>
-                            <path d="m370 140v-0.28125c0-11.043-8.9414-20.004-20.004-20.004-11.059 0-20.004 8.9414-20.004 20.004v0.29688-0.015625 279.98 0.28125c0 11.043 8.9414 20.004 20.004 20.004 11.059 0 20.004-8.9414 20.004-20.004v-0.29688 0.015625z"/>
-                            <path d="m350 0c-154.4 0-279.98 125.6-279.98 279.98s125.6 279.98 279.98 279.98c154.4 0 279.98-125.6 279.98-279.98s-125.6-279.98-279.98-279.98zm0 40.004c132.79 0 240 107.22 240 240s-107.2 240-240 240c-132.79 0-240-107.2-240-240 0-132.79 107.2-240 240-240z"/>
-                            </g>
-                        </svg>
-                    </More>
-                </Link>
-            </Title>
-                <Tags data={data} />
-            </Information>
+            {/* <Link href={`/projects/${data._meta.uid}`}> */}
+                <Carousel ref={gallery} key='home'>
+                    {data.thumbnails.map((item, index) => {
+                    return (
+                            <Slide key={index} className="carousel-slide" data-url={`/projects/${data._meta.uid}`}>
+                                <MediaContainer>
+                                    <Media asset={item} windowHeight={windowHeight} />
+                                </MediaContainer>
+                            </Slide>
+                    );
+                    })}
+                </Carousel>
+                <Information>
+                <Title>
+                    <Link href={`/projects/${data._meta.uid}`}>
+                        <span>{data.title}</span>
+                        <More className="more">
+                            <svg viewBox="0 0 700 700">
+                                <g>
+                                <path d="m210 260h-0.28125c-11.043 0-20.004 8.9414-20.004 20.004 0 11.059 8.9414 20.004 20.004 20.004h0.29688 279.96 0.28125c11.043 0 20.004-8.9414 20.004-20.004 0-11.059-8.9414-20.004-20.004-20.004h-0.29688z"/>
+                                <path d="m370 140v-0.28125c0-11.043-8.9414-20.004-20.004-20.004-11.059 0-20.004 8.9414-20.004 20.004v0.29688-0.015625 279.98 0.28125c0 11.043 8.9414 20.004 20.004 20.004 11.059 0 20.004-8.9414 20.004-20.004v-0.29688 0.015625z"/>
+                                <path d="m350 0c-154.4 0-279.98 125.6-279.98 279.98s125.6 279.98 279.98 279.98c154.4 0 279.98-125.6 279.98-279.98s-125.6-279.98-279.98-279.98zm0 40.004c132.79 0 240 107.22 240 240s-107.2 240-240 240c-132.79 0-240-107.2-240-240 0-132.79 107.2-240 240-240z"/>
+                                </g>
+                            </svg>
+                        </More>
+                    </Link>
+                </Title>
+                    <Tags data={data} />
+                </Information>
         </Container>
     )
 }

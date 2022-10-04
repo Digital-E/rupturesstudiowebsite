@@ -7,7 +7,7 @@ import Slide from './slide'
 import wheel from 'wheel';
 import normalizeWheel from 'normalize-wheel';
 
-import sanitizeTag from "../../lib/sanitizeTag"
+import Tag from '../../tags/tag'
 
 let Flickity = null
 
@@ -16,27 +16,31 @@ if (typeof window !== "undefined") {
   }
 
 const Container = styled.div`
-    position: absolute;
+    position: relative;
     width: 100%;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
+    margin: 150px 0 250px 0;
 
     .flickity-viewport {
         overflow: visible !important;
     }
 
     @media(max-width: 989px) {
-        position: relative;
-        top: 0;
-        transform: none;
-        margin: 70px 0 0 0;
+        margin: 70px 0 70px 0;
     }
 `
 
 const Carousel = styled.div`
   outline: none !important;
 `;
+
+const More = styled.div`
+    position: relative;
+    font-size: 1rem;
+    color: white;
+    margin: 0 auto 30px auto;
+    width: fit-content;
+`
+
 
 
 export default ({ data, selectedTag }) => {
@@ -50,7 +54,8 @@ export default ({ data, selectedTag }) => {
 
     let setWindowHeightFunction = () => {
         if(window.innerWidth < 990) {
-            setWindowHeight(null)
+            // setWindowHeight(null)
+            setWindowHeight(200)
         } else {
             setWindowHeight(window.innerHeight / 2)
         }
@@ -58,20 +63,20 @@ export default ({ data, selectedTag }) => {
 
     let initFlickity = (resize) => {
 
-        if(window.innerWidth < 990) {
+        // if(window.innerWidth < 990) {
             if(flickity !== undefined && flickity !== null) {
                 flickity.destroy();
                 flickity = null;
             }
-            return;
-        }
+        //     return;
+        // }
 
         if(resize === true && flickity !== undefined && flickity !== null) return;
 
         setTimeout(()=>{
             flickity = new Flickity(gallery.current, {
                 // options, defaults listed
-                imagesLoaded: true,
+                imagesLoaded: false,
             
                 fade: false,
             
@@ -157,8 +162,6 @@ export default ({ data, selectedTag }) => {
                 // at end of cells, wraps-around to first for infinite scrolling
             });
 
-            // introGallery();
-
             // Cancel Page Swipe Back
 
             gallery.current.addEventListener("wheel", (e) => {
@@ -171,7 +174,7 @@ export default ({ data, selectedTag }) => {
 
             wheel.addWheelListener(gallery.current, event => {
                 const wheelNormalized = normalizeWheel(event);
-                flickity.applyForce(-wheelNormalized.pixelY / 16);
+                // flickity.applyForce(-wheelNormalized.pixelY / 16);
                 flickity.applyForce(-wheelNormalized.pixelX / 16);
                 flickity.startAnimation();
                 flickity.dragEnd();
@@ -228,38 +231,9 @@ export default ({ data, selectedTag }) => {
         };
       }, []);  
 
-
-    useEffect(() => {
-        if(sanitizeTag(selectedTag.label) === "all") {
-            document.querySelectorAll(".carousel-slide").forEach(item => {
-                item.classList.remove("hide-slide")
-            })
-
-            return
-        }
-
-        document.querySelectorAll(".carousel-slide").forEach(item => {
-            if(item.classList.contains(sanitizeTag(selectedTag.label))) {
-                item.classList.remove("hide-slide")
-            } else {
-                item.classList.add("hide-slide")
-            }
-        })
-    }, [selectedTag]);
-
-
-    let getCategories = (data) => {
-        let categories = [];
-
-        data.forEach(item => {
-            categories.push(item.tag?.toLowerCase())
-        })
-
-        return `${categories.join(" ")}`
-    }
-
     return (
         <Container>
+            <More><Tag>More projects</Tag></More>
             <Carousel ref={gallery} key='archive'>
                 {displayProjects.map((item, index) => {
                 return <Slide key={index} item={item.node} windowHeight={windowHeight} />

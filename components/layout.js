@@ -27,6 +27,8 @@ export default function Layout({ preview, children, name, content, footerData })
       multiplier: 0.8
     });
 
+    window.scroll = scroll
+
     setTimeout(() => {
       scroll.update()
     }, 0)

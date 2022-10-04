@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components'
 
+import Tag from '../tags/tag'
+
 const Container = styled.div`
     position: fixed;
     height: 100vh;
@@ -25,13 +27,13 @@ const Container = styled.div`
 
     .show-video {
         opacity: 1 !important;
+        transition: opacity 0.7s;
     }
 
 
     &.hide-intro-video {
-        // filter: blur(20px);
         opacity: 0;
-        transition: filter 1s, opacity 0.3s;
+        transition: opacity 0.5s;
     }
 `
 
@@ -40,94 +42,185 @@ const Videos = styled.div``
 
 const Logo = styled.div`
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 60%;
+    width: auto;
     z-index: 0;
+    height: 10vh;
+    opacity: 0;
+    transition: opacity 1s;
 
-    path, polygon {
-        fill: white;
+    img:nth-child(2) {
+        height: 100%;
+        margin: 0 5px;
+        max-width: 0px;
+        transition: max-width 1s;
+    }
+
+    img:nth-child(1),
+    img:nth-child(3)
+     {
+        height: 40%;
+    }
+
+    .remove-max-width {
+        max-width: 100px !important
+    }
+
+    @media(max-width: 989px) {
+        height: 50px;
+
+        .remove-max-width {
+            max-width: 50px !important
+        }
+    }
+`
+
+const Skip = styled.div`
+    position: absolute;
+    bottom: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+
+    > div {
+        cursor: pointer;
+    }
+
+    &.show-skip-button {
+        bottom: 25px !important;
+        transition: bottom 1s;
     }
 `
 
 
+let hasLoadedVar = false;
+let introSequenceHasFinished = false;
 
 const Component = ({ data }) => {
     let containerRef = useRef();
     let videoRef = useRef();
+    let logoRef = useRef();
+    let skipRef = useRef();
+
     let [hasLoaded, setHasLoaded] = useState(false);
 
     let videoId = data;
 
     let hasLoadedFunc = (e) => {
         document.querySelector('#home-container').style.opacity = 1
+        hasLoadedVar = true;
         setHasLoaded(true)
     }
 
+    let setSessionStorage = () => {
+        window.sessionStorage.setItem('ruptures-studio-intro', 'true')
+    }
+
     let hasClicked = () => {
+        if(!introSequenceHasFinished) return;
+
         containerRef.current.classList.add('hide-intro-video')
         document.querySelector('#home-container').classList.remove('hide-home')
 
         setTimeout(() => {
             containerRef.current.style.display = 'none'
+            window.scroll.start()
         }, 500);
     }
 
-    useEffect(() => {
-        if(hasLoaded) {
+    let loadedVideoSequence = () => {
+        if(!hasLoadedVar) return;
+        
+        setTimeout(() => {
+            logoRef.current.style.opacity = 0;
+
             setTimeout(() => {
-               videoRef.current.classList.add("show-video")
-            //    let zoomAmount = 50
+                introSequenceHasFinished = true;
 
-            //    let interval = setInterval(() => {
-            //         videoRef.current.style.width = `${zoomAmount}%`
+                // setSessionStorage();
 
-            //         zoomAmount += 50
-            //    }, 300)
+                videoRef.current.classList.add("show-video")
+
+                setTimeout(() => {
+                    skipRef.current.classList.add('show-skip-button')  
+                }, 500)
+
             }, 1000)
+
+        }, 1000)        
+    }
+
+
+    let introSequence = () => {
+        setTimeout(() => {
+            logoRef.current.style.opacity = 1;
+
+            setTimeout(() => {
+                logoRef.current.children[1].classList.add('remove-max-width');
+
+                if(window.innerWidth < 990) {
+                    setTimeout(() => {
+                        containerRef.current.classList.add('hide-intro-video')
+                        document.querySelector('#home-container').classList.remove('hide-home')
+                
+                        setTimeout(() => {
+                            containerRef.current.style.display = 'none'
+                            document.removeEventListener('touchmove', disableScroll);
+                        }, 500);
+
+                    }, 2000);
+                    return
+                }
+
+
+                loadedVideoSequence();
+
+            }, 750)
+        }, 1000)
+    }
+
+    let disableScroll = (e) => {
+        e.preventDefault();
+    }
+
+
+    useEffect(() => {
+        // if(window.sessionStorage.getItem('ruptures-studio-intro') === 'true') {
+        //     document.querySelector('#home-container').classList.remove('hide-home');
+        //     containerRef.current.style.display = 'none';
+        //     return;
+        // }
+
+
+        setTimeout(() => {
+            // Mobile disable scroll
+            document.addEventListener('touchmove', disableScroll, { passive:false });
+
+            // Desktop disable scroll
+            window.scroll.stop()
+        }, 0)
+
+        introSequence();
+    }, [])
+
+    useEffect(() => {
+
+        if(hasLoaded && introSequenceHasFinished) {
+            loadedVideoSequence();
         }
     }, [hasLoaded])
 
     return (
     <Container ref={containerRef} onClick={hasClicked}>
-    <Logo>
-        <svg version="1.2" baseProfile="tiny" id="Calque_1"
-            x="0px" y="0px" viewBox="0 0 130.9 26.3"
-            overflow="visible">
-        <polygon fill="#060607" points="75.2,13.9 77.1,15.3 75.2,13.7 79.6,15.7 75.4,13.6 77.7,14.2 75.8,13.5 87.7,13.2 75.8,12.8 
-            77.7,12.1 75.4,12.8 79.6,10.7 75.2,12.6 77.1,11.1 75.2,12.5 81,5.8 74.9,12.5 76.2,10 74.7,12.4 76.3,7.3 74.8,11.4 75.1,9.5 
-            74.6,11.5 74.4,0.1 74.4,0 74.4,0.1 74.4,0 74.4,0.1 74.2,11.5 73.8,9.5 74,11.4 72.5,7.3 74.2,12.4 72.6,10 74,12.5 67.9,5.8 
-            73.7,12.5 71.7,11.1 73.7,12.6 69.3,10.7 73.5,12.8 71.2,12.1 73.1,12.8 61.2,13.2 73.1,13.5 71.2,14.2 73.5,13.6 69.3,15.7 
-            73.7,13.7 71.7,15.3 73.7,13.9 67.9,20.6 74,13.9 72.6,16.3 74.2,14 72.5,19 74,14.9 73.8,16.8 74.2,14.9 74.4,26.2 74.4,26.3 
-            74.4,26.3 74.4,26.3 74.4,26.2 74.6,14.9 75.1,16.8 74.8,14.9 76.3,19 74.7,14 76.2,16.3 74.9,13.9 81,20.6 "/>
-        <path fill="#060607" d="M0,8.8h3.7c1.4,0,2.4,0.9,2.4,2.2c0,1-0.4,1.7-1.4,2C5.7,13,6,13.4,6,14.1v2.7H4.5v-2.3
-            c0-0.6-0.2-0.7-0.7-0.7H1.5v3H0L0,8.8L0,8.8z M3.2,12.4c0.9,0,1.4-0.4,1.4-1.2s-0.5-1.1-1.4-1.1H1.5v2.2H3.2z"/>
-        <path fill="#060607" d="M7.7,14V8.8h1.5v5c0,1.2,0.5,1.8,1.5,1.8h0.1c1,0,1.5-0.5,1.5-1.8v-5H14V14c0,1.8-1,2.9-3.1,2.9
-            S7.7,15.8,7.7,14L7.7,14z"/>
-        <path fill="#060607" d="M15.8,8.8h3.6c1.5,0,2.6,0.9,2.6,2.5s-1,2.5-2.6,2.5h-2v2.9h-1.5L15.8,8.8L15.8,8.8z M19.2,12.5
-            c0.8,0,1.2-0.5,1.2-1.2s-0.4-1.1-1.2-1.1h-1.9v2.3H19.2z"/>
-        <path fill="#060607" d="M25.2,10.2h-2.8V8.8h7v1.4h-2.8v6.6h-1.5V10.2z"/>
-        <path fill="#060607" d="M30.5,14V8.8h1.5v5c0,1.2,0.5,1.8,1.5,1.8h0.1c1,0,1.5-0.5,1.5-1.8v-5h1.5V14c0,1.8-1,2.9-3.1,2.9
-            S30.6,15.8,30.5,14L30.5,14z"/>
-        <path fill="#060607" d="M38.6,8.8h3.7c1.4,0,2.4,0.9,2.4,2.2c0,1-0.4,1.7-1.3,2c0.9,0,1.2,0.4,1.2,1.1v2.7h-1.5v-2.3
-            c0-0.6-0.2-0.7-0.7-0.7h-2.2v3h-1.5L38.6,8.8L38.6,8.8z M41.8,12.4c0.9,0,1.4-0.4,1.4-1.2s-0.5-1.1-1.4-1.1h-1.7v2.2H41.8z"/>
-        <path fill="#060607" d="M46.4,8.8h6v1.4h-4.5V12h3.8v1.4h-3.8v2h4.6v1.4h-6.1L46.4,8.8L46.4,8.8z"/>
-        <path fill="#060607" d="M56.7,10.1h-0.1c-0.8,0-1.4,0.5-1.4,1s0.3,0.8,1,0.9l1.2,0.2c1.4,0.3,2.2,1,2.2,2.3c0,1.4-1.1,2.4-3.1,2.4
-            c-2.2,0-3.2-1.1-3.2-2.8h1.5c0.1,0.8,0.6,1.4,1.8,1.4h0.1c0.8,0,1.3-0.5,1.3-1c0-0.5-0.2-0.7-0.9-0.9l-1.4-0.3
-            c-1.4-0.3-2.1-1.1-2.1-2.3s1.1-2.4,3-2.4s3,1.1,3,2.6h-1.5C58.1,10.5,57.5,10,56.7,10.1L56.7,10.1z"/>
-        <path fill="#060607" d="M92.3,10.1h-0.1c-0.8,0-1.4,0.5-1.4,1s0.3,0.8,1,0.9l1.2,0.2c1.4,0.3,2.2,1,2.2,2.3c0,1.4-1.1,2.4-3.1,2.4
-            c-2.2,0-3.2-1.1-3.2-2.8h1.5c0.1,0.8,0.6,1.4,1.8,1.4h0.1c0.9,0,1.3-0.5,1.3-1c0-0.5-0.2-0.7-0.9-0.9l-1.4-0.3
-            c-1.4-0.3-2.1-1.1-2.1-2.3s1.1-2.4,3-2.4c2,0,3,1.1,3,2.6h-1.5C93.8,10.5,93.2,10,92.3,10.1L92.3,10.1z"/>
-        <path fill="#060607" d="M98.6,10.2h-2.8V8.8h7.1v1.4h-2.8v6.6h-1.5V10.2z"/>
-        <path fill="#060607" d="M103.9,14V8.8h1.5v5c0,1.2,0.5,1.8,1.5,1.8h0.1c1,0,1.5-0.5,1.5-1.8v-5h1.5V14c0,1.8-1,2.9-3.1,2.9
-            C104.9,16.9,104,15.8,103.9,14z"/>
-        <path fill="#060607" d="M112,8.8h2.7c2.4,0,4,1.4,4,4s-1.6,4-4,4H112V8.8z M114.6,15.4c1.5,0,2.6-0.6,2.6-2.6s-1.1-2.6-2.6-2.6h-1.1
-            v5.2L114.6,15.4L114.6,15.4z"/>
-        <path fill="#060607" d="M120.2,8.8h1.5v8h-1.5V8.8z"/>
-        <path fill="#060607" d="M123.2,12.8c0-2.6,1.6-4.1,3.9-4.1s3.9,1.5,3.9,4.1s-1.6,4.1-3.9,4.1S123.2,15.3,123.2,12.8z M127.1,15.5
-            c1.4,0,2.3-1,2.3-2.7s-0.9-2.7-2.3-2.7H127c-1.4,0-2.3,1-2.3,2.7s0.9,2.7,2.3,2.7H127.1z"/>
-        </svg>
+    <Logo ref={logoRef}>
+        <img src={'/images/logo-split/RUPTURES-01.svg'} />
+        <img src={'/images/logo-split/RUPTURES-03.svg'} />
+        <img src={'/images/logo-split/RUPTURES-02.svg'} />
     </Logo>
     <Videos>
         <video
@@ -143,6 +236,7 @@ const Component = ({ data }) => {
             <source src={videoId} type="video/mp4" />
         </video>
     </Videos>
+    <Skip ref={skipRef}><Tag>Skip Showreel &nbsp;✕</Tag></Skip>
     </Container>
     )
 }

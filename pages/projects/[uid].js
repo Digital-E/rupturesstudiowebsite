@@ -3,15 +3,15 @@ import Layout from "../../components/layout";
 import styled from 'styled-components';
 
 
-import { getProjectPage, getProjectPageSlugs, getMenu, getFooter } from "../../lib/api";
+import { getProjectPage, getProjectPageSlugs, getAllProjects, getMenu, getFooter } from "../../lib/api";
 
 import { SITE_NAME } from "../../lib/constants"
-
-// import Carousel from "../../../components/artist-slices/carousel"
 
 import Hero from "../../components/project-slices/hero"
 
 import Slices from "../../components/project-slices/index"
+
+import Carousel from "../../components/project-slices/carousel/carousel"
 
 
 const Container = styled.div`
@@ -21,7 +21,7 @@ const Container = styled.div`
 
 
 
-export default function Index({ preview, data, allArtistPagesDataPaginate, footerData }) {
+export default function Index({ preview, data, allArtistPagesDataPaginate, allProjects, footerData }) {
 
 data = data[0]?.node
 
@@ -63,6 +63,7 @@ data = data[0]?.node
       <Container>
         <Hero data={data} />
         <Slices data={data} />
+        <Carousel data={allProjects} projectPage={true}/>
       </Container>
     </Layout>
   )
@@ -105,6 +106,8 @@ let allProjectPagesDataPaginate = [];
 //     dataAll = data;
 //     allArtistPagesDataPaginate.push(...data.edges)
 //   }
+
+const allProjects = await getAllProjects(previewData);
   
 
   // Get Menu And Footer
@@ -116,6 +119,6 @@ let allProjectPagesDataPaginate = [];
   const footerData = null;
 
   return {
-    props: { preview, data, allProjectPagesDataPaginate, menuData, footerData },
+    props: { preview, data, allProjectPagesDataPaginate, allProjects, menuData, footerData },
   };
 }

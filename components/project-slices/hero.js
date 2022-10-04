@@ -21,7 +21,7 @@ const InnerContainer = styled.div`
 `
 
 const Title = styled.h1`
-    margin: 0;
+    margin: 0 0 5px 0;
 `
 
 

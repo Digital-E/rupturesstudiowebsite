@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components"
 
-import Link from "../menu-link"
+import Link from "../../menu-link"
 
-import Media from "../media"
+import Media from "../../media"
 
-import Tags from "../tags"
+import Tags from "../../tags"
 
 
 const Slide = styled.div`
@@ -22,10 +22,10 @@ const Slide = styled.div`
     }
 
     @media(max-width: 989px) {
-        position: relative; 
-        padding: 0;
-        margin-bottom: 50px;
-        transform: none !important;
+        // position: relative; 
+        // padding: 0;
+        // margin-bottom: 50px;
+        // transform: none !important;
     }
 
     :hover .more {
@@ -66,9 +66,12 @@ const MediaContainer = styled.div`
     width: fit-content;
     position: relative;
 
+    // @media(max-width: 989px) {
+    //     height: auto;
+    //     width: 100%;
+    // }
     @media(max-width: 989px) {
-        height: auto;
-        width: 100%;
+        height: 200px;
     }
 `;
 
@@ -94,6 +97,7 @@ const Title = styled.div`
     padding-top: 8px;
     text-transform: capitalize;
     width: fit-content;
+    white-space: nowrap;
 
     a {
         display: flex;
@@ -123,23 +127,13 @@ export default ({ item, windowHeight }) => {
     let mediaContainerRef = useRef();
     let informationRef = useRef();
 
-    let getCategories = (data) => {
-        let categories = [];
-
-        data.forEach(item => {
-            categories.push(item.tag?.toLowerCase())
-        })
-
-        return `${categories.join(" ")}`
-    }
-
     useEffect(() => {
         informationRef.current.style.width = `${mediaContainerRef.current.children[0].getBoundingClientRect().width}px`
     }, [windowHeight]);
 
 
     return (
-        <Slide className={`carousel-slide ${getCategories(item.tags)}`} data-url={`/projects/${item._meta.uid}`}>
+        <Slide className={`carousel-slide`} data-url={`/projects/${item._meta.uid}`}>
             <MediaContainer ref={mediaContainerRef}>
                 <Media asset={item.thumbnails[0]} windowHeight={windowHeight} />
                 <Information ref={informationRef}>

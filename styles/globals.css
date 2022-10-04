@@ -215,6 +215,10 @@ button {
   /* border-radius: 0 !important; */
 }
 
+.c-scrollbar {
+  display: none;
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 *::-webkit-scrollbar {
   display: none;
@@ -227,7 +231,6 @@ button {
 
 h1 {
   font-size: 2rem;
-  font-weight: 100;
 }
 
 h1,
@@ -237,6 +240,7 @@ h4,
 h5,
 h6 {
   margin-bottom: 10px;
+  font-weight: 100;
 }
 
 p {
