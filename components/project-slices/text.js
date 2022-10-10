@@ -10,10 +10,10 @@ const Container = styled.div`
 `
 
 
-const Component = ({ data }) => {
+const Component = ({ data, keyProp }) => {
 
     return (
-        <Container>
+        <Container key={keyProp}>
             <RichText render={data.variation.primary.text} />
         </Container>
     )

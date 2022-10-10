@@ -7,8 +7,6 @@ import Slide from './slide'
 import wheel from 'wheel';
 import normalizeWheel from 'normalize-wheel';
 
-import Tag from '../../tags/tag'
-
 let Flickity = null
 
 if (typeof window !== "undefined") {
@@ -43,12 +41,11 @@ const More = styled.div`
 
 
 
-export default ({ data, selectedTag }) => {
-    const router = useRouter()
-    let [displayProjects, setDisplayProjects] = useState(data)
-    let [hasTransitioned, setHasTransitioned] = useState(false);
+export default ({ data, keyProp }) => {
+    let [media, setMedia] = useState(data)
     let [windowHeight, setWindowHeight] = useState(0);
     let gallery = useRef();
+    let mouseSwipe;
 
     let flickity;
 
@@ -63,17 +60,7 @@ export default ({ data, selectedTag }) => {
 
     let initFlickity = (resize) => {
 
-        // if(window.innerWidth < 990) {
-            if(flickity !== undefined && flickity !== null) {
-                flickity.destroy();
-                flickity = null;
-            }
-        //     return;
-        // }
-
-        if(resize === true && flickity !== undefined && flickity !== null) return;
-
-        setTimeout(()=>{
+        setTimeout(() => {
             flickity = new Flickity(gallery.current, {
                 // options, defaults listed
                 imagesLoaded: false,
@@ -172,13 +159,15 @@ export default ({ data, selectedTag }) => {
 
             // Mouse swipe
 
-            wheel.addWheelListener(gallery.current, event => {
+            mouseSwipe = event => {
                 const wheelNormalized = normalizeWheel(event);
                 // flickity.applyForce(-wheelNormalized.pixelY / 16);
                 flickity.applyForce(-wheelNormalized.pixelX / 16);
                 flickity.startAnimation();
                 flickity.dragEnd();
-            });
+            }
+
+            wheel.addWheelListener(gallery.current, mouseSwipe);
 
             // Mobile disable scroll while moving
             flickity.on( 'dragMove', function( event, pointer ) {
@@ -209,7 +198,9 @@ export default ({ data, selectedTag }) => {
 
 
         setTimeout(() => {
-            flickity.resize();
+            if(flickity) {
+                flickity.resize();
+            }
         }, 10);
 
     }
@@ -223,20 +214,18 @@ export default ({ data, selectedTag }) => {
 
         window.addEventListener('resize', () => {
             setWindowHeightFunction()
-            initFlickity(true);
         })
     
         return () => {
           flickity.destroy();
         };
-      }, []);  
+      }, []);
 
     return (
         <Container>
-            <More><Tag>More projects</Tag></More>
-            <Carousel ref={gallery} key='archive'>
-                {displayProjects.map((item, index) => {
-                return <Slide key={index} item={item.node} windowHeight={windowHeight} />
+            <Carousel ref={gallery} key={keyProp}>
+                {media.map((item, index) => {
+                return <Slide key={index} item={item} windowHeight={windowHeight} />
                 })}
             </Carousel>
         </Container>

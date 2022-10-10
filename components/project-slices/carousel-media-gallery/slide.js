@@ -1,11 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components"
 
-import Link from "../../menu-link"
-
 import Media from "../../media"
 
-import Tags from "../../tags"
 
 
 const Slide = styled.div`
@@ -128,17 +125,16 @@ export default ({ item, windowHeight }) => {
     let informationRef = useRef();
 
     useEffect(() => {
-        informationRef.current.style.width = `${mediaContainerRef.current.children[0].getBoundingClientRect().width}px`
+        // informationRef.current.style.width = `${mediaContainerRef.current.children[0].getBoundingClientRect().width}px`
     }, [windowHeight]);
 
-
     return (
-        <Slide className={`carousel-slide`} data-url={`projects/${item._meta?.uid}`}>
+        <Slide className={`carousel-slide`}>
             <MediaContainer ref={mediaContainerRef}>
-                <Media asset={item.thumbnails[0]} windowHeight={windowHeight} />
-                <Information ref={informationRef}>
+                <Media asset={item} windowHeight={windowHeight} />
+                {/* <Information ref={informationRef}>
                     <Title>
-                        <Link href={`projects/${item._meta.uid}`}>
+                        <Link href={`/projects/${item._meta.uid}`}>
                             <span>{item.title}</span>
                             <More className="more">
                                 <svg viewBox="0 0 700 700">
@@ -152,7 +148,7 @@ export default ({ item, windowHeight }) => {
                         </Link>
                     </Title>
                     <Tags data={item} />
-                </Information>
+                </Information> */}
             </MediaContainer>
         </Slide>
     )

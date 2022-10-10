@@ -4,6 +4,8 @@ import Plyr from "plyr"
 
 import Media from "../media"
 
+import Carousel from "./carousel-media-gallery"
+
 const Container = styled.div`
     display: flex;
     justify-content: center;
@@ -37,7 +39,7 @@ const Container = styled.div`
 `
 
 
-const Component = ({ data }) => {
+const Component = ({ data, keyProp }) => {
     let players = null;
 
     let items = data.variation.items
@@ -63,7 +65,10 @@ const Component = ({ data }) => {
     },[])
 
     return (
-        <Container size={data.variation.primary.width}>
+        data.variation.primary.carousel ?
+        <Carousel data={items} keyProp={keyProp} />
+        :
+        <Container size={data.variation.primary.width} key={keyProp}>
             <div>
                 {items.map(item => <div><Media asset={item} /></div>)}
             </div>

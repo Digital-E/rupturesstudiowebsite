@@ -50,7 +50,7 @@ const Logo = styled.div`
     transform: translate(-50%, -50%);
     width: auto;
     z-index: 0;
-    height: 10vh;
+    height: 14vh;
     opacity: 0;
     transition: opacity 1s;
 

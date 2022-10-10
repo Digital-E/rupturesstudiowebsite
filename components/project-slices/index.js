@@ -7,7 +7,7 @@ import Text from "./text"
 // import MediaAndText from "./media-and-text"
 // import Embed from "./embed"
 
-const SliceSwitch = ({ data }) => {
+const SliceSwitch = ({ data, keyProp }) => {
 
     switch(data.__typename) {
         // case "carousel.carousel":
@@ -17,7 +17,7 @@ const SliceSwitch = ({ data }) => {
         // return <Quote key={data.id} data={data}/>;
         // break;
         case "ProjectSlicesMedia_gallery":
-        return <MediaGallery key={data.id} data={data} />;
+        return <MediaGallery keyProp={keyProp} data={data} />;
         break;
         // case "singlemedia.single-media":
         // return <SingleMedia key={data.id} data={data}/>;
@@ -26,7 +26,7 @@ const SliceSwitch = ({ data }) => {
         // return <TextColumns key={data.id} data={data}/>;
         // break;
         case "ProjectSlicesText":
-        return <Text key={data.id} data={data}/>;
+        return <Text keyProp={keyProp} data={data}/>;
         break;
         // case "embed.embed":
         // return <Embed key={data.id} data={data}/>;
@@ -39,6 +39,5 @@ const SliceSwitch = ({ data }) => {
 }
 
 export default ({ data }) => {
-
-    return data.slices?.map((item, index) => <SliceSwitch key={index} data={item} /> )
+    return data.slices?.map((item, index) => <SliceSwitch keyProp={`${item.__typename}-${index}`} data={item} /> )
 }

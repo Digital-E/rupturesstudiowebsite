@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Head from 'next/head'
 import Layout from "../../components/layout";
 import styled from 'styled-components';
@@ -11,7 +12,7 @@ import Hero from "../../components/project-slices/hero"
 
 import Slices from "../../components/project-slices/index"
 
-import Carousel from "../../components/project-slices/carousel/carousel"
+import Carousel from "../../components/project-slices/carousel"
 
 
 const Container = styled.div`
@@ -51,6 +52,14 @@ data = data[0]?.node
 //       }
 //     }
 //   })
+
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      // setTimeout(() => {
+      //   window.scroll.update()
+      // }, 100)
+    })
+  }, [])
 
   return (
     <Layout 
