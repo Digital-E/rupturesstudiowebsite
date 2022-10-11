@@ -102,7 +102,7 @@ body {
   font-weight: 100;
   background-color: var(--gray);
   overscroll-behavior-x: none;
-  /* overflow: hidden; */
+  overflow-x: hidden;
 }
 
 main {

@@ -54,11 +54,9 @@ data = data[0]?.node
 //   })
 
   useEffect(() => {
-    window.addEventListener('resize', () => {
-      // setTimeout(() => {
-      //   window.scroll.update()
-      // }, 100)
-    })
+    setTimeout(() => {
+      window.scroll.update()
+    }, 100)    
   }, [])
 
   return (

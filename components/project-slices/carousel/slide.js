@@ -133,12 +133,12 @@ export default ({ item, windowHeight }) => {
 
 
     return (
-        <Slide className={`carousel-slide`} data-url={`projects/${item._meta?.uid}`}>
+        <Slide className={`carousel-slide`} data-url={`/projects/${item._meta?.uid}`}>
             <MediaContainer ref={mediaContainerRef}>
                 <Media asset={item.thumbnails[0]} windowHeight={windowHeight} />
                 <Information ref={informationRef}>
                     <Title>
-                        <Link href={`projects/${item._meta.uid}`}>
+                        <Link href={`/projects/${item._meta.uid}`}>
                             <span>{item.title}</span>
                             <More className="more">
                                 <svg viewBox="0 0 700 700">

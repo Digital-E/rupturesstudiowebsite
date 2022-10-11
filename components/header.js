@@ -20,9 +20,14 @@ import { motion } from 'framer-motion'
 const Menu = styled.div`
   margin: 15px 10px 0 10px;
   position: fixed;
-  z-index: 999 !important;
+  z-index: 9999 !important;
   top: 0;
   left: 0;
+  transition: top 1s;
+
+  &.display-menu {
+    top: 0px !important;
+  }
 
   @media(max-width: 989px) {
     margin: 15px 10px 0 10px;
@@ -107,7 +112,7 @@ export default function Header({ data }) {
 
   
   return data ? (
-    <Menu onMouseLeave={() => setOpen(false)} data-scroll data-scroll-sticky data-scroll-target="body">
+    <Menu onMouseLeave={() => setOpen(false)} data-scroll data-scroll-sticky data-scroll-target="body" className="menu">
     <Container>
           {/* <MenuLink href="/">
             <svg width="100" height="100" viewBox="0 0 35 35" fill="none">

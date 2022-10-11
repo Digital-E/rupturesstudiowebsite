@@ -37,7 +37,14 @@ const Container = styled.div`
     }
 `
 
-const Videos = styled.div``
+const Videos = styled.div`
+
+    @media(max-width: 989px) {
+        video {
+            display: none;
+        }
+    }
+`
 
 
 const Logo = styled.div`
@@ -97,6 +104,31 @@ const Skip = styled.div`
     }
 `
 
+const Loader = styled.div`
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    width: 180px;
+    height: 2px;
+    background: #b7b7b7;
+    z-index: 1;
+    border-radius: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 1s;
+`
+
+const LoaderInner = styled.div`
+    width: 0%;
+    height: 100%;
+    background: #8d8d8d;
+    transition: width 1s;
+`
+
+
+
+
+
 
 let hasLoadedVar = false;
 let introSequenceHasFinished = false;
@@ -106,6 +138,7 @@ const Component = ({ data }) => {
     let videoRef = useRef();
     let logoRef = useRef();
     let skipRef = useRef();
+    let loaderRef = useRef();
 
     let [hasLoaded, setHasLoaded] = useState(false);
 
@@ -137,21 +170,37 @@ const Component = ({ data }) => {
         if(!hasLoadedVar) return;
         
         setTimeout(() => {
-            logoRef.current.style.opacity = 0;
+            // Display Loader
+            loaderRef.current.style.opacity = 1;
+            loaderRef.current.children[0].style.width = "50%";
 
             setTimeout(() => {
-                introSequenceHasFinished = true;
 
-                // setSessionStorage();
-
-                videoRef.current.classList.add("show-video")
+            loaderRef.current.children[0].style.width = "100%";
 
                 setTimeout(() => {
-                    skipRef.current.classList.add('show-skip-button')  
-                }, 500)
+                    
+                    logoRef.current.style.opacity = 0;
+                    loaderRef.current.style.opacity = 0;
+
+                        setTimeout(() => {
+                            introSequenceHasFinished = true;
+            
+                            // setSessionStorage();
+            
+                            videoRef.current.currentTime = 0;
+                            videoRef.current.classList.add("show-video")
+            
+                            setTimeout(() => {
+                                skipRef.current.classList.add('show-skip-button')  
+                                document.querySelector('.menu').classList.add('display-menu')
+                            }, 500)
+            
+                        }, 1000)
+
+                }, 1000)
 
             }, 1000)
-
         }, 1000)        
     }
 
@@ -190,6 +239,8 @@ const Component = ({ data }) => {
 
 
     useEffect(() => {
+        document.querySelector('.menu').style.top = "-100px"
+
         // if(window.sessionStorage.getItem('ruptures-studio-intro') === 'true') {
         //     document.querySelector('#home-container').classList.remove('hide-home');
         //     containerRef.current.style.display = 'none';
@@ -222,14 +273,18 @@ const Component = ({ data }) => {
         <img src={'/images/logo-split/RUPTURES-03.svg'} />
         <img src={'/images/logo-split/RUPTURES-02.svg'} />
     </Logo>
+    <Loader ref={loaderRef}><LoaderInner /></Loader>
     <Videos>
         <video
             ref={videoRef}
+            preload="auto"
             id='video-intro'
             playsInline
             autoPlay 
             muted
             loop
+            // onProgress={(e) => console.log(e)}
+            // onCanPlayThrough={() => console.log('loaded')}
             onLoadedData={hasLoadedFunc}
             // data-poster="/path/to/poster.jpg"
         >
