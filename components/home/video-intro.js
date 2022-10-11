@@ -241,6 +241,8 @@ const Component = ({ data }) => {
     useEffect(() => {
         document.querySelector('.menu').style.top = "-100px"
 
+        videoRef.current.play()
+
         // if(window.sessionStorage.getItem('ruptures-studio-intro') === 'true') {
         //     document.querySelector('#home-container').classList.remove('hide-home');
         //     containerRef.current.style.display = 'none';

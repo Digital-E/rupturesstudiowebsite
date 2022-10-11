@@ -32,6 +32,12 @@
   --plyr-video-controls-background: transparent;
 }
 
+.fixed_target {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
 .plyr {
   height: 100%;
 }
@@ -54,6 +60,13 @@
 #__next {
   opacity: 0;
   transition: opacity 1s;
+}
+
+#__next > div:nth-child(2) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
 .CookieConsent {

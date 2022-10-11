@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import router, { useRouter } from "next/router"
 import Head from 'next/head'
 import styled from "styled-components"
@@ -19,6 +19,8 @@ const Container = styled.div`
     min-height: 100vh;
     padding: 120px 0;
     overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
 
     .ruptures-logo {
         position: relative;
@@ -127,21 +129,27 @@ export default function Index({ preview, data, clientData, menuData, footerData 
 
     let [tagHoveredIndex, setTagHoveredIndex] = useState(null);
 
+    let containerRef = useRef();
+
     let indexOfStar = [];
 
 
     useEffect(() => {
         let splitHTML = document.querySelector(".about-text").innerHTML.split("")
-            splitHTML.forEach((item, index) => {
-                    if(item === "*") indexOfStar.push(index)
-            })
 
-            indexOfStar.forEach((item, index) => {
-                splitHTML.splice(item, 1, "<span class='ruptures-logo'></span>")
-            })
+        splitHTML.forEach((item, index) => {
+                if(item === "*") indexOfStar.push(index)
+        })
+
+        indexOfStar.forEach((item, index) => {
+            splitHTML.splice(item, 1, "<span class='ruptures-logo'></span>")
+        })
         
 
-            document.querySelector(".about-text").innerHTML = splitHTML.join("");
+        document.querySelector(".about-text").innerHTML = splitHTML.join("");
+        
+        
+        containerRef.current.style.opacity = 1;
 
     }, []);
 
@@ -156,7 +164,7 @@ export default function Index({ preview, data, clientData, menuData, footerData 
                     {data[0].node.title} | {SITE_NAME}
                 </title>
             </Head>
-            <Container className={tagHoveredIndex !== null ? "hovering-tag" : ""}>
+            <Container className={tagHoveredIndex !== null ? "hovering-tag" : ""} ref={containerRef}>
                 <ColOne>
                     <Logo className="hide-on-hover">
                         <svg viewBox="0 0 113.39 113.39"><polygon points="59.71 59.58 68 65.52 59.86 58.93 78.06 67.15 60.63 58.35 70.36 61.14 62.34 58.13 111.95 56.69 62.34 55.26 70.36 52.25 60.63 55.04 78.06 46.24 59.86 54.46 68 47.86 59.71 53.81 84.07 25.89 58.45 53.75 64.2 43.48 57.67 53.32 64.6 32.34 58.37 49.49 59.59 41.41 57.53 49.53 56.7 2.24 56.7 1.76 56.69 2 56.69 1.76 56.69 2.24 55.86 49.53 53.8 41.41 55.02 49.49 48.78 32.34 55.72 53.32 49.19 43.48 54.94 53.75 29.32 25.89 53.68 53.81 45.39 47.86 53.52 54.46 35.32 46.24 52.76 55.04 43.03 52.25 51.05 55.26 1.43 56.69 51.05 58.13 43.03 61.14 52.76 58.35 35.32 67.15 53.52 58.93 45.39 65.52 53.68 59.58 29.32 87.5 54.94 59.63 49.19 69.91 55.72 60.07 48.78 81.04 55.02 63.89 53.8 71.97 55.86 63.86 56.69 111.15 56.69 111.63 56.69 111.39 56.7 111.63 56.7 111.15 57.53 63.86 59.59 71.97 58.37 63.89 64.6 81.04 57.67 60.07 64.2 69.91 58.45 59.63 84.07 87.5 59.71 59.58"/></svg>

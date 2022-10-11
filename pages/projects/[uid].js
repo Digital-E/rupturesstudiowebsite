@@ -15,11 +15,7 @@ import Slices from "../../components/project-slices/index"
 import Carousel from "../../components/project-slices/carousel"
 
 
-const Container = styled.div`
-  margin: 0 0 150px 0;
-`
-
-
+const Container = styled.div``
 
 
 export default function Index({ preview, data, allArtistPagesDataPaginate, allProjects, footerData }) {
@@ -54,9 +50,9 @@ data = data[0]?.node
 //   })
 
   useEffect(() => {
-    setTimeout(() => {
-      window.scroll.update()
-    }, 100)    
+    // setTimeout(() => {
+    //   window.scroll.update()
+    // }, 100)    
   }, [])
 
   return (

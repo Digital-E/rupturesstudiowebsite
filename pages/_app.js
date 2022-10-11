@@ -59,8 +59,8 @@ function MyApp({ Component, pageProps, router }) {
       // exitBeforeEnter={router.route === "/[lang]/artistes" ? false : true}
       // onExitComplete={() => { window.scrollTo(0,0) }}
       > 
-      <motion.div 
-      key={router.route} initial="pageInitial" animate="pageAnimate" exit= "pageExit"
+      <motion.div
+      key={router.asPath} initial="pageInitial" animate="pageAnimate" exit= "pageExit"
         variants={{
           pageInitial: {
             opacity: 0
@@ -105,7 +105,7 @@ function MyApp({ Component, pageProps, router }) {
         //     }
         //   }
         // }}
-        >          
+        >       
         <Component {...pageProps} />
       </motion.div>
       </AnimatePresence> 

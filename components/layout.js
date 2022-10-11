@@ -12,12 +12,16 @@ if(typeof window !== 'undefined') {
 
 import styled from "styled-components";
 
-const Container = styled.div``;
+const Container = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+`;
 
 let scroll = null;
 
 export default function Layout({ preview, children, name, content, footerData }) {
-
 
   useEffect(() => {
     scroll = new LocomotiveScroll({
@@ -41,7 +45,7 @@ export default function Layout({ preview, children, name, content, footerData })
   return (
     <>
       <Meta name={name} content={content}/>
-      <Container>
+      <Container data-scroll-container>
         <Alert preview={preview} />
         <main>
           {children}

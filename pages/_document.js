@@ -34,7 +34,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head />
-        <body data-scroll-container>
+        <body>
           <Main />
           <NextScript />
         </body>

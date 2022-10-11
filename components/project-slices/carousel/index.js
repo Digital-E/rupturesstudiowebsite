@@ -18,14 +18,14 @@ if (typeof window !== "undefined") {
 const Container = styled.div`
     position: relative;
     width: 100%;
-    margin: 150px 0 250px 0;
+    margin: 150px 0 150px 0;
 
     .flickity-viewport {
         overflow: visible !important;
     }
 
     @media(max-width: 989px) {
-        margin: 70px 0 70px 0;
+        margin: 70px 0 150px 0;
     }
 `
 
