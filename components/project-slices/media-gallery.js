@@ -43,7 +43,10 @@ const Component = ({ data, keyProp }) => {
     let players = null;
 
     let items = data.variation.items
-    items = items.slice(0, 3);
+
+    if(!data.variation.primary.carousel) {
+        items = items.slice(0, 3);
+    }
 
     useEffect(() => {
 

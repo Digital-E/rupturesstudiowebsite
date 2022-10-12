@@ -30,15 +30,15 @@ const Slide = styled.div`
         transition: opacity 0.3s;
     }
 
-    img, video {
-        transform: scale(1);
-        transition: transform 5s, opacity ease-in-out 1s !important;
-    }
+    // img, video {
+    //     transform: scale(1);
+    //     transition: transform 5s, opacity ease-in-out 1s !important;
+    // }
 
-    :hover img, :hover video {
-        transform: scale(1.2);
-        transition: transform 1s;
-    }
+    // :hover img, :hover video {
+    //     transform: scale(1.2);
+    //     transition: transform 1s;
+    // }
     
     &.hide-slide {
         opacity: 1;
