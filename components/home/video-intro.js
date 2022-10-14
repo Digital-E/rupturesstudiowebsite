@@ -12,6 +12,7 @@ const Container = styled.div`
     z-index: 999;
     background-color: var(--gray);
     overflow: hidden;
+    display: none;
 
     video {
         position: absolute;
@@ -132,6 +133,7 @@ const LoaderInner = styled.div`
 
 let hasLoadedVar = false;
 let introSequenceHasFinished = false;
+let hasTriggeredOnce = false;
 
 const Component = ({ data }) => {
     let containerRef = useRef();
@@ -142,10 +144,33 @@ const Component = ({ data }) => {
 
     let [hasLoaded, setHasLoaded] = useState(false);
 
+    useEffect(() => {
+        document.querySelector('.menu').style.top = "-100px"
+
+        if(window.sessionStorage.getItem('ruptures-studio-intro') === 'true') {
+            document.querySelector('.menu').classList.add('display-menu')
+            return;
+        }
+
+        containerRef.current.style.display = 'block';
+
+        videoRef.current.play()
+
+
+        setTimeout(() => {
+            // Mobile disable scroll
+            document.addEventListener('touchmove', disableScroll, { passive:false });
+
+            // Desktop disable scroll
+            window.scroll.stop()
+        }, 0)
+
+        introSequence();
+    }, [])
+
     let videoId = data;
 
     let hasLoadedFunc = (e) => {
-        document.querySelector('#home-container').style.opacity = 1
         hasLoadedVar = true;
         setHasLoaded(true)
     }
@@ -158,7 +183,6 @@ const Component = ({ data }) => {
         if(!introSequenceHasFinished) return;
 
         containerRef.current.classList.add('hide-intro-video')
-        document.querySelector('#home-container').classList.remove('hide-home')
 
         setTimeout(() => {
             containerRef.current.style.display = 'none'
@@ -168,6 +192,9 @@ const Component = ({ data }) => {
 
     let loadedVideoSequence = () => {
         if(!hasLoadedVar) return;
+        if(hasTriggeredOnce) return;
+
+        hasTriggeredOnce = true;
         
         setTimeout(() => {
             // Display Loader
@@ -186,7 +213,7 @@ const Component = ({ data }) => {
                         setTimeout(() => {
                             introSequenceHasFinished = true;
             
-                            // setSessionStorage();
+                            setSessionStorage();
             
                             videoRef.current.currentTime = 0;
                             videoRef.current.classList.add("show-video")
@@ -201,7 +228,7 @@ const Component = ({ data }) => {
                 }, 1000)
 
             }, 1000)
-        }, 1000)        
+        }, 2000)        
     }
 
 
@@ -215,7 +242,6 @@ const Component = ({ data }) => {
                 if(window.innerWidth < 990) {
                     setTimeout(() => {
                         containerRef.current.classList.add('hide-intro-video')
-                        document.querySelector('#home-container').classList.remove('hide-home')
                 
                         setTimeout(() => {
                             containerRef.current.style.display = 'none'
@@ -228,7 +254,6 @@ const Component = ({ data }) => {
 
 
                 loadedVideoSequence();
-
             }, 750)
         }, 1000)
     }
@@ -239,31 +264,7 @@ const Component = ({ data }) => {
 
 
     useEffect(() => {
-        document.querySelector('.menu').style.top = "-100px"
-
-        videoRef.current.play()
-
-        // if(window.sessionStorage.getItem('ruptures-studio-intro') === 'true') {
-        //     document.querySelector('#home-container').classList.remove('hide-home');
-        //     containerRef.current.style.display = 'none';
-        //     return;
-        // }
-
-
-        setTimeout(() => {
-            // Mobile disable scroll
-            document.addEventListener('touchmove', disableScroll, { passive:false });
-
-            // Desktop disable scroll
-            window.scroll.stop()
-        }, 0)
-
-        introSequence();
-    }, [])
-
-    useEffect(() => {
-
-        if(hasLoaded && introSequenceHasFinished) {
+        if(hasLoaded) {
             loadedVideoSequence();
         }
     }, [hasLoaded])
@@ -287,13 +288,14 @@ const Component = ({ data }) => {
             loop
             // onProgress={(e) => console.log(e)}
             // onCanPlayThrough={() => console.log('loaded')}
+            src={videoId}
             onLoadedData={hasLoadedFunc}
             // data-poster="/path/to/poster.jpg"
         >
-            <source src={videoId} type="video/mp4" />
+            {/* <source src={videoId} type="video/mp4" /> */}
         </video>
     </Videos>
-    <Skip ref={skipRef}><Tag>Skip Showreel &nbsp;✕</Tag></Skip>
+    <Skip ref={skipRef}><Tag>Skip &nbsp;✕</Tag></Skip>
     </Container>
     )
 }

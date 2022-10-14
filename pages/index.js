@@ -16,18 +16,11 @@ import VideoIntro from "../components/home/video-intro"
 const Container = styled.div`
     position: relative;
     margin: 120px 0 0 0;
-    opacity: 0;
-    // filter: blur(0px);
-    transition: filter 1s;
 
     @media(max-width: 989px) {
         margin: 70px 0 0 0;
     }
 
-
-    &.hide-home {
-        // filter: blur(200px);
-    }
 `
 
 

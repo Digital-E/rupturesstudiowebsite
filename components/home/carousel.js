@@ -371,7 +371,7 @@ export default ({ data }) => {
                 </Carousel>
                 <Information>
                 <Title>
-                    <Link href={`/projects/${data._meta.uid}`}>
+                    <Link href={`projects/${data._meta.uid}`}>
                         <span>{data.title}</span>
                         <More className="more">
                             <svg viewBox="0 0 700 700">
