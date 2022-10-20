@@ -158,7 +158,7 @@ const Component = ({ data, index }) => {
         indexOfImage += 1;
 
         interval = setInterval(() => {
-            if(revealRound) {
+            if(revealRound && data.node.images.length > 1) {
                 let coordinates = newCoordinates(containerRef.current.children[indexOfImage], indexOfImage);
 
                 if(coordinates === undefined ||  containerRef.current.children[indexOfImage] === undefined) return;

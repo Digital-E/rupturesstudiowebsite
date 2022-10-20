@@ -7,8 +7,6 @@ import { getMenu, getHome, getProject } from "../lib/api"
 import { SITE_NAME } from "../lib/constants"
 import Plyr from "plyr"
 
-import LogoAppear from "../components/logo-appear"
-
 import Carousel from "../components/home/carousel"
 
 import VideoIntro from "../components/home/video-intro"
@@ -64,7 +62,6 @@ export default function Index({ preview, data, allProjects, menuData, footerData
             <Container id="home-container" className='hide-home'>
                 {allProjects[0]?.map(item => <Carousel data={item[0]?.node} />)}
             </Container>
-            <LogoAppear />
         </Layout>
     )
   }
@@ -85,7 +82,7 @@ export async function getStaticProps({ params, preview = false, previewData }) {
     let fetchAll = [];
 
     data[0].node.featured.forEach(item => {
-        if(item !== null) {
+        if(item.project !== null) {
             let getProjectPromise = new Promise((resolve, reject) => {
                     let getClientResult = getProject(item.project._meta.id, previewData)
                     resolve(getClientResult);
