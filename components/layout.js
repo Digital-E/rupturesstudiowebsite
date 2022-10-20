@@ -50,6 +50,7 @@ export default function Layout({ preview, children, name, content, footerData })
         <main>
           {children}
           {/* <Footer data={footerData[0].node} /> */}
+          <Footer />
         </main>
       </Container>
     </>

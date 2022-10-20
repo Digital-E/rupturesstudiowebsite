@@ -10,7 +10,7 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
-    margin: 100px 0;
+    margin: 50px 0;
 
     > div {
         display: flex;
@@ -53,7 +53,7 @@ const Component = ({ data, keyProp }) => {
         players = Plyr.setup('#player', {
             autoplay: true,
             muted: true,
-            controls: ['play', 'progress', 'mute'
+            controls: ['play', 'progress', 'mute', 'fullscreen'
             // , 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'
         ]
         });

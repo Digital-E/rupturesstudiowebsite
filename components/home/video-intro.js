@@ -58,7 +58,7 @@ const Logo = styled.div`
     transform: translate(-50%, -50%);
     width: auto;
     z-index: 0;
-    height: 14vh;
+    height: 16vh;
     opacity: 0;
     transition: opacity 1s;
 
@@ -183,6 +183,7 @@ const Component = ({ data }) => {
         if(!introSequenceHasFinished) return;
 
         containerRef.current.classList.add('hide-intro-video')
+        document.querySelector('.menu').classList.add('display-menu')
 
         setTimeout(() => {
             containerRef.current.style.display = 'none'
@@ -220,7 +221,6 @@ const Component = ({ data }) => {
             
                             setTimeout(() => {
                                 skipRef.current.classList.add('show-skip-button')  
-                                document.querySelector('.menu').classList.add('display-menu')
                             }, 500)
             
                         }, 1000)

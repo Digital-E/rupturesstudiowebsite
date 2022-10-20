@@ -30,6 +30,7 @@
   --plyr-tooltip-color: white;
   --plyr-font-family: "Neue Haas Grotesk Regular";
   --plyr-video-controls-background: transparent;
+  --plyr-video-background: #b2b2b2;
 }
 
 .fixed_target {
@@ -244,6 +245,7 @@ button {
 
 h1 {
   font-size: 2rem;
+  font-family: 'Neue Haas Grotesk Medium';
 }
 
 h1,

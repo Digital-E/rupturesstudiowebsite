@@ -1,91 +1,42 @@
 import { useEffect, useState } from "react"
 import Head from 'next/head'
+import styled from 'styled-components'
 import Layout from "../../components/layout"
 import { getMenu, getArchive, getAllProjects } from "../../lib/api"
 import Plyr from "plyr"
 
-import styled from "styled-components"
+import List from '../../components/archive/list'
 
 import { SITE_NAME } from "../../lib/constants"
 
-import Carousel from "../../components/archive/carousel"
-
-import Filter from "../../components/archive/filter"
-
-import LogoAppear from "../../components/logo-appear"
-
-const HideOnDesktop = styled.div`
-    @media(min-width: 990px) {
-        display: none;
-    }
+const Container = styled.div`
+    position: relative;
+    min-height: calc(100vh - 33px);
+    padding: 120px 0 0 0;
 
     @media(max-width: 989px) {
-        .footer-logo {
-            margin-bottom: 65px;
-        }
+        padding: 70px 0 0 0;
     }
+
 `
 
 
-let tags = [
-    {
-        label: "All",
-        count: ""
-    },
-    {
-        label: "Image",
-        count: 14
-    },
-    {
-        label: "Video",
-        count: 3
-    },
-    {
-        label: "Typography",
-        count: 40
-    },
-]
-
 export default function Index({ preview, data, allProjects, menuData, footerData }) {
-    let players = null;
-    let [selectedTagIndex, setSelectedTagIndex] = useState(0);
-
-
-    useEffect(() => {
-
-        players = Plyr.setup('#player', {
-            autoplay: true,
-            muted: true,
-            controls: ['play', 'progress', 'mute'
-            // , 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'
-        ]
-        });
-
-        players?.forEach(item => {
-            item.muted = true;
-        })
-
-        return () => {
-            players?.forEach(item => item.destroy())
-        }
-    },[])
 
     return (
         <Layout 
         preview={preview} 
         name={data[0].node.title} content={data[0].node.content} 
-        // footerData={footerData}
+        footerData={footerData}
         >
             <Head>
                 <title>
                     {data[0].node.title} | {SITE_NAME} 
                 </title>
             </Head>
-            <Filter tags={data[0].node.tags} selectedTagIndex={selectedTagIndex} setSelectedTagIndex={(i) => setSelectedTagIndex(i)}/>
-            <Carousel data={allProjects} selectedTag={tags[selectedTagIndex]}/>
-            <HideOnDesktop>
-                <LogoAppear />
-            </HideOnDesktop>
+            <Container>
+                <List data={allProjects} />
+            </Container>
         </Layout>
     )
   }

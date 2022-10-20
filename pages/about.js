@@ -16,7 +16,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     width: 100vw;
-    min-height: 100vh;
+    min-height: calc(100vh - 33px);
     padding: 120px 0;
     overflow: hidden;
     opacity: 0;
@@ -104,13 +104,6 @@ const Tags = styled.div`
 `
 
 const Logo = styled.div`
-    // position: fixed;
-    // width: 50vw;
-    // // bottom: -50%;
-    // bottom: calc(-0.5 * 50vw);
-    // left: 50%;
-    // transform: translateX(-50%);
-    // z-index: 0;
     width: 220px;
     margin-bottom: 50px;
 

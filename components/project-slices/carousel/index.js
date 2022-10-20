@@ -20,6 +20,10 @@ const Container = styled.div`
     width: 100%;
     margin: 150px 0 150px 0;
 
+    [data-plyr="fullscreen"] {
+        display: none;
+    }
+
     .flickity-viewport {
         overflow: visible !important;
     }

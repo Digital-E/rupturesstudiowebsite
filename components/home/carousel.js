@@ -115,7 +115,6 @@ const Title = styled.div`
     display: flex;
     font-family: Neue Haas Grotesk Regular;
     padding-top: 8px;
-    text-transform: capitalize;
     width: fit-content;
 
     a {
