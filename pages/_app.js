@@ -60,7 +60,7 @@ function MyApp({ Component, pageProps, router }) {
       // onExitComplete={() => { window.scrollTo(0,0) }}
       > 
       <motion.div
-      key={router.asPath} initial="pageInitial" animate="pageAnimate" exit= "pageExit"
+      key={router.asPath} initial="pageInitial" animate="pageAnimate" exit="pageExit"
         variants={{
           pageInitial: {
             opacity: 0

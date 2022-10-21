@@ -5,6 +5,7 @@ import Layout from "../../components/layout"
 import { getMenu, getArchive, getAllProjects } from "../../lib/api"
 import Plyr from "plyr"
 
+import Images from "../../components/about/images"
 import List from '../../components/archive/list'
 
 import { SITE_NAME } from "../../lib/constants"
@@ -22,6 +23,7 @@ const Container = styled.div`
 
 
 export default function Index({ preview, data, allProjects, menuData, footerData }) {
+    let [tagHoveredIndex, setTagHoveredIndex] = useState(null);
 
     return (
         <Layout 
@@ -34,8 +36,9 @@ export default function Index({ preview, data, allProjects, menuData, footerData
                     {data[0].node.title} | {SITE_NAME} 
                 </title>
             </Head>
+            <Images data={allProjects} index={tagHoveredIndex} />
             <Container>
-                <List data={allProjects} />
+                <List data={allProjects} setTagHoveredIndex={(index) => setTagHoveredIndex(index)} tagHoveredIndex={tagHoveredIndex} />
             </Container>
         </Layout>
     )

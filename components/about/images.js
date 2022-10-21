@@ -32,6 +32,7 @@ let prevIndex = 0;
 let timeout = null;
 
 const Component = ({ data, index }) => {
+
     let containerRef = useRef();
 
     let margin = 10;
@@ -137,11 +138,14 @@ const Component = ({ data, index }) => {
 
         // Create Images
 
-        data.node.images.forEach((item, index) => {
+        let allImages = data.node.images || data.node.thumbnails
+
+        allImages = allImages.filter(item => item.image !== null)
+
+        allImages.forEach((item, index) => {
             let img = document.createElement('img')
             img.src = item.image.url
             img.classList.add('hide-image')
-    
             containerRef.current.appendChild(img)
         })
 
@@ -158,7 +162,7 @@ const Component = ({ data, index }) => {
         indexOfImage += 1;
 
         interval = setInterval(() => {
-            if(revealRound && data.node.images.length > 1) {
+            if(revealRound && allImages.length > 1) {
                 let coordinates = newCoordinates(containerRef.current.children[indexOfImage], indexOfImage);
 
                 if(coordinates === undefined ||  containerRef.current.children[indexOfImage] === undefined) return;
@@ -168,7 +172,7 @@ const Component = ({ data, index }) => {
 
                 containerRef.current.children[indexOfImage].classList.remove('hide-image')
                 indexOfImage += 1;
-                if(indexOfImage === data.node.images.length) {
+                if(indexOfImage === allImages.length) {
                     indexOfImage = 0;
                     revealRound = false;
                 }
@@ -181,7 +185,7 @@ const Component = ({ data, index }) => {
             //         revealRound = true;
             //     }
             // }
-        }, 250)
+        }, 200)
 
     }
 
@@ -209,14 +213,23 @@ const Component = ({ data, index }) => {
             return
         }
 
+        let dataVar
+
         if(data[0][index]) {
+            dataVar = data[0][index][0] 
+        } else {
+            dataVar = data[index]
+        }
+
+
+        if(dataVar) {
             if(index !== prevIndex) {
                 clearAll(true);
                 timeout = setTimeout(() => {
-                    createImages(data[0][index][0], index);
+                    createImages(dataVar, index);
                 }, 350)
             } else {
-                createImages(data[0][index][0], index);
+                createImages(dataVar, index);
             }
             
             prevIndex = index;
