@@ -33,6 +33,10 @@
   --plyr-video-background: #b2b2b2;
 }
 
+.hide-preloaded-image {
+  visibility: hidden;
+}
+
 .fixed_target {
   position: fixed;
   top: 0;

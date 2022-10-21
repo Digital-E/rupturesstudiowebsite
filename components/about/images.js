@@ -37,6 +37,28 @@ const Component = ({ data, index }) => {
 
     let margin = 10;
 
+    useEffect(() => {
+        // preload all
+        let dataVar
+
+        if(data[0].node === undefined) {
+            dataVar = data[0]
+        } else {
+            dataVar = data
+        }
+
+        dataVar.forEach(itemOne => {
+            let allImages = itemOne[0]?.node.images || itemOne.node.thumbnails
+
+            allImages.forEach(itemTwo => {
+                let img = document.createElement('img')
+                img.src = itemTwo.image?.url
+                img.classList.add('hide-preloaded-image')
+                document.body.appendChild(img)
+            })
+        })
+    }, []);
+
 
     let randomIntFromInterval = (min, max) => {
         return Math.floor(Math.random() * (max - min + 1) + min)
