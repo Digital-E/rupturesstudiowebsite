@@ -121,8 +121,8 @@ let animation = {
     exit: {
         opacity: 0,
         filter: 'blur(20px)',
-        y: -10,
-        scale: 1.1
+        // y: -10,
+        // scale: 1.1
     }
 }
 

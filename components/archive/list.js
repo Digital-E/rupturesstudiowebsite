@@ -20,10 +20,10 @@ const Header = styled.div`
         transition: opacity 0.3s;
     }
 
-    // > div {
-    //     font-size: 0.8rem;
-    //     font-family: "Neue Haas Grotesk Medium";
-    // }
+    > div {
+        font-size: 0.8rem;
+        font-family: "Neue Haas Grotesk Medium";
+    }
 
     > div:nth-child(1) {
         flex-basis: 30%;
@@ -103,12 +103,12 @@ const Component = ({ data, setTagHoveredIndex, tagHoveredIndex }) => {
     return (
         <Container>
             <Header ref={headerRef}>
-                <div><Tag ter={true}>Project</Tag></div>
+                {/* <div><Tag ter={true}>Project</Tag></div>
                 <div><Tag ter={true}>Tags</Tag></div>
-                <div><Tag ter={true}>Year</Tag></div>
-                {/* <div>Project</div>
+                <div><Tag ter={true}>Year</Tag></div> */}
+                <div>Project</div>
                 <div>Tags</div>
-                <div>Year</div> */}
+                <div>Year</div>
             </Header>
             <List
                 variants={animation} 
