@@ -8,7 +8,7 @@ import ListItem from './list-item'
 
 const Container = styled.div``
 
-const Header = styled.div`
+const Header = styled(motion.div)`
     display: flex;
     align-items: center;
     padding: 10px;
@@ -71,10 +71,23 @@ let animation = {
     enter: {
         transition: {
             staggerChildren: 0.05,
-            delayChildren: 0.1
+            // delayChildren: 0.1
         }
     },
     exit: {
+    }
+}
+
+let animationHeader = {
+    enter: {
+        opacity: 1,
+        transition: {
+            duration: 1,
+            // delayChildren: 0.1
+        }
+    },
+    exit: {
+        opacity: 0
     }
 }
 
@@ -102,7 +115,12 @@ const Component = ({ data, setTagHoveredIndex, tagHoveredIndex }) => {
 
     return (
         <Container>
-            <Header ref={headerRef}>
+            <Header 
+                variants={animationHeader} 
+                initial='exit'
+                animate='enter'
+                ref={headerRef}
+            >
                 {/* <div><Tag ter={true}>Project</Tag></div>
                 <div><Tag ter={true}>Tags</Tag></div>
                 <div><Tag ter={true}>Year</Tag></div> */}

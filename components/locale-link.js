@@ -1,5 +1,7 @@
 import { useRouter } from "next/router";
 
+import Link from "next/link"
+
 
 const LinkComponent = ({href, children}) => {
     const router = useRouter();
@@ -23,10 +25,13 @@ const LinkComponent = ({href, children}) => {
     }
 
     return (
-        // <Link href={`${href}`} scroll={false}>
-            <a onClick={() => navigateTo()} className={`/${router.query.lang}` === href ? "active-link" : ""}>{children}</a>
-        // </Link>
+        <Link href={`${href}`} scroll={false}>
+            <a 
+            // onClick={() => navigateTo()} 
+            className={`/${router.query.lang}` === href ? "active-link" : ""}>{children}</a>
+        </Link>
     )
 }
+
 
 export default LinkComponent
