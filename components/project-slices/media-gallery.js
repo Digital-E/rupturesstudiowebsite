@@ -69,7 +69,7 @@ const Component = ({ data, keyProp }) => {
 
     return (
         data.variation.primary.carousel ?
-        <Carousel data={items} keyProp={keyProp} />
+        <Carousel data={data} keyProp={keyProp} />
         :
         <Container size={data.variation.primary.width} key={keyProp}>
             <div>

@@ -42,7 +42,7 @@ const More = styled.div`
 
 
 export default ({ data, keyProp }) => {
-    let [media, setMedia] = useState(data)
+    let [media, setMedia] = useState(data.variation.items)
     let [windowHeight, setWindowHeight] = useState(0);
     let gallery = useRef();
     let mouseSwipe;
@@ -54,7 +54,18 @@ export default ({ data, keyProp }) => {
             // setWindowHeight(null)
             setWindowHeight(200)
         } else {
-            setWindowHeight(window.innerHeight / 2)
+
+            let size = 0.5
+
+            if(data.variation.primary.width === "M") {
+                size = 0.7
+            }
+
+            if(data.variation.primary.width === "L") {
+                size = 0.9
+            }
+
+            setWindowHeight(window.innerHeight * size)
         }
     }
 
@@ -205,7 +216,6 @@ export default ({ data, keyProp }) => {
 
     }
 
-
     useEffect(() => {
 
         setWindowHeightFunction();
@@ -225,7 +235,7 @@ export default ({ data, keyProp }) => {
         <Container>
             <Carousel ref={gallery} key={keyProp}>
                 {media.map((item, index) => {
-                return <Slide key={index} item={item} windowHeight={windowHeight} />
+                return <Slide key={index} item={item} windowHeight={windowHeight} size={data.variation.primary.width} />
                 })}
             </Carousel>
         </Container>

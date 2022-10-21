@@ -30,6 +30,14 @@ export default function Layout({ preview, children, name, content, footerData })
       lerp: 0.04,
       multiplier: 0.8
     });
+    
+    // scroll.on('scroll', (args) => {
+    //   // Get all current elements : args.currentElements
+    //   if(typeof args.currentElements['project-hero'] === 'object') {
+    //       let progress = args.currentElements['project-hero'].progress;
+    //       args.currentElements['project-hero'].el.style.filter = `blur(${1 + progress}px)`
+    //   }
+    // });
 
     window.scroll = scroll
 
@@ -45,8 +53,8 @@ export default function Layout({ preview, children, name, content, footerData })
   return (
     <>
       <Meta name={name} content={content}/>
-      <Container data-scroll-container>
-        <Alert preview={preview} />
+      <Alert preview={preview} />
+      <Container data-scroll-container id="container">
         <main>
           {children}
           {/* <Footer data={footerData[0].node} /> */}

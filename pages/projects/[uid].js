@@ -66,7 +66,7 @@ data = data[0]?.node
       <Container>
         <Hero data={data} />
         <Slices data={data} />
-        <Carousel data={allProjects} projectPage={true}/>
+        <Carousel data={allProjects.edges} projectPage={true}/>
       </Container>
     </Layout>
   )

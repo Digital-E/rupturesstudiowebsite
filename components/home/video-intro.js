@@ -242,6 +242,7 @@ const Component = ({ data }) => {
                 if(window.innerWidth < 990) {
                     setTimeout(() => {
                         containerRef.current.classList.add('hide-intro-video')
+                        document.querySelector('.menu').classList.add('display-menu')
                 
                         setTimeout(() => {
                             containerRef.current.style.display = 'none'

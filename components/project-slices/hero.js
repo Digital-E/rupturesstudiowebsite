@@ -9,27 +9,45 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     margin: 0 0 40px 0;
+    overflow: hidden;
 `
 
 const InnerContainer = styled.div`
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: fit-content;
-    margin-top: 20px;
+    width: 100%;
+    padding-top: 20px;
+    background-color: var(--gray);
 `
 
 const Title = styled.h1`
     margin: 0 0 5px 0;
 `
 
+const MediaWrapper = styled.div`
+    position: relative;
+    width: 100%;
+`
+
+
 
 const Component = ({ data }) => {
 
     return (
         <Container>
-            <Media asset={data} />
+            <MediaWrapper 
+            data-scroll 
+            data-scroll-position="top"
+            data-scroll-speed="-1"
+            data-scroll-target="#container"
+            data-scroll-id="project-hero"
+            >
+                <Media asset={data} />
+            </MediaWrapper>
             <InnerContainer>
                 <Title>{ data.title }</Title>
                 <Tags data={ data } />

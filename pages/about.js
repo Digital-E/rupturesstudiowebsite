@@ -142,7 +142,9 @@ export default function Index({ preview, data, clientData, menuData, footerData 
         document.querySelector(".about-text").innerHTML = splitHTML.join("");
         
         
-        containerRef.current.style.opacity = 1;
+        setTimeout(() => {
+            containerRef.current.style.opacity = 1;
+        }, 200)
 
     }, []);
 

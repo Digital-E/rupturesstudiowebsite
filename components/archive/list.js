@@ -12,11 +12,11 @@ const Header = styled(motion.div)`
     display: flex;
     align-items: center;
     padding: 10px;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     transition: opacity 0.3s;
 
     &.list-focus {
-        opacity: 0;
+        opacity: 0 !important;
         transition: opacity 0.3s;
     }
 
