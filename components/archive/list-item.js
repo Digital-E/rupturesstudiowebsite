@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
-import Link from '../locale-link'
+import Link from '../menu-link'
 
 import Tags from '../tags'
 
