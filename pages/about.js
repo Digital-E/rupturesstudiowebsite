@@ -172,12 +172,12 @@ export default function Index({ preview, data, clientData, menuData, footerData 
                         {data[0].node.tags_one.map((item, index) => <div onMouseEnter={() => setTagHoveredIndex(index)} 
                         onMouseLeave={() => setTagHoveredIndex(null)}
                         ><Tag>{item.tag}</Tag></div>)}
-                        <Tag>...</Tag>
+                        {/* <Tag>...</Tag> */}
                     </Tags>
                     <div className="hide-on-hover">{data[0].node.tags_two_title}</div>
                     <Tags className="hide-on-hover">
                         {data[0].node.tags_two.map(item => <Tag>{item.tag}</Tag>)}
-                        <Tag>...</Tag>
+                        {/* <Tag>...</Tag> */}
                     </Tags>
                     <div className="hide-on-hover">
                         <RichText render={data[0].node.information_two} />

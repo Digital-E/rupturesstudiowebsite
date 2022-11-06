@@ -115,12 +115,11 @@ let animation = {
                 duration: 1,
                 ease: ease,
             },
-            staggerChildren: 0.1
         }
     },
     exit: {
         opacity: 0,
-        filter: 'blur(20px)',
+        // filter: 'blur(20px)',
         // y: -10,
         // scale: 1.1
     }
@@ -130,6 +129,7 @@ let animation = {
 const Component = ({ data }) => {
 
     return (
+    data ?
     <Link href={`projects/${data._meta.uid}`}>
         <Container
             variants={animation}
@@ -154,6 +154,8 @@ const Component = ({ data }) => {
             </div>
         </Container>
     </Link>
+    :
+    null
     )
 }
 

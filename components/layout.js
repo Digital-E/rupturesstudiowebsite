@@ -26,7 +26,7 @@ export default function Layout({ preview, children, name, content, footerData })
   useEffect(() => {
     scroll = new LocomotiveScroll({
       el: document.querySelector('[data-scroll-container]'),
-      smooth: true,
+      smooth: false,
       lerp: 0.04,
       multiplier: 0.8
     });

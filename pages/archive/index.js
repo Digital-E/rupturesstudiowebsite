@@ -39,6 +39,38 @@ const Logo = styled.div`
 export default function Index({ preview, data, allProjects, menuData, footerData }) {
     let [tagHoveredIndex, setTagHoveredIndex] = useState(null);
 
+    let [allProjectsOrdered, setAllProjectsOrdered] = useState(allProjects)
+
+    useEffect(() => {
+        let allYears = [];
+
+        let currentYear = allProjects[0].node.year
+
+        let newYear = [];
+
+        allProjects.forEach(item => {
+            if(item.node.year !== currentYear) {
+                newYear.push(item)
+                allYears.push(newYear)
+                newYear = []
+                currentYear = item.node.year
+            } else {
+                newYear.push(item) 
+            }
+        })
+
+        allYears.map(item => item.sort((a, b) => a.node.title.localeCompare(b.node.title)))
+
+        let orderedArray = [];
+
+        allYears.forEach(item => {
+            item.forEach(item => orderedArray.push(item))
+        })
+
+       setAllProjectsOrdered(orderedArray)
+
+    }, []);
+
     return (
         <Layout 
         preview={preview} 
@@ -50,9 +82,9 @@ export default function Index({ preview, data, allProjects, menuData, footerData
                     {data[0].node.title} | {SITE_NAME} 
                 </title>
             </Head>
-            <Images data={allProjects} index={tagHoveredIndex} />
+            <Images data={allProjectsOrdered} index={tagHoveredIndex} />
             <Container>
-                <List data={allProjects} setTagHoveredIndex={(index) => setTagHoveredIndex(index)} tagHoveredIndex={tagHoveredIndex} />
+                <List data={allProjectsOrdered} setTagHoveredIndex={(index) => setTagHoveredIndex(index)} tagHoveredIndex={tagHoveredIndex} />
             </Container>
             {/* <Logo>
                 <svg width="100" height="100" viewBox="0 0 35 35" fill="none">

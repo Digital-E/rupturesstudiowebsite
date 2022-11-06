@@ -58,7 +58,7 @@ const Logo = styled.div`
     transform: translate(-50%, -50%);
     width: auto;
     z-index: 0;
-    height: 16vh;
+    height: 12vh;
     opacity: 0;
     transition: opacity 1s;
 
@@ -66,24 +66,24 @@ const Logo = styled.div`
         height: 100%;
         margin: 0 5px;
         max-width: 0px;
-        transition: max-width 1s;
+        transition: max-width 1s ease-out;
     }
 
     img:nth-child(1),
     img:nth-child(3)
      {
-        height: 40%;
+        height: 30%;
     }
 
     .remove-max-width {
-        max-width: 100px !important
+        max-width: 150px !important;
     }
 
     @media(max-width: 989px) {
         height: 50px;
 
         .remove-max-width {
-            max-width: 50px !important
+            max-width: 100px !important
         }
     }
 `
@@ -228,7 +228,7 @@ const Component = ({ data }) => {
                 }, 1000)
 
             }, 1000)
-        }, 2000)        
+        }, 0)        
     }
 
 

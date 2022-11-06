@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
@@ -70,7 +70,7 @@ const List = styled(motion.div)`
 let animation = {
     enter: {
         transition: {
-            staggerChildren: 0.05,
+            // staggerChildren: 0.03,
             // delayChildren: 0.1
         }
     },
@@ -112,6 +112,7 @@ const Component = ({ data, setTagHoveredIndex, tagHoveredIndex }) => {
 
         }
     }, [tagHoveredIndex])
+
 
     return (
         <Container>

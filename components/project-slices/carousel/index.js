@@ -7,7 +7,10 @@ import Slide from './slide'
 import wheel from 'wheel';
 import normalizeWheel from 'normalize-wheel';
 
+import Link from "../../locale-link"
 import Tag from '../../tags/tag'
+
+import _ from "lodash"
 
 let Flickity = null
 
@@ -19,6 +22,7 @@ const Container = styled.div`
     position: relative;
     width: 100%;
     margin: 150px 0 150px 0;
+    overflow: hidden;
 
     [data-plyr="fullscreen"] {
         display: none;
@@ -49,7 +53,7 @@ const More = styled.div`
 
 export default ({ data, selectedTag }) => {
     const router = useRouter()
-    let [displayProjects, setDisplayProjects] = useState(data)
+    let [displayProjects, setDisplayProjects] = useState([])
     let [hasTransitioned, setHasTransitioned] = useState(false);
     let [windowHeight, setWindowHeight] = useState(0);
     let gallery = useRef();
@@ -219,8 +223,29 @@ export default ({ data, selectedTag }) => {
     useEffect(() => {
 
         setWindowHeightFunction();
+
+        // Randomise Projects
+
+        const shuffleArray = array => {
+            for (let i = array.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              const temp = array[i];
+              array[i] = array[j];
+              array[j] = temp;
+            }
+
+            return array
+        }
+
+        let shuffledArray = shuffleArray(data)
+
+        let splicedArray = shuffledArray.splice(0,6);
+
+        setDisplayProjects(splicedArray)
         
-        initFlickity();
+        setTimeout(() => {
+            initFlickity();
+        }, 0)
 
         window.addEventListener('resize', () => {
             setWindowHeightFunction()
@@ -234,7 +259,7 @@ export default ({ data, selectedTag }) => {
 
     return (
         <Container>
-            <More><Tag>More projects</Tag></More>
+            <More><Link href="/archive"><Tag>More projects</Tag></Link></More>
             <Carousel ref={gallery} key='archive'>
                 {displayProjects.map((item, index) => {
                 return <Slide key={index} item={item.node} windowHeight={windowHeight} />

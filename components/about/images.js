@@ -25,6 +25,16 @@ const Container = styled.div`
         }
     }
 `
+const PreloadedImagesContainer = styled.div`
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+`
+
+
 let interval = null;
 
 let prevIndex = 0;
@@ -34,6 +44,8 @@ let timeout = null;
 const Component = ({ data, index }) => {
 
     let containerRef = useRef();
+
+    let preloadedImagesContainerRef = useRef();
 
     let margin = 10;
 
@@ -54,7 +66,7 @@ const Component = ({ data, index }) => {
                 let img = document.createElement('img')
                 img.src = itemTwo.image?.url
                 img.classList.add('hide-preloaded-image')
-                document.body.appendChild(img)
+                preloadedImagesContainerRef.current.appendChild(img)
             })
         })
     }, []);
@@ -199,20 +211,14 @@ const Component = ({ data, index }) => {
                     revealRound = false;
                 }
             } 
-            // else {
-            //     containerRef.current.children[indexOfImage].classList.add('hide-image')
-            //     indexOfImage += 1;
-            //     if(indexOfImage === data.node.slices[0].variation.items.length) {
-            //         indexOfImage = 0;
-            //         revealRound = true;
-            //     }
-            // }
+
         }, 200)
 
     }
 
     let clearAll = (timeout) => {
         clearInterval(interval)
+
         Array.from(containerRef.current.children).forEach(item => {
             item.classList.add('hide-image')
         })
@@ -220,7 +226,7 @@ const Component = ({ data, index }) => {
         if(timeout) {
             timeout = setTimeout(() => {
                 containerRef.current.innerHTML = ""
-            }, 300)
+            }, 200)
         } else {
             containerRef.current.innerHTML = ""
         }
@@ -245,14 +251,10 @@ const Component = ({ data, index }) => {
 
 
         if(dataVar) {
-            if(index !== prevIndex) {
-                clearAll(true);
-                timeout = setTimeout(() => {
-                    createImages(dataVar, index);
-                }, 350)
-            } else {
+            clearAll(true);
+            timeout = setTimeout(() => {
                 createImages(dataVar, index);
-            }
+            }, 350)
             
             prevIndex = index;
         }
@@ -260,7 +262,10 @@ const Component = ({ data, index }) => {
     }, [index])
 
     return (
-        <Container ref={containerRef}></Container>
+        <>
+            <Container ref={containerRef} />
+            <PreloadedImagesContainer ref={preloadedImagesContainerRef} />
+        </>
     )
 }
 
