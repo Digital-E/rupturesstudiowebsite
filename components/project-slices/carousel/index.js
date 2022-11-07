@@ -22,7 +22,6 @@ const Container = styled.div`
     position: relative;
     width: 100%;
     margin: 150px 0 150px 0;
-    overflow: hidden;
 
     [data-plyr="fullscreen"] {
         display: none;

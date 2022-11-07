@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -8,9 +9,10 @@ const Container = styled.div`
     padding-bottom: ${props => (isNaN(props.width) || props.width === 0)  ? `${props.aspectRatio}%` : `auto`};
     background-color: #b2b2b2;
 
-    .show-image {
-    opacity: 1;
-    transition-duration: 0.2s;
+
+    .show-video {
+        opacity: 1 !important;
+        transition-duration: 0.2s;
     }
 
     video {
@@ -24,10 +26,13 @@ const Container = styled.div`
         position: absolute;
         height: 100%;
         width: 100%;
+        opacity: 0;
     }
 `;
 
 export default function Component({ src, height, width, windowHeight, id }) {
+    let [hasLoaded, setHasLoaded] = useState(false);
+
     let aspectRatio = 0;
 
     let videoId = src;

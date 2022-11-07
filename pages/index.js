@@ -36,9 +36,13 @@ export default function Index({ preview, data, allProjects, menuData, footerData
             // , 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'
         ]
         });
+        
 
         players?.forEach(item => {
             item.muted = true;
+            item.on('ready', (event) => {
+                event.currentTarget.classList.add("show-video")
+            })
         })
 
         return () => {

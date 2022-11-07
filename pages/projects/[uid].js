@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import Head from 'next/head'
 import Layout from "../../components/layout";
 import styled from 'styled-components';
+import Plyr from "plyr";
 
 
 import { getProjectPage, getProjectPageSlugs, getAllProjects, getMenu, getFooter } from "../../lib/api";
@@ -19,6 +20,8 @@ const Container = styled.div``
 
 
 export default function Index({ preview, data, allArtistPagesDataPaginate, allProjects, footerData }) {
+
+let players = null;
 
 data = data[0]?.node
 
@@ -54,6 +57,30 @@ data = data[0]?.node
     //   window.scroll.update()
     // }, 100)    
   }, [])
+
+  useEffect(() => {
+
+    setTimeout(() => {
+      players = Plyr.setup('#player', {
+        autoplay: true,
+        muted: true,
+        controls: ['play', 'progress', 'mute', 'fullscreen'
+        // , 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'
+      ]
+      });
+
+      players?.forEach(item => {
+          item.muted = true;
+          item.on('ready', (event) => {
+              event.currentTarget.classList.add("show-video")
+          })
+      })
+    }, 100)
+
+    return () => {
+        players?.forEach(item => item.destroy())
+    }
+},[])
 
   return (
     <Layout 

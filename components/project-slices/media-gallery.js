@@ -1,6 +1,4 @@
-import { useEffect } from "react"
 import styled from "styled-components"
-import Plyr from "plyr"
 
 import Media from "../media"
 
@@ -40,7 +38,6 @@ const Container = styled.div`
 
 
 const Component = ({ data, keyProp }) => {
-    let players = null;
 
     let items = data.variation.items
 
@@ -48,24 +45,6 @@ const Component = ({ data, keyProp }) => {
         items = items.slice(0, 3);
     }
 
-    useEffect(() => {
-
-        players = Plyr.setup('#player', {
-            autoplay: true,
-            muted: true,
-            controls: ['play', 'progress', 'mute', 'fullscreen'
-            // , 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'
-        ]
-        });
-
-        players?.forEach(item => {
-            item.muted = true;
-        })
-
-        return () => {
-            players?.forEach(item => item.destroy())
-        }
-    },[])
 
     return (
         data.variation.primary.carousel ?

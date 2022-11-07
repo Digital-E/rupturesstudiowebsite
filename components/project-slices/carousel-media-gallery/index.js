@@ -17,6 +17,7 @@ const Container = styled.div`
     position: relative;
     width: 100%;
     margin: 100px 0;
+    overflow: hidden;
 
     .flickity-viewport {
         overflow: visible !important;
