@@ -16,7 +16,9 @@ import Slices from "../../components/project-slices/index"
 import Carousel from "../../components/project-slices/carousel"
 
 
-const Container = styled.div``
+const Container = styled.div`
+  overflow: hidden;
+`
 
 
 export default function Index({ preview, data, allArtistPagesDataPaginate, allProjects, footerData }) {

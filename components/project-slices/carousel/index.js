@@ -20,8 +20,9 @@ if (typeof window !== "undefined") {
 
 const Container = styled.div`
     position: relative;
-    width: 100%;
+    width: 100vw;
     margin: 150px 0 150px 0;
+    
 
     [data-plyr="fullscreen"] {
         display: none;
@@ -110,7 +111,8 @@ export default ({ data, selectedTag }) => {
                 // number of pixels a user must scroll horizontally to start dragging
                 // increase to allow more room for vertical scroll for touch devices
             
-                freeScroll: window.innerWidth > 989 ? true : false,
+                // freeScroll: window.innerWidth > 989 ? true : false,
+                freeScroll: true,
 
                 // enables content to be freely scrolled and flicked
                 // without aligning cells
@@ -210,11 +212,11 @@ export default ({ data, selectedTag }) => {
         };
 
 
-        setTimeout(() => {
-            if(flickity) {
-                flickity.resize();
-            }
-        }, 10);
+        // setTimeout(() => {
+        //     if(flickity) {
+        //         flickity.resize();
+        //     }
+        // }, 100);
 
     }
 
@@ -244,7 +246,7 @@ export default ({ data, selectedTag }) => {
         
         setTimeout(() => {
             initFlickity();
-        }, 0)
+        }, 100)
 
         window.addEventListener('resize', () => {
             setWindowHeightFunction()

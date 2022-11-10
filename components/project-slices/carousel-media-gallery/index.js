@@ -111,7 +111,9 @@ export default ({ data, keyProp }) => {
                 // number of pixels a user must scroll horizontally to start dragging
                 // increase to allow more room for vertical scroll for touch devices
             
-                freeScroll: window.innerWidth > 989 ? true : false,
+                // freeScroll: window.innerWidth > 989 ? true : false,
+
+                freeScroll: true,
 
                 // enables content to be freely scrolled and flicked
                 // without aligning cells
@@ -209,11 +211,11 @@ export default ({ data, keyProp }) => {
         };
 
 
-        setTimeout(() => {
-            if(flickity) {
-                flickity.resize();
-            }
-        }, 10);
+        // setTimeout(() => {
+        //     if(flickity) {
+        //         flickity.resize();
+        //     }
+        // }, 10);
 
     }
 
@@ -221,7 +223,9 @@ export default ({ data, keyProp }) => {
 
         setWindowHeightFunction();
         
-        initFlickity();
+        setTimeout(() => {
+            initFlickity();
+        }, 100)
 
         window.addEventListener('resize', () => {
             setWindowHeightFunction()

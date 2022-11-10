@@ -319,9 +319,9 @@ export default ({ data }) => {
         };
 
             
-        setTimeout(() => {
-            flickity.resize();
-        }, 100);
+        // setTimeout(() => {
+        //     flickity.resize();
+        // }, 10);
 
         // flickity.on("change", () => {
         //     let projectIndex = document.querySelector(".is-selected").getAttribute("data-project-index")
@@ -341,7 +341,9 @@ export default ({ data }) => {
 
         setWindowHeightFunction();
 
-        initFlickity();
+        setTimeout(() => {
+            initFlickity();
+        }, 100);
 
         window.addEventListener('resize', () => {
             setWindowHeightFunction()

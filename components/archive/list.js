@@ -117,9 +117,9 @@ const Component = ({ data, setTagHoveredIndex, tagHoveredIndex }) => {
     return (
         <Container>
             <Header 
-                variants={animationHeader} 
-                initial='exit'
-                animate='enter'
+                // variants={animationHeader} 
+                // initial='exit'
+                // animate='enter'
                 ref={headerRef}
             >
                 {/* <div><Tag ter={true}>Project</Tag></div>

@@ -26,6 +26,8 @@ const InnerContainer = styled.div`
 
 const Title = styled.h1`
     margin: 0 0 5px 0;
+    text-align: center;
+    padding: 0 10px;
 `
 
 const MediaWrapper = styled.div`
