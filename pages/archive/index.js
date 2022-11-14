@@ -15,7 +15,7 @@ import { SITE_NAME } from "../../lib/constants"
 
 const Container = styled.div`
     position: relative;
-    min-height: calc(100vh - 33px);
+    min-height: calc(100vh - 43px);
     padding: 120px 0 0 0;
 
     @media(max-width: 989px) {

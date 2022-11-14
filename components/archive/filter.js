@@ -41,7 +41,7 @@ const Container = styled.div`
         position: fixed;
         top: auto;
         z-index: 999;
-        bottom: 15px;
+        bottom: 40px;
     }
 `
 

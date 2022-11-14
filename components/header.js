@@ -186,7 +186,8 @@ export default function Header({ data }) {
               variants= {{
                 visible: { 
                   opacity: 1,
-                  y: 0
+                  y: 0,
+                  pointerEvents: 'all'
                 },
                 hidden: { 
                   opacity: 0,
@@ -195,6 +196,9 @@ export default function Header({ data }) {
                     y: {
                       delay: 0.3
                     }
+                  },
+                  transitionEnd: {
+                    pointerEvents: 'none'
                   }
                 }
               }}

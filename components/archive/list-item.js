@@ -25,17 +25,8 @@ const Container = styled.div`
     }
 
     :hover  {
-        // background: #b2b2b2;
-        // background: #c9c9c9;
-        // border-top: 1px solid black;
-        // border-bottom: 1px solid black;
         transition: background 0s;
     }
-
-    // :hover > div:nth-child(1) > span {
-    //     margin-left: 10px;
-    //     transition: margin-left 0.3s;
-    // }
 
     > div:nth-child(1) {
         flex-basis: 30%;
@@ -72,22 +63,7 @@ const Container = styled.div`
 const Title = styled.div`
     display: flex;
     width: fit-content;
-
-    // @media(max-width: 989px) {
-    //     margin: 0 10px;
-    // }
 `;
-
-
-const More = styled.div`
-    position: absolute;
-    top: 12.5px;
-    height: 12px;
-    width: 12px;
-    margin-left: 0px;
-    opacity: 0;
-    transition: opacity 0.1s;
-`
 
 
 

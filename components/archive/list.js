@@ -52,7 +52,7 @@ const Header = styled(motion.div)`
 const List = styled.div`
 
     .archive-row {
-        max-height: 50px;
+        max-height: 40px;
         transition: opacity 0.5s 0.2s, max-height 0.5s 0.2s;
     }
 

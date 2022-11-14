@@ -18,7 +18,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     width: 100vw;
-    min-height: calc(100vh - 33px);
+    min-height: calc(100vh - 43px);
     padding: 120px 0;
     overflow: hidden;
     opacity: 0;

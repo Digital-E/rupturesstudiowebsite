@@ -263,9 +263,9 @@ const Component = ({ data }) => {
 
 
     useEffect(() => {
-        // if(hasLoaded) {
-        //     loadedVideoSequence();
-        // }
+        if(hasLoaded) {
+            loadedVideoSequence();
+        }
     }, [hasLoaded])
 
     return (
