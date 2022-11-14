@@ -67,7 +67,9 @@ function MyApp({ Component, pageProps, router }) {
           },
           pageAnimate: {
             opacity: 1,
-            duration: 0.3,
+            duration: {
+              duration: 0.3
+            }
           },
           pageExit: {
             opacity: 0,

@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
-
-import Tag from '../tags/tag'
+import { motion, AnimatePresence } from "framer-motion"
 
 import ListItem from './list-item'
+
+import sanitizeTag from "../../lib/sanitizeTag"
 
 const Container = styled.div``
 
@@ -12,8 +12,8 @@ const Header = styled(motion.div)`
     display: flex;
     align-items: center;
     padding: 10px;
-    // margin-bottom: 20px;
     transition: opacity 0.3s;
+    
 
     &.list-focus {
         opacity: 0 !important;
@@ -49,9 +49,17 @@ const Header = styled(motion.div)`
     }
 `
 
-const List = styled(motion.div)`
-    > div {
-        transition: opacity 0.3s, filter 0.3s;
+const List = styled.div`
+
+    .archive-row {
+        max-height: 50px;
+        transition: opacity 0.5s 0.2s, max-height 0.5s 0.2s;
+    }
+
+    .hide-row {
+        opacity: 0;
+        max-height: 0;
+        transition: opacity 0.5s, max-height 0.5s 0.2s;
     }
 
     .list-item-not-focus {
@@ -65,35 +73,11 @@ const List = styled(motion.div)`
         filter: blur(0px);
         transition: opacity 0.3s, filter 0.3s;
     }
+
+    .hide-row.list-item-not-focus {
+        opacity: 0;
+    }
 `
-
-let animation = {
-    enter: {
-        transition: {
-            // staggerChildren: 0.03,
-            // delayChildren: 0.1
-        }
-    },
-    exit: {
-    }
-}
-
-let animationHeader = {
-    enter: {
-        opacity: 1,
-        transition: {
-            duration: 1,
-            // delayChildren: 0.1
-        }
-    },
-    exit: {
-        opacity: 0
-    }
-}
-
-
-
-
 
 
 const Component = ({ data, setTagHoveredIndex, tagHoveredIndex }) => {
@@ -113,31 +97,34 @@ const Component = ({ data, setTagHoveredIndex, tagHoveredIndex }) => {
         }
     }, [tagHoveredIndex])
 
+    let getTags = (data) => {
+        let tags = [];
+
+        data.forEach(item => {
+            tags.push(sanitizeTag(item.tag))
+        })
+
+        return `${tags.join(" ")}`
+    }
 
     return (
         <Container>
             <Header 
-                // variants={animationHeader} 
-                // initial='exit'
-                // animate='enter'
                 ref={headerRef}
             >
-                {/* <div><Tag ter={true}>Project</Tag></div>
-                <div><Tag ter={true}>Tags</Tag></div>
-                <div><Tag ter={true}>Year</Tag></div> */}
                 <div>Project</div>
                 <div>Tags</div>
                 <div>Year</div>
             </Header>
-            <List
-                variants={animation} 
-                initial='exit'
-                animate='enter'
-                ref={listRef}
-            >
-                {
-                    data.map((item, index) => <div onMouseEnter={() => setTagHoveredIndex(index)} onMouseLeave={() => setTagHoveredIndex(null)}><ListItem data={item.node} /></div>)
-                }
+            <List ref={listRef}>
+                    {
+                        data.map((item, index) => 
+                        <div
+                            className={`archive-row ${getTags(item.node.tags)}`}
+                            onMouseEnter={() => setTagHoveredIndex(index)} onMouseLeave={() => setTagHoveredIndex(null)}>
+                            <ListItem data={item.node} />
+                        </div>)
+                    }
             </List>
         </Container>
     )

@@ -5,7 +5,7 @@ const Container = styled.footer`
   position: relative;
   display: flex;
   justify-content: flex-end;
-  padding: 10px;
+  padding: 15px 10px;
 
   a {
     // transition: color 0.03s;

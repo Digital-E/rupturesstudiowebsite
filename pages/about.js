@@ -6,6 +6,8 @@ import Layout from "../components/layout"
 import { getMenu, getAbout, getAllProjects, getClient } from "../lib/api"
 import { SITE_NAME } from "../lib/constants"
 
+import Link from '../components/menu-link'
+
 import Tag from "../components/tags/tag"
 
 import Images from "../components/about/images"
@@ -88,7 +90,7 @@ const Tags = styled.div`
         margin: 0 0 80px 0;
     }
 
-    > div {
+    > div, > a {
         margin-top: 5px;
     }
 
@@ -96,7 +98,7 @@ const Tags = styled.div`
         cursor: pointer;
     }
 
-    > div > div:hover {
+    > div > div:hover, > div > a:hover > div {
         background: black;
         color: white;
         transition: color 0s, background 0s;
@@ -116,6 +118,7 @@ const Logo = styled.div`
         width: 180px;
     }
 `
+const LinkWrapper = styled.div``
 
 
 export default function Index({ preview, data, clientData, menuData, footerData }) {
@@ -138,15 +141,17 @@ export default function Index({ preview, data, clientData, menuData, footerData 
             splitHTML.splice(item, 1, "<span class='ruptures-logo'></span>")
         })
         
-
         document.querySelector(".about-text").innerHTML = splitHTML.join("");
-        
         
         setTimeout(() => {
             containerRef.current.style.opacity = 1;
-        }, 200)
+        }, 500)
 
     }, []);
+
+    let setTag = (item) => {
+        window.sessionStorage.setItem("selectedtag", item)
+    }
 
     return (
         <Layout 
@@ -172,12 +177,10 @@ export default function Index({ preview, data, clientData, menuData, footerData 
                         {data[0].node.tags_one.map((item, index) => <div onMouseEnter={() => setTagHoveredIndex(index)} 
                         onMouseLeave={() => setTagHoveredIndex(null)}
                         ><Tag>{item.tag}</Tag></div>)}
-                        {/* <Tag>...</Tag> */}
                     </Tags>
                     <div className="hide-on-hover">{data[0].node.tags_two_title}</div>
                     <Tags className="hide-on-hover">
-                        {data[0].node.tags_two.map(item => <Tag>{item.tag}</Tag>)}
-                        {/* <Tag>...</Tag> */}
+                        {data[0].node.tags_two.map(item => <LinkWrapper onClick={() => setTag(item.tag)}><Link href={'/archive'}><Tag>{item.tag}</Tag></Link></LinkWrapper>)}
                     </Tags>
                     <div className="hide-on-hover">
                         <RichText render={data[0].node.information_two} />

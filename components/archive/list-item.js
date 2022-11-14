@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion"
 
 import Link from '../menu-link'
 
@@ -8,11 +8,10 @@ import Tags from '../tags'
 
 import Tag from '../tags/tag'
 
-const Container = styled(motion.div)`
+const Container = styled.div`
     display: flex;
     align-items: center;
     padding: 10px;
-    // background: transparent
     transition: background 0.3s;
 
     span {
@@ -90,40 +89,6 @@ const More = styled.div`
     transition: opacity 0.1s;
 `
 
-let ease = "easeOut"
-
-let animation = {
-    enter: {
-        opacity: 1,
-        filter: 'blur(0px)',
-        y: 0,
-        scale: 1,
-        transition: {
-            opacity: {
-                duration: 1,
-                ease: ease,
-            },
-            filter: {
-                duration: 1,
-                ease: ease,
-            },
-            y: {
-                duration: 1,
-                ease: ease,
-            },
-            scale: {
-                duration: 1,
-                ease: ease,
-            },
-        }
-    },
-    exit: {
-        opacity: 0,
-        // filter: 'blur(20px)',
-        // y: -10,
-        // scale: 1.1
-    }
-}
 
 
 const Component = ({ data }) => {
@@ -131,9 +96,7 @@ const Component = ({ data }) => {
     return (
     data ?
     <Link href={`projects/${data._meta.uid}`}>
-        <Container
-            variants={animation}
-        >
+        <Container>
             <Title>
                 {/* <More className="more">
                     <svg viewBox="0 0 700 700">

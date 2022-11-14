@@ -1,10 +1,7 @@
 import React, { useReducer, createContext, useEffect } from "react";
 
 const initialState = {
-  projectIndex: 0,
-  slideIndex: 0,
-  projectOpen: false,
-  allProjects: [],
+  showreelOpen: false,
 };
 
 const store = createContext(initialState);
@@ -14,24 +11,11 @@ const StateProvider = ({ children }) => {
   const [state, dispatch] = useReducer((state, action) => {
     const newState = state;
     switch (action.type) {
-      case "update project index":
+      case "showreel open":
         return {
           ...newState,
-          projectIndex: action.value
-        };
-      case "update slide index":
-        return {
-          ...newState,
-          slideIndex: action.value
-        };
-      case "update all projects":
-        newState.allProjects = action.value;
-        return newState;
-      case "update project open":
-        return {
-          ...newState,
-          projectOpen: action.value
-        };                           
+          showreelOpen: action.value
+        };                        
       default:
         throw new Error();
     }
