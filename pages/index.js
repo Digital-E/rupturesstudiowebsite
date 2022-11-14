@@ -22,8 +22,6 @@ const Container = styled.div`
 `
 
 
-
-
 export default function Index({ preview, data, allProjects, menuData, footerData }) {
     let players = null;
 

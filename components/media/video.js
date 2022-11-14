@@ -47,7 +47,7 @@ export default function Component({ src, height, width, windowHeight, id }) {
 
     return videoId !== null ?
             <Container aspectRatio={aspectRatio} width={windowHeight  * (1 / aspectRatio * 100)}>
-                {/* <video id="player" 
+                <video id="player" 
                 playsInline
                 autoPlay 
                 muted
@@ -55,7 +55,7 @@ export default function Component({ src, height, width, windowHeight, id }) {
                 // data-poster="/path/to/poster.jpg"
                 >
                     <source src={videoId} type="video/mp4" />
-                </video> */}
+                </video>
             </Container>
     :
     null

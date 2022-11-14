@@ -67,12 +67,12 @@
   transition: opacity 1s;
 }
 
-/* #__next > div:nth-child(2) {
+#__next > div:nth-child(3) {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-} */
+}
 
 .CookieConsent {
   background-color: #ffffff !important;

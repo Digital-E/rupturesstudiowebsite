@@ -307,7 +307,7 @@ export default ({ data }) => {
                     return
                 }
 
-                router.push(cellElement.getAttribute("data-url"))
+                router.push(cellElement.getAttribute("data-url"), undefined, { scroll: false })
             })
 
         }, 0);

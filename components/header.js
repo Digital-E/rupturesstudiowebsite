@@ -105,7 +105,7 @@ const Nav = styled.div`
 
 `
 
-const Logo = styled.div`
+const Logo = styled(motion.div)`
   position: absolute;
   top: 0;
   right: 0;
@@ -156,8 +156,7 @@ export default function Header({ data }) {
   
   return data ? (
     <>
-    {/* <ShowReelPopup data={data[0].node.video} /> */}
-    <ShowReelPopup data={"https://player.vimeo.com/progressive_redirect/playback/504103257/rendition/720p/file.mp4?loc=external&signature=b4d5b0a86589b85f20e5ba31bfd86e0a4005b3fc3d35cc7e83a9ed3292505bc9"} />
+    <ShowReelPopup data={data.showreel} />
     <Menu onMouseLeave={() => setOpen(false)} data-scroll data-scroll-sticky data-scroll-target="body" className="menu">
     <Container>
           <Nav>
@@ -201,12 +200,13 @@ export default function Header({ data }) {
               }}
               >
                 <LinkTag data={"/"}>
-                  <MenuLink href="/">Home</MenuLink>
+                  <MenuLink href="">Home</MenuLink>
                 </LinkTag>
               </NavEl>
               {
                 data.menu_items.map(item => 
                 <NavEl
+                onClick={() => setOpen(!open)}
                 variants= {{
                   visible: { 
                     opacity: 1,
@@ -229,8 +229,13 @@ export default function Header({ data }) {
             </NavHidden>
           </Nav>
     </Container>
-    <Logo onClick={() => toggleShowreel()}>
-      <img src="images/etoile-rs.png" />
+    <Logo onClick={() => toggleShowreel()}
+      whileHover={{
+        scale: 1.1,
+        transition: { duration: 0.5 },
+      }}
+    >
+      <img src="/images/etoile.png" />
     </Logo>
     </Menu>
     </>

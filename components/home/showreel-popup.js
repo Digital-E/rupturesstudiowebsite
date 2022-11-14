@@ -62,7 +62,7 @@ const Overlay = styled(motion.div)`
     z-index: 1;
 `
 
-
+let players = null;
 
 const Component = ({ data }) => {
     //Context
@@ -78,8 +78,6 @@ const Component = ({ data }) => {
     let skipRef = useRef();
 
     let [reveal, setReveal] = useState(false);
-
-    let players = null;
 
     let videoId = data;
 
@@ -105,40 +103,21 @@ const Component = ({ data }) => {
         }
     },[])
 
-    // useEffect(() => {
-    //     document.querySelector('.menu').style.top = "-100px"
-
-    //     if(window.sessionStorage.getItem('ruptures-studio-intro') === 'true') {
-    //         document.querySelector('.menu').classList.add('display-menu')
-    //         return;
-    //     }
-
-    //     containerRef.current.style.display = 'block';
-
-    //     videoRef.current.play()
-
-
-    //     setTimeout(() => {
-    //         // Mobile disable scroll
-    //         document.addEventListener('touchmove', disableScroll, { passive:false });
-
-    //         // Desktop disable scroll
-    //         window.scroll.stop()
-    //     }, 0)
-
-    //     introSequence();
-    // }, [])
-
 
     useEffect(() => {
         if(state.showreelOpen) {
             setReveal(true)
-
+            players[0].stop()
+            players[0].play()
             addEventListeners(); 
 
         } else {
             setReveal(false)
 
+            setTimeout(() => {
+                players[0].pause()
+            }, 1000)
+            
             removeEventListeners();      
         }
     }, [state])
@@ -174,6 +153,7 @@ const Component = ({ data }) => {
         open: {
             opacity: 1,
             display: "block",
+            pointerEvents: 'all',
             transition: {
                 duration: 1
             }
@@ -213,25 +193,14 @@ const Component = ({ data }) => {
                 duration: 0.5,
                 ease: 'easeInOut'
             }
-            // transitionEnd: {
-            //     display: "none",
-            //   },
         }
     }
 
-    // let variants = {
-    //     open: {
-    //         opacity: 1,
-    //     },
-    //     closed: {
-    //         opacity: 0,
-    //     }
-    // }
 
     return (
-    <Container ref={containerRef} init="closed" animate={reveal ? "open" : "closed"} variants={variants}>
-    <Overlay onClick={() => hasClicked()} init="closed" animate={reveal ? "open" : "closed"} variants={variants} />
-    <Video init="closed" animate={reveal ? "open" : "closed"} variants={videoVariants}>
+    <Container ref={containerRef} initial="closed" animate={reveal ? "open" : "closed"} variants={variants}>
+    <Overlay onClick={() => hasClicked()} initial="closed" animate={reveal ? "open" : "closed"} variants={variants} />
+    <Video initial="closed" animate={reveal ? "open" : "closed"} variants={videoVariants}>
         <video
             ref={videoRef}
             preload="auto"
@@ -240,8 +209,6 @@ const Component = ({ data }) => {
             autoPlay 
             muted
             loop
-            // onProgress={(e) => console.log(e)}
-            // onCanPlayThrough={() => console.log('loaded')}
             src={videoId}
             // onLoadedData={hasLoadedFunc}
             // data-poster="/path/to/poster.jpg"

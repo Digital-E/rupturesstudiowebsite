@@ -13,12 +13,13 @@
   "data": {
     "menu_items": [
       {
-        "link_text": "yesterday",
+        "link_text": "forty",
         "link": {
           "link_type": "Web",
-          "url": "https://slicemachine.dev"
+          "url": "https://prismic.io"
         }
       }
-    ]
+    ],
+    "showreel": "unknown"
   }
 }

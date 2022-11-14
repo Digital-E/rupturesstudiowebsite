@@ -27,6 +27,13 @@
             }
           }
         }
+      },
+      "showreel": {
+        "type": "Text",
+        "config": {
+          "label": "showreel",
+          "placeholder": ""
+        }
       }
     }
   }

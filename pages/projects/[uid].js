@@ -54,11 +54,6 @@ data = data[0]?.node
 //     }
 //   })
 
-  useEffect(() => {
-    // setTimeout(() => {
-    //   window.scroll.update()
-    // }, 100)    
-  }, [])
 
   useEffect(() => {
 

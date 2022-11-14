@@ -65,8 +65,8 @@ const Logo = styled.div`
     img:nth-child(2) {
         height: 100%;
         margin: 0 5px;
-        max-width: 0px;
-        transition: max-width 1s ease-out;
+        max-height: 0px;
+        transition: max-height 1.2s ease-in-out;
     }
 
     img:nth-child(1),
@@ -76,14 +76,14 @@ const Logo = styled.div`
     }
 
     .remove-max-width {
-        max-width: 150px !important;
+        max-height: 110px !important;
     }
 
     @media(max-width: 989px) {
         height: 50px;
 
         .remove-max-width {
-            max-width: 100px !important
+            max-height: 50px !important
         }
     }
 `
@@ -127,12 +127,9 @@ const LoaderInner = styled.div`
 `
 
 
-
-
-
-
 let hasLoadedVar = false;
 let introSequenceHasFinished = false;
+let introLogoSequenceHasFinished = false;
 let hasTriggeredOnce = false;
 
 const Component = ({ data }) => {
@@ -155,7 +152,6 @@ const Component = ({ data }) => {
         containerRef.current.style.display = 'block';
 
         videoRef.current.play()
-
 
         setTimeout(() => {
             // Mobile disable scroll
@@ -202,6 +198,8 @@ const Component = ({ data }) => {
             loaderRef.current.style.opacity = 1;
             loaderRef.current.children[0].style.width = "50%";
 
+            if(!introLogoSequenceHasFinished) return;
+
             setTimeout(() => {
 
             loaderRef.current.children[0].style.width = "100%";
@@ -223,7 +221,7 @@ const Component = ({ data }) => {
                                 skipRef.current.classList.add('show-skip-button')  
                             }, 500)
             
-                        }, 1000)
+                        }, 1500)
 
                 }, 1000)
 
@@ -253,9 +251,9 @@ const Component = ({ data }) => {
                     return
                 }
 
-
+                introLogoSequenceHasFinished = true;
                 loadedVideoSequence();
-            }, 750)
+            }, 1000)
         }, 1000)
     }
 
@@ -265,16 +263,16 @@ const Component = ({ data }) => {
 
 
     useEffect(() => {
-        if(hasLoaded) {
-            loadedVideoSequence();
-        }
+        // if(hasLoaded) {
+        //     loadedVideoSequence();
+        // }
     }, [hasLoaded])
 
     return (
     <Container ref={containerRef} onClick={hasClicked}>
     <Logo ref={logoRef}>
         <img src={'/images/logo-split/RUPTURES-01.svg'} />
-        <img src={'/images/logo-split/RUPTURES-03.svg'} />
+        <img src={'/images/etoile.png'} />
         <img src={'/images/logo-split/RUPTURES-02.svg'} />
     </Logo>
     <Loader ref={loaderRef}><LoaderInner /></Loader>
@@ -293,7 +291,6 @@ const Component = ({ data }) => {
             onLoadedData={hasLoadedFunc}
             // data-poster="/path/to/poster.jpg"
         >
-            {/* <source src={videoId} type="video/mp4" /> */}
         </video>
     </Videos>
     <Skip ref={skipRef}><Tag>Skip &nbsp;✕</Tag></Skip>
