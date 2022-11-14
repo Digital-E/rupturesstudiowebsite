@@ -39,7 +39,6 @@ const Container = styled.div`
 `
 
 const Videos = styled.div`
-
     @media(max-width: 989px) {
         video {
             display: none;
