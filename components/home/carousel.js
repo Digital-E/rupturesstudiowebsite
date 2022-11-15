@@ -273,10 +273,11 @@ export default ({ data }) => {
             // Cancel Page Swipe Back
 
             gallery.current.addEventListener("wheel", (e) => {
+                
                 if(e.deltaX !== 0) {
                     e.preventDefault()
                 }
-            })
+            }, {passive: true})
 
             // Mouse swipe
 

@@ -130,6 +130,7 @@ let hasLoadedVar = false;
 let introSequenceHasFinished = false;
 let introLogoSequenceHasFinished = false;
 let hasTriggeredOnce = false;
+let loadingInterval = null;
 
 const Component = ({ data }) => {
     let containerRef = useRef();
@@ -187,17 +188,27 @@ const Component = ({ data }) => {
     }
 
     let loadedVideoSequence = () => {
-        if(!hasLoadedVar) return;
+
         if(hasTriggeredOnce) return;
 
-        hasTriggeredOnce = true;
-        
         setTimeout(() => {
             // Display Loader
             loaderRef.current.style.opacity = 1;
             loaderRef.current.children[0].style.width = "50%";
 
+            if(loadingInterval === null) {
+                loadingInterval = setInterval(() => {
+                    let loaderRefValue = loaderRef.current.children[0].style.width.split('%')
+                    loaderRef.current.children[0].style.width = `${parseInt(loaderRefValue[0]) + 2}%`;
+                }, 500)
+            }
+
+            if(!hasLoadedVar) return;
             if(!introLogoSequenceHasFinished) return;
+
+            clearInterval(loadingInterval);
+
+            hasTriggeredOnce = true;
 
             setTimeout(() => {
 
@@ -251,6 +262,7 @@ const Component = ({ data }) => {
                 }
 
                 introLogoSequenceHasFinished = true;
+
                 loadedVideoSequence();
             }, 1000)
         }, 1000)
