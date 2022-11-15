@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 import Tag from '../tags/tag'
 
+import Bowser from "bowser"; 
+
 const Container = styled.div`
     position: fixed;
     height: 100vh;
@@ -57,7 +59,7 @@ const Logo = styled.div`
     transform: translate(-50%, -50%);
     width: auto;
     z-index: 0;
-    height: 12vh;
+    height: 20vh;
     opacity: 0;
     transition: opacity 1s;
 
@@ -71,18 +73,18 @@ const Logo = styled.div`
     img:nth-child(1),
     img:nth-child(3)
      {
-        height: 30%;
+        height: 27%;
     }
 
     .remove-max-width {
-        max-height: 110px !important;
+        max-height: 190px !important;
     }
 
     @media(max-width: 989px) {
-        height: 50px;
+        height: 60px;
 
         .remove-max-width {
-            max-height: 50px !important
+            max-height: 60px !important
         }
     }
 `
@@ -154,11 +156,7 @@ const Component = ({ data }) => {
         videoRef.current.play()
 
         setTimeout(() => {
-            // Mobile disable scroll
-            document.addEventListener('touchmove', disableScroll, { passive:false });
-
-            // Desktop disable scroll
-            window.scroll.stop()
+            addEventListeners(); 
         }, 0)
 
         introSequence();
@@ -183,7 +181,8 @@ const Component = ({ data }) => {
 
         setTimeout(() => {
             containerRef.current.style.display = 'none'
-            window.scroll.start()
+
+            removeEventListeners();
         }, 500);
     }
 
@@ -192,11 +191,13 @@ const Component = ({ data }) => {
         if(hasTriggeredOnce) return;
 
         setTimeout(() => {
-            // Display Loader
-            loaderRef.current.style.opacity = 1;
-            loaderRef.current.children[0].style.width = "50%";
 
             if(loadingInterval === null) {
+
+                // Display Loader
+                loaderRef.current.style.opacity = 1;
+                loaderRef.current.children[0].style.width = "50%";
+
                 loadingInterval = setInterval(() => {
                     let loaderRefValue = loaderRef.current.children[0].style.width.split('%')
                     loaderRef.current.children[0].style.width = `${parseInt(loaderRefValue[0]) + 2}%`;
@@ -254,7 +255,7 @@ const Component = ({ data }) => {
                 
                         setTimeout(() => {
                             containerRef.current.style.display = 'none'
-                            document.removeEventListener('touchmove', disableScroll);
+                            removeEventListeners();
                         }, 500);
 
                     }, 2000);
@@ -278,6 +279,23 @@ const Component = ({ data }) => {
             loadedVideoSequence();
         }
     }, [hasLoaded])
+
+    let addEventListeners = () => {
+        // Mobile disable scroll
+        containerRef.current.addEventListener('touchmove', disableScroll, { passive:false });
+        
+
+        // Mobile disable scroll
+        containerRef.current.addEventListener('wheel', disableScroll, { passive:false });
+    }
+
+    let removeEventListeners = () => {
+        // Mobile activate scroll
+        containerRef.current.removeEventListener('touchmove', disableScroll);
+
+        // Desktop activate scroll
+        containerRef.current.removeEventListener('wheel', disableScroll);   
+    }
 
     return (
     <Container ref={containerRef} onClick={hasClicked}>
