@@ -15,6 +15,8 @@ import CookieConsent from "react-cookie-consent"
 import RichText from '../components/rich-text';
 import { useEffect, useState } from 'react';
 
+import Bowser from 'bowser';
+
 function MyApp({ Component, pageProps, router }) {
   // let [isMobile, setIsMobile] = useState(false)
 
@@ -23,9 +25,12 @@ function MyApp({ Component, pageProps, router }) {
       document.querySelector("#__next").style.opacity = 1
     }, 250)
 
-    // if(window.innerWidth < 990) {
-    //   setIsMobile(true)
-    // }
+    const browser = Bowser.getParser(window.navigator.userAgent).getBrowserName();
+
+    if(browser === "Safari") {
+      document.querySelector("body").classList.add("safari");
+    }
+
 
   },[])
   

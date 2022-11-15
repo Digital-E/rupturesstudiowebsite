@@ -272,12 +272,13 @@ export default ({ data }) => {
 
             // Cancel Page Swipe Back
 
-            gallery.current.addEventListener("wheel", (e) => {
-                
-                if(e.deltaX !== 0) {
-                    e.preventDefault()
-                }
-            }, {passive: true})
+            if(document.querySelector("body").classList.contains("safari")) {
+                gallery.current.addEventListener("wheel", (e) => {
+                    if(e.deltaX !== 0) {
+                        e.preventDefault()
+                    }
+                })
+            }
 
             // Mouse swipe
 
