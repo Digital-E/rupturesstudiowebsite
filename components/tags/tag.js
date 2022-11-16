@@ -2,7 +2,6 @@ import styled from "styled-components"
 
 const Container = styled.div`
     font-size: 0.7rem;
-    // background: ${props => props.ter ? "gray" : props.alt ? "black" : "white"};
     background: ${props => props.alt ? "black" : "white"};
     color: ${props => props.alt ? "white" : "black"};
     width: fit-content;
@@ -13,7 +12,7 @@ const Container = styled.div`
 `;
 
 const Component = ({ alt, ter, children }) => {
-    return <Container alt={alt} ter={ter}>{children}</Container>
+    return <Container alt={alt} ter={ter} className='tag'>{children}</Container>
 }
 
 export default Component

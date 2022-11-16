@@ -204,7 +204,7 @@ export default function Header({ data }) {
               }}
               >
                 <LinkTag data={"/"}>
-                  <MenuLink href="">Home</MenuLink>
+                  <MenuLink href=""><span onClick={() => setOpen(!open)}>Home</span></MenuLink>
                 </LinkTag>
               </NavEl>
               {

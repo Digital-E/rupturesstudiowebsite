@@ -345,7 +345,7 @@ export default ({ data }) => {
 
         setTimeout(() => {
             initFlickity();
-        }, 100);
+        }, 200);
 
         window.addEventListener('resize', () => {
             setWindowHeightFunction()

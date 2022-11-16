@@ -152,6 +152,16 @@ export default function Index({ preview, data, allProjects, menuData, footerData
 
     }, []);
 
+    let setSelectedTag = (val) => {
+
+        tags.forEach((item, index) => {
+            if(val === item.tag) {
+                setSelectedTagIndex(index)
+            }
+        })
+
+    }
+
 
     return (
         <Layout 
@@ -167,7 +177,7 @@ export default function Index({ preview, data, allProjects, menuData, footerData
             <Images data={allProjectsOrdered} index={tagHoveredIndex} />
             <Container>
                 <Filter tags={tags} selectedTagIndex={selectedTagIndex} setSelectedTagIndex={(i) => setSelectedTagIndex(i)}/>
-                <List data={allProjectsOrdered} setTagHoveredIndex={(index) => setTagHoveredIndex(index)} tagHoveredIndex={tagHoveredIndex}  />
+                <List data={allProjectsOrdered} setTagHoveredIndex={(index) => setTagHoveredIndex(index)} tagHoveredIndex={tagHoveredIndex}  setSelectedTag={val => setSelectedTag(val)} />
             </Container>
         </Layout>
     )

@@ -144,7 +144,7 @@ const Component = ({ data }) => {
     let [hasLoaded, setHasLoaded] = useState(false);
 
     useEffect(() => {
-        document.querySelector('.menu').style.top = "-100px"
+        document.querySelector('.menu').style.top = "-200px"
 
         if(window.sessionStorage.getItem('ruptures-studio-intro') === 'true') {
             document.querySelector('.menu').classList.add('display-menu')
@@ -228,9 +228,9 @@ const Component = ({ data }) => {
                             videoRef.current.currentTime = 0;
                             videoRef.current.classList.add("show-video")
             
-                            setTimeout(() => {
-                                skipRef.current.classList.add('show-skip-button')  
-                            }, 500)
+                            // setTimeout(() => {
+                            //     skipRef.current.classList.add('show-skip-button')  
+                            // }, 500)
             
                         }, 1500)
 

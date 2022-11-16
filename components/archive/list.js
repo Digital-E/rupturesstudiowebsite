@@ -52,26 +52,38 @@ const Header = styled(motion.div)`
 const List = styled.div`
 
     .archive-row {
+        position: relative;
         max-height: 40px;
-        transition: opacity 0.5s 0.2s, max-height 0.5s 0.2s;
+        transition: opacity 0.5s 0.2s, max-height 0.5s 0.2s, pointer-events 0s 0.7s;
     }
 
     .hide-row {
         opacity: 0;
-        max-height: 0;
+        max-height: 0px;
         transition: opacity 0.5s, max-height 0.5s 0.2s;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    @media(min-width: 990px) {
+        .archive-row > a > div > div > div:nth-child(2) > div > div  {
+            pointer-events: all !important;
+        }
+
+        > div > a > div > div > div:nth-child(2) > div > div > div:hover {
+            background: black;
+            color: white;
+        }
     }
 
     .list-item-not-focus {
         opacity: 0.1;
-        // filter: blur(1px);
-        transition: opacity 0.3s, filter 0.3s;
+        transition: opacity 0.3s, filter 0.3s, max-height 0.5s 0.2s;
     }
 
     .list-item-focus {
         opacity: 1;
-        filter: blur(0px);
-        transition: opacity 0.3s, filter 0.3s;
+        transition: opacity 0.3s, filter 0.3s, max-height 0.5s 0.2s;
     }
 
     .hide-row.list-item-not-focus {
@@ -80,11 +92,12 @@ const List = styled.div`
 `
 
 
-const Component = ({ data, setTagHoveredIndex, tagHoveredIndex }) => {
+const Component = ({ data, setTagHoveredIndex, tagHoveredIndex, setSelectedTag }) => {
     let headerRef = useRef()
     let listRef = useRef()
 
     useEffect(() => {
+        if(window.innerWidth < 990) return;
         Array.from(listRef.current.children).forEach(item => item.classList.remove('list-item-not-focus'))
         Array.from(listRef.current.children).forEach(item => item.classList.remove('list-item-focus'))
         headerRef.current.classList.remove('list-focus')
@@ -122,7 +135,7 @@ const Component = ({ data, setTagHoveredIndex, tagHoveredIndex }) => {
                         <div
                             className={`archive-row ${getTags(item.node.tags)}`}
                             onMouseEnter={() => setTagHoveredIndex(index)} onMouseLeave={() => setTagHoveredIndex(null)}>
-                            <ListItem data={item.node} />
+                            <ListItem  data={item.node} setSelectedTag={(val) => setSelectedTag(val)} />
                         </div>)
                     }
             </List>
