@@ -144,6 +144,7 @@ const Component = ({ data }) => {
     let [hasLoaded, setHasLoaded] = useState(false);
 
     useEffect(() => {
+
         document.querySelector('.menu').style.top = "-200px"
 
         if(window.sessionStorage.getItem('ruptures-studio-intro') === 'true') {
@@ -199,6 +200,7 @@ const Component = ({ data }) => {
                 loaderRef.current.children[0].style.width = "50%";
 
                 loadingInterval = setInterval(() => {
+                    if(loaderRef.current === null) return
                     let loaderRefValue = loaderRef.current.children[0].style.width.split('%')
                     loaderRef.current.children[0].style.width = `${parseInt(loaderRefValue[0]) + 2}%`;
                 }, 500)

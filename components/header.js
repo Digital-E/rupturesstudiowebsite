@@ -27,6 +27,11 @@ const Menu = styled.div`
   left: 0;
   transition: top 1s;
   width: calc(100% - 20px);
+  pointer-events: none;
+
+  &#menu-open {
+    pointer-events: all !important;
+  }
 
   #img {
     position: fixed;
@@ -70,6 +75,7 @@ const Nav = styled.div`
 
   > div:first-child {
     margin-right: 4px;
+    pointer-events: all;
   }
 
   > div:first-child > div {
@@ -134,7 +140,9 @@ const NavHidden = styled(motion.div)`
   display: flex;
 `
 
-const NavEl = styled(motion.div)``
+const NavEl = styled(motion.div)`
+
+`
 
 
 
@@ -157,7 +165,7 @@ export default function Header({ data }) {
   return data ? (
     <>
     <ShowReelPopup data={data.showreel} />
-    <Menu onMouseLeave={() => setOpen(false)} data-scroll data-scroll-sticky data-scroll-target="body" className="menu">
+    <Menu onMouseLeave={() => setOpen(false)} data-scroll data-scroll-sticky data-scroll-target="body" id={open ? "menu-open" : ""} className="menu">
     <Container>
           <Nav>
             <div onClick={() => setOpen(!open)} onMouseEnter={() => setOpen(true)} className={open ? "menu-open" : ""}>

@@ -6,7 +6,7 @@ module.exports = {
   // },
   eslint: {
     ignoreDuringBuilds: true
-  }
+  },
   // async redirects() {
   //   return [
   //     { source: "/", destination: "/fr-fr", permanent: false },

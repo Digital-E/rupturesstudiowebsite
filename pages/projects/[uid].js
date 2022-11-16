@@ -1,8 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head'
 import Layout from "../../components/layout";
 import styled from 'styled-components';
-import Plyr from "plyr";
+import Plyr from "plyr"; 
+import Link from "../../components/menu-link";
+
+import Tag from "../../components/tags/tag"
 
 
 import { getProjectPage, getProjectPageSlugs, getAllProjects, getMenu, getFooter } from "../../lib/api";
@@ -19,6 +22,18 @@ import Carousel from "../../components/project-slices/carousel"
 const Container = styled.div`
   overflow: hidden;
 `
+const Back = styled.div`
+  position: fixed;
+  top: 15px;
+  left: 70px;
+  z-index: 1;
+  cursor: pointer;
+
+  :hover > a > div {
+    background: black;
+    color: white;
+  }
+`
 
 
 export default function Index({ preview, data, allArtistPagesDataPaginate, allProjects, footerData }) {
@@ -26,6 +41,8 @@ export default function Index({ preview, data, allArtistPagesDataPaginate, allPr
 let players = null;
 
 data = data[0]?.node
+
+let [linkURL, setLinkURL] = useState('/')
 
 //   let currArtistIndex = 0;
 
@@ -74,6 +91,16 @@ data = data[0]?.node
       })
     }, 100)
 
+    let backLink = window.sessionStorage.getItem("ruptures-history")
+    
+    if(backLink.split(",").length === 1) {
+      setLinkURL('/')
+    } else {
+      backLink = backLink.split(",")
+      setLinkURL(backLink[backLink.length - 2])
+    }
+
+
     return () => {
         players?.forEach(item => item.destroy())
     }
@@ -88,6 +115,13 @@ data = data[0]?.node
         <title>{data.title} | {SITE_NAME}</title>
       </Head>
       <Container>
+        <Back>
+          <Link href={linkURL}>
+            <Tag>
+              <span>Back</span>
+            </Tag> 
+          </Link>       
+        </Back>
         <Hero data={data} />
         <Slices data={data} />
         <Carousel data={allProjects.edges} projectPage={true}/>

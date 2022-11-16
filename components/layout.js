@@ -24,12 +24,28 @@ let scroll = null;
 export default function Layout({ preview, children, name, content, footerData }) {
 
   useEffect(() => {
+
     scroll = new LocomotiveScroll({
       el: document.querySelector('[data-scroll-container]'),
       smooth: false,
       lerp: 0.04,
       multiplier: 0.8
     });
+
+    console.log(window.sessionStorage.getItem('ruptures-history'))
+    if(window.sessionStorage.getItem('ruptures-history') === null) {
+      window.sessionStorage.setItem('ruptures-history', `${window.location.pathname}`)
+    } else {
+      let sessionStorage = window.sessionStorage.getItem('ruptures-history')
+
+      console.log(window.sessionStorage.getItem('ruptures-history'))
+      
+      let sessionStorageSplit = sessionStorage.split(",")
+      sessionStorageSplit.push(`${window.location.pathname}`)
+
+      window.sessionStorage.setItem('ruptures-history', `${sessionStorageSplit.join(",")}`)
+
+    }
     
     // scroll.on('scroll', (args) => {
     //   // Get all current elements : args.currentElements
@@ -48,6 +64,7 @@ export default function Layout({ preview, children, name, content, footerData })
     return () => {
       scroll.destroy();
     }
+
   }, []);
 
   return (
