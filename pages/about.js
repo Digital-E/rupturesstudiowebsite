@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react"
-import router, { useRouter } from "next/router"
 import Head from 'next/head'
 import styled from "styled-components"
 import Layout from "../components/layout"

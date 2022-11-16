@@ -387,7 +387,7 @@ export default ({ data }) => {
                         </More>
                     </Link>
                 </Title>
-                    <Tags data={data} />
+                    <Tags data={data} clickable={true} />
                 </Information>
         </Container>
     )

@@ -151,7 +151,7 @@ export default ({ item, windowHeight }) => {
                             </More>
                         </Link>
                     </Title>
-                    <Tags data={item} />
+                    <Tags data={item} clickable={true} />
                 </Information>
             </MediaContainer>
         </Slide>

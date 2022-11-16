@@ -14,13 +14,13 @@ const Tags = styled.div`
     width: fit-content;
 `;
 
-const Component = ({ data }) => {
+const Component = ({ data, clickable }) => {
 
     return (
         <TagsWrapper className="tags">
             <Tags>
                 <Tag alt={true}>{data.year}</Tag>
-                {data.tags?.map(item => <Tag>{item.tag}</Tag>)}
+                {data.tags?.map(item => <Tag clickable={clickable}>{item.tag}</Tag>)}
             </Tags>
         </TagsWrapper>
     )

@@ -1,5 +1,7 @@
 import styled from "styled-components"
 
+import Link from "../menu-link"
+
 const Container = styled.div`
     font-size: 0.7rem;
     background: ${props => props.alt ? "black" : "white"};
@@ -9,10 +11,30 @@ const Container = styled.div`
     padding: 5px 10px;
     margin-right: 4px;
     white-space: nowrap;
+    pointer-events: ${props => props.clickable ? "all" : "default"};
+
+    @media(min-width: 990px) {
+        :hover {
+            color: white;
+            background: black;
+            pointer: ${props => props.clickable ? "cursor" : "default"};
+        }
+    }
 `;
 
-const Component = ({ alt, ter, children }) => {
-    return <Container alt={alt} ter={ter} className='tag'>{children}</Container>
+
+const Component = ({ alt, ter, children, clickable }) => {
+
+    let setTag = (item) => {
+        window.sessionStorage.setItem("selectedtag", item)
+    }
+
+    return (
+        clickable === true ?
+        <Link href={"/archive"}><Container alt={alt} ter={ter} className='tag' clickable={clickable} onClick={() => setTag(children)}>{children}</Container></Link>
+        :
+        <Container alt={alt} ter={ter} className='tag'>{children}</Container>
+    )
 }
 
 export default Component

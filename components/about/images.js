@@ -197,6 +197,7 @@ const Component = ({ data, index }) => {
 
         interval = setInterval(() => {
             if(revealRound && allImages.length > 1) {
+                if(containerRef.current === null) return
                 let coordinates = newCoordinates(containerRef.current.children[indexOfImage], indexOfImage);
 
                 if(coordinates === undefined ||  containerRef.current.children[indexOfImage] === undefined) return;

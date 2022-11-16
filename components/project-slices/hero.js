@@ -52,7 +52,7 @@ const Component = ({ data }) => {
             </MediaWrapper>
             <InnerContainer>
                 <Title>{ data.title }</Title>
-                <Tags data={ data } />
+                <Tags data={ data } clickable={true} />
             </InnerContainer>
         </Container>
     )
