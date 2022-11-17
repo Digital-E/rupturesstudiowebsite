@@ -62,11 +62,6 @@ const Item = styled.div`
     }
 `
 
-const Label = styled.div`
-    font-size: 0.7rem;
-    margin-right: 0.5rem;
-`
-
 
 const Component = ({ tags, selectedTagIndex, setSelectedTagIndex }) => {
 
@@ -84,13 +79,6 @@ const Component = ({ tags, selectedTagIndex, setSelectedTagIndex }) => {
                         <span>{item.count}</span>
                     </Tag>
                 </Item> 
-                    // <>
-                    // <Item className={`${selectedTagIndex === index ? 'filter-is-selected hover' : 'hover'}`} onClick={() => toggleTag(index)}>
-                    //     <span>{item.label}</span>
-                    //     <span>{item.count}</span>
-                    // </Item>
-                    // <span>{index !== tags.length - 1 && ","}</span>
-                    // </>
                 )
             }
         </Container>
