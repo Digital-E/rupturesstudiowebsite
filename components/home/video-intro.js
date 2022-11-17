@@ -219,6 +219,8 @@ const Component = ({ data }) => {
 
                 setTimeout(() => {
                     
+                    if(loaderRef.current === null) return
+                    
                     logoRef.current.style.opacity = 0;
                     loaderRef.current.style.opacity = 0;
 

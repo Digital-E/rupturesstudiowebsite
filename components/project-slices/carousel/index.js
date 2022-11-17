@@ -55,7 +55,7 @@ export default ({ data, selectedTag }) => {
     const router = useRouter()
     let [displayProjects, setDisplayProjects] = useState([])
     let [hasTransitioned, setHasTransitioned] = useState(false);
-    let [windowHeight, setWindowHeight] = useState(0);
+    let [windowHeight, setWindowHeight] = useState(200);
     let gallery = useRef();
     let mouseSwipe;
 
@@ -248,16 +248,16 @@ export default ({ data, selectedTag }) => {
         
         setTimeout(() => {
             initFlickity();
-        }, 10)
+        }, 50)
 
         window.addEventListener('resize', () => {
             setWindowHeightFunction()
             // initFlickity(true);
         })
     
-        return () => {
-          flickity.destroy();
-        };
+        // return () => {
+        //   flickity.destroy();
+        // };
       }, []);  
 
     return (

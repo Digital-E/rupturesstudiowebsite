@@ -333,7 +333,13 @@ export default ({ data }) => {
         // })
     
         // flickity.select(initSlide);
-        // }, 0);        
+        // }, 0); 
+        
+        // setTimeout(() => {
+        //     if(flickity) {
+        //         flickity.resize();
+        //     }
+        // }, 0);    
 
     }
 
@@ -352,9 +358,11 @@ export default ({ data }) => {
             // initFlickity(true);
         })
     
-        return () => {
-          flickity.destroy();
-        };
+        // return () => {
+        //     if(flickity) {
+        //         flickity.destroy();
+        //     }
+        // };
       }, []);  
     
 

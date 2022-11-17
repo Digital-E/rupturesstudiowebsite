@@ -44,7 +44,7 @@ const More = styled.div`
 
 export default ({ data, keyProp }) => {
     let [media, setMedia] = useState(data.variation.items)
-    let [windowHeight, setWindowHeight] = useState(0);
+    let [windowHeight, setWindowHeight] = useState(200);
     let gallery = useRef();
     let mouseSwipe;
 
@@ -226,15 +226,15 @@ export default ({ data, keyProp }) => {
         
         setTimeout(() => {
             initFlickity();
-        }, 10)
+        }, 50)
 
         window.addEventListener('resize', () => {
             setWindowHeightFunction()
         })
     
-        return () => {
-          flickity.destroy();
-        };
+        // return () => {
+        //   flickity.destroy();
+        // };
       }, []);
 
     return (

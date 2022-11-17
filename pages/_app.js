@@ -99,41 +99,22 @@ function MyApp({ Component, pageProps, router }) {
         :
         null
       } */}
-      <AnimatePresence 
-      exitBeforeEnter 
-      // exitBeforeEnter={router.route === "/[lang]/artistes" ? false : true}
-      // onExitComplete={() => { window.scrollTo(0,0) }}
-      > 
-      <motion.div
-      key={router.asPath} initial="pageInitial" animate="pageAnimate" exit="pageExit"
-        variants={isMobile ? mobileVariants : desktopVariants}
-        // variants={{
-        //   pageInitial: {
-        //     opacity: 0,
-        //     transition: {
-        //       duration: 0
-        //     }
-        //   },
-        //   pageAnimate: {
-        //     opacity: 1,
-        //     transition: {
-        //       duration: 0
-        //     }
-        //   },
-        //   pageExit: {
-        //     opacity: 0,
-        //     // y: "-100%",
-        //     transition: {
-        //       // delay: 1,
-        //       duration: 1,
-        //       //duration: 1,
-        //     }
-        //   }
-        // }}
-        >       
+      {
+        !isMobile ?
+        <AnimatePresence 
+        exitBeforeEnter 
+        // exitBeforeEnter={router.route === "/[lang]/artistes" ? false : true}
+        // onExitComplete={() => { window.scrollTo(0,0) }}
+        > 
+        <motion.div
+        key={router.asPath} initial="pageInitial" animate="pageAnimate" exit="pageExit"
+          variants={isMobile ? mobileVariants : desktopVariants} >   
+          <Component {...pageProps} />
+        </motion.div>
+        </AnimatePresence> 
+        :
         <Component {...pageProps} />
-      </motion.div>
-      </AnimatePresence> 
+      }
     </StateProvider>
   )
 }
