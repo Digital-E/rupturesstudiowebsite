@@ -85,6 +85,7 @@ const Component = ({ data }) => {
         players = Plyr.setup("#video-showreel", {
             autoplay: true,
             muted: true,
+            fullscreen: { enabled: true, fallback: true, iosNative: true, container: null },
             controls: ['play', 'progress', 'mute', 'fullscreen'
             // , 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'
         ]

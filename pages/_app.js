@@ -18,9 +18,14 @@ import { useEffect, useState } from 'react';
 import Bowser from 'bowser';
 
 function MyApp({ Component, pageProps, router }) {
-  // let [isMobile, setIsMobile] = useState(false)
+  let [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
+
+    if(window.innerWidth < 990) {
+      setIsMobile(true)
+    }
+
     setTimeout(() => {
       document.querySelector("#__next").style.opacity = 1
     }, 250)
@@ -34,6 +39,41 @@ function MyApp({ Component, pageProps, router }) {
 
   },[])
   
+  let desktopVariants = {
+    pageInitial: {
+      opacity: 0
+    },
+    pageAnimate: {
+      opacity: 1,
+      transition: {
+        duration: 1
+      }
+    },
+    pageExit: {
+      opacity: 0,
+      filter: "blur(20px)",
+      transition: {
+        opacity: {
+          duration: 0.5
+        },
+        filter: {
+          duration: 0.5,
+        }
+      }
+    }
+  }
+
+  let mobileVariants = {
+    pageInitial: {
+      opacity: 1
+    },
+    pageAnimate: {
+      opacity: 1,
+    },
+    pageExit: {
+      opacity: 1,
+    }
+  }
 
   return (
     <StateProvider>
@@ -66,29 +106,7 @@ function MyApp({ Component, pageProps, router }) {
       > 
       <motion.div
       key={router.asPath} initial="pageInitial" animate="pageAnimate" exit="pageExit"
-        variants={{
-          pageInitial: {
-            opacity: 0
-          },
-          pageAnimate: {
-            opacity: 1,
-            transition: {
-              duration: 1
-            }
-          },
-          pageExit: {
-            opacity: 0,
-            filter: "blur(20px)",
-            transition: {
-              opacity: {
-                duration: 0.5
-              },
-              filter: {
-                duration: 0.5,
-              }
-            }
-          }
-        }}
+        variants={isMobile ? mobileVariants : desktopVariants}
         // variants={{
         //   pageInitial: {
         //     opacity: 0,

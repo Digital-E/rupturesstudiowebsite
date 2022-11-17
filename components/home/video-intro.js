@@ -258,6 +258,8 @@ const Component = ({ data }) => {
                         setTimeout(() => {
                             containerRef.current.style.display = 'none'
                             removeEventListeners();
+
+                            setSessionStorage();
                         }, 500);
 
                     }, 2000);

@@ -142,7 +142,7 @@ const More = styled.div`
 
 export default ({ data }) => {
     const router = useRouter()
-    let [windowHeight, setWindowHeight] = useState(0);
+    let [windowHeight, setWindowHeight] = useState(200);
     let gallery = useRef();
 
     let scrollTimeout = null;
@@ -345,7 +345,7 @@ export default ({ data }) => {
 
         setTimeout(() => {
             initFlickity();
-        }, 200);
+        }, 0);
 
         window.addEventListener('resize', () => {
             setWindowHeightFunction()

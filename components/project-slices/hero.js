@@ -14,7 +14,7 @@ const Container = styled.div`
 
 const InnerContainer = styled.div`
     position: relative;
-    z-index: 1;
+    z-index: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;

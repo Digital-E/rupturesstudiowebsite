@@ -13,12 +13,10 @@ const Container = styled.div`
     white-space: nowrap;
     pointer-events: ${props => props.clickable ? "all" : "default"};
 
-    @media(min-width: 990px) {
-        :hover {
-            color: white;
-            background: black;
-            pointer: ${props => props.clickable ? "cursor" : "default"};
-        }
+    :hover {
+        color: white;
+        background: black;
+        pointer: ${props => props.clickable ? "cursor" : "default"};
     }
 `;
 

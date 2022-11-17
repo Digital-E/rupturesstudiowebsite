@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://rupturesstudio.com
+Host: https://ruptures.studio
 
 # Sitemaps
-Sitemap: https://rupturesstudio.com/sitemap.xml
+Sitemap: https://ruptures.studio/sitemap.xml

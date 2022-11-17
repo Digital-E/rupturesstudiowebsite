@@ -226,7 +226,7 @@ export default ({ data, keyProp }) => {
         
         setTimeout(() => {
             initFlickity();
-        }, 100)
+        }, 10)
 
         window.addEventListener('resize', () => {
             setWindowHeightFunction()
