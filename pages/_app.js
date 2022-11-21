@@ -15,6 +15,8 @@ import CookieConsent from "react-cookie-consent"
 import RichText from '../components/rich-text';
 import { useEffect, useState } from 'react';
 
+import { credits } from "../lib/credits"
+
 import Bowser from 'bowser';
 
 function MyApp({ Component, pageProps, router }) {
@@ -35,6 +37,18 @@ function MyApp({ Component, pageProps, router }) {
     if(browser === "Safari") {
       document.querySelector("body").classList.add("safari");
     }
+
+    // Credits
+
+    console.clear();
+
+    console.log(`
+${credits}
+samuelbassett.xyz
+Design + Development
+https://samuelbassett.xyz
+    `)
+
 
 
   },[])

@@ -5,6 +5,8 @@ import Layout from "../components/layout"
 import { getMenu, getAbout, getAllProjects, getClient } from "../lib/api"
 import { SITE_NAME } from "../lib/constants"
 
+import { motion } from 'framer-motion'
+
 import Link from '../components/menu-link'
 
 import Tag from "../components/tags/tag"
@@ -50,7 +52,7 @@ const Container = styled.div`
 
     @media(max-width: 989px) {
         flex-direction: column;
-        padding: 70px 0;
+        padding: 70px 0 0 0;
     }
 
 `
@@ -119,6 +121,34 @@ const Logo = styled.div`
 `
 const LinkWrapper = styled.div``
 
+const Credits = styled(motion.div)`
+    position: fixed;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    bottom: 15px;
+    left: 10px;
+    user-select: none;
+
+    > div {
+        cursor: pointer;
+    }
+
+    > div:last-child {
+        margin-top: 5px;
+    }
+
+    @media(max-width: 576px) {
+        flex-direction: column;
+
+        > div > div:hover  {
+            background: white;
+            color: black;
+        }
+    }
+`
+
+
 
 export default function Index({ preview, data, clientData, menuData, footerData }) {
 
@@ -127,6 +157,8 @@ export default function Index({ preview, data, clientData, menuData, footerData 
     let containerRef = useRef();
 
     let indexOfStar = [];
+
+    let [displayCredits, setDisplayCredits] = useState(false);
 
 
     useEffect(() => {
@@ -150,6 +182,36 @@ export default function Index({ preview, data, clientData, menuData, footerData 
 
     let setTag = (item) => {
         window.sessionStorage.setItem("selectedtag", item)
+    }
+
+    let variants = {
+        "show": {
+            y: 0,
+            transition: {
+                duration: 0.5
+            }
+        },
+        "hide": {
+            y: 25,
+            transition: {
+                duration: 0.5
+            }
+        }
+    }
+
+    let variantsTwo = {
+        "show": {
+            opacity: 1,
+            transition: {
+                duration: 0.5
+            }
+        },
+        "hide": {
+            opacity: 0,
+            transition: {
+                duration: 0.5
+            }
+        }
     }
 
     return (
@@ -189,6 +251,10 @@ export default function Index({ preview, data, clientData, menuData, footerData 
                 </ColTwo>
             </Container>
             <Images data={clientData} index={tagHoveredIndex} />
+            <Credits initial="hide" animate={displayCredits ? "show" : "hide"} variants={variants}>
+                <div onClick={() => setDisplayCredits(!displayCredits)}><Tag>Credits</Tag></div>
+                <motion.div initial="hide" animate={displayCredits ? "show" : "hide"} variants={variantsTwo}><a href="https://samuelbassett.xyz" target="_blank"><Tag>Design + Development: samuelbassett.xyz</Tag></a></motion.div>
+            </Credits>
         </Layout>
     )
   }
