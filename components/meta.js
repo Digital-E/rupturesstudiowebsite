@@ -36,7 +36,8 @@ const meta = ({ name, content }) => {
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0" />
       <meta
-        name={`${SITE_NAME} | ${name}`}
+        // name={`${SITE_NAME} | ${name}`}
+        name='description'
         content={ content }
       />
 
