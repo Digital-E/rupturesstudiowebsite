@@ -62,7 +62,7 @@ export default function Index({ preview, data, allProjects, menuData, footerData
             </Head>
             <VideoIntro data={data[0].node.video} />
             <Container id="home-container" className='hide-home'>
-                {/* {allProjects[0]?.map(item => <Carousel data={item[0]?.node} />)} */}
+                {allProjects[0]?.map(item => <Carousel data={item[0]?.node} />)}
             </Container>
         </Layout>
     )
