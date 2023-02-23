@@ -134,6 +134,7 @@ const Credits = styled(motion.div)`
 
     > div {
         cursor: pointer;
+        width: fit-content;
     }
 
     > div:first-child {
