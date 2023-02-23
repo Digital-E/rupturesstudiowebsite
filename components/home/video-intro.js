@@ -225,7 +225,7 @@ const Component = ({ data }) => {
                         setTimeout(() => {
                             introSequenceHasFinished = true;
             
-                            // setSessionStorage();
+                            setSessionStorage();
             
                             videoRef.current.currentTime = 0;
                             videoRef.current.classList.add("show-video")
