@@ -127,6 +127,10 @@ main {
   min-height: 100vh;
 }
 
+strong, b {
+  font-weight: 100;
+}
+
 .default-font-size {
   font-family: "Neue Haas Grotesk Regular";
   font-size: 0.8125rem;
