@@ -64,6 +64,7 @@ const Container = styled.div`
 
 const Nav = styled.div`
   display: flex;
+  cursor: pointer;
 
   > div:first-child svg {
     position: relative;
@@ -238,17 +239,33 @@ export default function Header({ data }) {
                   <LinkTag data={item.link}><Link data={item.link}>{item.link_text}</Link></LinkTag>
                 </NavEl>)
               }
+              <NavEl
+              onClick={() => {setOpen(!open); toggleShowreel()}}
+              variants= {{
+                visible: { 
+                  opacity: 1,
+                  y: 0
+                },
+                hidden: { 
+                  opacity: 0,
+                  y: 5,
+                  transition: {
+                    y: {
+                      delay: 0.3
+                    }
+                  }
+                }
+              }}
+              >
+              <Tag>
+                <span>
+                  Showreel
+                </span>
+              </Tag>
+            </NavEl>              
             </NavHidden>
           </Nav>
     </Container>
-    <Logo onClick={() => toggleShowreel()}
-      whileHover={{
-        scale: 1.1,
-        transition: { duration: 0.5 },
-      }}
-    >
-      <img src="/images/etoile.png" />
-    </Logo>
     </Menu>
     </>
   )

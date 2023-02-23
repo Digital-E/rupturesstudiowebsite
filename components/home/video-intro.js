@@ -63,29 +63,14 @@ const Logo = styled.div`
     opacity: 0;
     transition: opacity 1s;
 
-    img:nth-child(2) {
+    img:nth-child(1) {
         height: 100%;
         margin: 0 5px;
-        max-height: 0px;
         transition: max-height 1.2s ease-in-out;
     }
 
-    img:nth-child(1),
-    img:nth-child(3)
-     {
-        height: 27%;
-    }
-
-    .remove-max-width {
-        max-height: 190px !important;
-    }
-
     @media(max-width: 989px) {
-        height: 60px;
-
-        .remove-max-width {
-            max-height: 60px !important
-        }
+        height: 100px;
     }
 `
 
@@ -250,7 +235,6 @@ const Component = ({ data }) => {
             logoRef.current.style.opacity = 1;
 
             setTimeout(() => {
-                logoRef.current.children[1].classList.add('remove-max-width');
 
                 if(window.innerWidth < 990) {
                     setTimeout(() => {
@@ -306,9 +290,7 @@ const Component = ({ data }) => {
     return (
     <Container ref={containerRef} onClick={hasClicked}>
     <Logo ref={logoRef}>
-        <img src={'/images/logo-split/RUPTURES-01.svg'} />
         <img src={'/images/etoile.png'} />
-        <img src={'/images/logo-split/RUPTURES-02.svg'} />
     </Logo>
     <Loader ref={loaderRef}><LoaderInner /></Loader>
     <Videos>

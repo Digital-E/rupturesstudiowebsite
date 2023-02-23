@@ -1,9 +1,11 @@
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useContext, useState, useRef } from "react"
 import Head from 'next/head'
 import styled from "styled-components"
 import Layout from "../components/layout"
 import { getMenu, getAbout, getAllProjects, getClient } from "../lib/api"
 import { SITE_NAME } from "../lib/constants"
+
+import { store } from "../store"
 
 import { motion } from 'framer-motion'
 
@@ -134,6 +136,10 @@ const Credits = styled(motion.div)`
         cursor: pointer;
     }
 
+    > div:first-child {
+        display: flex;
+    }
+
     > div:last-child {
         margin-top: 5px;
     }
@@ -141,7 +147,7 @@ const Credits = styled(motion.div)`
     @media(max-width: 576px) {
         flex-direction: column;
 
-        > div > div:hover  {
+        > div > div > div:hover  {
             background: white;
             color: black;
         }
@@ -151,6 +157,10 @@ const Credits = styled(motion.div)`
 
 
 export default function Index({ preview, data, clientData, menuData, footerData }) {
+
+    //Context
+    const context = useContext(store);
+    const { state, dispatch } = context;    
 
     let [tagHoveredIndex, setTagHoveredIndex] = useState(null);
 
@@ -214,6 +224,10 @@ export default function Index({ preview, data, clientData, menuData, footerData 
         }
     }
 
+    const toggleShowreel = () => {
+        dispatch({type: "showreel open", value: true})
+    }
+
     return (
         <Layout 
         preview={preview} 
@@ -252,7 +266,10 @@ export default function Index({ preview, data, clientData, menuData, footerData 
             </Container>
             <Images data={clientData} index={tagHoveredIndex} />
             <Credits initial="hide" animate={displayCredits ? "show" : "hide"} variants={variants}>
-                <div onClick={() => setDisplayCredits(!displayCredits)}><Tag>Credits</Tag></div>
+                <div>
+                    <div onClick={() => setDisplayCredits(!displayCredits)}><Tag>Credits</Tag></div>
+                    <div onClick={() => toggleShowreel()}><Tag>Showreel</Tag></div>
+                </div>
                 <motion.div initial="hide" animate={displayCredits ? "show" : "hide"} variants={variantsTwo}><a href="https://samuelbassett.xyz" target="_blank"><Tag>Design + Development: samuelbassett.xyz</Tag></a></motion.div>
             </Credits>
         </Layout>
