@@ -60,17 +60,30 @@ const Logo = styled.div`
     width: auto;
     z-index: 0;
     height: 20vh;
-    opacity: 0;
     transition: opacity 1s;
 
     img:nth-child(1) {
+        opacity: 0;
         height: 100%;
         margin: 0 5px;
-        transition: max-height 1.2s ease-in-out;
+        max-height: 100px;
+        transition: opacity 1.2s ease-in-out, max-height 2s ease-in-out;
+    }
+
+    .remove-max-width {
+        max-height: 190px !important;
+        opacity: 1 !important;
     }
 
     @media(max-width: 989px) {
-        height: 100px;
+        img:nth-child(1) {
+            height: 100%;
+            max-height: 50px;
+        }
+
+        .remove-max-width {
+            max-height: 100px !important
+        }
     }
 `
 
@@ -212,7 +225,7 @@ const Component = ({ data }) => {
                         setTimeout(() => {
                             introSequenceHasFinished = true;
             
-                            setSessionStorage();
+                            // setSessionStorage();
             
                             videoRef.current.currentTime = 0;
                             videoRef.current.classList.add("show-video")
@@ -232,9 +245,9 @@ const Component = ({ data }) => {
 
     let introSequence = () => {
         setTimeout(() => {
-            logoRef.current.style.opacity = 1;
 
             setTimeout(() => {
+                logoRef.current.children[0]?.classList.add('remove-max-width');
 
                 if(window.innerWidth < 990) {
                     setTimeout(() => {
