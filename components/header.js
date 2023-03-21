@@ -217,52 +217,83 @@ export default function Header({ data }) {
                 </LinkTag>
               </NavEl>
               {
-                data.menu_items.map(item => 
-                <NavEl
-                onClick={() => setOpen(!open)}
-                variants= {{
-                  visible: { 
-                    opacity: 1,
-                    y: 0
-                  },
-                  hidden: { 
-                    opacity: 0,
-                    y: 5,
-                    transition: {
-                      y: {
-                        delay: 0.3
+                data.menu_items.map((item, index) => 
+                {
+                  if(index === data.menu_items.length - 1) {
+                    return (
+                    <>
+                    <NavEl
+                      onClick={() => {setOpen(!open); toggleShowreel()}}
+                      variants= {{
+                        visible: { 
+                          opacity: 1,
+                          y: 0
+                        },
+                        hidden: { 
+                          opacity: 0,
+                          y: 5,
+                          transition: {
+                            y: {
+                              delay: 0.3
+                            }
+                          }
+                        }
+                      }}
+                      >
+                      <Tag>
+                        <span>
+                          Showreel
+                        </span>
+                      </Tag>
+                    </NavEl> 
+                    <NavEl
+                    onClick={() => setOpen(!open)}
+                    variants= {{
+                      visible: { 
+                        opacity: 1,
+                        y: 0
+                      },
+                      hidden: { 
+                        opacity: 0,
+                        y: 5,
+                        transition: {
+                          y: {
+                            delay: 0.3
+                          }
+                        }
                       }
-                    }
+                    }}
+                    >
+                      <LinkTag data={item.link}><Link data={item.link}>{item.link_text}</Link></LinkTag>
+                    </NavEl>
+                    </>                    
+                    ) 
+                  } else {
+                    return (
+                    <NavEl
+                    onClick={() => setOpen(!open)}
+                    variants= {{
+                      visible: { 
+                        opacity: 1,
+                        y: 0
+                      },
+                      hidden: { 
+                        opacity: 0,
+                        y: 5,
+                        transition: {
+                          y: {
+                            delay: 0.3
+                          }
+                        }
+                      }
+                    }}
+                    >
+                      <LinkTag data={item.link}><Link data={item.link}>{item.link_text}</Link></LinkTag>
+                    </NavEl>
+                    )
                   }
-                }}
-                >
-                  <LinkTag data={item.link}><Link data={item.link}>{item.link_text}</Link></LinkTag>
-                </NavEl>)
-              }
-              <NavEl
-              onClick={() => {setOpen(!open); toggleShowreel()}}
-              variants= {{
-                visible: { 
-                  opacity: 1,
-                  y: 0
-                },
-                hidden: { 
-                  opacity: 0,
-                  y: 5,
-                  transition: {
-                    y: {
-                      delay: 0.3
-                    }
-                  }
-                }
-              }}
-              >
-              <Tag>
-                <span>
-                  Showreel
-                </span>
-              </Tag>
-            </NavEl>              
+                })
+              }            
             </NavHidden>
           </Nav>
     </Container>
