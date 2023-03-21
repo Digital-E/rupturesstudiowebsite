@@ -49,8 +49,6 @@ Design + Development
 https://samuelbassett.xyz
     `)
 
-
-
   },[])
   
   let desktopVariants = {
@@ -118,7 +116,7 @@ https://samuelbassett.xyz
         <AnimatePresence 
         exitBeforeEnter 
         // exitBeforeEnter={router.route === "/[lang]/artistes" ? false : true}
-        // onExitComplete={() => { window.scrollTo(0,0) }}
+        onExitComplete={() => { window.scrollTo(0,0) }}
         > 
         <motion.div
         key={router.asPath} initial="pageInitial" animate="pageAnimate" exit="pageExit"

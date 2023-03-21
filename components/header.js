@@ -112,7 +112,7 @@ const Nav = styled.div`
 
 `
 
-const Logo = styled(motion.div)`
+const Logo = styled(motion.a)`
   position: absolute;
   top: 0;
   right: 0;
@@ -266,6 +266,16 @@ export default function Header({ data }) {
             </NavHidden>
           </Nav>
     </Container>
+    <Logo
+      href='https://www.instagram.com/ruptures.studio/'
+      target='_blank'
+      whileHover={{
+        scale: 1.1,
+        transition: { duration: 0.5 },
+      }}
+    >
+      <img src="/images/etoile.png" />
+    </Logo>
     </Menu>
     </>
   )
