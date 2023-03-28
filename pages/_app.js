@@ -50,6 +50,7 @@ https://samuelbassett.xyz
     `)
 
   },[])
+
   
   let desktopVariants = {
     pageInitial: {
@@ -77,13 +78,19 @@ https://samuelbassett.xyz
 
   let mobileVariants = {
     pageInitial: {
-      opacity: 1
+      opacity: 0
     },
     pageAnimate: {
       opacity: 1,
+      transition: {
+        duration: 1
+      }
     },
     pageExit: {
-      opacity: 1,
+      opacity: 0,
+      transition: {
+        duration: 0.5
+      }
     }
   }
 
@@ -111,8 +118,6 @@ https://samuelbassett.xyz
         :
         null
       } */}
-      {
-        !isMobile ?
         <AnimatePresence 
         exitBeforeEnter 
         // exitBeforeEnter={router.route === "/[lang]/artistes" ? false : true}
@@ -124,9 +129,6 @@ https://samuelbassett.xyz
           <Component {...pageProps} />
         </motion.div>
         </AnimatePresence> 
-        :
-        <Component {...pageProps} />
-      }
     </StateProvider>
   )
 }

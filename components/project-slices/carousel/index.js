@@ -165,7 +165,7 @@ export default ({ data, selectedTag }) => {
             // Cancel Page Swipe Back
 
             if(document.querySelector("body").classList.contains("safari")) {
-                gallery.current.addEventListener("wheel", (e) => {
+                gallery?.current?.addEventListener("wheel", (e) => {
                     if(e.deltaX !== 0) {
                         e.preventDefault()
                     }
@@ -182,12 +182,14 @@ export default ({ data, selectedTag }) => {
                 flickity.dragEnd();
             }
 
-            wheel.addWheelListener(gallery.current, mouseSwipe);
+            if(gallery.current) {
+                wheel.addWheelListener(gallery.current, mouseSwipe);
+            }
 
 
 
             // Mobile disable scroll while moving
-            flickity.on( 'dragMove', function( event, pointer ) {
+            flickity.on('dragMove', function( event, pointer ) {
                 clearTimeout(stopScrollTimeout)
 
                 document.body.addEventListener('touchmove', stopScroll, { passive: false });
