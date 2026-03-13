@@ -11,7 +11,9 @@ export default function Page({
     // errorCode, stars 
 }) {
 
-    window.location.href = "/404"
+    if (typeof window !== "undefined") {
+        window.location.href = "/404"
+    }
 
     return null
 

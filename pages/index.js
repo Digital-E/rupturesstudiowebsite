@@ -5,7 +5,6 @@ import styled from "styled-components"
 import Layout from "../components/layout"
 import { getMenu, getHome, getProject } from "../lib/api"
 import { SITE_NAME } from "../lib/constants"
-import Plyr from "plyr"
 
 import Carousel from "../components/home/carousel"
 
@@ -26,27 +25,28 @@ export default function Index({ preview, data, allProjects, menuData, footerData
     let players = null;
 
     useEffect(() => {
-
-        players = Plyr.setup('#player', {
-            autoplay: true,
-            muted: true,
-            controls: ['play', 'progress', 'mute'
-            // , 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'
-        ]
+        import("plyr").then((plyrModule) => {
+            const Plyr = plyrModule.default || plyrModule;
+            players = Plyr.setup('#player', {
+                autoplay: true,
+                muted: true,
+                controls: ['play', 'progress', 'mute']
+            });
+            
+            players?.forEach(item => {
+                item.muted = true;
+                item.on('ready', (event) => {
+                    event.currentTarget.classList.add("show-video")
+                })
+            })
         });
         
-
-        players?.forEach(item => {
-            item.muted = true;
-            item.on('ready', (event) => {
-                event.currentTarget.classList.add("show-video")
-            })
-        })
-
         return () => {
             players?.forEach(item => item.destroy())
         }
     },[])
+
+    // return null
 
 
     return (
@@ -70,6 +70,8 @@ export default function Index({ preview, data, allProjects, menuData, footerData
 
 export async function getStaticProps({ params, preview = false, previewData }) {
     // Get Menu And Footer
+
+    // return {props:{}}
 
     const menuData = await getMenu(); 
 
