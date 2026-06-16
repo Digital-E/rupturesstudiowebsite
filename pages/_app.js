@@ -18,6 +18,36 @@ import { useEffect, useState } from 'react';
 import { credits } from "../lib/credits"
 
 import Bowser from 'bowser';
+import styled from 'styled-components';
+
+const ComingSoonOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 99999 !important;
+  background: #BFBFBF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  pointer-events: all;
+
+  img {
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+  }
+
+  span {
+    font-size: 0.7rem;
+    background: white;
+    color: black;
+    border-radius: 999px;
+    padding: 5px 10px 4px 10px;
+    white-space: nowrap;
+    font-family: inherit;
+  }
+`;
 
 function MyApp({ Component, pageProps, router }) {
   let [isMobile, setIsMobile] = useState(false)
@@ -97,6 +127,10 @@ https://samuelbassett.xyz
 
   return (
     <StateProvider>
+      <ComingSoonOverlay>
+        <img src="/images/etoile.png" alt="Ruptures Studio" />
+        <span>Back Soon</span>
+      </ComingSoonOverlay>
       <Header 
       data={ pageProps.menuData !== undefined ? pageProps.menuData[0].node : null } 
       />
