@@ -127,10 +127,10 @@ https://samuelbassett.xyz
 
   return (
     <StateProvider>
-      <ComingSoonOverlay>
+      {/* <ComingSoonOverlay>
         <img src="/images/etoile.png" alt="Ruptures Studio" />
         <span>Back Soon</span>
-      </ComingSoonOverlay>
+      </ComingSoonOverlay> */}
       <Header 
       data={ pageProps.menuData !== undefined ? pageProps.menuData[0].node : null } 
       />
